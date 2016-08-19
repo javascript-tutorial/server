@@ -1,0 +1,55 @@
+.main .quote p
+    margin 0
+
+.quote
+    @extend $clearfix
+
+    padding 25px
+
+    border 4px solid #FCF8EC
+    border-radius: 2px
+
+    &__i
+        float left
+
+        box-sizing border-box
+
+        width 75%
+        padding-right 70px
+
+    &__text
+        font italic 16px/20px Georgia, "serif"
+
+        color #AE8F4B
+
+    &__author
+        font-size 14px
+        line-height 20px
+        font-style normal
+
+    &__footer
+        float right
+
+        position relative
+
+        box-sizing border-box
+
+        width 20%
+
+    &__footer:before
+        @extend $font-ldquote
+
+        font-size 17px
+        line-height 40px
+
+
+        position absolute
+        left -53px
+        top -8px
+
+        width 40px
+        height 40px
+
+        text-align center
+
+        color: #ccc

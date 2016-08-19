@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="70px" height="60px" viewBox="0 0 70 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Logo with animation
+    * We use SMIL, not CSS translate, because SMIL looks smoother.
+
+    * SMIL works on mouseover/mouseout. We need the animation to start onmouseout the whole picture and end when mouseover.
+
+    * I can't use the root document element.mouseover, because mouseover/out bubbles up, so that moving the pointer
+      around the document subelements causes the animation to restart.
+      To fix that I added an <rect id="overlay"> below, which is invisible, but covers the whole element and gets all pointer events
+      Then I use it for animation.
+
+    * For SMIL to work, the SVG is not <img>, but <embed> (can also be object/iframe)
+
+    * For <a><embed></a>, the embed is not clickable, so we move the <a> here, into the SVG
+    -->
+    <style>
+        a {
+            cursor: pointer;
+        }
+    </style>
+        <a xlink:href="/" target="_top">
+
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Logo-Header-Beta-Abbr" sketch:type="MSArtboardGroup">
+            <g id="BODY" sketch:type="MSLayerGroup" transform="translate(7.000000, 10.000000)">
+                <path d="M18.463269,25.0368139 C19.6397744,26.6967871 21.3942124,27.2777778 22.8803246,27.2777778 C26.5956051,27.2777778 27.8959532,25.0783133 27.8959532,22.4223561 L27.8959532,13.5 L19.5984936,13.5 L19.5984936,16.0522088 L24.8618075,16.0522088 L24.8618075,22.1733601 C24.8618075,24.04083 24.1600323,24.6425703 22.7771224,24.6425703 C21.8895832,24.6425703 21.0020439,24.1238286 20.217707,23.1485944 L18.463269,25.0368139 Z M29.7581227,25.2137848 C31.1769229,26.4774271 33.0010945,27.1296296 34.784729,27.1296296 C38.0682379,27.1296296 39.9126781,25.2137848 39.9126781,23.0126014 C39.9126781,21.1375192 38.8181751,20.0573088 37.0750778,19.4051063 L35.4738605,18.7121411 C34.1969404,18.2433706 33.3051231,17.958032 33.3051231,17.1427789 C33.3051231,16.3886697 33.973986,15.9402805 35.1292947,15.9402805 C36.2643349,15.9402805 37.0953464,16.3275258 38.0074322,17.0001096 L39.5275752,15.1046461 C38.3317294,13.9632917 36.7305121,13.3518519 35.1292947,13.3518519 C32.2714259,13.3518519 30.2851057,15.1046461 30.2851057,17.3058295 C30.2851057,19.2420557 31.6228315,20.38341 33.1024374,20.9337059 L34.8049976,21.6674337 C36.0819177,22.1565856 36.8521235,22.4215428 36.8521235,23.2571773 C36.8521235,24.0520491 36.2440663,24.541201 34.8658033,24.541201 C33.7104946,24.541201 32.4741116,23.9705238 31.4809515,23.1552707 L29.7581227,25.2137848 Z M45.4652628,15.9810432 L46.9246001,15.9810432 C48.5055488,15.9810432 49.3365604,16.4294324 49.3365604,17.7338374 C49.3365604,19.0382424 48.5055488,19.7108262 46.9246001,19.7108262 L45.4652628,19.7108262 L45.4652628,15.9810432 Z M52.9038293,26.8850537 L49.924349,21.5655271 C51.3228806,20.9337059 52.2755035,19.6904449 52.2755035,17.7338374 C52.2755035,14.5747315 49.9648861,13.5964278 47.167823,13.5964278 L42.4857825,13.5964278 L42.4857825,26.8850537 L45.4652628,26.8850537 L45.4652628,22.0954416 L47.025943,22.0954416 L49.5595147,26.8850537 L52.9038293,26.8850537 Z" id="JAV-3" fill="#333333" sketch:type="MSShapeGroup"></path>
+                <g id="Layer_2" transform="translate(2.543726, 18.250951)" fill="#BE1622" sketch:type="MSShapeGroup">
+                    <path d="M0.943330798,5.68139924 L1.65688213,7.1269962 L7.05046388,4.46479087 L6.33691255,3.01919392 L0.943330798,5.68139924 L0.943330798,5.68139924 Z" id="Shape"></path>
+                    <path d="M2.1261749,1.849673 L5.87230418,3.69910266 L6.58628137,2.25295817 L2.84015209,0.403528517 L2.1261749,1.849673 L2.1261749,1.849673 Z" id="Shape"></path>
+                    <path d="M0.582448669,7.23796198 L8.06801521,9.42047148 L8.51923954,7.87279087 L1.03373384,5.69028137 L0.582448669,7.23796198 L0.582448669,7.23796198 Z" id="Shape"></path>
+                </g>
+                <path d="M6.96775665,8.69414449 C5.23878327,8.69414449 3.83771863,10.0958175 3.83771863,11.8241825 C3.83771863,13.5531559 5.23878327,14.9542205 6.96775665,14.9542205 C8.69612167,14.9542205 10.0977947,13.5531559 10.0977947,11.8241825 C10.0971863,10.0958175 8.69612167,8.69414449 6.96775665,8.69414449 L6.96775665,8.69414449 Z M6.96775665,12.806692 C6.42509506,12.806692 5.98463878,12.3674525 5.98463878,11.8241825 C5.98463878,11.2809125 6.42570342,10.841673 6.96775665,10.841673 C7.51102662,10.841673 7.95026616,11.2815209 7.95026616,11.8241825 C7.95026616,12.3674525 7.51041825,12.806692 6.96775665,12.806692 L6.96775665,12.806692 Z" id="Shape" fill="#BE1622" sketch:type="MSShapeGroup"></path>
+                <path d="M8.86889734,14.393308 C8.67908745,13.7995437 8.00562738,13.3195437 7.3704943,13.3195437 L6.62707224,13.3195437 C5.99011407,13.3195437 5.31969582,13.8031939 5.1304943,14.393308 L0.449125475,29.018403 C0.259315589,29.6121673 0.618250951,30.0921673 1.2643346,30.0921673 L2.18722433,30.0921673 C2.50539924,30.0921673 2.83452471,29.8506464 2.92395437,29.5470722 L5.31847909,21.3609125 C5.89155894,19.4153612 6.28334601,17.7764259 6.90813688,15.8552091 L7.01277567,15.8552091 C7.61140684,17.7758175 8.00258555,19.4141445 8.57627376,21.3609125 L10.9951331,29.5470722 C11.0839544,29.8488213 11.4118631,30.0921673 11.7288213,30.0921673 L12.7636502,30.0921673 C13.4018251,30.0921673 13.7638023,29.6085171 13.5727757,29.018403 L8.86889734,14.393308 L8.86889734,14.393308 Z" id="V_1_" fill="#BE1622" sketch:type="MSShapeGroup"></path>
+                <text id="β" opacity="0.5" sketch:type="MSTextLayer" font-family="Open Sans" font-size="11" font-weight="normal" fill="#333333">
+                    <tspan x="55" y="12">β</tspan>
+                </text>
+            </g>
+            <g id="FLASHES" sketch:type="MSLayerGroup" transform="translate(-0.190114, 10.000000)" fill="#BE1622">
+                <path d="M7.9026616,5.08775665 L7.4469962,5.45460076 L11.3447909,8.19528517 L11.4360456,8.10098859 L10.0459316,6.20593156 L10.7711027,6.24851711 L9.22403042,4.47087452 L9.62311787,3.98418251 L4.84136882,0.366844106 L4.75011407,0.460532319 L6.6086692,3.01444867 L6.02281369,3.01201521 L7.9026616,5.08775665" id="Fill-19_3_" sketch:type="MSShapeGroup">
+                  <animate attributeName="opacity" from="1" to="0" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+                                            <animateMotion from="0,0" to="-10,-10" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+
+                </path>
+                <path d="M7.69885932,10.9943726 L8.24395437,10.6038023 L5.75634981,9.64197719 L6.17794677,9.04577947 L0.622965779,8.56395437 L0.580380228,8.69475285 L2.84288973,9.58479087 L2.58007605,10.0702662 L5.57749049,10.8051711 L5.11695817,11.3825095 L9.26235741,11.9440304 L9.31954373,11.8296578 L7.69885932,10.9943726" id="Fill-20_3_" sketch:type="MSShapeGroup">
+                  <animate attributeName="opacity" from="1" to="0" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+                        <animateMotion from="0,0" to="-10,-6" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+
+
+                </path>
+                <path d="M20.4873004,5.08775665 L20.9435741,5.45460076 L17.0451711,8.19528517 L16.9539163,8.10098859 L18.3440304,6.20593156 L17.6188593,6.24851711 L19.1659316,4.47087452 L18.7668441,3.98418251 L23.5485932,0.366844106 L23.6398479,0.460532319 L21.7812928,3.01444867 L22.3671483,3.01201521 L20.4873004,5.08775665" id="Fill-19_2_" sketch:type="MSShapeGroup">
+                    <animate attributeName="opacity" from="1" to="0" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+        <animateMotion from="0,0" to="10,-10" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+
+
+                </path>
+                <path d="M20.6923194,10.9943726 L20.1472243,10.6038023 L22.6348289,9.64197719 L22.2132319,9.04577947 L27.7682129,8.56395437 L27.8107985,8.69475285 L25.548289,9.58479087 L25.8111027,10.0702662 L22.8136882,10.8051711 L23.2742205,11.3825095 L19.1288213,11.9440304 L19.071635,11.8296578 L20.6923194,10.9943726" id="Fill-20_2_" sketch:type="MSShapeGroup">
+                   <animate attributeName="opacity" from="1" to="0" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+                                    <animateMotion from="0,0" to="10,-6" dur="1s" begin="overlay.mouseover" end="overlay.mouseout" repeatCount="indefinite" />
+
+                </path>
+            </g>
+        </g>
+    </g>
+    <rect id="overlay" x="0" y="0" width="70" height="60" pointer-events="all" fill="none" />
+    </a>
+</svg>

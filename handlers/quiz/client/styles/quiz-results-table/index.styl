@@ -1,0 +1,83 @@
+.quiz-results-table
+
+    .main &__empty-message
+        margin 12px
+        padding 10px
+
+    .main &__results ul,
+    .main &__results li,
+    .main &__results dl,
+    .main &__results dt,
+    .main &__results dd,
+    .main &__results h1,
+    .main &__results p,
+    .main &__results th,
+    .main &__results td
+    .main &__results
+        font-size inherit
+        font-weight normal
+
+        margin 0
+        padding 0
+
+    .main &__results &__result:nth-child(even)
+        background none
+
+    &__results
+        width 100%
+        white-space nowrap
+
+    .main &__results tr:first-child th
+        vertical-align top
+        border-bottom-width: 1px
+
+    .main &__results &__result:last-child,
+    .main &__results &__result:last-child th
+        border none
+
+    .main &__results th,
+    .main &__results td
+        padding 25px
+
+        vertical-align top
+
+    .main &__results &__time,
+    .main &__results &__try,
+    .main &__results &__title,
+    .main &__results &__title-head
+        font-size 12px
+        line-height 12px
+
+        display block
+
+        margin-bottom 7px
+
+        color #727272
+
+    .main &__results &__name
+        font: 17px/17px secondary_font
+
+        white-space normal
+
+    .main &__results &__try
+        margin-top 7px
+
+    &__precents
+        text-align center
+
+    .main &__results &__precents-value
+        font-size 28px
+        line-height 28px
+
+        color #4C906B
+
+    .main &__results &__level-info,
+    .main &__results &__time-spent-info
+        font-size 14px
+        line-height 14px
+
+    @media (min-width: largescreen)
+        .main &__results &__level-info,
+        .main &__results &__time-spent-info
+            font-size 16px
+            line-height 16px

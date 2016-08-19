@@ -1,0 +1,35 @@
+extends /layouts/main
+
+block append head
+  !=css("quiz")
+
+block append variables
+
+  - var layout_header_class = "main__header_center"
+  - var breadcrumbs = [{ title: 'Учебник', url: '/' }, { title: 'Тесты', url: '/quiz' }]
+  - var content_class = 'content_center'
+  - var sitetoolbar = true
+  - var layout_main_class = "main_width-limit"
+
+block append head
+  !=js("quiz", {defer: true})
+
+block content
+
+  +b.quiz-start
+
+    +e("p").description= quiz.description
+
+    +e('form')(action="/quiz/start/#{quiz.slug}", method="POST").pane
+      input(type="hidden", name="_csrf", value=csrf())
+
+      +b("button")(type="submit").button._action
+        +e("span").text Начать тестирование
+
+      +e("p").info
+        | Нажмите на кнопку выше, чтобы начать тестирование.
+        br
+        | Сразу после этого начнется отчет времени.
+
+  include blocks/quiz-explanations
+

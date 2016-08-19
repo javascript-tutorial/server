@@ -1,0 +1,87 @@
+.text-input
+  display: inline-block
+  width 100%
+
+  &__control
+    box-shadow inset 1px 1px 5px 0 #eee
+    box-sizing border-box
+    line-height 16px
+    font-size 16px
+    padding 8px 4px
+    border-radius 3px
+    border 1px solid #e7e7e7
+    width 100%
+    margin 0
+    height 34px // Safari
+
+    &:disabled
+      border-color #c6c6c6
+      background #f5f2f0
+      color light_gray_color
+
+    &:focus
+      border-color #8eb0d2
+      box-shadow inset 1px 1px 5px 0 #e1edf2
+      outline 0
+
+    &_big
+      padding 10px 4px
+      height 38px
+      vertical-align middle
+
+  // to use clear we need to set parent block positioning to anything except static
+  // I don't set it by default, just remember it and set if necessarry
+  &__clear
+    position absolute
+    right 7px
+    top 6px
+    color #ccc
+    font-size 20px
+    line-height 20px
+    width 20px
+    height 20px
+    display none
+
+    &:active
+      position absolute
+
+  &__err
+    display block
+    visibility hidden
+    color #c55b4a
+    font-size 12px
+    padding 4px 0 0
+
+  // don't show errors in an untouched control?
+  // can be modified for a particular block
+  &_invalid &__control,
+  &__control.ng-invalid.ng-dirty
+    border-color #cc5b4d
+    box-shadow inset 1px 1px 5px 0 #f2e7e7
+
+  &_invalid &__err,
+  &__control.ng-invalid.ng-dirty + &__err
+    visibility visible
+
+  &_with-aside &
+    &__control
+      padding-right 85px
+
+    &__aside
+      position absolute
+      top 0
+      right 10px
+
+  &_small &
+    &__control
+      height 32px
+      padding-top 6px
+      padding-bottom 6px
+      font-size 14px
+
+  &_clear-button &
+    &__control
+      padding-right 30px
+
+    &__clear
+      display block

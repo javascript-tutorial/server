@@ -1,0 +1,17 @@
++b.quiz-selector
+  +e("ul").list
+    each quiz in quizzes
+      +e("li").item
+        +e.text
+          +e("h3").title!= quiz.title
+          != quiz.description
+        +e.start
+          +e.start-i
+            form(action="/quiz/start/#{quiz.slug}", method="POST")
+              input(type="hidden", name="_csrf", value=csrf())
+              +b("button")(type="submit").button._common
+                +e("span").text Пройти тестирование
+            // the past score may be 0, so we check it's existance like this
+            if (quiz.quizResultScore !== undefined)
+              +e.result Предыдущий результат: #{quiz.quizResultScore}%
+

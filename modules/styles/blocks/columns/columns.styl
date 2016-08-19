@@ -1,0 +1,25 @@
+.columns
+    display table
+    width 100%
+    table-layout fixed
+    // don't set width to column by default, without modifier,
+    // sometimes we rely on default algorythm
+
+    &__col
+        display table-cell
+        vertical-align top
+
+    &_2 &__col
+        width 50%
+
+    &_3 &__col
+        width 33%
+
+    &_3 &__col:nth-child(2)
+        width 34%
+
+    &_4 &__col
+        width 25%
+
+    &_5 &__col
+        width 20%

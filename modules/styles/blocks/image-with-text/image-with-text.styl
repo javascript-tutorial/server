@@ -1,0 +1,22 @@
+.image-with-text
+    display table
+    width 100%
+
+    &__img,
+    &__text
+        display table-cell
+        vertical-align top
+
+    &__img
+        padding 0 20px 20px 0
+
+    @media (max-width: 1000px)
+        &
+            display block
+            width auto
+
+        &__img,
+        &__text
+            display block
+
+

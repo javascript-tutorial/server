@@ -1,0 +1,49 @@
+doctype html
+html
+  title Отказ в авторизации
+body
+  script var reason = !{escapeJSON(reason)}
+
+  //- window.authProvider for login is AuthModal,
+  //- for managing providers AuthProvidersManager
+  script.
+
+    !(function() {
+      if (!window.opener) {
+        window.close();
+        return;
+      }
+      var accessAllowed = true;
+      try {
+        window.opener.document.documentElement;
+      } catch (e) {
+        accessAllowed = false;
+      }
+      if (accessAllowed) {
+        // https and same domain in both windows
+        if (window.opener.authForm) {
+          window.opener.focus();
+          window.opener.authForm.onAuthFailure(reason);
+        }
+        window.close();
+      } else {
+        // probably the opener is http:// and we're https:// ?
+        if (location.protocol == 'https:') {
+          var form = document.createElement('form');
+          form.method = 'POST';
+          form.action = 'http://' + location.host + '/auth/popup-failure';
+          var input = document.createElement('input');
+          input.name = 'reason';
+          input.value = reason;
+          form.appendChild(input);
+          document.body.appendChild(form);
+          form.submit();
+        } else {
+          // we're http and access disallowed, probably the opener window navigated away from the site
+          window.close();
+        }
+      }
+    })();
+
+
+

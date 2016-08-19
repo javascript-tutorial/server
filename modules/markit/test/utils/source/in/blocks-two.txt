@@ -1,0 +1,10 @@
+first
+*!*
+my;
+code;
+*/!*
+
+*!*
+test
+*/!*
+last

@@ -1,0 +1,91 @@
+.quiz-selector
+    background #f7f6ea;
+    border-radius 3px
+
+    & ul,
+    & li,
+    & ul li,
+    & h3,
+    & p
+        padding 0
+        margin 0
+        line-height auto
+
+    & ul li:before
+        display none
+
+    & &__item
+        font-size 13px
+
+        padding 25px 30px
+
+        white-space nowrap
+
+        border-bottom 1px solid #eae5d9
+
+    & &__item:last-child
+        border none
+
+    &__text,
+    &__start
+        display inline-block
+
+        box-sizing border-box
+
+        vertical-align middle
+
+    &__text
+        width 60%
+        padding-right 20px
+
+        white-space normal
+
+    &__start
+        width 40%
+        min-width 230px
+        text-align right
+
+    &__start-i
+        position relative
+
+        display inline-block
+
+    & &__title
+        font-family  secondary_font
+        font-size 18px
+
+        margin-bottom 10px
+
+        color: #b20000
+
+    &__result
+        position absolute
+
+        width 100%
+
+        text-align center
+        color #508F6C
+
+    @media tablet
+        &__text,
+        &__start
+            width auto
+            display block
+
+        &__start
+            text-align left
+            margin-top 15px
+
+    @media phone
+        &
+            margin 0 -10px
+            border-radius none
+
+            text-align center
+
+        & &__item
+            border-bottom 2px solid #fff
+
+        &__text,
+        &__start
+            text-align center

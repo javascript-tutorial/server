@@ -1,0 +1,7 @@
+mixin section(data)
+    .section(class='section_color_#{data.color}')
+        .section__content
+          if (data.title)
+              h2.section__title=data.title
+
+          block

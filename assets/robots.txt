@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /node/
+Disallow: /users/
+Disallow: /content/
+Disallow: /play/

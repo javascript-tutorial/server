@@ -1,0 +1,6 @@
+- var n = 0;
+
++b.quiz-timeline
+  while n < progressTotal
+    - n++
+    +e("span")(class="number" + (n == progressNow ? '_current' : ''))= n

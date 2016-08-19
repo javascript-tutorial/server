@@ -1,0 +1,42 @@
+toolbar_button_background = #c4c2c0
+
+.toolbar
+    display table-row
+
+    &__tool
+        display table-cell
+        padding-left 1px
+
+    & &__button
+        @extend $plain-link
+        display inline-block
+        vertical-align bottom
+        width 30px
+        height 30px
+        background toolbar_button_background
+        text-align center
+        line-height 30px
+        font-size 16px
+
+    &__button:link,
+    &__button:visited,
+    &__button:hover,
+    &__button:active
+        color #fff
+        text-decoration none
+
+    &__button:hover
+            background hoverize(toolbar_button_background)
+
+    &__button_run::before
+        @extend $font-run
+
+    &__button_external::before
+        @extend $font-external
+
+    &__button_download::before
+        @extend $font-download
+
+    &__button_edit::before
+        @extend $font-edit
+

@@ -1,0 +1,26 @@
+.textarea-input
+  box-shadow inset 1px 1px 5px 0 #eee
+  box-sizing border-box
+  line-height 1
+  font-size 100%
+  font-family font
+  padding 10px
+  border-radius 3px
+  border 1px solid #e7e7e7
+  width 100%
+
+  &__err
+    font-size 12px
+    display none
+    padding 4px 0 0
+    color #c55b4a
+
+  &_invalid
+    border-color #cc5b4d
+    box-shadow inset 1px 1px 5px 0 #f2e7e7
+
+  &_invalid + &__err
+    display block
+
+  &_color_red
+    color color_red

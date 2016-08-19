@@ -1,0 +1,26 @@
+.close-button
+    @extend $button-reset
+    line-height 32px
+    cursor pointer
+    text-align center
+    color light_gray_color
+    border-radius 50%
+    width 32px
+    height 32px
+    font-size 32px
+    position relative
+
+    &::after
+        @extend $font-close-button
+        z-index 1
+        position relative
+
+    &::before
+        content ""
+        display block
+        background #fff
+        position absolute
+        width 18px
+        height 18px
+        top 7px
+        left 7px

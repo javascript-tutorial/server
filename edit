@@ -1,0 +1,4 @@
+#!/bin/bash
+
+NODE_ENV=production TUTORIAL_EDIT=1 npm --silent run -- gulp edit --root /js/javascript-tutorial
+

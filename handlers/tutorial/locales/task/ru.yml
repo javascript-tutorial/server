@@ -1,0 +1,17 @@
+
+open_task:
+  sandbox:
+    tests: Открыть песочницу с тестами для задачи.
+    no_tests: Открыть песочницу для задачи.
+
+open_solution:
+  sandbox:
+    tests: Открыть решение с тестами в песочнице.
+    no_tests: Открыть решение в песочнице.
+
+Importance: Важность
+importance: важность
+importance_help: Насколько эта задача важна для освоения материала, от 1 до 5
+solution: решение
+
+task_not_found: "Не найдена задача \"#{path}\""

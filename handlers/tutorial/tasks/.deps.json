@@ -1,0 +1,4 @@
+{
+  "killContent": ["cache:clean"],
+  "import": ["cache:clean"]
+}

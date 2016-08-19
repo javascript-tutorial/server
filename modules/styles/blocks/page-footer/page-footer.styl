@@ -1,0 +1,57 @@
+.page-footer
+    display flex
+    flex-wrap: wrap
+    align-items center
+
+    height footer_height
+    margin-top footer_margin_top
+    padding 0 48px
+
+    color #9D9D9D
+    background #FBFAFA
+    border-top 2px solid #f3f2f1
+
+    &:after // fix margin gap
+        display table
+
+        content: ""
+
+    &__link
+        color light_link_color
+
+    &__slack
+        color light_link_color
+        background url(slack.svg) left center no-repeat
+        background-size 16px
+        padding-left 20px
+        margin-left -4px
+
+    &__left
+        flex-grow 1
+
+    &__item
+        display inline-block
+
+        margin-right 15px
+
+    &__item:not(:last-child)::after
+        margin-left 15px
+
+        content: '|'
+
+    @media tablet
+        &
+            display block
+
+            height auto
+            margin-top 0
+
+            text-align center
+
+        &__item
+            display block
+
+            margin 20px 0
+
+        &__item::after
+            display none

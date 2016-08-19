@@ -1,0 +1,40 @@
+include /bem
+
++b(class=['login-form', (inModal ? '_modal' : '_inline')] data-form="login")
+  +e('form').form(action="#")
+
+    if inModal
+      +e.line.__header
+        +e('h4').title Вход в сайт
+        +e.header-aside
+          +e('button').button-link.__register(type="button" data-switch="register-form") регистрация
+    else
+      p
+        | Если у вас еще нет аккаунта, вы можете&nbsp;
+        +e('button').button-link.__register(type="button" data-switch="register-form") зарегистрироваться
+
+    +e.body
+
+      //-
+        +e.line.__notification
+          +e.info
+            | Авторизация работает в тестовом режиме. О любых проблемах и странностях сообщайте, пожалуйста, на <a href="https://github.com/iliakan/javascript-nodejs/issues/new">github</a>.
+
+      +e.line.__notification(data-notification)
+
+      +e.line
+        +e('label').label(for="auth-email") Email:
+        +b('span').text-input.__input
+          +e('input').control#auth-email(name="email" type="email" autofocus)
+      +e.line
+        +e('label').label(for="auth-password") Пароль:
+        +b('span').text-input._with-aside.__input
+          +e('input').control#auth-password(type="password", name="password")
+          +e('button').aside.__forgot.__button-link(type="button" data-switch="forgot-form") Забыли?
+      +e.line.__footer
+          +b('button').button._action(type="submit")
+            +e('span').text Войти
+          if inModal
+            +e('a').close-link.tablet-only.modal__close Отмена
+      include login-form-footer
+

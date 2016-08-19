@@ -1,0 +1,37 @@
+title(itemprop="name")= (headTitle || title)
+
+//- for mobile devices
+meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0")
+meta(name="apple-mobile-web-app-capable" content="yes")
+script if (window.devicePixelRatio > 1) document.cookie = 'pixelRatio=' + window.devicePixelRatio + ';path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT';
+//- encode | as %7C to make HTML5 validator happy
+link(href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700%7COpen+Sans+Condensed:700&subset=latin,latin-ext,cyrillic,cyrillic-ext' rel='stylesheet')
+
+//- favicon apple touch
+link(rel="apple-touch-icon-precomposed" href="/img/favicon/apple-touch-icon-precomposed.png")
+link(rel="canonical" href=canonicalUrl)
+
+//- IE10 Metro
+meta(name="msapplication-TileColor" content="#222A2C")
+meta(name="msapplication-TileImage" content="/img/favicon/tileicon.png")
+// favicon the rest
+link(rel="icon" href="/img/favicon/favicon.png")
+
+meta(itemprop="image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square.png"))
+
+!=css("styles")
+
+if prev
+  link(rel="prev" href=prev.url)
+
+if next
+  link(rel="next" href=next.url)
+
+if livereloadEnabled
+  script.
+    document.write('<script src="//' + location.host.split(':')[0] + ':35729/livereload.js"></' + 'script>')
+
+!=js("head")
+
+//- head из конкретной статьи
+!=head

@@ -1,0 +1,5 @@
+mixin button(data)
+  - data = data || {}
+  - data.tag = data.tag || 'button'
+  #{data.tag}.button(class='button_#{data.mod}')&attributes(attributes)
+    block

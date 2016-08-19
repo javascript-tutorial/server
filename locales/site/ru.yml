@@ -1,0 +1,26 @@
+toolbar:
+  logo:
+    svg: sitetoolbar__logo.svg
+    width: 171
+
+
+sorry_old_browser: Извините, IE<10 не поддерживается, пожалуйста используйте более новый браузер.
+contact_us: связаться с нами
+about_the_project: о проекте
+ilya_kantor: Илья Кантор
+comments: Комментарии
+loading: Загружается...
+search: Искать
+share: Поделиться
+donate: Поддержать
+read_before_commenting: перед тем как писать…
+
+comment:
+  help:
+    - Приветствуются комментарии, содержащие дополнения и вопросы по статье, и ответы на них.
+    - Для одной строки кода используйте тег <code>&lt;code&gt;</code>, для нескольких строк кода&nbsp;&mdash; тег <code>&lt;pre&gt;</code>, если больше 10 строк&nbsp;&mdash; ссылку на песочницу (<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
+    - Если что-то непонятно в статье&nbsp;&mdash; пишите, что именно и с какого места.
+
+edit_on_github: Редактировать на Github
+hide_forever: не показывать
+Error: Ошибка

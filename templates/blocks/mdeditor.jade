@@ -1,0 +1,35 @@
+include /bem
+
+
+mixin mdeditor(data)
+  -
+    var buttonSets = {
+      standard: 'bold italic | link ul ol | code fencedCode'.split(' '),
+      email: 'bold italic | autolink ul ol | code'.split(' '),
+      large: 'bold italic | link ul ol | code fencedCode | heading'.split(' ')
+    };
+    data = data || {};
+
+  +b.mdeditor(class=[data.editorClass || '', data.error ? '_invalid' : ''])
+    if data.error
+      +e.err= data.error
+
+    +e.editor
+      +e.button-bar
+        each button in buttonSets[data.buttonSet || 'standard']
+          if button == '|'
+            +e.button-separator
+          else
+            - var tooltip = t('mdeditor.buttons.'+ button);
+            +e('button').button(data-action=button data-tooltip=tooltip)
+
+      //+e('textarea').input(name=data.textareaName)= data.value
+      +e('textarea').input&attributes(attributes)
+        block
+      +e.footer
+        +e.resize-handle(data-mdeditor-resize)
+    //if data.preview
+    //  +e.title-preview
+    //    +e('h2') Предпросмотр
+    //  +e.preview(data-editor-preview)
+    //

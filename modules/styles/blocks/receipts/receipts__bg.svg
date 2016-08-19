@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="74px" height="64px" viewBox="0 0 74 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>PDF Book Purchaise / Background pattern</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="74" height="64"></rect>
+    </defs>
+    <g id="PDF-Book-Purchaise" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="PDF-Book-Purchaise-/-Background-pattern" sketch:type="MSArtboardGroup">
+            <g id="Group" sketch:type="MSLayerGroup">
+                <mask id="mask-2" sketch:name="Rectangle 2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Rectangle-2" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <path d="M0,67.2849035 C18,67.2849035 26.3018064,61.0000002 36.8748318,61 C47.4478571,60.9999998 56,67.2849035 73.9313098,67.2849036" id="Path-13" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,59.2849035 C18,59.2849035 26.3018064,53.0000002 36.8748318,53 C47.4478571,52.9999998 56,59.2849035 73.9313098,59.2849036" id="Path-12" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,51.2849035 C18,51.2849035 26.3018064,45.0000002 36.8748318,45 C47.4478571,44.9999998 56,51.2849035 73.9313098,51.2849036" id="Path-11" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,43.2849035 C18,43.2849035 26.3018064,37.0000002 36.8748318,37 C47.4478571,36.9999998 56,43.2849035 73.9313098,43.2849036" id="Path-10" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,35.2849035 C18,35.2849035 26.3018064,29.0000002 36.8748318,29 C47.4478571,28.9999998 56,35.2849035 73.9313098,35.2849036" id="Path-9" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,27.2849035 C18,27.2849035 26.3018064,21.0000002 36.8748318,21 C47.4478571,20.9999998 56,27.2849035 73.9313098,27.2849036" id="Path-8" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,19.2849035 C18,19.2849035 26.3018064,13.0000002 36.8748318,13 C47.4478571,12.9999998 56,19.2849035 73.9313098,19.2849036" id="Path-7" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,11.2849035 C18,11.2849035 26.3018064,5.00000015 36.8748318,5 C47.4478571,4.99999985 56,11.2849035 73.9313098,11.2849036" id="Path-20" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M0,3.28490353 C18,3.28490353 26.3018064,-2.99999985 36.8748318,-3 C47.4478571,-3.00000015 56,3.28490353 73.9313098,3.28490357" id="Path-6" stroke="#979797" opacity="0.1" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

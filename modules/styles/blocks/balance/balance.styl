@@ -1,0 +1,130 @@
+.balance
+    @extend $clearfix
+    position relative
+    margin 38px 0
+    border 4px solid #F5F2F0
+    border-radius 2px
+    // overflow hidden as clearfix causes problem in iBooks
+
+    & &__title
+        margin 0 0 14px
+        font-size 128%
+        line-height 120%
+        font-weight bold
+
+    & &__list
+        padding-left 19px
+
+    & li
+        margin 12px 0
+
+    // если блок содержит и плюсы и минусы
+    &__pluses,
+    &__minuses
+        float left
+        width 50%
+        box-sizing border-box
+
+    &__pluses &__content
+        margin 20px 35px 30px 23px
+
+    &__minuses &__content
+        margin 20px 23px 30px 35px
+
+    &__minuses::before
+        content ""
+        border-left 2px solid #F5F2F0
+        position absolute
+        top 25px
+        bottom 25px
+        left 50%
+        margin-left -1px
+
+    &_single &__minuses::before
+        display none
+
+    // если в блоке только плюсы или только минусы
+    &_single &__pluses
+    &_single &__minuses
+        width 100%
+
+    &_single &__pluses &__content
+    &_single &__minuses &__content
+        margin 20px 35px 30px 23px
+
+
+    & &__pluses li::before
+        color #8DC082
+
+    & &__minuses li::before
+        color #C13335
+
+    &__content,
+    &__content p,
+    &__content ul,
+    &__content ol,
+    &__content figure,
+    &__content .code-example,
+    &__content .codebox,
+    &__content .code-tabs
+        margin 14px 0
+
+// two pieces of copypaste,
+// @extend didn't solve this problem
+.page_ebook
+    .balance
+        backround #fcc
+    .balance .balance__pluses,
+    .balance .balance__minuses
+        float none
+        width 100%
+
+    .balance .balance__minuses::before
+        display none
+
+    .balance .balance__content
+        margin 20px 23px 30px
+
+@media print
+    .page_ebook
+        .balance
+            .balance__pluses,
+            .balance__minuses
+                float left
+                width 50%
+                box-sizing border-box
+
+            .balance__pluses .balance__content
+                margin 20px 35px 30px 23px
+
+            .balance__minuses .balance__content
+                margin 20px 23px 30px 35px
+
+            .balance__minuses::before
+                display block
+
+        .balance_single .balance__minuses::before
+            display none
+
+        // если в блоке только плюсы или только минусы
+        .balance_single .balance__pluses,
+        .balance_single .balance__minuses
+            width 100%
+
+        .balance_single .balance__pluses .balance__content
+        .balance_single .balance__minuses .balance__content
+            margin 20px 35px 30px 23px
+
+
+@media tablet
+    .balance
+        &__pluses,
+        &__minuses
+            float none
+            width 100%
+
+        &__minuses::before
+            display none
+
+        & &__content
+            margin 20px 23px 30px

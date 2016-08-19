@@ -1,0 +1,116 @@
+.tabbed-pane
+    margin-top 40px
+
+
+    & ul&__tabs,
+    & li&__tab
+        padding 0
+        margin 0
+        list-style none
+
+    & li&__tab:before
+        display none
+
+        content ''
+
+    & ul&__tabs
+        display flex
+        align-items stretch
+
+        text-align center
+
+        overflow hidden
+
+        border-radius 5px 5px 0 0
+
+    & li&__tab
+        font-family secondary_font
+        font-size 19px
+        line-height initial
+
+        flex-grow 1
+
+        padding 20px 30px
+
+        cursor pointer
+        background #ddd
+
+    & li&__tab:hover
+        color secondary_color
+
+    &__body
+        display none
+
+        padding 25px
+
+        text-align left
+
+        border 10px solid #eee
+        border-radius 0 0 5px 5px
+
+    &__body p:first-child
+        margin-top 0
+
+    &_01 &__body_01,
+    &_02 &__body_02,
+    &_03 &__body_03,
+    &_04 &__body_04,
+    &_05 &__body_05,
+    &_06 &__body_06,
+    &_07 &__body_07
+        display block
+
+    &_01 li&__tab_01,
+    &_02 li&__tab_02,
+    &_03 li&__tab_03,
+    &_04 li&__tab_04,
+    &_05 li&__tab_05,
+    &_06 li&__tab_06,
+    &_07 li&__tab_07
+        color secondary_color
+        background #eee
+
+    @media phone
+        & ul&__tabs
+            display none
+
+        .main & h2&__title
+            font normal 14px font
+            line-height initial
+
+            margin 0 -20px
+            padding 10px 20px
+
+            text-align left
+
+            border-bottom 2px solid #F3F2F1
+            background #FBFAFA !important
+
+        & li&__tab:first-child
+            border-top 2px solid #F3F2F1
+
+        &__body
+            display block !important
+
+            padding 0 20px
+            margin 0 -10px
+
+            text-align left
+
+            border none
+            border-bottom 2px solid #F3F2F1
+            border-radius initial
+            background #FBFAFA
+
+        &_01 li&__tab_01,
+        &_02 li&__tab_02,
+        &_03 li&__tab_03,
+        &_04 li&__tab_04,
+        &_05 li&__tab_05,
+        &_06 li&__tab_06,
+        &_07 li&__tab_07
+            font-weight bold
+
+            color #333
+            background none
+

@@ -1,0 +1,41 @@
+include /bem
+
++b.tutorial-map
+  +e.filter
+    +e.filter-t
+      +e.input-wrap
+        +b('span').text-input.__input
+          +e('input').control(type="text" placeholder="Фильтр по заголовку" data-tutorial-map-filter)
+          +b.close-button.__clear
+      +e.option
+        +e('label').option-label(for="show-tasks")
+          +e('input').option-control#show-tasks(type="checkbox" data-tutorial-map-show-tasks)
+          | Показать задачи
+      +e.layout
+        +b.switch.__layout-switch(data-tutorial-map-layout-switch)
+          +e.option
+            +e('input').control#multicol(type="radio" name="map-layout" value="0" checked="checked")
+            +e('label').label.__multicol(for="multicol")
+          +e.option
+            +e('input').control#singlecol(type="radio" name="map-layout" value="1")
+            +e('label').label.__singlecol(for="singlecol")
+
+  +e.tutorial-map-map.columns.columns_3
+    each topic in children
+      +e.section.columns__col
+        +e('h2').col-title= topic.title
+        +e('ul').items
+          each subtopic in topic.children
+            +e('li').item
+              +e('a').link(href=subtopic.url)= subtopic.title
+              +e('ul').sub-items
+                each article in subtopic.children
+                  +e('li').sub-item
+                    +e('a').link(href=article.url)= article.title
+                    if article.tasks
+                      +e('ul').sub-sub-items
+                        each task in article.tasks
+                          +e('li').sub-sub-item
+                            +e('a').link(href=task.url)= task.title
+                            =" "
+                            +e('span').note= task.importance

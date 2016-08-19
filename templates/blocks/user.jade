@@ -1,0 +1,24 @@
++e.user-wrap
+  //- делаем пользователя кнопкой, так как она только раскрывает меню
+  //- и никуда не ведет. Если предполагается функциональность ссылки
+  //- потребуются минимальные доработки
+  +e('button').user(title=user.displayName, data-dropdown-toggler)
+    +e('img').userpic(src=user.getPhotoUrl(36,36), alt=user.displayName, width="36", height="36")
+    +e('span').user-text= user.displayName
+  +e.dropdown-wrap
+    +e.dropdown-body
+      +e('ul').dropdown-items
+        +e('li').dropdown-item
+          +e('a').secondary-link.__dropdown-link(href=user.getProfileUrl()) Публичный профиль
+        +e('li').dropdown-item
+          +e('a').secondary-link.__dropdown-link(href=user.getProfileUrl() + "/account") Аккаунт
+        +e('li').dropdown-item
+          +e('a').secondary-link.__dropdown-link(href=user.getProfileUrl() + "/subscriptions") Уведомления
+        each tab in user.profileTabsEnabled
+          +e('li').dropdown-item
+            +e('a').secondary-link.__dropdown-link(href=user.getProfileUrl() + "/" + tab)= profileTabNames[tab]
+        if user.hasRole('teacher') || user.hasRole('admin')
+          +e('li').dropdown-item
+            +e('a').secondary-link.__dropdown-link(href="/admin") Админ
+        +e('li').dropdown-item
+          +e('a').secondary-link.__dropdown-link(href="#" data-action-user-logout) Выйти

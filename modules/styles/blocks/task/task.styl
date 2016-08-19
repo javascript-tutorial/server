@@ -1,0 +1,135 @@
+.task
+    &__header
+        margin 40px 0 12px
+
+    &__title-wrap
+        padding-right 45px
+
+    & &__title
+        margin 0
+        line-height 1
+        display inline
+        font-size 128%
+        font-weight bold
+
+    & &__title a
+        font inherit
+        color inherit
+        text-decoration none
+
+    &__header-note
+        margin-top 6px
+
+    & &__open-link
+        @extend $plain-link
+        text-decoration none
+        margin-left 20px
+        outline 0
+        position absolute
+        line-height 18px
+
+    &__open-link::before
+        @extend $font-external
+        font-size 16px
+        display inline-block
+        min-width 16px
+
+    &__importance
+        color light_gray_color
+        margin-right 30px
+
+    &__solution
+        @extend $link-button
+
+    &__answer_open &__solution
+        position relative
+        background #568DCA
+        color #fff
+        text-decoration none
+        line-height 18px
+        padding 4px 15px
+        margin -4px -15px
+        border-radius 12px
+
+    &__answer_open &__solution:hover
+        color #fff
+
+    &__answer_open &__solution::after
+        content ""
+        position absolute
+        border-bottom 14px solid #F7F6EA
+        border-right 9px solid transparent
+        border-left 9px solid transparent
+        width 0
+        height 0
+        top 100%
+        left 50%
+        margin 4px 0 0 -7px
+
+    &__content,
+    &__content p,
+    &__content ul,
+    &__content ol,
+    &__content figure,
+    &__content .code-example,
+    &__content .codebox,
+    &__content .code-tabs
+        margin 18px 0
+
+    &__content
+        line-height 140%
+        margin-bottom 21px
+
+    &__answer
+        border 3px solid #F7F6EA
+        margin: 20px 0 14px
+        position relative
+        display none
+
+    &__answer-content
+        margin 25px 30px
+
+    &__answer-close,
+    &__answer-close:active
+        position absolute
+        top -17px
+        right -17px
+
+    &__answer_open &__answer
+        display block
+
+    &__step-show
+        @extend $button-reset
+        background #F7F6EA
+        display block
+        width 100%
+        height 55px
+        text-align left
+        padding 0 30px
+        font 700 114% font
+        color inherit
+        position relative
+
+    &__step-show::before
+        content ""
+        position absolute
+        top 0
+        left -3px
+        right -3px
+        border-top 1px solid #edece2
+
+    &__step:first-child &__step-show::before,
+    &__step_open + &__step &__step-show::before
+        display none
+
+    &__step &__answer-content
+        display none
+
+    &__step_open &__answer-content
+        display block
+
+    &__step_open &__step-show
+        display none
+
+    & &__step-title
+        margin 25px 0 14px

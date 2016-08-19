@@ -1,0 +1,41 @@
+.input-select
+  box-sizing border-box
+  position relative
+  line-height 16px
+  font-size 16px
+  padding 8px 4px 25px 4px
+  border-radius 3px
+  border 1px solid #cccccc
+  background-image: linear-gradient(to bottom, #ccc 0%, #ccc 100%),
+    url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSIxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U2xpY2UgMTwvdGl0bGU+PGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+PHRpdGxlPkxheWVyIDE8L3RpdGxlPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0ibm9uZSI+PGcgZmlsbD0iIzU1NSI+PHBhdGggZD0iTTMgMGwzIDVIMHoiLz48cGF0aCBkPSJNMyAxMmwzLTVIMHoiLz48L2c+PC9nPjwvc3ZnPg=="),
+    linear-gradient(to bottom, #dcdcdc 0%, #f9f9f9 80%, #f0f0f0 100%)
+  background-position calc(100% - 20px) 0, calc(100% - 7px) 50%, 0 0
+  background-repeat no-repeat
+  background-size 1px 100%, auto, auto
+  appearance none
+  transition border-color 0.2s, background-image 0.2s
+
+  &:focus
+    background-image: linear-gradient(to bottom, #8eb0d2 0%, #8eb0d2 100%),
+      url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSIxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U2xpY2UgMTwvdGl0bGU+PGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+PHRpdGxlPkxheWVyIDE8L3RpdGxlPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0ibm9uZSI+PGcgZmlsbD0iIzU1NSI+PHBhdGggZD0iTTMgMGwzIDVIMHoiLz48cGF0aCBkPSJNMyAxMmwzLTVIMHoiLz48L2c+PC9nPjwvc3ZnPg=="),
+      linear-gradient(to bottom, #dcdcdc 0%, #f9f9f9 80%, #f0f0f0 100%)
+    border-color #8eb0d2
+    box-shadow inset 1px 1px 5px 0 #e1edf2
+    outline 0
+
+  //- strange and ugly, but necessary for Firefox
+  &:-moz-focusring
+    color transparent
+    text-shadow 0 0 0 #000
+
+  &_big
+    width 83px
+    margin-left 10px
+    padding 10px 4px 10px 10px
+    vertical-align middle
+
+  &_small
+    line-height 14px
+    font-size 14px
+    padding 0 25px 0 10px
+    height 32px

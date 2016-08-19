@@ -1,0 +1,138 @@
+.quiz-question
+    min-width 600px
+    margin-top 25px
+
+    & ul,
+    & li,
+    & ul li,
+    & h3
+        padding 0
+        margin 0
+        line-height auto
+
+    & p
+        padding 0
+        margin-top 0
+        margin-bottom 1em
+        line-height auto
+
+    & ul li:before
+        display none
+
+    &__body
+        padding 30px
+
+        text-align left
+
+        border 3px solid #eee
+        border-radius 10px
+
+    &__title
+        font-size 16px
+
+    & &__variants
+        margin-top 25px
+
+    & &__variant
+        position relative
+
+        line-height 16px
+
+        margin-top 4px
+        padding-left 25px
+
+    &__label
+        font-size 14px
+
+        display inline-block
+
+        position relative
+
+        cursor pointer
+
+    &__input
+        position absolute
+        top 50%
+        left -25px
+
+        margin -7px 0 0 0
+        width 16px
+        height 16px
+
+    &__input:checked + &__input-text
+        font-weight bold
+
+    &__description
+        margin-bottom 20px
+        margin-top 5px
+
+    &__description .code-example,
+    &__description .codebox
+        margin 0
+
+    & &__note
+        font-size 12px
+
+        margin 20px
+        margin-bottom 0
+
+        color #666
+
+    &__submit
+        margin-top 25px
+
+
+    &_correct_true &__body
+        border-color #bbd4a5
+
+    &_correct_false &__body
+        border-color #eaaaad
+
+
+    //- coloring logic is here: https://github.com/iliakan/javascript-nodejs/issues/293
+    &__variant_correct_true &__input-text
+        font-weight bold
+        color #060
+
+    &__variant_correct_false&__variant_selected &__input-text
+        font-weight bold
+        color #d90000
+
+    @media tablet
+        &
+            min-width initial
+
+    @media phone
+        &
+            min-width initial
+            margin-bottom 30px
+
+        &__body
+            padding 20px
+
+            border-width 0
+
+            border-radius initial
+
+        &__body .code-example
+            margin 0 -20px
+
+        &_correct_true,
+        &_correct_false
+            margin 15px -10px 0
+
+        &_correct_true:last-child,
+        &_correct_false:last-child
+            margin-bottom 30px
+
+
+        &_correct_true &__body,
+        &_correct_false &__body
+            border-width 3px
+
+        & &__variant
+            margin-top 10px
+
+        &__title
+            font-size 14px
+            font-weight normal

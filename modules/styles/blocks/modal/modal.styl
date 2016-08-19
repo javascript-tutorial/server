@@ -1,0 +1,66 @@
+// extract from
+// Pure CSS Components - http://www.felipefialho.com/css-components/
+// Author: Luiz Felipe Tartarotti Fialho
+// hi@felipefialho.com
+// http://www.felipefialho.com/
+
+// NB
+// please place modal.styl before other files
+// modal-overlay implies position: relative
+// other styles may want to override this
+
+.modal
+  &:before
+    content ""
+    display block
+    background rgba(0, 0, 0, 0.6)
+    position fixed
+    top 0
+    left 0
+    right 0
+    bottom 0
+    z-index 1001
+    transform translate3d( 0, 0, 0)
+
+  &__dialog
+    position fixed
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
+    z-index 9999
+
+
+  button&__close
+    position absolute
+    top -15px
+    right -15px
+    display none
+
+  a&__close,
+  a&__close:visited
+    color link_color
+
+  &__has-close &__close
+    display block
+
+
+// usage: .modal-overlay_dark for translucent black background or
+//        .modal-overlay_light for translucent white background
+$modal-overlay-after
+  content " "
+  position absolute
+  left 0
+  right 0
+  top 0
+  bottom 0
+  z-index 100000
+
+.modal-overlay_light:after
+  @extend $modal-overlay-after
+  background white
+  opacity 0.35
+
+.modal-overlay_dark:after
+  @extend $modal-overlay-after
+  background black
+  opacity 0.2

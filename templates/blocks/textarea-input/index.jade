@@ -1,0 +1,7 @@
+mixin textarea-input(data)
+  - data = data || {}
+  
+  +b('textarea').textarea-input(class={
+    '_color_red': data.color === 'red'
+  })&attributes(attributes)
+    block

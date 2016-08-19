@@ -1,0 +1,105 @@
+.extract
+    max-width 615px
+
+    margin 0 auto
+    padding 0 0 30px
+
+    text-align left
+
+    &_small
+        font-size 13px
+        padding 8px 23px 11px
+        line-height 19px
+        border-radius 0
+
+    &__item
+        position relative
+        cursor pointer
+
+    & &__header
+        background #dddddd
+        text-align center
+        color #191e1e
+        margin-bottom 21px
+        font-size 28px
+        padding 7px 27px 14px
+        border-radius 3px 3px 0 0
+
+    h3&__title
+        color secondary_color
+        font 17px secondary_font
+
+        margin 0
+
+    &__title label
+        cursor pointer
+
+    &__dates
+        font-weight 700
+        margin 0 27px
+        line-height 26px
+
+    &_small &__dates,
+    &_small &__info
+        margin 0
+
+    &__wrap
+        display table
+
+        width 100%
+        min-height 79px
+        margin-top 2px
+
+        background #f5f2f0
+        transition background-color 0.2s
+
+    &__input
+        position absolute
+        top 50%
+        left 10px
+
+        width 16px
+        height 16px
+        margin-top -8px
+
+
+    &__content,
+    &__aside,
+    &__input-wrap
+        display table-cell
+        vertical-align middle
+        padding 15px 0
+
+    &__aside
+        white-space nowrap
+
+        border-right 2px solid transparent
+
+    &__input:checked ~ &__wrap
+        background #f9edbf
+
+    &__content
+        padding-left 20px
+        padding-right 10px
+
+    &__aside_price
+        width .1%
+        padding-right 4em
+        font-size 14px
+
+    &__input-wrap
+        width 36px
+
+    &__aside_price .price__secondary
+        position absolute
+        left 100%
+        bottom 0
+        margin 0 0 3px 7px
+        white-space nowrap
+
+    &__aside_center
+        text-align center
+
+    &__price
+        margin-top 3px
+        position relative

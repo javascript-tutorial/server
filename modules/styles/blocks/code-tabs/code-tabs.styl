@@ -1,0 +1,180 @@
+// Чтобы показать кнопки прокрутки обертке блока .code-tabs
+// добавляется класс .code-tabs_scroll
+//- задание высоты блока:
+//- https://github.com/iliakan/javascript-nodejs/issues/43
+
+.code-tabs
+    margin 22px 0
+
+    &__tools
+        display table
+        background #f5f2f0
+        font-size 13px
+        box-shadow 0 2px 5px rgba(0, 0, 0, .12)
+        position relative
+        z-index 99
+        width 100% // возможно, вылечит баг с отрисовкой в фаерфоксе
+
+    &_result_on &__tools
+        box-shadow none
+
+    &__switches-wrap,
+    &__buttons
+        display table-cell
+        white-space nowrap
+        vertical-align top
+
+    &__scroll-wrap
+        width 0
+        display none
+
+    &_scroll &__scroll-wrap
+        display table-cell
+
+    &__buttons
+        background #f0edeb
+
+    &__scroll-button
+        @extend $button-reset
+        width 17px
+        padding 0 1px
+        background #d8d8d8
+        height 49px
+        color #fff
+        line-height 49px
+        font-size 18px
+
+    &__scroll-button:hover
+        background #e1d8cd
+
+    &__scroll-button[disabled]
+        background #d8d8d8
+        color #ebebeb
+        cursor default
+
+    &__scroll-button_left::before
+        @extend $font-angle-left
+
+    &__scroll-button_right::before
+        @extend $font-angle-right
+
+    &__switches-wrap
+        width 100%
+
+    &__switches
+        height 59px
+        margin-bottom -10px
+        overflow hidden
+        position relative
+
+    &__switches-items // будет использоваться для прокрутки
+        position absolute
+        transition 100ms ease-in-out
+
+    &__switch
+        color #656565
+        background #f5f2f0
+        text-align center
+        padding  12px 15px
+        line-height 25px
+        white-space nowrap
+        cursor pointer
+        margin-bottom 15px
+        display inline-block
+        vertical-align bottom
+
+    &__switch:hover,
+    &__button:hover
+        background #e6e6e6
+
+    &__switch_current,
+    &__switch_current:hover
+        background #C4C2C0
+        color #fff
+        position: relative
+
+    &__switch_current
+        cursor default
+
+    &__switch_current::after
+        content ""
+        position absolute
+        top 100%
+        left 50%
+        margin-left -7px
+        border-top 8px solid #C4C2C0
+        border-right 7px solid transparent
+        border-left 7px solid transparent
+
+    // extra strong selector
+    /body & &__button
+        @extend $plain-link
+        display inline-block
+        font-size 18px
+        padding 12px
+        width 25px
+        height 25px
+        text-align center
+        color light_gray_color
+        outline 0
+
+    &__button,
+    &__button:hover
+        text-decoration none
+
+    &__button_edit::before
+        @extend $font-edit
+
+    &__button_external::before
+        @extend $font-external
+
+    &__button_download::before
+        @extend $font-download
+
+    &__content
+        overflow auto
+        box-sizing border-box
+
+    &_result_on &__content
+        border solid #f5f2f0
+        border-width 0 3px 3px
+        padding 15px 0 0 15px
+
+    &__dropdown
+        background #fff
+        font-size 13px
+        border solid #e0dbd7
+        border-width 0 1px 1px
+        box-sizing border-box
+        box-shadow 1px 1px 2px rgba(0, 0, 0, .1)
+        position absolute
+        z-index 99
+        display none
+        min-width 111px
+
+    &__section
+        display none
+        height 100%
+        position relative
+
+    &__section_current
+        display block
+
+    & &__section pre[class*='language-']
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
+        padding-bottom 0
+
+    // растягиваем по высоте фон под номерами строк
+    & &__section pre[class*='language-'] .line-numbers-rows
+        bottom 0
+
+    &__result
+        display block
+        border 0
+        width 100%
+        height 100%
+

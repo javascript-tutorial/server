@@ -1,0 +1,45 @@
+.simple-button
+    display inline-block
+
+    padding 10px 15px
+
+    text-decoration none !important
+
+    border-radius 4px
+    background rgba(255,255,255,0);
+    border 2px solid rgba(255,255,255, 0.5)
+
+    transition background-color 0.5s
+
+    &__text
+        font-size 20px
+        font-weight bold
+
+        display block
+
+        color #DFC374
+
+        transition color 0.5s
+
+    &__accent
+        color #CC5B4D
+
+    &__description
+        font-size 14px
+
+        color rgba(255,255,255,0.6)
+
+        transition color 0.5s
+
+    &__description-accent
+        transition color 0.5s
+
+    &:hover
+        background rgba(255,255,255,1);
+
+    &:hover &__text,
+    &:hover &__description
+        color #0F201C
+
+    &:hover &__description-accent
+        color #C13335

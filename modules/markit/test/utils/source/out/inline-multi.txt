@@ -1,0 +1,3 @@
+var f = function() {
+  alert(1); alert(2);
+}

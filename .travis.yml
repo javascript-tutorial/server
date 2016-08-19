@@ -1,0 +1,68 @@
+language: node_js
+node_js:
+  - "5"
+git:
+  # javascipt-turorial submodule is checked out manually with token,
+  # in install hook
+  submodules: false
+  # Don't need history to do tests
+  # But depth: 1 would be too small
+  # The problem with using git clone depth 1 is that if the contributer
+  # pushes multiple commits in short succession before Travis is able to
+  # kick off a build. The build will fail due to being unable to find the
+  #commit. This is because Travis checks out a branch and then checks out
+  # the exact commit. So it is possible to get into a situation where the
+  # latest branch is newer than the commit Travis is trying to build
+  # against.
+  depth: 10
+
+install:
+  - source ./scripts/travis/install.sh
+
+script:
+  - source ./scripts/travis/test.sh
+
+env:
+  global:  # not a build matrix, but variables for every build
+    #- TRAVIS_DEBUG=1
+    - NODE_ENV=test
+    - E2E_BROWSER=firefox
+    # id_rsa (by travis_key.sh)
+    - secure: "jXxCMfeJGuoQomJr/BzXtAnpjz6DVBRHsQqGLS5jky5KvQAaxwsC4MSOMCEPiTCUSRZ0/dTBhwzHeiFQ9c3m83NIwBmb27b/IkTbVUz8g515kHu1greDFWtdlVCwUOyTlc6bET84QDjMHnwmSTXHJw02j7D44mbOyvP07P1akAE="
+    - secure: "JzmDqycU+E+3MFG6iSW5+yZ9wPns4a1vC3i2/SVhLUvOAQpi/NNiNZQjcRkLmOiiV2Z9ykm4Tw0inYRmGR1LyXTFDyukjrfd9SiZ2o8iSuP3bIACyB2uGwJcRdTt0RFXEFvjE9l7O8fiQxPo8Fa3ZMF5Vx9zDGV+JGudycbGfMQ="
+    - secure: "cdqo9zt5EfTnEfHTl4BZi9eI3/V3F+piYS0W1yCe3YazgfOL4dk6SMm3nPvfrH1GafbKWDWH+PP79btqKuS27cBycRyBFyE9cOJ5KMqQZOxgtlwvoPRToxNuGkMf+K2mIaL3xLt+ydphWsoOndhBvuef5U9viGhZGiSy+v4AWGE="
+    - secure: "YvntZ1dqChna300Q2M4eHArwfxC7r5Ds+dGb3rokigszU8+orpKzNj9Ryv2v5w5TwtYV/IfdR1q+oabD0nrJzZ8iiQZVMjktfK9wWAIM7LqSN08vWeZVEV8XC9dLAjsMFAyLzm7+f3ReDcxyWeRIiq8HWdGEGqZS7adhvJhl18w="
+    - secure: "Sa2gtWs+1It2txzWkqJybNh/4q8l/owYuJgph40axFtUJt34XDJGVWIIr2uo4DUhyDt7pwI+UuiyLBC031kUNogKKm3k8W/Y3dUQUoTWTSxM9mdtMmirg8RS/C0HLp7w5d81zyJj8hzT5C0axSvNAsCLu9aXn9L4mgLlL9yb7o0="
+    - secure: "Fzy6mZQcLbsYEKiPCpTPGSfzn0eJ/ma5Bjw4t0/po3PHjnX9TTqryMp68ca7yMN7cXVE2cEgjXL1uE3DJygF+8BVmx7bt3vfHqxqhxjVTBvOcD64IPXOjoH0jkj0kX1kP72Cu7IQelPqpDToKn8HzlGwTayGG6HYcoMK6Vksd5g="
+    - secure: "c3sWfOvzmhfaaVqBc8MO2I0j2sjEB7yCtDmejza5NM/fh8NtOOmC58dEbaGmjTTdPmH5Ci0rwXBLm9JCZq62/PrLao2pLjIqGJLnEcmV51iwO0NREmX98xIjb5jWPMbppgJzf9huZfaKaC2opYzWtH5/oX2ti7mUGwBGysUM+mM="
+    - secure: "G7GYb5ARiMm8lOsvub3CGUqsLuWCg55Dh+c5CW971TXV26ZNi1l2ubLf5bdnoRueSvOMo3EmzhCBGXoXrnHnCuai5Z4srvtqTgPAf1k/9gfPAugMEf/SO13lazJs1aJsDaOtTmVf5j6yJBRDbLJexvBigsHPbTYA6qL+g6lo4Ug="
+    - secure: "B6qRlAwxo55nDxNDhIkTaPx6tgWK8wXjUK32kETQ/LZ5RWs1eb0TuvHon53WOhVYg+Sc6etbQw/Hf9w0dVTCZtKXrmCMLOjLpawnFWmmhGNQHrrXMXVsYYZZ2s1JNZYENi6m/KD1d4keL6ZRcxIY9UBJ28hwPGw7DLlaIZbh2ZM="
+    - secure: "fl65/grTfH39r9/N73yA8lByYQS/m6LUYRCCF+Y13/U7A9q2JzRhSbVkDqosT69cuvJAsGyyqyGstQQkldf9uGw7egwMepwRp4AWY/eV1jSsQYIlpCyl50BlC7FhNvVJmiXepo3yEgJGYhIlKNU9SkkLbJr4sIh3qgsRFz5Lpa8="
+    - secure: "c24KmkcbSbtc3WD6qSzU++oI+GItEFd1sjKydxTA7ZpIHQDtZADNh5XUByt1mbJ8a11xqPihzMIi3dulrVLMQM2L42oGxxDabOf7Y8qY362m32efrodvMyLf0rpHa4eJbYOn2nfxWS0HsQUt9HntES6yk15YLUzwxbzYKx7wpHc="
+    - secure: "aW9Y8WyAAj2Z+Xn1uy/wKSwDmf2G4XEOFibXzAAZFs0MwsNQHcMjY7+2UKD0BIio14XpQIgxxlxNbNZrSb/ushx3ON3SP+hzOA+tybO0a65PD1vpqUIyz5lHCY9/H7SCxdrBFqDT3pkAaQnCejvUKnQWyR4GKJtwyzZrVhuUj8A="
+    - secure: "pbQRrvcJjqfDr6XNR87XQ+KCnqhhFA1/sojHjgUziNQBf24pVHyBadGVwi243iiqTfWspDklLT8VSZe+Q/HYGm/aINLEs4w5jJ3cu3MzlWRn4kjE7/5K0QE+ZnbfCdgolIkTmxECVBFrqqMmDl/p2oys3PM3cTLjNvPGv6c5JqE="
+    - secure: "Rb3VPzv8zfSsmLXJuZpwRNiYop4Iz7wgS/Cu96oM1840LiKSoufFtKpB6Y2yoAYhkyDYdgOP9LgYQxT6P9n8PYpaN38l7JIewnkM4tfB0SU0wo5nauMiIUE1Y58QLebe0xvnzk1GvPm76SuZRPU3rg1XmCxT5M7ovGI5Zrd2cXM="
+    - secure: "Vt4Lclq4fAWRf1nkeY54osLKasJvCC6GKDvSFP7lFKcHCmArw9yvkVhlH/w2iegV1iO/Hqqggmxtq0EIu+Tqfmkkjvd1wMsH5+iOJMXvP9soINuN+wwDJwsn93mriJGaNwv2z4tRMl5klPFPgFDEZkqKDbBiuMUyG8XtWsmcAR0="
+    - secure: "OMIGENvQus8ukVIekuhK768gx/8P3xbmY2kCaDIEndo2sRNriZynsJ4WkXbM/Ov9jxPb1kmdHpjv6ChOoIjcComclld+lKMoh6AAR8dcz3PZfT0FEY7a6N0XKel6V2stF7LXgJlDbKZvCuylEESjbVRIYuZBRwni9+UmUpxcI7w="
+    - secure: "Wsg2SsZN7wsJ6FnytVZIM/+iz0Ufr96A39x9D07OjjYTdLowYxE1jU1b/25uc5Wy6V5cWddkCjjiECyKtK3qe+OVPDYDR1R+W1QvLC2XLy/PmGGhuf8EBRBaVrwgUgqAcjB53UPviVBgOpMTuu/qVzQHpehpAcJ0DDbYMBzyG/A="
+    - secure: "glTBrJyC6Trrj17ud2wmjj4pDDBEyKWEgz+m4e2xRWZ+/Y3PAf43XBWTrp3UpS0isADvoxhsN+IzYoyGfW66X7+KNS4spT43wbaT/1GrNUZDQxNP1k7rLC++tk3/6QMvUFtn/+wkCCMtQS70cZVhSTynxNa51fiXACl0oxJcUNU="
+    - secure: "DPN/qQ58H9qH/rX4YZlVUUzoK4wKTBE1dW9ROE164kazZ2DLfbLAyuUn54buFB2Xh+i2vufzvGpsUNqCh4Rk7cqznmD5YeR0Z3bp57bbFHUolxqzdg4X5Tu7IbplU4YElc12775doKviDFI5LVRjHtkbLDqVXb5u9rOQCiwLbxQ="
+    - secure: "CmpJyG4xjIPQCxdfrsl8hZ3lRyAoAk9U3WekNqcu5m85EyLbnUuC8IRdrIJ8WPTpEqO8JA6loavAGuc8Ek/NgaMKNFq/NLS7eVe9XfHvOrMHl7YplmwtTcy+a7pMyP8mHUcWZddIQO1VBG2lmEg0/mI2fVWGDhIO02/Ma2XqJtE="
+    - secure: "Uq2jBQj3+X3uec5Y5TIsZqwKOQ90xAAtwaZBEM6aSd8d6Mpo9CmmT7xtiBViZkbmAHhXYybKI9j5S5TtbGfbd66pYIDQWu5aOQq+2yIVHQnt4TsyLxDYlEW9263rdklKFcfvc3Q8aMggz8ShKCLyCPeCDm9LCSCRGsPFgYAzdM4="
+    - secure: "o6HD1f3TS/OFmAA4nuCeo9UqeZfDLcxXgI7aUu8kUe3WB1RqiFscZmi8oP4c+x+nf6D3CRq9W5t0UrifSSP0HLHumf9SJsJW8NAZuEBSBMtAlLxN4SlsE6Q65hJGIy5/VxqYbfA6nfmWf6Hzanxd5cb+4nD8nP8Rb5yhUK/WnLg="
+    - secure: "l6IO9z+QLwR8jSp8qkx72ZIpOzcGwLJopYgsPkipT/RhmDCRZiLZtqQ6+kohG1IDt0XFc9ZkyK3f5IeFA6laLrCb/6GuWCyXNtBGrP8jhOO52k2iCHrTJcr4e9NR0wldOGbuhY57ipFVs2xmFCJjIjOBEwsBNwmBxeApYlZeHxg="
+    # id_rsa.pub (by travis_key.sh)
+    - secure: "U3hGgFIvhaBxRkFTsFvOdIcUYKJHpXd6J8RWf5PrdfKJ26XDwDCrS9cYahPiBZjYzB7NhMbhfIMFxKzujxeDWx86Utw8jNpQ69U1ge+C2zhRezzDzBECLE2AAh3EvLOI6DZa5r2tWkeBUoBeGuZlBXASGLpje2kzZT3r3ggGBbA="
+    - secure: "H0xIXyYrVkLXMlH6OAkIdudwA+aaj5N+YNNruhR3WqKFaiLQkiU2OptpuN2jL+bMHyOxGGSxbHMoweVUryjX3DcBsfrNbhsRccryBC35MDrZACB2lUnwh+VJUgoHTqhVAcdIeQz1ALVlhvEgTx2+Xwe05fLjtrvkdOPtj2KZ9Ck="
+    - secure: "LlUZS83kfwVWaDD1ahw/z8hYKVvRF1lp3Y3BTCH1qPHBluqrBmg1+/kbcVAzmIaBe3/f4M3fQgQvt7rlwgKzkDfS22Z52bMqj9cSv5Am1XdDAYlomldwJpV291Rt/qG7VajlTYqKXCua2zCSGgnlybIIshca5K0OxYGLwKjHO+0="
+    - secure: "ns1sdmT8ZYr2w55/6n7AWgs0yK9XsaLPvmwYuPVcubnA12BdobtehYUNCqyjfIz6wtsUmiQHLDvFFOq5tic4c9qD217B2c8mP5fxuf9v5V2TBX8fL2RxmvPYDxi9nl5i4tSoNJjyfMWzlQLDaBiGw0Q2X6XKHZDqjg1JBWJK3Ww="
+    - secure: "PFlzNIBId1aCj6htuWqnklVPqZzc7Kb50ubpwZSXjD08txj6y9WwKyI/4aT/Qc4/g+xedBP8t6xal4qP4yd2GqWA6T3IoFusHGyjguqu08BvYad+O6ri92ZcnegmGkfAMiIlbtBjdPD3JkbtEr9+opVGfPFfd+56smZEzBZWO/M="
+    - secure: "P4Tg2Sb/TYwXx9rQsDbQ38f8bgjjNog7/6qsT2KfZsCrATk5g1vd4BaGS8G3GyVINFQTy1ozISfwEgM/SZEeDIUx9hkr9aAKqIwnQROn8FS+CIP2YO6vPHRIxBwCA49+e6wCkeeu7GMM/aHxH7O9JU9E73Dr03QRlQ2b0OQJ3SE="
+
+notifications:
+  email: false
+
+# blacklist
+branches:
+  only:
+    - master

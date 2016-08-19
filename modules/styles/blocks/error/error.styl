@@ -1,0 +1,41 @@
+.error
+    margin-top 100px
+    text-align center
+
+    & &__type
+        font 200% secondary_font
+        color secondary_color
+        margin 0
+
+    & &__request
+        color secondary_color
+
+    &__code
+        font-size 860%
+        line-height 1
+        font-weight 700
+        margin-bottom 45px
+
+    &__text
+        font-size 115%
+        margin-bottom 23px
+
+    &__button-link
+        @extend $link-button
+
+    &__search
+        width 435px
+        display table
+        margin auto
+
+    &__search-query-wrap,
+    &__search-submit-wrap
+        display table-cell
+        vertical-align middle
+
+    &__search-query-wrap,
+    &__search-query
+        width 100%
+
+    &__search-submit
+        margin 0 0 0 7px

@@ -1,0 +1,22 @@
+extends /layouts/main
+
+block append head
+  !=css("quiz")
+
+block append variables
+  - var sitetoolbar = true
+  - var layout_main_class = "main_width-limit"
+  - var layout_header_class = "main__header_center"
+
+block content
+  //-
+    +b.notification._message._info
+        +e.content Раздел работает в тестовом режиме. О любых проблемах и странностях сообщайте, пожалуйста, на <a href="https://github.com/iliakan/javascript-nodejs/issues/new">github</a>.
+
+  +b.intro На этой странице вы можете протестировать свои знания Javascript, выбрав один из тестов.
+
+  include blocks/quiz-selector
+
+  include blocks/quiz-explanations
+
+  p Если у вас не получилось ответить на многие вопросы &ndash; не расстраивайтесь. Его цель &ndash; не только проверить знания, но и помочь заполнить пробелы в них. Многие вопросы неочевидны и требуют не только знаний, но и опыта. Удачи!

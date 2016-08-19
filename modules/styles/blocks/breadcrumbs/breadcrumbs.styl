@@ -1,0 +1,45 @@
+.breadcrumbs
+    list-style none
+    font-size 14px
+    margin 0
+    padding 0
+    color #888
+
+    & &__item
+        display inline-block
+        margin 0
+
+        &::after
+            content "→"
+            font-family "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif
+
+            color #a9a9a9
+            display inline-block
+            margin 0 9px 0 7px
+
+        &:last-child::after
+            display none
+
+    &__hidden-text
+        display none
+
+    &__item_home &__link::before
+        @extend $font-home
+        display inline
+        min-width 17px
+        font-size 18px
+        color light_gray_color
+        vertical-align -1px
+
+    &__item_home &__link:hover
+        text-decoration none
+
+    &__item_home &__link:hover::before
+        color inherit
+
+    &__link
+        color link_color
+
+    &__link:hover
+        color link_hover_color
+

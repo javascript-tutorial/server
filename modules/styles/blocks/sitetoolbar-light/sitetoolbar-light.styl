@@ -1,0 +1,231 @@
+.sitetoolbar-light
+    box-shadow 0 2px 3px -2px rgba(0, 0, 0, .3)
+    width 100%
+    z-index 1
+    position relative
+    background #fff
+
+    &_tutorial
+        box-shadow none
+
+    &__content
+        font-size 16px
+        display flex
+
+    &__logo-wrap,
+    &__search-wrap
+        flex-shrink 0
+        vertical-align top
+        text-align left
+        white-space nowrap
+        line-height 26px
+        padding-right 30px
+
+    &__logo-wrap
+        flex-grow 1
+
+    &__link_logo,
+    &__logo-handler,
+    &__logo
+        vertical-align bottom
+        height 60px
+
+    &__logo_small
+        display none
+        width 80px
+
+    &__link_logo
+        position relative
+        margin-left 30px
+
+    &__logo,
+    &__link_logo
+        outline 0
+
+    &__link_logo &__logo
+        margin 0
+
+    &__nav-toggle
+        @extend $button-reset
+        color sitetoolbar_color
+        height 60px
+        width 60px
+        text-align center
+
+    &__nav-toggle:hover
+        color hoverize(sitetoolbar_color)
+
+    &__nav-toggle::before
+        @extend $font-menu
+        font-size 22px
+
+    &__search-wrap
+        box-sizing border-box
+        padding-right 20px
+
+
+    // Search (begin)
+
+    &__search-content
+        position relative
+
+        height 60px
+
+    &__search-input
+        position absolute
+        top 50%
+        right 0
+        left 100%
+        transform translateY(-50%)
+        overflow hidden
+
+        opacity 0
+
+        transition left 0.3s ease-out 0.1s, opacity 0.4s ease-out
+
+    &__search-toggle
+        @extend $button-reset
+
+    &__search-toggle,
+    &__search-icon
+        display inline-block
+
+        position relative
+
+        height 60px
+        width 30px
+        margin 0
+
+        color sitetoolbar_color
+
+    &__search-toggle:hover
+        color hoverize(sitetoolbar_color)
+
+    &__search-toggle:active
+        color sitetoolbar_color
+
+    &__search-toggle::before,
+    &__search-icon::before
+        @extend $font-search
+        font-size 23px
+
+        position absolute
+        top 50%
+        left 0
+        z-index 1
+
+        transform: translateY(-50%)
+
+        width 30px
+        line-height 60px
+
+        text-align center
+
+    &__search .text-input
+        display block
+
+    &__search .text-input__control
+        padding-left 37px
+        padding-right 93px
+
+    // we MUST repeat theese rules for each selector to make it work
+    &__search .text-input__control::-webkit-input-placeholder
+        font-size 13px
+        line-height 18px
+
+    &__search .text-input__control::-moz-placeholder
+        font-size 13px
+        line-height 18px
+
+    &__search .text-input__control:-ms-input-placeholder
+        font-size 13px
+        line-height 18px
+
+    &__find
+        font bold 12px 'Open Sans', sans
+
+        position absolute
+        right 1px
+        top 1px
+        bottom 1px
+
+        width 89px
+        margin 0
+        padding 0
+
+        border: none
+        border-left 1px solid #e7e7e7
+        border-radius 0 4px 4px 0
+        background sitetoolbar_secondary_bg
+
+        color #333
+
+        cursor pointer
+
+    &__search-input
+        left -260px
+
+        opacity 1
+
+    &__search-toggle::before,
+    &__search-icon::before
+        position absolute
+        left -256px
+
+    &__search-toggle
+        display none
+
+    // Search (end)
+
+    & .tablet-menu,
+    &__nav-toggle-wrap
+        display none
+
+    @media phone
+        &__nav-toggle-wrap
+            display block
+
+        &__link_logo
+            margin-left 0
+
+        &__search-content
+            position static
+
+        &__logo_normal
+            display none
+
+        &__logo_small
+            display inline
+
+        &__search-toggle
+            display inline
+
+        &__search-icon
+            display none
+
+        &__search-input
+            opacity 0
+            visibility hidden
+            left 20px
+            right 20px
+
+        &__search-toggle:before
+            left 0
+
+        &_search_open &__search-input
+            opacity 1
+            visibility visible
+
+        &_search_open &__search-toggle
+            position static
+
+        &_search_open &__search-toggle:before
+            position absolute
+            left 25px
+
+        &_search_open &__nav-toggle-wrap,
+        &_search_open &__logo-wrap
+            display none
+
+        &_menu_open  .tablet-menu
+            display block

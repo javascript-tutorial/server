@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ASSET_VERSIONING=query NODE_ENV=development WATCH=1 npm --silent run gulp dev | bunyan -o short -l debug

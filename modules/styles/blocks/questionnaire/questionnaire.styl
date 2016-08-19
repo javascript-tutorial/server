@@ -1,0 +1,59 @@
+.questionnaire
+  display flex
+  align-items flex-start
+
+  margin-left 10px
+
+  &__userpic
+    width 64px
+    margin-right 20px
+
+  &__userpic-img
+    position relative
+
+    width 64px
+    height 64px
+    margin-top -22px
+
+    border-radius 100%
+
+  .main & h3,
+  .main & h4,
+  .main & ul,
+  .main & ul li,
+  .main & p
+    margin 0
+    padding 0
+
+  .main & ul li:before
+    display none
+    content ''
+
+  .main h3&__title
+    font-size 14px
+
+  .main & ul&__list
+    font-size 13px
+
+    margin-top 20px
+
+  .main h4&__question
+    font-size 13px
+    font-weight normal
+
+    color #747474
+
+  .main &__question_inline
+    display inline
+
+  &__question_inline:after
+    content ': '
+
+  &__question_inline + &__answer
+    display inline
+
+  .main & h4&__question_block
+    display block
+
+    margin-top 20px
+

@@ -1,0 +1,9 @@
+
+<% [404, 500, 502, 503, 504].forEach(function(errorCode) { %>
+  error_page   <%=errorCode%> /error-nginx/<%=errorCode%>.html;
+<% }); %>
+
+  location ^~ /error-nginx/ {
+    alias <%=nginxPrefix%>/global-pages/error-nginx/;
+  }
+

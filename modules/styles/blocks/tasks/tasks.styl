@@ -1,0 +1,33 @@
+.tasks
+    margin-bottom 60px
+
+    // метка стоит у заголовка, а не у ссылки, т.к. в ebook ссылки нет
+    & &__title
+        font-size 28px
+        margin-bottom 10px
+
+    & &__title::before
+        @extend $font-ok
+
+    &__title::before
+        transition unquote('color') animation_duration
+        display inline-block
+        width 35px
+        color #80BD57
+        right auto
+        left 0
+        opacity 1
+
+    &__title:hover::before
+        // явно используем lighten вместо hoverize, чтобы цвета текста и иконки менялись гармонично
+        color lighten(#80BD57, hover_color_correction)
+
+    &__task
+        border-top 3px solid #eee
+        margin 20px 0 40px
+
+.page_ebook
+    .tasks
+        .tasks__title
+            font-size 20px
+

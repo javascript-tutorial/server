@@ -1,0 +1,15 @@
+// эти классы имеют смысл только внутри figure,
+// на инлайновые картинки и картинки, временно позиционированные drag'n'drop в body, они не влияют
+figure
+    .image
+        // в большинстве случаев block - это то, что нам нужно, и margin collapse работает как надо
+        display block
+        position relative
+        max-width 100%
+
+        &__image
+            position absolute
+            top 0
+            left 0
+            width 100%
+            height 100%

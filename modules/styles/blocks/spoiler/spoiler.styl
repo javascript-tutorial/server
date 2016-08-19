@@ -1,0 +1,42 @@
+.spoiler
+    background background_blocks
+    border-top 1px solid #D9D7D6
+    margin 20px 0
+    padding 15px 20px 20px
+
+    &__button
+        @extend $button-reset
+        color link_color
+        position relative
+        font size/lineheight font
+        padding 1px 1px 1px 0
+        text-decoration none
+        outline none
+        u
+            text-decoration none
+
+
+    &__button:hover
+        color link_hover_color
+        u
+            @extend $pseudo
+
+    &__button::after
+        margin-left 1ex
+        @extend $font-close
+        display inline-block
+        vertical-align middle
+        min-width 9px
+        min-height 18px
+
+    &.closed &__button::after
+        @extend $font-open
+
+    &__content
+        margin-top 20px
+
+    & + &
+        margin-top -20px
+
+    &.closed &__content
+        display none

@@ -1,0 +1,27 @@
+.tutorial-progress
+    display none
+
+    &[value]
+        display: block
+
+        /* Reset the default appearance */
+        appearance none
+
+        width 100%
+        height 4px
+
+        background #E1E0DE
+        border: none
+
+    &[value]::-webkit-progress-bar
+        background #E1E0DE
+
+    &[value]::-webkit-progress-value
+        background #b8d0b1
+
+    &[value]::-moz-progress-bar
+        background #b8d0b1
+
+    &[value]::-ms-fill
+        border none
+        background #b8d0b1

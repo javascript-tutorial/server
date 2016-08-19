@@ -1,0 +1,32 @@
+include /bem
+
++b.code-tabs._result_on
+  +e.tools
+    +e.scroll-wrap
+      +e('button').scroll-button._left(title="&larr;" data-code-tabs-left)
+    +e.switches-wrap
+      +e.switches(data-code-tabs-switches)
+        +e.switches-items
+          +e.switch._current Результат
+          each tab in tabs
+            +e.switch #{tab.title}
+    +e.scroll-wrap
+      +e('button').scroll-button._right(title="&rarr;" data-code-tabs-right)
+    +e.buttons
+      if external
+        +e('a').button._external(target="_blank", title="открыть в отдельном окне", href=external.href)
+      if edit
+        +e('a').button._edit(target="_blank", title="редактировать в песочнице", href=edit.href)
+      if zip
+        +e('a').button._download(target="_blank", href=zip.href)
+
+  +e.content(data-code-tabs-content style=('height:' + height + 'px'))
+    +e.section._current
+      //- assigning an attribute to false removes the attribute
+      +e('iframe').result(src=src)
+
+    each tab in tabs
+      //- Chrome extension jsonview breaks language-json here
+      +e.section
+        pre(class=tab.class)
+          code= tab.content

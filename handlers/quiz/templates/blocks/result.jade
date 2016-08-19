@@ -1,0 +1,43 @@
+block append variables
+
+  - var rotate = parseInt((quizResult.score * 1.8), 10) + 'deg'
+
+
++b.quiz-result
+
+  +e.layout
+
+    +e.left
+      +b.quiz-percents
+        +e("dl").result
+          +e("dt").text Ваш результат:
+          +e("dd")
+            +e("p").percents #{quizResult.score}%
+
+    style .quiz-results-indicator__indicator:after { -webkit-transform: rotate(!{ rotate }); transform: rotate(!{ rotate }); }
+
+    +e.center
+      +b.quiz-results-indicator
+        +e.indicator
+        +e.text Ваш предположительный уровень&nbsp;—&nbsp;
+          span(class='quiz-results-indicator__level quiz-results-indicator__level_' + quizResult.level)= quizResult.levelTitle
+
+    +e.right
+      +b.quiz-percents
+        +e("dl").result
+          +e("dt").text Вы прошли тест лучше, чем
+          +e("dd")
+            +e("p").percents !{ quizBelowPercentage }%
+            +e("p").text респондентов
+
+  +e.save-result
+
+    +e.bottom
+      +e('form').retry-form(data-quiz-result-retry-form action="/quiz/start/#{quiz.slug}" method="POST")
+        input(type="hidden", name="_csrf", value=csrf())
+        +b('button').button_common.__retry-button(type="submit")
+          +e('span').text Пройти тест заново
+      +e('form').save-form(data-quiz-result-save-form action="/quiz/save/#{quiz.slug}" method="POST")
+        input(type="hidden", name="_csrf", value=csrf())
+        +b('button')(type="submit").button._action.__save-button
+          +e('span').text Сохранить результат

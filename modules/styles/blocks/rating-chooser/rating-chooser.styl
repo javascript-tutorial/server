@@ -1,0 +1,81 @@
+.rating-chooser
+    position relative
+    display inline-block
+
+    &__fieldset
+        float left
+        border none
+
+    &__label
+        float right
+
+        width 40px
+        height 40px
+
+        cursor pointer
+        color light_gray_color
+
+        transition unquote('color') 0.2s
+
+    &__label-text
+        font-size 18px
+        line-height 40px
+
+        position absolute
+        left 100%
+
+        white-space nowrap
+
+        margin-left 20px
+
+        opacity 0
+
+        transition opacity 0.2s
+
+    &__label:before
+        font-size 36px
+        line-height 36px
+
+        content '★'
+
+    &__input:checked ~ &__label
+        color #F8AB47
+
+    &__fieldset:hover &__label
+        color light_gray_color
+
+    &__label:hover,
+    &__label:hover ~ &__label
+        color #F8AB47
+
+    &__input:checked + &__label:hover,
+    &__fieldset:hover &__input:checked + &__label:hover ~ &__label,
+    &__input:checked ~ &__label:hover ,
+    &__input:checked ~ &__label:hover ~ &__label,
+    &__label:hover ~ &__input:checked ~ &__label,
+    &__fieldset:hover &__label:hover
+        color #F8AB47
+
+    &__input:checked + &__label &__label-text
+        opacity 1
+
+    &__fieldset:hover &__label-text
+        opacity 0 !important
+
+    &__label:hover &__label-text
+        opacity 1 !important
+
+    &__err
+        font-size 12px
+
+        display none
+
+        padding 4px 0 0
+
+        color #c55b4a
+
+    &_invalid &__err
+        display block
+
+
+

@@ -1,0 +1,267 @@
+.page
+    position: relative
+    z-index: 0
+    padding 0
+
+    &_sidebar_on
+        padding-left sidebar_width
+
+    &__sidebar
+        position fixed
+        top 60px
+        bottom 0
+        left 0
+        transform translateX(-100%)
+
+    // используется при переключении видимости панели навигации
+    &__inner
+        margin 0
+        padding 0 120px
+
+    // анимация включается после аналаза localStorage.noSidebar
+    // и установке изначальных отступов, чтобы они не анимировались при этом
+    &_sidebar-animation-on
+        transition padding animation_duration
+
+    &_sidebar-animation-on &__inner
+        transition margin-top animation_duration
+
+    &_sidebar-animation-on &__sidebar
+        transition transform animation_duration
+
+    // для отображения/скрытия сайдбара переключаем класс .page_sidebar_on у блока .page
+    &_sidebar_on &__sidebar
+        transform translateX(0)
+
+    &__nav
+        position fixed
+        top 50%
+        width 81px
+        height 90px
+        margin-top -45px
+        outline 0
+
+    & &__nav
+        color #7d7d7d;
+
+    &__nav:hover
+        text-decoration none
+
+    &__nav_prev
+        left 0
+        transition transform animation_duration, top animation_duration
+
+    &__nav-text
+        font-size 13px
+        position absolute
+        top 50%
+        margin-top -33px
+        box-sizing border-box
+        width 100%
+        text-align center
+        white-space nowrap
+
+    &__nav-text-shortcut
+        color #c1c1c0
+        visibility hidden
+
+    &__nav-text-arr
+        position relative
+        top -1px // мелочь, но смотрится аккуратнее
+
+    &__nav:hover &__nav-text-shortcut
+        visibility visible
+
+    &__nav-text::before
+        display block
+        margin-bottom 5px
+        font-size 36px
+        min-height 68px
+        line-height 64px
+        color #7e7e7e
+
+    &__nav:hover &__nav-text::before
+        background rgba(216, 216, 216, .3)
+
+    &__nav_prev &__nav-text::before
+        @extend $font-angle-left
+
+    &__nav-text-alternate
+        display none
+
+    &_sidebar_on &__nav_prev
+        transform translateX(sidebar_width)
+
+    &__nav_next
+        right 0
+        transition top animation_duration
+
+    &__nav_next &__nav-text::before
+        @extend $font-angle-right
+
+
+    &_ebook
+        .page__inner
+            padding 0
+
+        .code-example
+
+            .line-numbers-rows
+                display none
+
+            pre.line-numbers
+                padding-left 10px
+
+            // ebook reader has smaller page width,
+            // so I make sure the code fits it
+            pre[class*="language-"], code[class*="language-"]
+                font 10px/12px fixed_width_font !important
+
+        .toolbar
+            display none
+
+    .page-break
+        page-break-after always
+
+
+    &_contains_header &__inner
+        padding 0
+
+    &_contains_header .main_width-limit
+        max-width initial
+
+
+    // chrome/wk pdf
+    @media print
+
+        &_ebook
+            .code-example
+
+                pre[class*="language-"], code[class*="language-"]
+                    font 12px/14px fixed_width_font !important
+
+
+    @media tablet
+        &,
+        &_sidebar_on
+            padding 0
+
+        & &__sidebar,
+        & &__inner::after
+            display none
+
+        &__inner
+            padding 0 10px
+
+        & &__tutorial-map
+            left 20px
+            right 20px
+
+        &__nav-wrap
+            position relative
+            display block
+            white-space nowrap
+            margin 20px 0
+
+        &__nav-wrap:after
+            position absolute
+            left 50%
+            top 0
+            width 3px
+            height 100%
+            background #F5F2F0
+            content: ''
+
+        &__nav
+            position relative
+            top 0 // not necessary but more neat style
+            display inline-block
+            box-sizing border-box
+            width 50%
+            height auto
+            padding 17px 0
+            margin-top auto
+            border 3px solid #F5F2F0
+            text-align center
+            white-space normal
+
+        &__nav-wrap:active:after
+            background #7e7e7e
+
+        &__nav:active
+            border-color: #7e7e7e
+
+        &__nav_prev
+            padding-left 30px
+
+            border-right-width 0
+            border-radius: 6px 0 0 6px
+
+        &__nav_next
+            padding-right 30px
+
+            border-left-width 0
+            border-radius: 0 6px 6px 0
+
+
+        &__nav_next:only-child
+            display block
+            margin 0 0 0 auto
+
+        & &__nav
+            transform none
+
+        &__nav-text
+            top 0
+            bottom 0
+            left 0
+            margin 0
+            width 30px
+            white-space nowrap
+            text-align center
+
+        &__nav_prev &__nav-text
+            left 0
+            right auto
+
+        &__nav_next &__nav-text
+            right 0
+            left auto
+
+        // скрытый элемент для выравнивания иконок < | >
+        &__nav-text::after
+            display inline-block
+            height 100%
+            vertical-align middle
+            content: ''
+
+        &__nav-text::before
+            display inline-block
+            margin-bottom 0
+            min-height 0
+            width 30px
+            line-height 1
+            vertical-align middle
+
+        &__nav:hover &__nav-text::before
+            background none
+
+        &__nav-text-shortcut
+            display none
+
+        &__nav-text-alternate
+            display block
+            color #333
+
+            white-space nowrap
+
+
+
+
+    @media (max-width: 480px)
+
+        &__nav-text-alternate
+            font-size 12px
+
+            overflow hidden
+            text-overflow ellipsis

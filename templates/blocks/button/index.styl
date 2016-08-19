@@ -1,0 +1,91 @@
+$padding-vertical = 0
+$padding-horizontal = 28
+$padding = ($padding-vertical)px ($padding-horizontal)px
+
+.button
+  font bold 14px/32px 'Open Sans', sans
+  display inline-block
+
+  //- Некоторый текст длиннее кнопки, пусть кнопка расширяется под него,
+  //- вместо разбивания строки на 2 части, например:
+  //- "Уведомите меня"
+  white-space nowrap
+  position relative
+  padding $padding
+  border-radius 4px
+  border 1px solid
+  cursor pointer
+
+  &::-moz-focus-inner
+    border 0
+
+  & .spinner_small
+    display none
+
+  &:disabled
+    pointer-events none
+    opacity 0.5
+
+  &:hover
+    text-decoration none
+
+  &_common
+    &, &:link, &:visited
+      color #333939
+      text-decoration none
+
+      border-color: #cfcecd
+      background linear-gradient(to bottom, #ededed 0%, #cecece 100%)
+
+    &:hover
+      color #333939
+      background linear-gradient(to bottom, #f5f5f5 0%, #e6e6e6 100%)
+
+    &:focus
+      outline none
+      border-color #d4be4b
+      box-shadow 0 0 3px rgba(213,191,76, 0.7)
+
+    &:active,
+    &:focus:active
+      outline none
+      border-color: #cfcecd
+      background linear-gradient(to bottom, #e3e3e3 0, #e3e3e3 2px, #f5f5f5 2px, #e6e6e6 100%)
+      box-shadow none
+
+  &_action
+    &, &:link, &:visited
+      padding ($padding-vertical + 1)px ($padding-horizontal + 1)px
+      border 0
+      color #fff
+      text-decoration none
+      background linear-gradient(to bottom, #579b74 0%, #498161 100%)
+
+    &:hover
+      color #fff
+      background linear-gradient(to bottom, #67b689 0%, #4da975 100%)
+
+    &:focus
+      padding $padding
+      outline none
+      border 1px solid #d4be4b
+      box-shadow 0 0 3px rgba(213,191,76, 0.7)
+
+    &:active,
+    &:focus:active
+      padding $padding
+      outline none
+      border 1px solid #488060
+      background linear-gradient(to bottom, #5ea97f 0, #5ea97f 2px, #65b588 2px, #4faa76 100%)
+      box-shadow none
+
+  &_loading .spinner_small
+    position absolute
+    left 0
+    top 50%
+    display block
+    width 100%
+    margin-top -6px
+
+  &_loading &__text
+    visibility hidden

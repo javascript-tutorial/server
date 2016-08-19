@@ -1,0 +1,132 @@
+.sidebar
+    width sidebar_width - 1
+    background #F5F2F0
+    border-right 1px solid #d5d2d0
+
+    &__inner
+        overflow auto
+        height 100%
+
+    &__content
+        margin 23px 30px 0
+        position relative
+
+    //- модификатор _sticky-footer делает последнюю секцию всегда прижатой к низу сайдбара
+    &_sticky-footer &__content
+        min-height calc(100% - 85px)
+        padding-bottom 62px // резервируем место под «редактировать на github»
+
+    &_sticky-footer &__section:last-child
+        position absolute
+        bottom 0
+
+    & &__toggle
+        @extend $button-reset
+
+    & &__toggle,
+    & .map
+        position absolute
+        top 12px
+        left 100%
+        margin-left 19px
+        width 44px
+        height 44px
+        border-radius 50%
+        cursor pointer
+
+    & .map
+        text-align center
+        line-height 44px
+        top 80px
+        transition transform animation_duration animation_duration
+
+    & &__toggle:active
+        position absolute
+
+    &__toggle:focus,
+    & .map:focus
+        outline 0
+
+    //- класс вместо псевдокласса для мобильных
+    &__toggle:hover,
+    & .map:hover
+        background #f4f4f4
+
+    &__toggle::before
+        font-size 22px
+        color #8B8987
+
+    &__toggle::before
+        @extend $font-menu
+
+
+    &__section
+        margin 22px 0
+        padding 0 2px
+        position relative
+
+    &__section_separator_before
+        margin-top 29px
+
+    &__section_separator_before::before
+        content ""
+        position absolute
+        top -12px
+        width 35px
+        border-top 1px solid #d7d7d4
+
+    &__section_share
+        margin-top 18px
+
+    &__section-title
+        color #C4C2C0
+        font-weight 400
+        margin 12px 0
+
+    &__link
+        color navigation_link_color
+
+    &__link:hover
+        text-decoration none
+
+    &__navigation-link
+        margin 12px 0
+        line-height 1.25
+
+        &_active
+            color link_hover_color
+
+    &__share
+        margin 8px 20px 0 0
+
+
+    @media tablet
+        &__toggle
+            display none
+
+    &_compact &__section
+        margin 15px 0
+
+    // в компактном виде сохраняем у футера отступы по умолчанию
+    // для более удобного выравнивания с нижними хлебными крошками
+    &_compact&_sticky-footer &__section:last-child
+        margin 22px 0
+
+    &_compact &__section_separator_before
+        margin-top 24px
+
+    &_compact &__section-title
+        margin 8px 0
+
+    &_compact &__navigation-link
+        line-height 1.1
+        margin 8px 0
+
+    @media short_window
+        &_sticky-footer &__content
+            padding-bottom 38px
+            min-height calc(100% - 62px)
+
+        &_compact&_sticky-footer &__section:last-child,
+        &_sticky-footer &__section:last-child
+            margin 10px 0

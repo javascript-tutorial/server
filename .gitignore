@@ -1,0 +1,47 @@
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+.idea
+.cache
+.project
+.settings
+.tmproj
+.nvmrc
+sftp-config.json
+Thumbs.db
+
+# private downloads
+download/
+archive/
+
+# database dump for tutorial export
+dump/
+
+# extra handlers are not in the repo
+extra
+
+# NPM packages folder.
+node_modules/
+
+# TMP folder (run-time tmp)
+tmp/
+
+# Manifest (build-generated content, versions)
+manifest/
+
+
+# contains v8 executable for linux-tick-processor (run from project root)
+out/*
+
+# Generated content
+public/*

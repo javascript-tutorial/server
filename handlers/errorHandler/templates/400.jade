@@ -1,0 +1,17 @@
+extends /layouts/main
+
+block append variables
+  - var headTitle = 'Некорректный запрос';
+  - var sitetoolbar = true;
+
+block content
+  +b.error
+    +e('h1').type Некорректный запрос
+    +e.code 400
+    if error.errors
+
+    +e.text
+      dl
+        each value, key in error.errors
+          dt= key
+          dd= value.message

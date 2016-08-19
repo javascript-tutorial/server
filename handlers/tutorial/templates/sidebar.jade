@@ -1,0 +1,15 @@
+include /blocks/sidebar
+
++e.section
+  +e.section-title= t('site.share')
+  +b('a').share._tw.sidebar__share(href="https://twitter.com/share?url="+encodeURIComponent(url.href))
+  //- [] encoded as %5B %5D to make validator happy
+  +b('a').share._fb.sidebar__share(href="https://www.facebook.com/sharer/sharer.php?s=100&p%5Burl%5D="+encodeURIComponent(url.href))
+  +b('a').share._gp.sidebar__share(href="https://plus.google.com/share?url="+encodeURIComponent(url.href))
+  if env.NODE_LANG=='ru'
+    +b('a').share._vk.sidebar__share(href="https://vkontakte.ru/share.php?url="+encodeURIComponent(url.href))
+
+if githubLink
+  +e.section
+    +e('a').link(href=githubLink)= t('site.edit_on_github')
+

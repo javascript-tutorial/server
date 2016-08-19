@@ -1,0 +1,25 @@
+# only a single if will actually work http://wiki.nginx.org/IfIsEvil
+
+if ($arg_cache = 0) {
+  expires    -864000;
+  add_header Cache-Control no-cache,no-store,must-revalidate;
+  add_header Last-Modified "";
+  add_header ETag "";
+}
+
+if ($arg_speed = 1) {
+  expires    -864000;
+  add_header Cache-Control no-cache,no-store,must-revalidate;
+  add_header Last-Modified "";
+  add_header ETag "";
+  limit_rate 1k;
+}
+
+if ($arg_speed = 0) {
+  expires    -864000;
+  add_header Cache-Control no-cache,no-store,must-revalidate;
+  add_header Last-Modified "";
+  add_header ETag "";
+  limit_rate 50;
+}
+

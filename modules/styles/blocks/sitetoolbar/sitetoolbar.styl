@@ -1,0 +1,612 @@
+
+// из-за схожего оформления меню пользователя и меню навигации
+// при узком окне и меню поиска при любой ширине окна возникает
+// дублирование (полный копипаст) части стилей для разных media-правил
+// Пока не вижу способа избежать дублирования средствами css
+// или препроцессора
+
+.sitetoolbar
+    box-shadow 0 2px 3px -2px rgba(0, 0, 0, .3)
+    width 100%
+    z-index 1
+    position relative
+    background #fff
+
+    &_tutorial
+        box-shadow none
+
+    &__content
+        font-size 16px
+        display flex
+
+        border-collapse collapse
+
+    &__logo-wrap,
+    &__sections,
+    &__user-wrap,
+    &__login-wrap,
+    &__search-wrap,
+    &__book-wrap
+        flex-shrink 0
+        vertical-align top
+        text-align left
+        white-space nowrap
+        line-height 26px
+
+    &__nav-toggle-wrap
+        display none
+
+    &__logo-wrap
+        padding-right 30px
+
+    &__dropdown
+        position relative
+
+    &__section_dropdown &__dropdown-wrap
+        top 16px
+
+    &__user-wrap
+        flex-shrink 1
+        position relative
+
+        min-width 20px
+        padding-left 47px
+
+        transition opacity 0.3s ease-out
+
+    &__search-wrap
+        box-sizing border-box
+        padding-right 20px
+
+    &__link_logo,
+    &__logo-handler,
+    &__logo
+        vertical-align bottom
+        height 60px
+
+    &__logo_small
+        display none
+        width 80px
+
+    &__link_logo
+        position relative
+
+    &__logo,
+    &__link_logo
+        margin 0 0 0 30px
+        outline 0
+
+    &__link_logo &__logo
+        margin 0
+
+    &__sections
+        flex-grow 1
+        flex-shrink 0
+
+        padding 17px 0 0
+        height 30px
+
+    &__sections-list
+        height 30px
+        //- overflow hidden
+
+    &__section
+        display inline-block
+        margin-right 20px
+
+    &__section_current,
+    &__section_current &__link,
+    &__section_current &__dropdown-button,
+    &__section_current &__dropdown-button:hover
+        color secondary_color
+
+    &__link
+        color navigation_link_color
+        display inline-block
+
+    &__link:hover
+        text-decoration none
+
+    //- remove visibility after 3 days of prod
+    //- visibility hidden
+    &__book-wrap
+        display flex
+        align-items center
+        padding-right 20px
+
+    &__user,
+    &__login
+        @extend $button-reset
+        font 16px font
+        color sitetoolbar_color
+        line-height inherit
+        height 60px
+
+    &__dropdown-button
+        @extend $button-reset
+        font 16px font
+        color sitetoolbar_color
+        line-height inherit
+
+    &__user
+        display block
+        padding 0 17px 0 5px
+
+    &__login
+        padding 0 10px 0 0
+
+        text-align center
+
+    &__login:after
+        @extend $font-user
+
+        font-size 23px
+
+        display inline-block
+
+        width 30px
+
+        text-align left
+
+    &__dropdown-button:hover,
+    &__user:hover,
+    &__login:hover
+        color hoverize(sitetoolbar_color)
+
+    &__dropdown-button::after,
+    &__user::after
+        @extend $font-open
+        display inline-block
+        min-width 15px
+        color #C4C2C0
+        font-size 14px
+        vertical-align bottom
+        position relative
+        top 2px
+
+    &__user
+        box-sizing border-box
+        width 100%
+        white-space nowrap
+        position relative
+
+    &__userpic
+        position absolute
+        left -40px
+        top 50%
+
+        margin-top -19px
+
+        border-radius 50%
+
+    &__user-text
+        display inline-block
+        max-width 100%
+        overflow hidden
+        text-overflow ellipsis
+
+        vertical-align bottom
+
+    // Search (begin)
+
+    &__search-content
+        position relative
+
+        height 60px
+
+    &__search-input
+        position absolute
+        top 50%
+        right 0
+        left 100%
+        transform translateY(-50%)
+        overflow hidden
+
+        opacity 0
+
+        transition left 0.3s ease-out 0.1s, opacity 0.4s ease-out
+
+    &__search-toggle
+        @extend $button-reset
+
+        display inline-block
+
+        position relative
+
+        height 60px
+        width 30px
+        margin 0
+
+        color sitetoolbar_color
+
+    &__search-toggle:hover
+        color hoverize(sitetoolbar_color)
+
+    &__search-toggle:active
+        color sitetoolbar_color
+
+    &__search-toggle::before
+        @extend $font-search
+        font-size 23px
+
+        position absolute
+        top 50%
+        left 0
+        z-index 1
+
+        transform: translateY(-50%)
+
+        width 30px
+        line-height 60px
+
+        text-align center
+
+        transition left 0.3s ease-out
+
+    &__search .text-input
+        display block
+
+    &__search .text-input__control
+        padding-left 37px
+        padding-right 93px
+
+    // we MUST repeat theese rules for each selector to make it work
+    &__search .text-input__control::-webkit-input-placeholder
+        font-size 13px
+        line-height 18px
+
+    &__search .text-input__control::-moz-placeholder
+        font-size 13px
+        line-height 18px
+
+    &__search .text-input__control:-ms-input-placeholder
+        font-size 13px
+        line-height 18px
+
+    &__find
+        font bold 12px 'Open Sans', sans
+
+        position absolute
+        right 1px
+        top 1px
+        bottom 1px
+
+        width 89px
+        margin 0
+        padding 0
+
+        border: none
+        border-left 1px solid #8eb0d2
+        border-radius 0 4px 4px 0
+        background sitetoolbar_secondary_bg
+
+        color #333
+
+        cursor pointer
+
+    &_search_open &__search-toggle:hover
+        color sitetoolbar_color
+
+    &_search_open &__search-toggle
+        pointer-events none
+
+    &_search_open &__search-input
+        left -260px
+
+        opacity 1
+
+    &_search_open &__search-toggle::before
+        position absolute
+        left -256px
+
+    &_search_open &__user-wrap,
+    &_search_open &__book-wrap,
+    &_search_open &__login-wrap
+        opacity 0
+        pointer-events none
+
+
+    // Search (end)
+
+
+    &__spinner
+        position absolute
+        left 50%
+        margin -11px 0 0 -35px
+        background #fff
+        border-radius 12px
+        border 1px solid #e7e5e3
+        padding 2px
+
+    &__spinner .spinner__dot
+        background #d7d7d7
+
+    &__nav-toggle:focus,
+    &__user:focus,
+    &__login:focus
+        outline 0
+
+    & .tablet-menu,
+    &__dropdown-wrap
+        display none
+
+
+    &__dropdown-wrap
+        position relative
+        width 100%
+
+    &__dropdown-body
+        font-size size
+        line-height lineheight
+
+        position absolute
+        top 0
+        right 0
+
+        border 2px solid #e2e2e2
+        border-radius 4px
+        box-shadow 0 2px 10px rgba(0, 0, 0, .12)
+        background #fff
+
+    &__dropdown-body::before
+        content ""
+        position absolute
+        margin-left -5px
+        top -7px
+        right 60px
+        width 12px
+        height 12px
+        background #fff
+        border solid #e2e2e2
+        border-width: 1px 0 0 1px
+        transform rotate(45deg)
+
+    &__dropdown-items
+        margin 15px 18px
+
+    &__dropdown-item
+        margin 7px 0
+
+    &__secondary-link
+        color #000
+
+    &__secondary-link:hover
+        text-decoration none
+
+
+    @media (max-width: 1175px)
+
+        &__logo_normal
+            display none
+
+        &__logo_small
+            display inline
+
+        &__section
+            font-size 14px
+            margin-right 10px
+
+        &__book-wrap .buy-book-button
+            font-size 14px
+
+        &__sections-list
+            display table
+            width 85%
+
+        &__section
+            display table-cell
+            margin 0
+            padding-right 10px
+
+            text-align center
+
+    @media (max-width: 940px)
+        &__logo-wrap
+            flex-shrink 1
+
+        &__link_logo
+            margin 0
+
+        &__user::before
+            padding 0
+
+        &__book-wrap
+            padding-right 5px
+
+        &__user-wrap
+            padding-left 40px
+
+        &__userpic
+            left -38px
+
+        &__search-wrap
+            padding-right 10px
+
+
+    @media tablet
+
+        &
+            position relative
+
+        &__user-wrap
+            flex-shrink 0
+            width 64px
+            padding 0
+            position static
+
+        &__user
+            display inline-block
+            padding 0
+
+
+        &__dropdown-wrap
+            position absolute
+            left 0
+            z-index 1
+
+            width 100%
+
+            text-align center
+
+        &__userpic
+            position static
+            margin 0
+
+        &__user-text,
+        &__user:after
+            display none
+
+        &_menu_open .tablet-menu
+            display block
+
+        &__logo-wrap
+            width 0
+            padding 0
+
+        &__logo_normal
+            display inline
+
+        &__logo_small
+            display none
+
+        &__link_logo,
+        &__logo
+            position absolute
+            left 50%
+            margin-left -61px // ширина / -2
+
+        &__user-text
+            max-width 130px
+
+        &__nav-toggle-wrap
+            display table-cell
+
+        // TODO: попытаться переделать аккуратнее, ячейчка __logo-wrap
+        // не во всех браузерах скрывается полностью, остается место сбоку
+        // от кнопки, ставим ее как надо принудительно
+        &__nav-toggle,
+        &__nav-toggle:active
+            position absolute
+            left 0
+
+        &__sections-list
+            display none
+
+        &__nav-toggle
+            @extend $button-reset
+            color sitetoolbar_color
+            height 60px
+            width 60px
+            text-align center
+
+        &__nav-toggle:hover
+            color hoverize(sitetoolbar_color)
+
+        &__nav-toggle::before
+            @extend $font-menu
+            font-size 22px
+
+        &__dropdown-body
+            background sitetoolbar_secondary_bg
+            position absolute
+
+            border 0
+            border-radius 0
+            left auto
+            right auto
+
+            width 100%
+
+            box-shadow 0 2px 3px -2px rgba(0, 0, 0, .3)
+
+        & &__dropdown-body
+            transform none
+
+        &__dropdown-body::before
+            display none
+
+        &__dropdown-items,
+        &__dropdown-item
+            margin 0
+
+
+        &__secondary-link:link,
+        &__secondary-link:visited
+            color sitetoolbar_secondary_link
+
+        &__secondary-link:hover
+            text-decoration none
+            color link_hover_color
+
+        &__dropdown-item
+            line-height 60px
+            border-top 1px solid #e7e5e3
+
+        &__dropdown-link
+            display block
+            padding 0 20px
+            text-align center
+            font-size 16px
+
+        &_menu_open &__nav-toggle,
+        &_user_open &__user
+            background sitetoolbar_secondary_bg
+
+        &__search-input
+            transition opacity 0.4s ease-out
+
+        &__search-toggle::before
+            transition none
+
+        &_search_open &__search-content,
+        &_search_open &__search-toggle
+            position static
+
+        &__search-input
+            right 20px
+            left 50px
+
+        &_search_open &__search-input
+            left 60px
+
+        &_search_open &__search-toggle::before
+            left 65px
+
+        &_search_open &__logo-wrap
+            visibility hidden
+
+    // подвинем логотип при очень узком окне, чтобы никуда не накладывался
+    // экономим несколько пикселей ширины
+    @media (max-width: 790px)
+        &__link_logo,
+        &__logo
+            left 90px
+            margin-left 0
+
+        &__link_logo &__logo
+            left 0
+
+    @media phone
+        &__link_logo,
+        &__logo
+            left 55px
+            margin-left 0
+
+        &__logo_normal
+            display none
+
+        &__logo_small
+            display inline
+
+         &_search_open &__nav-toggle-wrap
+            visibility hidden
+
+        &_search_open &__search-input
+            left 20px
+
+        &_search_open &__search-toggle::before
+            left 25px
+
+    @media (max-width: 400px) // small nexus
+        &__book-wrap
+            display none

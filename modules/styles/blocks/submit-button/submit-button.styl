@@ -1,0 +1,40 @@
+.submit-button
+    background linear-gradient(to bottom, #579C75, #488060)
+    display inline-block
+    color #fff
+    border solid #66A983
+    border-width 3px 0 0
+    margin 10px 0
+    font 700 size font
+    line-height 30px
+    padding 0 14px 4px
+    height 37px
+    border-radius 4px
+
+    &_small
+        height 30px
+        line-height 24px
+        padding-bottom 3px
+
+    &:focus
+        outline 0
+
+    &:hover
+        background linear-gradient(to bottom, #66B588, #51A876)
+        border-top 3px solid #76BD95
+
+    &:disabled
+        background linear-gradient(to bottom, #ACACAC, #A0A0A0)
+        border-top 3px solid #B5B5B5
+
+    &__spinner
+        vertical-align middle
+
+    &__spinner .loader__dot
+        background-color #fff
+
+    // такой способ скрытия — чтобы не менялась ширина кнопки
+    &_progress &__text
+        overflow hidden
+        height 0
+        display block

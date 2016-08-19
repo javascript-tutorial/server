@@ -1,0 +1,55 @@
+.quiz-results-indicator
+
+    &__indicator
+        position relative
+
+        display inline-block
+
+        width 203px
+        height 102px
+
+        background no-repeat url('quiz-results-indicator/chart.svg');
+
+    &__indicator:after
+        position absolute
+        bottom 2px
+        left 51px
+
+
+        width 45px
+        height 4px
+
+        transform-origin 100% 50%
+
+        background #d8d8d8
+
+        content: ""
+
+    &__text
+        display inline-block
+
+        //- commented out by @iliakan
+        //- breaks text into 3 lines => breaks markup on extra-wide screens (where font-size is 16px)
+        //-width 197px
+
+        margin-top 10px
+
+    &__level
+        font-weight bold
+
+    &__level_junior
+        color #FFC800
+
+    &__level_medium
+        color #ff7b00
+
+    &__level_senior
+        color #c20800
+
+
+    @media tablet
+        &__text,
+        &__indicator
+            display block
+            margin-left auto
+            margin-right auto

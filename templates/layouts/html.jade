@@ -1,0 +1,20 @@
+//- header + footer + empty body
+extends ./base
+
+block html
+  head
+    block variables
+    include ../blocks/head
+    block head
+    !=js("footer", {defer: true})
+
+  body.no-icons
+    script head.fontTest();
+
+    if footer || (footer === undefined)
+      .page-wrapper(class=[sidebar && 'page-wrapper_sidebar_on'])
+        block body
+      include ../blocks/page-footer
+    else
+      block body
+

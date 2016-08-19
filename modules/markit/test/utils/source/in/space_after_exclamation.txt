@@ -1,0 +1,10 @@
+<style>
+*!*
+  #top {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    background: #fee;
+  }
+*/!*
+</style>

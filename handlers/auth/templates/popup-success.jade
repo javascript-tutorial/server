@@ -1,0 +1,39 @@
+doctype html
+html
+  title Успешная авторизация
+body
+  script var user = !{escapeJSON(user.getInfoFields())};
+
+  script.
+
+    !(function() {
+      if (!window.opener) {
+        window.close();
+        return;
+      }
+
+      var accessAllowed = true;
+      try {
+        window.opener.document.documentElement;
+      } catch(e) {
+        accessAllowed = false;
+      }
+
+      if (accessAllowed) {
+        // https and same domain in both windows
+        if (window.opener.authForm) {
+          window.opener.focus();
+          window.opener.authForm.onAuthSuccess(user);
+        }
+        window.close();
+      } else {
+        // probably the opener is http:// and we're https:// ?
+        if (location.protocol == 'https:') {
+          window.location.replace('http://' + location.host + '/auth/popup-success');
+        } else {
+          // we're http and access disallowed, probably the opener window navigated away from the site
+          window.close();
+        }
+      }
+
+    })();

@@ -1,0 +1,34 @@
+
+extends /layouts/body
+
+block append variables
+  - var layout_main_class = "main_width-limit"
+
+block append head
+  !=js("tutorial", {defer: true})
+
+block main
+
+  //- for schema.org microdata
+  +b.breadcrumbs(style="display:none")
+    include /blocks/breadcrumbs
+
+  +b.task-single(itemscope itemtype="http://schema.org/TechArticle")
+    meta(itemprop="name", content=title)
+    div(itemprop="author", itemscope, itemtype="http://schema.org/Person")
+      meta(itemprop="email", content="iliakan@gmail.com")
+      meta(itemprop="name" content="Ilya Kantor")
+
+    +e('a').back(href=articleUrl)
+      span вернуться к уроку
+
+    +b.task.__task(itemprop="articleBody")
+      +e.header
+        +e.title-wrap
+          +e('h2').title= task.title
+        +e.header-note
+          if task.importance
+            +e('span').importance(title=t("tutorial.task.importance_help")) #{t("tutorial.task.importance")}: #{task.importance}
+          +e('button').solution(type="button")= t("tutorial.task.solution")
+      include _task_content
+

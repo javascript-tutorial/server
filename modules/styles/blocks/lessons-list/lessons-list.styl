@@ -1,0 +1,218 @@
+lessons-list-separator = 1px solid #ede8e0
+
+.lessons-list
+    @extend $clearfix
+    margin 22px 0
+
+    border-radius 6px
+    border 4px solid #F5F2F0
+    background #fff
+
+    ol&__lessons // усиливаем селекторы тегом
+        list-style none
+        padding 0
+        margin 0
+        counter-reset lesson
+
+    & li&__lesson
+        margin 0
+        position relative
+
+    &__lesson
+        font 16px/20px font
+        padding 16px 20px 14px 55px
+        border-bottom lessons-list-separator
+
+    &__lessons &__lessons
+        max-height 0
+        overflow hidden
+
+    &__lesson_open  &__lessons
+        max-height 1500px
+
+    &__lesson:last-child
+        border 0
+
+    &__lesson::before
+        content counter(lesson) '.'
+        counter-increment lesson
+        font 16px/20px secondary_font
+        color #959595
+        position absolute
+        left 10px
+        top 16px
+        min-width 30px
+        min-height 22px
+        text-align right
+
+    &__lesson[data-section-number]::before
+        content attr(data-section-number) '.' counter(lesson)
+
+    &__link
+        color alternate_link_color
+
+    &__lesson_level_1
+        background #faf8f7
+        padding-left 46px
+
+    &__lesson_level_1 > &__link
+        font-weight 600
+
+    &__lesson_level_1::before
+        content counter(lesson) '.'
+        left 5px
+        min-width 27px
+
+    &__lesson_level_1 &__lessons
+        margin 14px -20px -14px -46px
+
+    &__lesson_level_2
+        background #fff
+        padding-left 71px
+
+    &__lesson_level_2:first-child
+        border-top lessons-list-separator
+
+    &__lesson_level_2::before
+        content counters(lesson, '.')
+        left 35px
+
+    &_screencast &__download
+        position absolute
+        right 25px
+        top 50%
+
+        margin-top -9px
+
+        cursor pointer
+
+        opacity 0
+        transition opacity 0.4s
+
+    &_screencast &__download:before
+        @extend $font-install
+
+        font-size 20px
+
+        color #7e7e7e
+
+    &_screencast &__lesson:hover &__download
+        opacity 1
+
+    &_screencast &__popup
+        position absolute
+        right -80px
+        top 0
+        z-index 10
+
+        display none
+
+        width 180px
+        padding-top 30px
+
+    &_screencast &__popup-list
+        position relative
+
+        margin 0 !important
+        padding 10px !important
+
+        border-radius 4px
+        border: 2px solid #C6C6C6
+        background #fff
+        box-shadow 0 2px 10px rgba(0,0,0,0.13)
+
+    &_screencast &__popup-list:before
+        position absolute
+        left 50%
+        top -7px
+
+        width 10px
+        height 10px
+        margin-left -5px
+
+        transform rotate(45deg)
+
+        border: 2px solid #C6C6C6
+        border-right 0
+        border-bottom 0
+        background #FFF
+
+        content: ""
+
+    &_screencast &__download:hover &__popup
+        display block
+
+    &_screencast &__popup-item
+        font-size 14px
+        line-height 22px
+
+        list-style none !important
+
+        margin 0 !important
+        padding 0 !important
+
+    &_screencast &__popup-item a
+        color #000
+
+        white-space nowrap
+
+    &_screencast &__popup-item a:hover
+        color #C13335
+
+    &_screencast &__popup-item:before
+        display none
+
+    &_screencast &__lesson > a:before
+        @extend $font-run
+
+        position absolute
+        left -15px
+        top 50%
+        margin-top -12px
+
+        opacity 0
+
+        font-size 15px
+        width: 21px;
+        height: 23px;
+        line-height: 23px;
+        padding-left: 3px;
+
+        text-align center
+
+        color #7e7e7e
+        border 1px solid
+        background #FFF
+        border-radius 50%
+
+        transition opacity 0.4s
+
+    &_screencast &__lesson:hover a:before
+        opacity 1
+
+    &_screencast &__lesson a:hover:before
+        color #C13335
+
+    @media (max-width: 1100px)
+        &_screencast &__download
+            right 30px
+
+        &_screencast &__popup
+            position absolute
+            right -20px
+
+        &_screencast &__popup-list:before
+            left auto
+            right 20px
+            top -7px
+
+    @media tablet
+        &__lesson::before
+            top 10px
+            left 5px
+
+        &__lesson
+            padding 10px 10px 9px 43px
+
+
+

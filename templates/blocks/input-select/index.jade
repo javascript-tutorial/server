@@ -1,0 +1,6 @@
+mixin input-select(data)
+  - data = data || {}
+  +b('select').input-select(class='_#{data.size}')&attributes(attributes)
+    each item in data.items
+      +e('option')(value=item.value selected=(data.selected === item.value) ? true: undefined)
+        =item.text

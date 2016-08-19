@@ -1,0 +1,317 @@
+comment-reply-color = #00A3D9
+.comments
+    margin-top 35px
+    padding-bottom 30px
+
+    border-bottom 2px solid #eee
+
+    &__header
+        position relative
+
+    &__read-before
+        position absolute
+        top 10px
+        right 0
+
+    &__read-before-link
+        position relative
+        z-index 9999
+        cursor pointer
+
+        color light_gray_color
+
+    &__read-before-link:hover
+        color #C13335
+
+    &__read-before-popup
+        position fixed
+        left 3000px
+        z-index 9998
+
+        opacity 0
+
+        min-width 590px
+        padding-top 45px
+
+        transition opacity 0.2s ease-out 0.2s
+
+    &__read-before-popup-i
+        position relative
+
+        padding 20px
+
+        box-shadow 0 2px 5px rgba(0,0,0,0.3)
+        background #f7f6ea
+
+    &__read-before-popup-i:after
+        position absolute
+        right 70px
+        top -7px
+
+        width 15px
+        height 15px
+
+        background #f7f6ea
+
+        transform rotate(55deg) skew(25deg)
+
+        content: ''
+
+    &__read-before-popup ul
+        margin 0
+
+    &__read-before:hover &__read-before-popup
+        position absolute
+        left auto
+        right 0
+        top 0
+
+        opacity 1
+
+    & &__header-title
+        border-bottom 0
+        display inline
+        margin-right 16px
+        color color
+        font 30px/36px secondary_font
+
+    &__header-title::before
+        @extend $font-comment
+        display inline-block
+        line-height 1
+        font-size 80%
+        color #eee
+        margin-right 8px
+        min-width 26px
+        min-height 25px
+
+    &__header-number
+        color #aaa
+
+    &__header-number::before
+        content "("
+
+    &__header-number::after
+        content ")"
+
+    &__header-write:link
+        @extend $pseudo
+        color #666
+        font-size 12px
+        vertical-align .4em
+        position relative
+        display inline-block
+        line-height 1
+
+    &__header-write::after
+        content "↓"
+        position absolute
+        margin-left 3px
+        vertical-align middle
+
+    @media tablet
+
+        &__read-before
+            position static
+
+            transform none
+
+        &__read-before-link
+            display none
+
+
+        &__read-before-popup
+            position static
+
+            opacity 1
+
+            min-width initial
+            padding-top 0
+
+            transition none
+
+        &__read-before-popup-i
+            position static
+
+            padding 20px
+
+            box-shadow none
+            background #fff
+
+        &__read-before-popup-i:after
+            content: none
+
+        &__read-before:hover &__read-before-popup
+            position static
+
+
+
+// .comments__items {
+//     overflow-x: hidden;
+//     margin: 25px -#{$content-horizontal-padding} 0;
+//     padding: 0 $content-horizontal-padding;
+//     border-bottom: 1px solid $separator-color;
+// }
+
+// .comments__comment {
+//  font-size: 92%;
+//  line-height: 130%;
+//     position: relative;
+//     padding-top: 24px;
+// }
+
+// .comments__comment::before {
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: -200px;
+//     width: 1500px;
+//     height: 0;
+//     border-bottom: 1px solid $separator-color;
+// }
+
+// .comments__comment .comments__comment {
+//     padding-left: 20px;
+// }
+
+// // Don't increase indentation after 4th level
+// .comments__comment
+// .comments__comment
+// .comments__comment
+// .comments__comment
+// .comments__comment {
+//     padding-left: 0;
+// }
+
+// .comments__comment-header {
+//  @extend %clearfix;
+//  border-bottom: 0;
+//  padding-bottom: 0;
+//  margin-bottom: $lineheight*.65;
+// }
+
+// .comments .comments__username {
+//  color: #444;
+// }
+
+// .comments .comments__username:hover,
+// .comments .comments__anchor:hover {
+//  color: $link-hover-color;
+// }
+
+// .comments__userpic {
+//  float: left;
+// }
+
+// .comments .comments__userpic {
+//  margin: 0;
+// }
+
+// .comments__rating {
+//  float: right;
+// }
+
+// .comments__info {
+//  padding: 0 12px;
+//  overflow: auto;
+// }
+
+// .comments__date::before {
+//  display: none;
+// }
+
+// .comments__date,
+// .comments .comments__anchor {
+//  color: #888;
+//  font: 11px Arial, Helvetica, sans-serif;
+//  margin-right: 5px;
+// }
+
+// .comments__star::before {
+//  @extend %font-star;
+//  color: #bbb;
+// }
+
+// .comments__comment pre {
+//  font: 12px $fixed-width-font;
+//  color: #400000;
+// }
+
+// .comments__footer {
+//  margin: 12px 0 22px;
+// }
+
+// .comments .comments__reply {
+//  @extend %button-reset;
+
+//  color: $comment-reply-color;
+//  cursor: pointer;
+//  text-decoration: none; // Тут может быть и ссылка, если будет якорь, или кнопка — если инлайн-форма
+//  border-bottom: 1px dashed transparent;
+//  font-size: 13px;
+// }
+
+// .comments__reply:hover {
+//  color: $link-hover-color;
+//  border-bottom: 1px dashed transparentize($link-hover-color, .7);
+// }
+
+// .comments__form {
+//  margin: 33px 0;
+// }
+
+// .comments__form-header {
+//     @extend %clearfix;
+//     margin-bottom: 25px;
+// }
+
+// .comments .comments__form-title {
+//  color: #888;
+//  margin:  0;
+//  float: left;
+// }
+// .comments__form-title::before {
+//  @extend %font-comment;
+//  color: #ccc;
+//  margin-right: 15px;
+// }
+// .comments .comments__form-formatting {
+//  @extend %pseudo;
+//  float: right;
+//  font-size: 12px;
+//     line-height: 1;
+//  margin-top: 8px;
+//  color: #656565;
+// }
+// .comments .comments__form-formatting:hover {
+//     color: $link-hover-color;
+// }
+// .comment-form__text {
+
+//  width: 100%;
+//  height: 144px;
+//  margin: 16px 0;
+//  display: block;
+//  clear: both;
+// }
+
+// @media (min-width: $media-step-1) {
+//     .comments__items {
+//         margin: 23px -#{$content-horizontal-padding + 10px};
+//         padding: 0 ($content-horizontal-padding + 10px);
+//     }
+// }
+
+// @media (min-width: $media-step-2) {
+//     .comments__items {
+//         margin: 23px -#{$content-horizontal-padding + 20px};
+//         padding: 0 ($content-horizontal-padding + 20px);
+//     }
+// }
+
+// @media (min-width: $media-step-3) {
+//     .comments__items {
+//         margin: 23px -#{$content-horizontal-padding + 30px};
+//         padding: 0 ($content-horizontal-padding + 30px);
+//     }
+// }

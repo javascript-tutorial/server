@@ -1,0 +1,49 @@
+include /bem
+
++b(class=['login-form', (inModal ? '_modal' : '_inline')])
+  +e('form').form(action="#" data-form="register")
+
+    if inModal
+
+      +e.line.__header
+        +e('h4').title Регистрация
+        +e.header-aside
+          +e('button').button-link(type="button" data-switch="login-form") вход
+
+    else
+      p
+        | Если у вас уже есть аккаунт, вы можете&nbsp;
+        +e('button').button-link(type="button" data-switch="login-form") войти
+
+    +e.body
+
+      +e.line.__notification(data-notification)
+
+      +e.line
+        +e('label').label(for="register-email") Email:
+        +b('span').text-input.__input
+          +e('input').control#register-email(name="email" type="email" required autofocus)
+      +e.line
+        +e('label').label(for="register-displayName") Имя пользователя:
+        +b('span').text-input.__input
+          +e('input').control#register-displayName(name="displayName" required)
+      +e.line
+        +e('label').label(for="register-password") Пароль:
+        +b('span').text-input.__input
+          +e('input').control#register-password(type="password" name="password" required minlength="4")
+      +e.line
+        +e.recaptcha
+      +e.line.__footer
+          +b('button').button._action.submit(type="submit")
+            +e('span').text Зарегистрироваться
+          if inModal
+            +e('a').close-link.tablet-only.modal__close Отмена
+
+      +e.line.__agreement
+          | Регистрируясь, вы принимаете
+          = ' '
+          a(href="/agreement") пользовательское соглашение
+          | .
+      include login-form-footer
+
+

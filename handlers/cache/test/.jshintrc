@@ -1,0 +1,23 @@
+{
+  "maxerr": 25,
+  "latedef": "nofunc",
+  "browser": false,
+  "node": true,
+  "indent": 2,
+  "camelcase": true,
+  "newcap": true,
+  "undef": true,
+  "esnext": true,
+  "multistr": true,
+  "noyield": true,
+  "expr": true,
+  "-W004": true,
+  "globals"   : {
+    "describe"   : false,
+    "it"         : false,
+    "before"     : false,
+    "beforeEach" : false,
+    "after"      : false,
+    "afterEach"  : false
+  }
+}

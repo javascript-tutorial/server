@@ -1,0 +1,163 @@
+$pseudo
+    text-decoration none
+    border-bottom 1px dashed transparent
+    &:hover
+        border-bottom 1px dashed
+        text-decoration none
+
+$link-type
+    position fixed
+    color #fff
+    background #5C626A
+    padding 0 9px
+    border-radius 2px
+    font 10px/19px font
+    letter-spacing .1ex
+    white-space nowrap
+
+// .pseudo is for any tag but link that should look like pseudo-link
+.pseudo
+    @extend $pseudo
+    cursor pointer
+    color link_color
+
+.pseudo:hover
+    color link_hover_color
+
+:link
+    color link_color
+
+:visited
+    color link_visited_color
+
+@media print
+    a:visited
+        color link_color
+
+:link,
+:visited
+    text-decoration none
+
+a:hover,
+a:active
+    color link_hover_color
+    text-decoration underline
+
+.anchor,
+.pseudo
+    @extend $pseudo
+
+.link-ref
+    vertical-align super
+    font-size 90%
+
+.link__type[data-tooltip]
+    @extend $link-type
+    &::before
+        content attr(data-tooltip)
+
+// --
+.link__type[data-url^="mailto:"]
+    @extend $link-type
+    &::before
+        @extend $font-mail
+        font-size 12px // слишком мелкая иконка
+
+// --
+.link__type[data-url^='/play/']
+// .link__type[data-url^='http://plnkr.co/']
+    @extend $link-type
+    &::before
+        @extend $font-edit
+        font-size 12px // слишком мелкая иконка
+
+// --
+.link__type[data-url$=".doc"],
+.link__type[data-url$=".docx"]
+    @extend $link-type
+    &::before
+        content 'DOC'
+
+// --
+.link__type[data-url$=".zip"]
+    @extend $link-type
+    &::before
+        content 'ZIP'
+
+// --
+.link__type[data-url$=".xls"],
+.link__type[data-url$=".xlsx"]
+    @extend $link-type
+    &::before
+        content 'XLS'
+
+// --
+.link__type[data-url$=".pdf"]
+    @extend $link-type
+    &::before
+        content 'PDF'
+
+// --
+.link__type[data-url^='http://developer.mozilla.org'],
+.link__type[data-url^='https://developer.mozilla.org']
+    @extend $link-type
+    &::before
+        content 'MDN'
+
+// --
+.link__type[data-url^='http://msdn.microsoft.com'],
+.link__type[data-url^='https://msdn.microsoft.com']
+    @extend $link-type
+    &::before
+        content 'MSDN'
+
+// --
+.link__type[data-url^='http://wikipedia.org'],
+.link__type[data-url*='wikipedia.org']
+    @extend $link-type
+    &::before
+        content 'WIKI'
+
+// --
+.link__type[data-url^='http://w3.org'],
+.link__type[data-url^='http://dev.w3.org'],
+.link__type[data-url^='http://www.w3.org'],
+.link__type[data-url^='https://www.w3.org'],
+.link__type[data-url^='https://w3.org']
+    @extend $link-type
+    &::before
+        content 'W3C'
+
+// --
+.link__type[data-url^='http://es5.github.com']
+    @extend $link-type
+    &::before
+        content 'ECMA'
+
+html:not(.working-hover) .link__type
+    display none
+
+// --
+
+// placeholder selector, can't be moved to the top
+// because order matters
+// decared as placeholder to be extended easier
+$plain-link
+    padding 0
+    background-image none
+
+.main .plain
+    @extend $plain-link
+
+.page_ebook
+    a[href*='://']:not([href*='javascript.'])
+        padding-right 1.25em
+
+    // mark all external links
+    // (javascript.ru, nightly.javascript.ru, javascript.info are internal)
+    a[href*='://']:not([href*='javascript.'])::after
+        @extend $font-external
+        position absolute
+        margin 0.1em 0 0 0.5em
+        font-size 75%
+        text-decoration none

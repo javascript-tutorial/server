@@ -1,0 +1,17 @@
+# Default host for bad Host headers
+# Must exist to filter invalid requests
+# Also Google gives better SEO according to amax (considering the host to be correctly configured)
+
+server {
+
+	listen 80 default_server;
+
+	server_name _;
+
+	access_log  /var/log/nginx/default.log main;
+
+	location = / {
+		return 200 "<!DOCTYPE HTML><title>Hello</title><p>Thank you for visiting our server!</p>";
+	}
+
+}

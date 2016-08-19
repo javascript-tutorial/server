@@ -1,0 +1,31 @@
+.page-wrapper
+    min-height 100%
+
+    // equal to footer height
+    margin-bottom -(footer_height + footer_margin_top)
+
+    &:after
+        content ""
+        display block
+        z-index -1
+        height footer_height + footer_margin_top
+
+    & ~ .page-footer
+        transition margin animation_duration
+
+    &_sidebar_on &:after,
+    &_sidebar_on ~ .page-footer
+        margin-left sidebar_width
+
+
+    @media tablet
+
+        &
+            min-height initial
+            margin-bottom auto
+
+        &:after
+            content none
+
+        &_sidebar_on ~ .page-footer
+            margin-left 0

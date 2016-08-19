@@ -1,0 +1,56 @@
+.share
+    display inline-block
+    font-size 22px
+    color #7E7E7E
+    vertical-align middle
+
+    &::after
+        display inline-block
+        vertical-align bottom
+        min-height 20px
+        min-width 20px
+
+    &:hover
+        text-decoration none
+
+
+    &_tw
+        color #71baf2
+
+    &_tw:hover
+        color hoverize(#71baf2)
+
+    &_tw::after
+        @extend $font-twitter
+
+
+    &_fb
+        color #8c9cc2
+
+    &_fb:hover
+        color hoverize(#8c9cc2)
+
+    &_fb::after
+        @extend $font-facebook
+        min-width 12px
+
+
+    &_gp
+        color #e99587
+
+    &_gp:hover
+        color hoverize(#e99587)
+
+    &_gp::after
+        @extend $font-google
+
+
+    &_vk
+        color #9badc3
+
+    &_vk:hover
+        color hoverize(#9badc3)
+
+    &_vk::after
+        @extend $font-vkontakte
+        min-width 27px

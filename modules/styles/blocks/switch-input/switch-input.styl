@@ -1,0 +1,85 @@
+.switch-input
+    position relative
+    overflow hidden
+
+    display inline-block
+    min-width 60px
+
+    vertical-align bottom
+
+    border-radius 4px
+    background #d4d4d4
+
+    &__bg
+        position absolute
+        left 0
+        top 0
+        bottom 0
+        right 50%
+
+        height 100%
+
+        border-radius 4px
+
+        transition left 0.2s, right 0.5s, background-color 0.2s
+
+    &__checkbox
+        position absolute
+        right 110%
+
+    &__label
+        font-size: 12px
+        font-weight 400
+
+        position relative
+        z-index 1
+        display block
+
+        line-height 28px
+
+        color #fff
+        cursor pointer
+
+        -moz-user-select none
+        -webkit-user-select none
+        -ms-user-select none
+        user-select none
+
+        border-radius 4px // for some old Operas
+
+    &__on,
+    &__off
+        box-sizing border-box
+
+        display inline-block
+
+        width 50%
+
+        text-align center
+
+        border-radius 4px
+
+    &__checkbox ~ &__bg
+        background #555
+
+    &__checkbox:checked ~ &__bg
+        left 50%
+        right 0
+        background #ffaa42
+        transition left 0.5s, right 0.2s, background-color 0.2s
+
+    &__checkbox ~ &__label &__on,
+    &__checkbox:checked ~ &__label &__off
+        visibility hidden
+
+    &__checkbox ~ &__label &-input__off,
+    &__checkbox:checked ~ &__label &__on
+        visibility visible
+
+    &__checkbox:disabled ~ &__label
+        opacity 0.5
+        cursor default
+
+    &__checkbox:disabled ~ &__bg
+        background #555
+        opacity 0.5

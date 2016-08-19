@@ -1,0 +1,8 @@
+test;
+
+*!*
+var f = *!*function()*/!* {
+  alert(*!*1*/!*);
+}
+*/!*
+one more line;

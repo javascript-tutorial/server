@@ -1,0 +1,33 @@
+// стиль для уведомлений
+.notify
+    position fixed
+    z-index 100000
+    font-size 14px
+    top 0
+    transform translateY(-100%)
+    left 0
+    right 0
+    margin 0 auto
+    max-width 630px
+    color black
+    padding 10px
+    border-radius 4px
+    box-sizing border-box
+    box-shadow 0px 3px 3px 0px rgba(0,0,0,0.25)
+    transition all .3s ease-out
+
+    &_info
+        background #D9EDF8
+        border 1px solid #C8E0ED
+
+    &_warn
+        background #FCF8E1
+        border 1px solid #ECE6C4
+
+    &_success
+        background #DFF0D6
+        border 1px solid #D1E7C6
+
+    &_error
+        background #F2DEDE
+        border 1px solid #E7C9C9

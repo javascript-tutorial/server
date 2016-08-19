@@ -1,0 +1,128 @@
+.quiz-result
+    display inline-block
+    position relative
+    height 290px
+
+    margin-top 10px
+
+    .main & ul,
+    .main & li,
+    .main & dl,
+    .main & dt,
+    .main & dd,
+    .main & h1,
+    .main & p
+        margin 0
+        padding 0
+
+    .main & li:before
+        display none
+
+    &__save-form,
+    &__retry-form
+        display inline-block
+
+    &__retry-form
+        margin-right 30px
+
+    &__retry-button,
+    &__save-button
+        min-width 215px
+
+    &__try
+        text-align center
+
+    &__try-num
+        color #c60800
+
+    &__layout
+        display table
+        position relative
+
+        padding 20px
+        margin-top 10px
+
+        border-radius 10px 10px 0 0
+        background #222
+
+    &__left,
+    &__center,
+    &__right
+        display table-cell
+        box-sizing: border-box
+
+        width 33%
+        padding 10px 15px
+
+        border-right: 2px solid #3c3c3c
+
+        vertical-align top
+        text-align center
+
+    &__right
+        width 33%
+
+        border 0
+
+    &__save-result
+        background #4C4B4B
+        border-radius 0 0 10px 10px
+
+    &__bottom
+        padding 20px 0
+
+    & .quiz-percents,
+    & .quiz-weak-list__title
+        color #7a7a7a
+
+    & .quiz-percents__percents,
+    & .quiz-weak-list__list,
+    & .quiz-results-indicator
+        color: #fff
+
+    @media tablet
+        &,
+        &__layout
+            display block
+            height auto
+            padding 0
+
+        &__left,
+        &__center,
+        &__right
+            display block
+            box-sizing: border-box
+
+            width auto
+            padding 30px 25px
+
+            border: 0
+
+        &__center,
+        &__right
+            border-top 2px solid rgba(213,214,214,0.15)
+
+
+    @media phone
+
+        &__layout,
+        &__save-result
+            border-radius initial
+
+            margin-left -10px
+            margin-right -10px
+
+        &__bottom
+            padding 30px
+
+        & .quiz-weak-list__list
+            display block
+
+            text-align left
+
+        &__retry-form,
+        &__save-form
+            display block
+
+        &__retry-form
+            margin 0 0 20px 0
