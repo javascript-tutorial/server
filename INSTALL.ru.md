@@ -7,7 +7,7 @@
 
 ## 1. Директория
 
-Чтобы было проще – создайте в корне директорию `/js`, и в ней работайте. 
+Чтобы было проще – создайте в корне директорию `/js`, и в ней работайте.
 Если философия не позволяет – можно другую директорию, тогда в командах ниже поправьте пути соответственно.
 
 ## 2. Поставьте и запустите Node.JS и MongoDB
@@ -22,14 +22,14 @@ sudo port install mongodb
 sudo port load mongodb
 ```
 
-## 3. Клонируйте репозитарий 
+## 3. Клонируйте репозитарий
 
-Предположу, что Git у вас уже стоит и вы умеете им пользоваться. 
+Предположу, что Git у вас уже стоит и вы умеете им пользоваться.
 
 Клонируйте только ветку `master` движка:
 ```
 cd /js
-git clone -b master --single-branch https://github.com/iliakan/javascript-nodejs 
+git clone -b master --single-branch https://github.com/iliakan/javascript-nodejs
 ```
 
 
@@ -38,7 +38,7 @@ git clone -b master --single-branch https://github.com/iliakan/javascript-nodejs
 Поставьте глобальные модули:
 
 ```
-npm install -g mocha bunyan gulp nodemon   
+npm install -g mocha bunyan gulp nodemon
 ```
 
 Чтобы автоматически ставилась переменная `NODE_PATH`, для запуска `gulp` далее используется команда: `npm --silent run gulp --`.
@@ -48,7 +48,7 @@ npm install -g mocha bunyan gulp nodemon
 alias glp="npm --silent run gulp -- "
 ```
 
-Или же можно запускать gulp как: `NODE_PATH=./handlers:./modules gulp`. 
+Или же можно запускать gulp как: `NODE_PATH=./handlers:./modules gulp`.
 
 ## 5. Системные пакеты
 
@@ -57,7 +57,7 @@ alias glp="npm --silent run gulp -- "
 Под Macports команды такие:
 
 ```
-sudo port install ImageMagick GraphicsMagick 
+sudo port install ImageMagick GraphicsMagick
 sudo port install nginx +debug+gzip_static+realip+geoip
 
 sudo port load nginx
@@ -85,13 +85,13 @@ chmod 777 /var/log/nginx
 
 Cтавим настройки для сайта запуском:
 ```
-npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development --clear 
+npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development --clear
 ```
 
 Здесь `--prefix` -- место для конфигов nginx, обычно `/etc/nginx`, в случае MacPorts это `/opt/local/etc/nginx`.
 В параметр `--root` запишите место установки сайта.
 
-В `--root` находится путь к движку: если вы использовали другой путь для сайта, вместо `/js/javascript-nodejs`, то измените его. 
+В `--root` находится путь к движку: если вы использовали другой путь для сайта, вместо `/js/javascript-nodejs`, то измените его.
 
 Опция `--clear` полностью удалит старые конфиги nginx.
 
@@ -101,31 +101,31 @@ npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/j
 ```
 
 Такое имя хоста стоит в конфигурации Nginx.
- 
+
 ## 7.1. Если Nginx у вас уже стоит
 
 Если уже есть nginx, то сделайте резервную копию всех его конфигов.
- 
-После этого выполните предыдущую секцию без `--clear` в команде: 
+
+После этого выполните предыдущую секцию без `--clear` в команде:
 
 ```
-npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development  
+npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development
 ```
 
 Такая команда скопирует файлы из директории `/js/javascript-nodejs/nginx` в указанную директорию `--prefix`, но без перезаписывания.
  При копировании используется небольшая шаблонизация конфигов, т.е. это не просто `cp`, но структура файлов остаётся такой же.
 
-Основные конфиги будут перезаписаны, но в `sites-enabled` останутся и будут подключены и другие сайты. 
- 
+Основные конфиги будут перезаписаны, но в `sites-enabled` останутся и будут подключены и другие сайты.
+
 Перезапустите Nginx. Проверьте, что ваши предыдущие проекты работают.
- 
+
 
 ## 8. База
 
 Инициализуйте базу сайта командой:
- 
+
 ```
-npm --silent run gulp -- db:load --from fixture/init 
+npm --silent run gulp -- db:load --from fixture/init
 ```
 
 
@@ -142,15 +142,15 @@ PLUNK_REMOTE_OFF=1 npm --silent run gulp -- tutorial:import --root /js/javascrip
 
 Здесь `/js/javascript-tutorial` -- директория с репозитарием учебника.
 
-`PLUNK_REMOTE_OFF=1` отключает автоматическую загрузку примеров из учебников на сервис plnkr.co. 
-Она требует настройки сессии на plnkr.co и нужна при публикации учебника. 
-Для запуска проекта она не нужна, особенно если вас интересуют другие модули. 
+`PLUNK_REMOTE_OFF=1` отключает автоматическую загрузку примеров из учебников на сервис plnkr.co.
+Она требует настройки сессии на plnkr.co и нужна при публикации учебника.
+Для запуска проекта она не нужна, особенно если вас интересуют другие модули.
 
 ## 9. Запуск сайта
 
 Запуск сайта в режиме разработки:
 ```
-./ru
+NODE_LANG=ru ./dev
 ```
 
 Это поднимет сразу и сайт и механизмы автосборки стилей-скриптов и livereload.

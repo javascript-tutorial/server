@@ -153,7 +153,7 @@ PLUNK_REMOTE_OFF=1 npm --silent run gulp -- tutorial:import --root /js/javascrip
 
 Запуск сайта в режиме разработки:
 ```
-./ru
+NODE_LANG=ru ./dev
 ```
 
 Это поднимет сразу и сайт и механизмы автосборки стилей-скриптов и livereload.

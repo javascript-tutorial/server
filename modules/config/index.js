@@ -36,15 +36,6 @@ var config = module.exports = {
     staticHost: env.STATIC_HOST || ''
   },
 
-  test: {
-    e2e: {
-      sshHost:  secret.test.e2e.sshHost, // remote host for testing e2e callbacks
-      sshUser:  secret.test.e2e.sshUser,
-      siteHost: secret.test.e2e.siteHost,
-      browser:  env.E2E_BROWSER || 'firefox'
-    }
-  },
-
   mongoose: require('./mongoose'),
 
   appKeys:  [secret.sessionKey],
