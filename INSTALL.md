@@ -125,13 +125,6 @@ npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/j
 
 ## 8. База
 
-Инициализуйте базу сайта командой:
-
-```
-npm --silent run gulp -- db:load --from fixture/init
-```
-
-
 Клонируйте ветку учебника, например `ru`:
 ```
 cd /js
