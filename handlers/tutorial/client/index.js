@@ -24,12 +24,6 @@ function init() {
 
   prism.init();
 
-  if (window.ebookType) {
-    require.ensure('./ebookExtras', function() {
-      require('./ebookExtras').init();
-    }, 'ebookExtras');
-  }
-
   var tutorialMapElem = document.querySelector('.tutorial-map');
   if (tutorialMapElem) {
     new TutorialMap(tutorialMapElem);

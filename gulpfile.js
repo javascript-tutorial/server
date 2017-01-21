@@ -100,7 +100,6 @@ gulp.task("client:livereload", lazyRequireTask("./tasks/livereload", {
 
 requireModuleTasks('migrate');
 requireModuleTasks('tutorial');
-requireModuleTasks('quiz');
 
 var testSrcs = ['{handlers,modules}/**/test/**/*.js'];
 // on Travis, keys are required for E2E Selenium tests

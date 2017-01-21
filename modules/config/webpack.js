@@ -68,7 +68,6 @@ module.exports = function(config) {
       styles:                    config.tmpRoot + '/styles.styl',
       head:                      'client/head',
       tutorial:                  'tutorial/client',
-      quiz:                      'quiz/client',
       footer:                    'client/footer',
     },
 

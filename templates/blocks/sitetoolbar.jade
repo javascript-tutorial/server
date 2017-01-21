@@ -5,7 +5,6 @@ block append variables
   - siteToolbarSections.push({ url: 'http://javascript.ru/forum', title: 'Форум' });
   - siteToolbarSections.push({ url: 'http://es5.javascript.ru', title: 'ES5' });
   - siteToolbarSections.push({ url: 'http://javascript.ru/manual', title: 'Справочник' });
-  - siteToolbarSections.push({ slug: 'quiz', title: 'Тесты знаний' });
 
 <!--[if lt IE 10]>
 div(style="color:red;text-align:center")= t("site.sorry_old_browser")
@@ -70,15 +69,7 @@ if lang=='ru'
                   +e('li').dropdown-item
                     +e('a').secondary-link.__dropdown-link(href="/screencast/gulp") Gulp 4
 
-
-      if siteToolbarCurrentSection == 'tutorial'
-        +e.book-wrap
-          +b("a").buy-book-button(href="/ebook") Купить EPUB/PDF
-
-      if user
-        include ./user
-      else
-        include ./guest
+      include ./guest
 
     // todo: en variant
     +b.tablet-menu
@@ -100,13 +91,6 @@ if lang=='ru'
       +e.line
         +e.content
           include /blocks/map-with-title
-
-      +e.line
-        +e.content
-          +b("a").tablet-ebook(href="/ebook")
-            +e("span").text Купить учебник
-            +e("span").note (EPUB + PDF)
-
 
       +e.line
         +e.content

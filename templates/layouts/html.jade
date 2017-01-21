@@ -14,7 +14,6 @@ block html
     if footer || (footer === undefined)
       .page-wrapper(class=[sidebar && 'page-wrapper_sidebar_on'])
         block body
-      include ../blocks/page-footer
     else
       block body
 
