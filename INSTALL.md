@@ -1,5 +1,5 @@
 
-Документация на русском - см. INSTALL.ru.md (Russian docs -- see INSTALL.ru.md).
+Документация на русском - см. [INSTALL.ru.md](https://github.com/iliakan/javascript-tutorial-server/blob/master/INSTALL.ru.md) ([Russian docs - see INSTALL.ru.md](https://github.com/iliakan/javascript-tutorial-server/blob/master/INSTALL.ru.md)).
 
 # Up and running locally
 
@@ -157,5 +157,5 @@ NODE_LANG=ru ./dev
 
 # TroubleShooting
 
-Если что-то не работает -- [пишите issue](https://github.com/iliakan/javascript-nodejs/issues/new).
+Если что-то не работает -- [пишите issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
 
