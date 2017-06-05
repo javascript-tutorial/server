@@ -1,4 +1,11 @@
 #!/bin/bash
 
-NODE_ENV=production TUTORIAL_EDIT=1 npm --silent run -- gulp edit --root /js/javascript-tutorial
+BRANCH="${1:-$NODE_LANG}"
+
+export NODE_LANG=$BRANCH
+export NODE_ENV=production
+export TUTORIAL_EDIT=1
+
+npm --silent run -- gulp tutorial:import --root /js/javascript-tutorial-$BRANCH
+npm --silent run -- gulp edit --root /js/javascript-tutorial-$BRANCH
 

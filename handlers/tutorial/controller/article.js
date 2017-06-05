@@ -12,7 +12,6 @@ const t = require('i18n');
 
 exports.get = function *get(next) {
 
-
   var renderedArticle = yield* CacheEntry.getOrGenerate({
     key:  'tutorial:article:' + this.params.slug,
     tags: ['article']
@@ -93,7 +92,6 @@ exports.get = function *get(next) {
   }
 
   locals.sidebar = {
-    class: "sidebar_sticky-footer",
     sections: sections
   };
 

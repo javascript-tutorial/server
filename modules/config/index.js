@@ -13,7 +13,7 @@ env.NODE_ENV = env.NODE_ENV || 'development';
 
 var secret = require('./secret');
 
-var lang = env.NODE_LANG || 'ru';
+var lang = env.NODE_LANG || 'en';
 
 if (env.DEV_TRACE) {
   Error.stackTraceLimit = 100000;

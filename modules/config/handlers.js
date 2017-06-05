@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 var handlers = [
+  'static',
   'mongooseHandler',
   'requestId',
   'requestLog',

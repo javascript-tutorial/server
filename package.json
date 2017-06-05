@@ -13,6 +13,7 @@
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
   "dependencies": {
+    "koa-static": "^2",
     "assert-plus": "^1.0.0",
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.22.1",

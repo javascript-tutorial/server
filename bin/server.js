@@ -16,40 +16,6 @@ co(function*() {
   process.exit(1); // fatal error, could not boot!
 });
 
-process.on('message', function(msg) {
-  if (msg == 'shutdown') { // PM2 sends this on graceful reload
-    shutdown();
-  }
-});
-
-
-function shutdown() {
-  // The process is going to be reloaded
-  // Have to close all database/socket.io/* connections
-
-  co(function*() {
-    log.info("Closing the app...");
-    yield* app.close();
-    // messages below not in logs due to PM2 bug
-    log.info("App closed");
-  }).then(function() {
-    log.info("Exiting");
-    process.exit(0);
-  }, function(err) {
-    log.error(err);
-  });
-
-  var dieDelay = process.env.PM2_GRACEFUL_TIMEOUT || 4000;
-  // I have 4000ms to let all connections finish
-  // not accepting new connections, closing socket.io (if used)
-  // keep-alive connection to server may still be alive, but safe to nuke the server w/ them
-  setTimeout(function() {
-    log.error("App is stopping for too long! Will be killed now!");
-    // kill is accomplished by PM2
-  }, dieDelay - 100);
-
-}
-
 // отслеживаем unhandled ошибки
 // https://iojs.org/api/process.html#process_event_rejectionhandled
 var unhandledRejections = [];

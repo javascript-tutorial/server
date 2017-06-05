@@ -143,19 +143,31 @@ That requires to setup a plnkr session, and is not necessary to run the tutorial
 
 Run the site with the language in `NODE_LANG` variable:
 ```
+HOST=127.0.0.1 PORT=80 NODE_LANG=en ./dev
+```
+
+Or with default host 127.0.0.1 and port 3000:
+
+```
 NODE_LANG=en ./dev
 ```
 
-That builds all styles and runs the website.
+Then access the site.
 
-Please note: Node.JS server is running at `127.0.0.1:3000`, but to get styles and scripts, you should use  `127.0.0.1:80`
-Это поднимет сразу и сайт и механизмы автосборки стилей-скриптов и livereload.
+If you have `127.0.0.1 javascript.in` in `/etc/hosts`, then the address will be `http://javascript.in:3000`.
 
-Обратите внимание: ходить на сайт нужно через Nginx (обычно порт 80), не напрямую в Node.JS (не будет статики).
+## 10. Run in "Edit" mode
 
-Если в `/etc/hosts` есть строка `127.0.0.1 javascript.in`, то адрес будет `http://javascript.in/`.
+In "Edit" mode the engine watches the tutorial directory, instantly picks the changes and reloads the page. Good for editing.
+
+```
+PLUNK_REMOTE_OFF=1 NODE_LANG=en ./edit
+```
+
+This uses the default `HOST=127.0.0.1`, `PORT=3000`, and the folder is `/js/javascript-tutorial-en`.
+
 
 # TroubleShooting
 
-Если что-то не работает -- [пишите issue](https://github.com/iliakan/javascript-nodejs/issues/new).
+If something doesn't work -- [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
 
