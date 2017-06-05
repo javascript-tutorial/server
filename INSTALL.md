@@ -1,6 +1,4 @@
 
-Документация на русском - см. INSTALL.ru.md (Russian docs -- see INSTALL.ru.md).
-
 # Up and running locally
 
 ## 1. OS
@@ -19,48 +17,49 @@ MongoDB - can be either 2.6+ or newer.
 
 Use packages for Linux, [MacPorts](http://www.macports.org/install.php) or [Homebrew](http://brew.sh) for Mac.
 
-Если через MacPorts, то:
+If you have macports then:
 ```
 sudo port install mongodb
 sudo port load mongodb
 ```
 
-## 3. Клонируйте репозитарий
+## 3. Clone the tutorial server
 
-Предположу, что Git у вас уже стоит и вы умеете им пользоваться.
+Hopefully, you have Git installed and running.
 
-Клонируйте только ветку `master` движка:
+Clone the tutorial server:
+
 ```
 cd /js
-git clone -b master --single-branch https://github.com/iliakan/javascript-nodejs
+git clone https://github.com/iliakan/javascript-tutorial-server
 ```
 
+## 4. Install global modules
 
-## 4. Глобальные модули
-
-Поставьте глобальные модули:
+Install these:
 
 ```
 npm install -g mocha bunyan gulp nodemon
 ```
 
-Чтобы автоматически ставилась переменная `NODE_PATH`, для запуска `gulp` далее используется команда: `npm --silent run gulp --`.
+To set up `NODE_PATH` environment variable, further on we use an alias for running `gulp`:
 
-На практике для удобства используется alias:
 ```
 alias glp="npm --silent run gulp -- "
 ```
 
-Или же можно запускать gulp как: `NODE_PATH=./handlers:./modules gulp`.
+Or, without the alias, you can run gulp as: `NODE_PATH=./handlers:./modules gulp ...`.
 
-## 5. Системные пакеты
+Or like this: `npm --silent run gulp -- ...`.
 
-Для работы также нужны Nginx, GraphicsMagick и ImageMagick (обычно используется GM, он лучше, но иногда IM).
+## 5. System packages
 
-Под Macports команды такие:
+You'll also need to install nginx and GraphicsMagick (for image resizing).
+
+For MacPorts, the commands are:
 
 ```
-sudo port install ImageMagick GraphicsMagick
+sudo port install GraphicsMagick
 sudo port install nginx +debug+gzip_static+realip+geoip
 
 sudo port load nginx
@@ -68,87 +67,88 @@ sudo port load nginx
 
 ## 6. npm install
 
-В директории, в которую клонировали, запустите:
+In the directory with javascript-tutorial-server, run:
 
 ```
 npm install
 ```
 
-## 7. Конфигурация Nginx с нуля
+## 7. Configuring Nginx from scratch
 
-Если в системе ранее не стоял nginx, то поставьте его.
+If you had no nginx before, then everything is simple.
 
-Логи nginx пишет в директорию `/var/log/nginx`.
+The logs directory is `/var/log/nginx`.
 
-Если её нет, то нужно создать и поставить пермишны/владельца. Например, если компьютер – ваш личный, то запустить от рута:
+Create it and set owner/permissions. For a personal computer, can do it like this:
+
 ```
 mkdir /var/log/nginx
 chmod 777 /var/log/nginx
 ```
 
-Cтавим настройки для сайта запуском:
+Create configs by running:
 ```
-npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development --clear
+npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-tutorial-server --env development --clear
 ```
 
-Здесь `--prefix` -- место для конфигов nginx, обычно `/etc/nginx`, в случае MacPorts это `/opt/local/etc/nginx`.
-В параметр `--root` запишите место установки сайта.
+Here `--prefix` -- is the directory for nginx config, usually `/etc/nginx`, for MacPorts it's `/opt/local/etc/nginx`.
 
-В `--root` находится путь к движку: если вы использовали другой путь для сайта, вместо `/js/javascript-nodejs`, то измените его.
+The `--root` is where the server is located. If you used another path instead of `/js/javascript-tutorial-server`, then change it.
 
-Опция `--clear` полностью удалит старые конфиги nginx.
+The `--clear` option clears all configs before creating the new ones. That's fine if you had no nginx before.
 
-Также рекомендуется в `/etc/hosts` добавить строку:
+Also it's recommended to add this line to `/etc/hosts`:
 ```
 127.0.0.1 javascript.in
 ```
 
-Такое имя хоста стоит в конфигурации Nginx.
+This host name is in the Nginx config already.
 
 ## 7.1. Если Nginx у вас уже стоит
 
-Если уже есть nginx, то сделайте резервную копию всех его конфигов.
+If you already have nginx, make a backup of it's config files.
 
-После этого выполните предыдущую секцию без `--clear` в команде:
+Then execute the prevous section without the `--clear` at the end:
 
 ```
 npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development
 ```
 
-Такая команда скопирует файлы из директории `/js/javascript-nodejs/nginx` в указанную директорию `--prefix`, но без перезаписывания.
- При копировании используется небольшая шаблонизация конфигов, т.е. это не просто `cp`, но структура файлов остаётся такой же.
+The command copies files from the directory `/js/javascript-tutorial-server/nginx` into the folder `--prefix`, but without removing old configs.
 
-Основные конфиги будут перезаписаны, но в `sites-enabled` останутся и будут подключены и другие сайты.
+So if you had other sites in `sites-enabled`, they will not be removed.
 
-Перезапустите Nginx. Проверьте, что ваши предыдущие проекты работают.
+Rerun nginx. Make sure your existing projects work.
 
+## 8. Database
 
-## 8. База
+Copy the tutorial repo, for instance `javascript-tutorial-en`
 
-Клонируйте ветку учебника, например `ru`:
 ```
 cd /js
-git clone -b ru --single-branch https://github.com/iliakan/javascript-tutorial
+git clone https://github.com/iliakan/javascript-tutorial-en
 ```
 
-После клонирования импортируйте учебник в базу командой:
+After that, import it with the command:
 ```
-PLUNK_REMOTE_OFF=1 npm --silent run gulp -- tutorial:import --root /js/javascript-tutorial
-```
-
-Здесь `/js/javascript-tutorial` -- директория с репозитарием учебника.
-
-`PLUNK_REMOTE_OFF=1` отключает автоматическую загрузку примеров из учебников на сервис plnkr.co.
-Она требует настройки сессии на plnkr.co и нужна при публикации учебника.
-Для запуска проекта она не нужна, особенно если вас интересуют другие модули.
-
-## 9. Запуск сайта
-
-Запуск сайта в режиме разработки:
-```
-NODE_LANG=ru ./dev
+PLUNK_REMOTE_OFF=1 npm --silent run gulp -- tutorial:import --root /js/javascript-tutorial-en
 ```
 
+Here `/js/javascript-tutorial-en` -- the directory with the tutorial repository.
+
+`PLUNK_REMOTE_OFF=1` disables automatic uploading of examples to plnkr.co.
+That requires to setup a plnkr session, and is not necessary to run the tutorial.
+
+## 9. Run the site
+
+Run the site with the language in `NODE_LANG` variable:
+```
+NODE_LANG=en ./dev
+```
+
+That builds all styles and runs the website.
+
+Please note: Node.JS server is running at `127.0.0.1:3000`, but to get styles and scripts, you should use  `127.0.0.1:80`
 Это поднимет сразу и сайт и механизмы автосборки стилей-скриптов и livereload.
 
 Обратите внимание: ходить на сайт нужно через Nginx (обычно порт 80), не напрямую в Node.JS (не будет статики).

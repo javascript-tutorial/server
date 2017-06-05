@@ -24,7 +24,9 @@ module.exports = function(md) {
           if (href.startsWith('mdn:')) {
             let parts = href.slice(4).split('/');
 
-            let prefix = `https://developer.mozilla.org/${process.env.NODE_LANG == 'ru' ? 'ru' : 'en-US'}/docs/Web`;
+            let locale = process.env.NODE_LANG == 'en' ? 'en-US' : process.env.NODE_LANG;
+
+            let prefix = `https://developer.mozilla.org/${locale}/docs/Web`;
 
             if (parts[0] == 'js') {
               prefix += '/JavaScript/Reference/Global_Objects/';
