@@ -1,8 +1,10 @@
 # Tutorial server
 
-Hi guys!
+Hi everyone!
 
 This repository hosts a server to edit the javascript tutorial at https://javascript.info. 
+
+See Install.md for details.
 
 # Движок javascript.ru на javascript
 
