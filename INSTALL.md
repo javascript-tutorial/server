@@ -104,7 +104,7 @@ Also it's recommended to add this line to `/etc/hosts`:
 
 This host name is in the Nginx config already.
 
-## 7.1. Если Nginx у вас уже стоит
+## 7.1. If Nginx has been installed
 
 If you already have nginx, make a backup of it's config files.
 
