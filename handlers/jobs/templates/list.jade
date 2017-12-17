@@ -1,0 +1,22 @@
+extends /layouts/html
+
+block append head
+  !=js("jobs", {defer: true})
+  !=css("jobs")
+
+block body
+
+  div.jobs-container
+    h1 Вакансии
+    br
+    br
+    a(href='/jobs/new/') Разместить вакансию
+    br
+    br
+    ul
+      each job in jobsList
+        li
+          h5= job.title
+          p= job.description
+          a(href='/jobs/'+job._id+'/') Подробнее
+          hr

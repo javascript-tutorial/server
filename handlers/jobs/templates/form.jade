@@ -1,0 +1,16 @@
+extends /layouts/html
+
+block append head
+  !=js("jobs", {defer: true})
+  !=css("jobs")
+
+block body
+  div.jobs-container
+    h1 Новая вакансия
+    form#newjob
+      input(name='title', type='text', required=true)
+      br
+      textarea(name='description', required=true)
+      br
+      a(id='submitButton' type='submit') Опубликовать
+      a(href='/jobs/') Все вакансии
