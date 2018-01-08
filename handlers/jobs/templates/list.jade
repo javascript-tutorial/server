@@ -20,3 +20,16 @@ block body
           p= job.description
           a(href='/jobs/'+job._id+'/') Подробнее
           hr
+    br
+    br
+    if (totalPages > 1)
+      div.pagination
+        if (currentPage > 1)
+          a(href="?p=#{currentPage - 1}") «
+        - for(var i = 0; i < totalPages; ++i)
+          if (currentPage == (i + 1))
+            a.active(href="#") #{i + 1}
+          else
+            a(href="?p=#{i + 1}") #{i + 1}
+        if (currentPage < totalPages)
+          a(href="?p=#{currentPage + 1}") »

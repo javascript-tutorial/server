@@ -1,9 +1,16 @@
 const Job = require('../models/job');
 
-function *list() {
-    const jobsList = yield Job.find({}).exec();
+const JOBS_PER_PAGE = 2;
 
-    this.body = this.render('list', { jobsList });}
+function *list() {
+    const totalCount = yield Job.count().exec();
+    const totalPages = Math.ceil(totalCount / JOBS_PER_PAGE);
+    const currentPage = Number(this.query.p || 1);
+    const jobsList = yield Job.find({}).sort({ created: -1 })
+      .skip((currentPage - 1) * JOBS_PER_PAGE).limit(JOBS_PER_PAGE).exec();
+
+    this.body = this.render('list', { jobsList, totalCount, totalPages, currentPage });
+}
 
 function *show(next) {
     const job = yield Job.findOne({ _id: this.params.id  }).exec();
@@ -25,9 +32,15 @@ function *form() {
     this.body = this.render('form', {});
 }
 
+function *terms() {
+    this.status = 200;
+    this.body = this.render('terms', {});
+}
+
 module.exports = {
     list,
     show,
     create,
-    form
+    form,
+    terms
 };
