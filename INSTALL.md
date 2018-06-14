@@ -104,7 +104,7 @@ Also it's recommended to add this line to `/etc/hosts`:
 
 This host name is in the Nginx config already.
 
-## 7.1. Если Nginx у вас уже стоит
+## 7.1. If node.js is installed already
 
 If you already have nginx, make a backup of it's config files.
 
@@ -143,13 +143,13 @@ That requires to setup a plnkr session, and is not necessary to run the tutorial
 
 Run the site with the language in `NODE_LANG` variable:
 ```
-HOST=127.0.0.1 PORT=80 NODE_LANG=en ./dev
+HOST=127.0.0.1 PORT=80 ./dev en
 ```
 
 Or with default host 127.0.0.1 and port 3000:
 
 ```
-NODE_LANG=en ./dev
+./dev en
 ```
 
 Then access the site.
@@ -161,7 +161,7 @@ If you have `127.0.0.1 javascript.in` in `/etc/hosts`, then the address will be 
 In "Edit" mode the engine watches the tutorial directory, instantly picks the changes and reloads the page. Good for editing.
 
 ```
-PLUNK_REMOTE_OFF=1 NODE_LANG=en ./edit
+./edit en
 ```
 
 This uses the default `HOST=127.0.0.1`, `PORT=3000`, and the folder is `/js/javascript-tutorial-en`.
