@@ -45,3 +45,5 @@ out/*
 
 # Generated content
 public/*
+package-lock.json
+
