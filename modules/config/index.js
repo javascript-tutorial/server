@@ -25,8 +25,8 @@ var config = module.exports = {
   // production domain, for tutorial imports, descriptions, etc
   // for the places where in-dev we must use a real domain
   domain: {
-    main:   'javascript.in',
-    static: 'javascript.in'
+    main:   'javascript.local',
+    static: 'javascript.local'
   },
 
   server: {

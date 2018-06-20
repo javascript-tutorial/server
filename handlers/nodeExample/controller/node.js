@@ -21,7 +21,7 @@ function clean(pathOrPiece) {
 
 exports.all = function*() {
 
-  // bad path: http://javascript.in/task/capslock-warning-field/solution
+  // bad path: http://javascript.local/task/capslock-warning-field/solution
   if (this.params.serverPath === undefined) {
     this.throw(404);
   }

@@ -17,7 +17,7 @@ module.exports = function(options) {
 
       var args = require('yargs')
         .usage("tutorial url is required.")
-        .example("gulp tutorial:edit --url http://javascript.in/memory-leaks-jquery --root /js/javascript-tutorial")
+        .example("gulp tutorial:edit --url http://javascript.local/memory-leaks-jquery --root /js/javascript-tutorial")
         .demand(['url', 'root'])
         .argv;
 

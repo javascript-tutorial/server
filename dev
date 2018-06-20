@@ -8,6 +8,8 @@ export NODE_LANG=$1
 export NODE_ENV=development
 export ASSET_VERSIONING=query
 export WATCH=1
-export SITE_HOST=http://javascript.in
+export SITE_HOST=http://javascript.local
+export PORT=80
+
 npm --silent run gulp dev | bunyan -o short -l debug
 

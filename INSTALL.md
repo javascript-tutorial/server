@@ -54,15 +54,12 @@ Or like this: `npm --silent run gulp -- ...`.
 
 ## 5. System packages
 
-You'll also need to install nginx and GraphicsMagick (for image resizing).
+You'll also need to install GraphicsMagick (for image resizing).
 
 For MacPorts, the commands are:
 
 ```
 sudo port install GraphicsMagick
-sudo port install nginx +debug+gzip_static+realip+geoip
-
-sudo port load nginx
 ```
 
 ## 6. npm install
@@ -73,89 +70,19 @@ In the directory with javascript-tutorial-server, run:
 npm install
 ```
 
-## 7. Configuring Nginx from scratch
 
-If you had no nginx before, then everything is simple.
-
-The logs directory is `/var/log/nginx`.
-
-Create it and set owner/permissions. For a personal computer, can do it like this:
-
-```
-mkdir /var/log/nginx
-chmod 777 /var/log/nginx
-```
-
-Create configs by running:
-```
-npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-tutorial-server --env development --clear
-```
-
-Here `--prefix` -- is the directory for nginx config, usually `/etc/nginx`, for MacPorts it's `/opt/local/etc/nginx`.
-
-The `--root` is where the server is located. If you used another path instead of `/js/javascript-tutorial-server`, then change it.
-
-The `--clear` option clears all configs before creating the new ones. That's fine if you had no nginx before.
-
-Also it's recommended to add this line to `/etc/hosts`:
-```
-127.0.0.1 javascript.in
-```
-
-This host name is in the Nginx config already.
-
-## 7.1. If node.js is installed already
-
-If you already have nginx, make a backup of it's config files.
-
-Then execute the prevous section without the `--clear` at the end:
-
-```
-npm --silent run gulp -- config:nginx --prefix /opt/local/etc/nginx --root /js/javascript-nodejs --env development
-```
-
-The command copies files from the directory `/js/javascript-tutorial-server/nginx` into the folder `--prefix`, but without removing old configs.
-
-So if you had other sites in `sites-enabled`, they will not be removed.
-
-Rerun nginx. Make sure your existing projects work.
-
-## 8. Database
-
-Copy the tutorial repo, for instance `javascript-tutorial-en`
-
-```
-cd /js
-git clone https://github.com/iliakan/javascript-tutorial-en
-```
-
-After that, import it with the command:
-```
-PLUNK_REMOTE_OFF=1 npm --silent run gulp -- tutorial:import --root /js/javascript-tutorial-en
-```
-
-Here `/js/javascript-tutorial-en` -- the directory with the tutorial repository.
-
-`PLUNK_REMOTE_OFF=1` disables automatic uploading of examples to plnkr.co.
-That requires to setup a plnkr session, and is not necessary to run the tutorial.
-
-## 9. Run the site
-
+## 7. Run the site
 
 Run the site with the language in `NODE_LANG` variable:
-```
-HOST=127.0.0.1 PORT=80 ./dev en
-```
-
-Or with default host 127.0.0.1 and port 3000:
-
 ```
 ./dev en
 ```
 
-Then access the site.
+Then access the site at `http://127.0.0.1`.
 
-If you have `127.0.0.1 javascript.in` in `/etc/hosts`, then the address will be `http://javascript.in:3000`.
+If you have `127.0.0.1 javascript.local` in `/etc/hosts`, then the address will be `http://javascript.local`.
+
+Wait for a couple of seconds to build static assets.
 
 ## 10. Run in "Edit" mode
 
@@ -164,8 +91,6 @@ In "Edit" mode the engine watches the tutorial directory, instantly picks the ch
 ```
 ./edit en
 ```
-
-This uses the default `HOST=127.0.0.1`, `PORT=3000`, and the folder is `/js/javascript-tutorial-en`.
 
 
 # TroubleShooting
