@@ -130,6 +130,7 @@ TutorialImporter.prototype.syncFolder = function*(sourceFolderPath, parent) {
 
   data.githubLink = config.tutorialGithubBaseUrl + sourceFolderPath.slice(this.root.length);
 
+  console.log(data);
   const folder = new Article(data);
 
   yield folder.persist();

@@ -8,14 +8,9 @@ require('prismjs/components/prism-css.js');
 require('prismjs/components/prism-css-extras.js');
 require('prismjs/components/prism-clike.js');
 require('prismjs/components/prism-javascript.js');
-require('prismjs/components/prism-coffeescript.js');
 require('prismjs/components/prism-http.js');
 require('prismjs/components/prism-scss.js');
 require('prismjs/components/prism-sql.js');
-require('prismjs/components/prism-php.js');
-require('prismjs/components/prism-php-extras.js');
-require('prismjs/components/prism-python.js');
-require('prismjs/components/prism-ruby.js');
 require('prismjs/components/prism-java.js');
 
 Prism.tokenTag = 'code'; // for iBooks to use monospace font
