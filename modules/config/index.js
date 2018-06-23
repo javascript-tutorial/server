@@ -31,7 +31,7 @@ var config = module.exports = {
 
   server: {
     port:       env.PORT || 3000,
-    host:       env.HOST || '127.0.0.1',
+    host:       env.HOST || '0.0.0.0',
     siteHost:   env.SITE_HOST || '',
     staticHost: env.STATIC_HOST || ''
   },
