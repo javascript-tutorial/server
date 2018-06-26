@@ -1,6 +1,6 @@
 "use strict";
 
-const mongoose = require('mongoose');
+const mongoose = require('lib/mongoose');
 const Task = require('../models/task');
 const Article = require('../models/article');
 const TaskRenderer = require('../renderer/taskRenderer');

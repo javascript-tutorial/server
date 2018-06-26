@@ -1,7 +1,7 @@
 'use strict';
 
 const Plunk = require('plunk').Plunk;
-const mongoose = require('mongoose');
+const mongoose = require('lib/mongoose');
 
 exports.get = function*() {
   var plunk = yield Plunk.findOne({ plunkId: this.query.plunkId }).exec();

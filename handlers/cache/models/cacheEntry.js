@@ -1,6 +1,6 @@
 // A mongoose entry for generic tagged caching
 
-const mongoose = require('mongoose');
+const mongoose = require('lib/mongoose');
 const Schema = mongoose.Schema;
 
 // by default a generation may took that long ms maximally

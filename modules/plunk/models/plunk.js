@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('lib/mongoose');
 var assert = require('assert');
 var request = require('co-request');
 var config = require('config');

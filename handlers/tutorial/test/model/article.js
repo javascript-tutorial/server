@@ -3,7 +3,7 @@
 require('app');
 
 var dataUtil = require('lib/dataUtil');
-var mongoose = require('mongoose');
+var mongoose = require('lib/mongoose');
 var assert = require('assert');
 var path = require('path');
 var treeUtil = require('lib/treeUtil');

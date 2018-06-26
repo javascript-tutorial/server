@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('lib/mongoose');
 var mongooseTimestamp = require('lib/mongooseTimestamp');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var Schema = mongoose.Schema;

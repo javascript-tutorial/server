@@ -1,5 +1,5 @@
 
-var mongoose = require('mongoose');
+var mongoose = require('lib/mongoose');
 var log = require('log')();
 var co = require('co');
 var thunk = require('thunkify');
