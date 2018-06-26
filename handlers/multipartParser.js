@@ -1,6 +1,5 @@
 const PathListCheck = require('pathListCheck');
 const multiparty = require('multiparty');
-const thunkify = require('thunkify');
 
 var log = require('log')();
 
@@ -9,48 +8,50 @@ function MultipartParser() {
 }
 
 
-MultipartParser.prototype.parse = thunkify(function(req, callback) {
+MultipartParser.prototype.parse = function(req) {
 
-  var form = new multiparty.Form();
+  return new Promise((resolve, reject) => {
+    var form = new multiparty.Form();
 
-  var hadError = false;
-  var fields = {};
+    var hadError = false;
+    var fields = {};
 
-  form.on('field', function(name, value) {
-    fields[name] = value;
-  });
+    form.on('field', function(name, value) {
+      fields[name] = value;
+    });
 
-  // multipart file must be the last
-  form.on('part', function(part) {
-    if (part.filename !== null) {
-      // error is made the same way as multiparty uses
-      callback(createError(400, 'Files are not allowed here'));
-    } else {
-      throw new Error("Must never reach this line (field event parses all fields)");
+    // multipart file must be the last
+    form.on('part', function(part) {
+      if (part.filename !== null) {
+        // error is made the same way as multiparty uses
+        callback(createError(400, 'Files are not allowed here'));
+      } else {
+        throw new Error("Must never reach this line (field event parses all fields)");
+      }
+      part.on('error', onError);
+    });
+
+    form.on('error', onError);
+
+    form.on('close', onDone);
+
+    form.parse(req);
+
+    function onDone() {
+      log.debug("multipart parse done", fields);
+      if (hadError) return;
+      resolve(fields);
     }
-    part.on('error', onError);
+
+    function onError(err) {
+      log.debug("multipart error", err);
+      if (hadError) return;
+      hadError = true;
+      reject(err);
+    }
   });
 
-  form.on('error', onError);
-
-  form.on('close', onDone);
-
-  form.parse(req);
-
-  function onDone() {
-    log.debug("multipart parse done", fields);
-    if (hadError) return;
-    callback(null, fields);
-  }
-
-  function onError(err) {
-    log.debug("multipart error", err);
-    if (hadError) return;
-    hadError = true;
-    callback(err);
-  }
-
-});
+};
 
 
 MultipartParser.prototype.middleware = function() {

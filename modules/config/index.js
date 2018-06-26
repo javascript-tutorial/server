@@ -15,6 +15,8 @@ var secret = require('./secret');
 
 var lang = env.NODE_LANG || 'en';
 
+require('util').inspect.defaultOptions.depth = 3;
+
 if (env.DEV_TRACE) {
   Error.stackTraceLimit = 100000;
   require('trace');

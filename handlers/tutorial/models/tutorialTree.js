@@ -53,9 +53,9 @@ module.exports = class TutorialTree {
       i++;
     }
     if (i === parentChildren.length) {
-      parentChildren.push(entry);
+      parentChildren.push(entry.slug);
     } else {
-      parentChildren.splice(i, 0, entry);
+      parentChildren.splice(i, 0, entry.slug);
     }
   }
 

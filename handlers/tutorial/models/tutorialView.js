@@ -17,6 +17,9 @@ module.exports = class TutorialView {
         this[field] = data[field];
       }
     });
+    if (!this.files) {
+      this.files = [];
+    }
   }
 
   static storage() {
@@ -98,7 +101,7 @@ module.exports = class TutorialView {
     }
   }
 
-  async createPlunk(description, files, plunkerToken) {
+  static async createPlunk(description, files, plunkerToken) {
 
     if (!process.env.PLUNK_ENABLED) {
       return Math.random().toString(36).slice(2);

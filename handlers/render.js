@@ -9,7 +9,7 @@ const log = require('log')();
 const jade = require('lib/serverJade');
 const assert = require('assert');
 const t = require('i18n');
-const money = require('money');
+
 const url = require('url');
 const validate = require('validate');
 const pluralize = require('textUtil/pluralize');

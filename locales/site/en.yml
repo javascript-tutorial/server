@@ -13,6 +13,9 @@ search: Search
 share: Share
 donate: Donate
 read_before_commenting: read before commenting…
+
+tutorial_map: Tutorial map
+additional_articles: Additional articles
 comment:
   help:
     - You're welcome to post additions, questions to the articles and answers to them.
@@ -20,6 +23,9 @@ comment:
     - If you can't understand something in the article – please elaborate.
 
 edit_on_github: Edit on Github
-hide_forever: hide permanently
 Error: Error
+close: close
+Close: Close
 
+hide_forever: hide permanently
+hidden_forever: This information will not show up any more.

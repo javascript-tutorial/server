@@ -18,7 +18,15 @@ const TutorialView = require('../models/tutorialView');
 const TutorialParser = require('./tutorialParser');
 const stripTitle = require('markit').stripTitle;
 const stripYamlMetadata = require('markit').stripYamlMetadata;
+const mime = require('mime');
+const stripIndents = require('textUtil/stripIndents');
 
+
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('tutorial.importer', require('../locales/importer/' + LANG + '.yml'));
 
 module.exports = class TutorialImporter {
   constructor(options) {
@@ -366,7 +374,7 @@ module.exports = class TutorialImporter {
       log.debug("Created new plunk (db empty)", view);
     }
 
-    let filesForPlunk = plunkReadFs(dir);
+    let filesForPlunk = readFs(dir);
     log.debug("Files for plunk", filesForPlunk);
 
     if (!filesForPlunk) return; // had errors
@@ -421,7 +429,7 @@ module.exports = class TutorialImporter {
         webPath: sourceWebPath,
         description: "Fork from https://" + config.domain.main
       });
-      TutorialView.storage[webbPath] = sourceView;
+      TutorialView.storage[sourceWebPath] = sourceView;
     }
 
     let sourceFilesForView = {
@@ -435,7 +443,7 @@ module.exports = class TutorialImporter {
       }
     };
 
-    log.debug("save plunk for ", webPath);
+    log.debug("save plunk for ", sourceWebPath);
     await sourceView.mergeAndSyncPlunk(sourceFilesForView, this.plunkerToken);
 
     // Solution
@@ -443,7 +451,7 @@ module.exports = class TutorialImporter {
 
     let solution = makeSolution(solutionJs, testJs);
 
-    let solutionView = TutorialView.storage[webPath];
+    let solutionView = TutorialView.storage[solutionWebPath];
 
     if (!solutionView) {
       solutionView = new TutorialView({
@@ -543,5 +551,69 @@ function copySync(srcPath, dstPath) {
   log.debug("copySync %s -> %s", srcPath, dstPath);
 
   fse.copySync(srcPath, dstPath);
+}
+
+
+function readFs(dir) {
+
+  var files = fs.readdirSync(dir);
+
+  var hadErrors = false;
+  files = files.filter(function(file) {
+    if (file[0] == ".") return false;
+
+    var filePath = path.join(dir, file);
+    if (fs.statSync(filePath).isDirectory()) {
+      log.error("Directory not allowed: " + file);
+      hadErrors = true;
+    }
+
+    var type = mime.lookup(file).split('/');
+    if (type[0] != 'text' && type[1] != 'json' && type[1] != 'javascript' && type[1] != 'svg+xml') {
+      log.error("Bad file extension: " + file);
+      hadErrors = true;
+    }
+
+    return true;
+  });
+
+  if (hadErrors) {
+    return null;
+  }
+
+  files = files.sort(function(fileA, fileB) {
+    var extA = fileA.slice(fileA.lastIndexOf('.') + 1);
+    var extB = fileB.slice(fileB.lastIndexOf('.') + 1);
+
+    if (extA == extB) {
+      return fileA > fileB ? 1 : -1;
+    }
+
+    // html always first
+    if (extA == 'html') return 1;
+    if (extB == 'html') return -1;
+
+    // then goes CSS
+    if (extA == 'css') return 1;
+    if (extB == 'css') return -1;
+
+    // then JS
+    if (extA == 'js') return 1;
+    if (extB == 'js') return -1;
+
+    // then other extensions
+    return fileA > fileB ? 1 : -1;
+  });
+
+  var filesForPlunk = {};
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    filesForPlunk[file] = {
+      filename: file,
+      content: stripIndents(fs.readFileSync(path.join(dir, file), 'utf-8'))
+    };
+  }
+
+  return filesForPlunk;
 }
   

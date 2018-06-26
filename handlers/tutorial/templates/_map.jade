@@ -5,37 +5,34 @@ include /bem
     +e.filter-t
       +e.input-wrap
         +b('span').text-input.__input
-          +e('input').control(type="text" placeholder="Фильтр по заголовку" data-tutorial-map-filter)
-          +b.close-button.__clear
+          +e('input').control(type="text" placeholder=t('tutorial.map.filter_by_title') data-tutorial-map-filter)
+          +e.clear
       +e.option
         +e('label').option-label(for="show-tasks")
           +e('input').option-control#show-tasks(type="checkbox" data-tutorial-map-show-tasks)
-          | Показать задачи
-      +e.layout
-        +b.switch.__layout-switch(data-tutorial-map-layout-switch)
-          +e.option
-            +e('input').control#multicol(type="radio" name="map-layout" value="0" checked="checked")
-            +e('label').label.__multicol(for="multicol")
-          +e.option
-            +e('input').control#singlecol(type="radio" name="map-layout" value="1")
-            +e('label').label.__singlecol(for="singlecol")
+          = t('tutorial.map.show_tasks')
 
-  +e.tutorial-map-map.columns.columns_3
-    each topic in children
-      +e.section.columns__col
-        +e('h2').col-title= topic.title
-        +e('ul').items
-          each subtopic in topic.children
+  +b.tutorial-map-list
+    each topic in roots
+      +e.item
+        +e('h2').title= topic.title
+        +b('ul').tutorial-map-list-two
+          each slug in topic.children
+            - let subtopic = bySlug(slug)
             +e('li').item
-              +e('a').link(href=subtopic.url)= subtopic.title
-              +e('ul').sub-items
-                each article in subtopic.children
-                  +e('li').sub-item
-                    +e('a').link(href=article.url)= article.title
-                    if article.tasks
-                      +e('ul').sub-sub-items
-                        each task in article.tasks
-                          +e('li').sub-sub-item
-                            +e('a').link(href=task.url)= task.title
-                            =" "
-                            +e('span').note= task.importance
+              +e.title
+                +e('a').link(href=subtopic.getUrl())= subtopic.title
+              if subtopic.children.length
+                +b('ul').tutorial-map-list-three
+                  each slug in subtopic.children
+                    - let article = bySlug(slug)
+                    +e('li').item
+                      +e.title
+                        +e('a').link(href=article.getUrl())= article.title
+                      if article.children
+                        +b('ul').tutorial-map-list-four
+                          each slug in article.children
+                            - let task = bySlug(slug)
+                            +e('li').item
+                              +e.title
+                                +e('a').link(href=task.getUrl())= task.title

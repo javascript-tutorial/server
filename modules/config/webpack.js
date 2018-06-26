@@ -6,10 +6,11 @@ var rupture = require('rupture');
 var path = require('path');
 var config = require('config');
 var webpack = require('webpack');
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var del = require('del');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const fse = require('fs-extra');
 
 // 3rd party / slow to build modules
 // no webpack dependencies inside
@@ -48,7 +49,7 @@ module.exports = function(config) {
 
       chunkFilename: extHash("[name]-[id]", 'js'),
       library:       '[name]',
-      pathInfo:      process.env.NODE_ENV == 'development'
+      pathinfo:      process.env.NODE_ENV == 'development'
     },
 
     cache: process.env.NODE_ENV == 'development',
@@ -60,7 +61,7 @@ module.exports = function(config) {
     watch: process.env.NODE_ENV == 'development',
 
     devtool: process.env.NODE_ENV == 'development' ? "cheap-inline-module-source-map" : // try "eval" ?
-               process.env.NODE_ENV == 'production' ? 'source-map' : null,
+               process.env.NODE_ENV == 'production' ? 'source-map' : false,
 
     profile: true,
 
@@ -72,79 +73,103 @@ module.exports = function(config) {
     },
 
     module: {
-      loaders: [
+      rules: [
         {
-          test:   /\.json$/,
-          loader: 'json'
+          test: /\.json$/,
+          use: 'json-loader'
         },
         {
-          test:   /\.yml$/,
-          loader: 'json!yaml'
+          test: /\.yml$/,
+          use: ['json-loader', 'yaml-loader']
         },
         {
-          test:   /\.jade$/,
-          loader: "jade?root=" + config.projectRoot + '/templates'
+          test: /\.jade$/,
+          use: 'jade-loader?root=' + config.projectRoot + '/templates'
         },
         {
-          test:    /\.js$/,
+          test: /\.js$/,
           // babel shouldn't process modules which contain ws/browser.js,
           // which must not be run in strict mode (global becomes undefined)
           // babel would make all modules strict!
           exclude: /node_modules\/(angular|prismjs|moment|blueimp-canvas-to-blob|codemirror|markdown-it)/,
-          loaders: ['ng-annotate', 'babel?presets[]=es2015'] // babel will work first
+          use: [
+            // babel will work first
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  ['env', {
+                    //useBuiltIns: true,
+                    targets: {
+                      browsers: "> 3%"
+                    }
+                  }]
+                ]
+              }
+            }
+          ]
         },
         {
-          test:   /\.styl$/,
+          test: /\.styl$/,
           // ExtractTextPlugin breaks HMR for CSS
-          loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!hover!stylus?linenos=true&resolve url=true')
-          //loader: 'style!css!autoprefixer?browsers=last 2 version!stylus?linenos=true'
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  minimize: process.env.NODE_ENV == 'production' ? true : false
+                }
+              },
+              'autoprefixer-loader',
+              'hover-loader',
+              {
+                loader: 'stylus-loader',
+                options: {
+                  linenos: true,
+                  'resolve url': true,
+                  use: [
+                    rupture(),
+                    nib(),
+                    function(style) {
+                      style.define('lang', config.lang);
+                    }
+                  ]
+                },
+              },
+            ]
+          })
         },
         {
-          test:   /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
-          loader: extHash('file?name=[path][name]', '[ext]')
+          test: /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
+          use: extHash('file-loader?name=[path][name]', '[ext]')
         }
       ],
-      noParse: [
-        // regexp gets full path with loader like
-        // '/js/javascript-nodejs/node_modules/client/angular.js'
-        // or even
-        // '/js/javascript-nodejs/node_modules/6to5-loader/index.js?modules=commonInterop!/js/javascript-nodejs/node_modules/client/head/index.js'
-        {
-          test: function(path) {
-            /*
-             if (path.indexOf('!') != -1) {
-             path = path.slice(path.lastIndexOf('!') + 1);
-             }
-             */
-            //console.log(path);
-            return noProcessModulesRegExp.test(path);
-          }
-        }
-      ]
+      noParse: function(path) {
+        /*
+         if (path.indexOf('!') != -1) {
+         path = path.slice(path.lastIndexOf('!') + 1);
+         }
+         */
+        //console.log(path);
+        return noProcessModulesRegExp.test(path);
+      }
     },
 
-    stylus: {
-      use: [
-        rupture(),
-        nib(),
-        function(style) {
-          style.define('lang', config.lang);
-        }]
-    },
 
     resolve: {
       // allow require('styles') which looks for styles/index.styl
-      extensions: ['.js', '', '.styl'],
-      alias:      {
-        config:          'client/config'
+      extensions: ['.js', '.styl'],
+      alias: {
+        config: 'client/config',
       },
-                  modulesDirectories
+      modules: modulesDirectories
     },
 
+
     resolveLoader: {
-                       modulesDirectories,
-      moduleTemplates: ['*-loader', '', '*Loader'],
-      extensions:      ['.js', '']
+      modules: modulesDirectories,
+      extensions: ['.js']
     },
 
     node: {
@@ -167,8 +192,11 @@ module.exports = function(config) {
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
       // any common chunks from entries go to head
-      new CommonsChunkPlugin("head", extHash("head", 'js')),
-      new WriteVersionsPlugin(path.join(config.manifestRoot, "pack.versions.json")),
+      new CommonsChunkPlugin({
+        name: 'head',
+        filename: extHash('head', 'js')
+      }),
+      new WriteVersionsPlugin(path.join(config.manifestRoot, 'pack.versions.json')),
 
       new ExtractTextPlugin(extHash('[name]', 'css', '[contenthash]'), {allChunks: true}),
 
@@ -186,7 +214,7 @@ module.exports = function(config) {
           }
 
           if (fs.existsSync(`${config.projectRoot}/handlers/${handler}/client/styles/global/${config.lang}.styl`)) {
-            content += `\n@require('~${handler}/client/styles/global/${config.lang}.styl'`;
+            content += `\n@require '~${handler}/client/styles/global/${config.lang}.styl'`;
           }
         });
 
@@ -221,7 +249,7 @@ module.exports = function(config) {
     webpackConfig.plugins.push(
       function clearBeforeRun() {
         function clear(compiler, callback) {
-          del.sync(this.options.output.path + '/*');
+          fse.removeSync(this.options.output.path + '/*');
           callback();
         }
 
@@ -232,18 +260,21 @@ module.exports = function(config) {
       },
 
       /* jshint -W106 */
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          // don't show unreachable variables etc
-          warnings:     false,
-          drop_console: true,
-          unsafe:       true,
-          screw_ie8:    true
-        },
-        beautify: true,
-        output:   {
-          indent_level: 0 // for error reporting, to see which line actually has the problem
-          // source maps actually didn't work in Qbaka that's why I put it here
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: 2,
+        uglifyOptions: {
+          ecma: 8,
+          warnings: false,
+          compress: {
+            drop_console: true,
+            drop_debugger: true
+          },
+          output: {
+            beautify: true,
+            indent_level: 0 // for error reporting, to see which line actually has the problem
+            // source maps actually didn't work in Qbaka that's why I put it here
+          }
         }
       })
     );

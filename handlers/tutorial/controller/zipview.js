@@ -1,15 +1,16 @@
 'use strict';
 
-const Plunk = require('plunk').Plunk;
+const TutorialView = require('../models/tutorialView');
 
 exports.get = function*() {
-  var plunk = yield Plunk.findOne({ plunkId: this.query.plunkId });
+  let view;
 
-  if (!plunk) {
-    this.throw(404);
+  for(let webpath in TutorialView.storage) {
+    view = TutorialView.storage[webpath];
+    if (view.plunkId == this.query.plunkId) {
+      this.set('Content-Type', 'application/zip');
+      this.body = view.getZip();
+    }
   }
-
-  this.set('Content-Type', 'application/zip');
-  this.body = plunk.getZip();
 
 };

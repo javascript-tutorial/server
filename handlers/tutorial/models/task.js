@@ -26,6 +26,6 @@ module.exports = class Task extends TutorialEntry {
       }
     });
 
-
   }
+
 };
