@@ -5,7 +5,8 @@
  * @type {TutorialImporter|exports}
  */
 
-var TutorialImporter = require('../tutorialImporter');
+var TutorialImporter = require('../lib/tutorialImporter');
+var TutorialTree = require('../models/tutorialTree');
 var co = require('co');
 var fs = require('fs');
 var path = require('path');
@@ -22,27 +23,29 @@ module.exports = function(options) {
 
     var root = fs.realpathSync(args.root);
 
+    var tree = TutorialTree.instance();
+
     var importer = new TutorialImporter({
       root: root
     });
 
-    return co(function* () {
+    return async function() {
 
-      yield* importer.destroyAll();
+      log.info("START");
+      tree.destroyAll();
 
-      var subRoots = fs.readdirSync(root);
+      let subRoots = fs.readdirSync(root);
 
-      for (var i = 0; i < subRoots.length; i++) {
-        var subRoot = subRoots[i];
+      for (let subRoot of subRoots) {
         if (!parseInt(subRoot)) continue;
-        yield* importer.sync(path.join(root, subRoot));
+        await importer.sync(path.join(root, subRoot));
       }
 
-      yield* importer.generateCaches();
+      // yield* importer.generateCaches();
 
       log.info("DONE");
 
-    });
+    }();
   };
 };
 

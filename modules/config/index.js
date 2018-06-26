@@ -64,7 +64,8 @@ var config = module.exports = {
   // js/css build versions
   manifestRoot:          path.join(process.cwd(), 'manifest'),
   migrationsRoot:        path.join(process.cwd(), 'migrations'),
-  tutorialGithubBaseUrl: 'https://github.com/iliakan/javascript-tutorial/blob/' + lang,
+  tutorialGithubBaseUrl: 'https://github.com/iliakan/javascript-tutorial-' + lang + '/tree/master/' +
+  '',
 
   handlers: require('./handlers')
 };

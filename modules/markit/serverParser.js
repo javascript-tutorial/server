@@ -4,7 +4,6 @@ const config = require('config');
 const MarkdownIt = require('markdown-it');
 const loadSrcAsync = require('./loadSrcAsync');
 const loadImgSizeAsync = require('./loadImgSizeAsync');
-const dataUtil = require('lib/dataUtil');
 
 const onlineOfflinePlugin = require('./plugins/onlineOffline');
 const extendedCodePlugin = require('./plugins/extendedCode');

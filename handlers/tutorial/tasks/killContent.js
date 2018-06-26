@@ -25,7 +25,7 @@ module.exports = function() {
 
 function* killArticles() {
 
-  var articles = yield Article.find({}).exec();
+  var articles = yield Article.find({});
 
   for (var i = 0; i < articles.length; i++) {
     var article = articles[i];
@@ -40,7 +40,7 @@ function* killArticles() {
 
 function* renderArticles() {
 
-  var articles = yield Article.find({}).exec();
+  var articles = yield Article.find({});
 
   for (var i = 0; i < articles.length; i++) {
     var article = articles[i];
@@ -58,7 +58,7 @@ function* renderArticles() {
 
 function* renderTasks() {
 
-  var tasks = yield Task.find({}).exec();
+  var tasks = yield Task.find({});
 
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];
@@ -75,7 +75,7 @@ function* renderTasks() {
 
 function* killTasks() {
 
-  var tasks = yield Task.find({}).exec();
+  var tasks = yield Task.find({});
 
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];

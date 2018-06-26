@@ -12,7 +12,6 @@
  */
 
 const assert = require('assert');
-const Plunk = require('plunk').Plunk;
 const path = require('path');
 const fs = require('mz/fs');
 const t = require('i18n');

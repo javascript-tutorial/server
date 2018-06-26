@@ -1,6 +1,5 @@
 "use strict";
 
-const mongoose = require('lib/mongoose');
 const Task = require('../models/task');
 const Article = require('../models/article');
 const TaskRenderer = require('../renderer/taskRenderer');
@@ -27,7 +26,7 @@ exports.get = function *get(next) {
 
   var parentId = task.parent._id;
   while (true) {
-    let parent = yield Article.findById(parentId, {slug: 1, title: 1, parent: 1}).exec();
+    let parent = yield Article.findById(parentId, {slug: 1, title: 1, parent: 1});
     if (!parent) break;
     breadcrumbs.push({
       url:   parent.getUrl(),

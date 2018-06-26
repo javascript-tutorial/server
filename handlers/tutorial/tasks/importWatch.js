@@ -1,6 +1,7 @@
 'use strict';
 
-var TutorialImporter = require('../tutorialImporter');
+var TutorialImporter = require('../lib/tutorialImporter');
+var TutorialTree = require('../models/tutorialTree');
 var FiguresImporter = require('../figuresImporter');
 var co = require('co');
 var fs = require('fs');
@@ -12,7 +13,7 @@ var os = require('os');
 
 module.exports = function(options) {
 
-  return function(callback) {
+  return async function() {
 
     var args = require('yargs')
       .usage("Path to tutorial root is required.")
@@ -25,11 +26,29 @@ module.exports = function(options) {
       throw new Error("Import watch root does not exist " + options.root);
     }
 
+    var tree = TutorialTree.instance();
+
+    var importer = new TutorialImporter({
+      root: root
+    });
+
+    tree.destroyAll();
+
+    let subRoots = fs.readdirSync(root);
+
+    for (let subRoot of subRoots) {
+      if (!parseInt(subRoot)) continue;
+      await importer.sync(path.join(root, subRoot));
+    }
+
+    log.info("Import complete");
+
     watchTutorial(root);
     watchFigures(root);
 
     livereload.listen();
 
+    await new Promise(resolve => {});
   };
 
 };

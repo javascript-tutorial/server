@@ -3,7 +3,6 @@
 const should = require('should');
 
 // introduce models for fixtures
-require('lib/mongoose');
 require('tutorial').Article;
 require('tutorial').Task;
 

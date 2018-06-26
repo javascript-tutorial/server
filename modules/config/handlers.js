@@ -5,7 +5,6 @@ const fs = require('fs');
 
 var handlers = [
   'static',
-  'mongooseHandler',
   'requestId',
   'requestLog',
   'nocache',

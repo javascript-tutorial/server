@@ -29,12 +29,7 @@ function pushTaskQueue(task) {
     log("queue: already exists", task);
     return;
   }
-  /* (maybe the task should be moved into the end of the queue? couldn't find any practical difference)
-   if (~taskQueue.indexOf(task)) {
-   log("queue: already exists, removing", task);
-   taskQueue.splice(taskQueue.indexOf(task), 1);
-   }
-   */
+
   taskQueue.push(task);
   log("push", taskQueue);
 

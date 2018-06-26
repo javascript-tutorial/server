@@ -3,9 +3,7 @@
 const app = require('app');
 
 const TaskRenderer = require('../../renderer/taskRenderer');
-const mongoose = require('lib/mongoose');
 const Task = require('../../models/task');
-const Plunk = require('plunk').Plunk;
 
 describe("TaskRenderer", function() {
 

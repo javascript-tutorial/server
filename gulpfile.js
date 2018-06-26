@@ -12,7 +12,6 @@ const runSequence = require('run-sequence');
 const ll   = require('gulp-ll');
 
 const config = require('config');
-const mongoose = require('lib/mongoose');
 
 process.on('uncaughtException', function(err) {
   console.error(err.message, err.stack, err.errors);
@@ -41,14 +40,13 @@ function requireModuleTasks(moduleName) {
 
   let hasDeps;
   try {
-    fs.accessSync(path.join(dir, '.deps.json'));
+    fs.accessSync(path.join(dir, 'deps.json'));
     hasDeps = true;
-
   } catch(e) {
     hasDeps = false;
   }
 
-  let deps = hasDeps ? require(path.join(dir, '.deps.json')) : {};
+  let deps = hasDeps ? require(path.join(dir, 'deps.json')) : {};
 
   for(let taskFile of taskFiles) {
     // migrate:myTask
@@ -57,8 +55,6 @@ function requireModuleTasks(moduleName) {
     if (taskName === '') continue; // ignore .files
 
     let taskNameFull = moduleName.replace(/\//g, ':') + ':' + taskName;
-
-    // console.log("task", taskNameFull, "deps", deps[taskName] || [], "path", path.join(dir, taskFile) );
 
     gulp.task(taskNameFull, deps[taskName] || [], lazyRequireTask(path.join(dir, taskFile)) );
   }
@@ -97,8 +93,6 @@ gulp.task("client:livereload", lazyRequireTask("./tasks/livereload", {
   ]
 }));
 
-
-requireModuleTasks('migrate');
 requireModuleTasks('tutorial');
 
 var testSrcs = ['{handlers,modules}/**/test/**/*.js'];
@@ -160,7 +154,6 @@ gulp.task('build', function(callback) {
 
 gulp.task('server', lazyRequireTask('./tasks/server'));
 
-// no build
 gulp.task('edit', ['tutorial:importWatch', "client:sync-resources", 'client:livereload', 'server']);
 
 
@@ -168,22 +161,10 @@ gulp.task('dev', function(callback) {
   runSequence("client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
 });
 
-gulp.task('cache:clean', lazyRequireTask('./tasks/cacheClean'));
-
-gulp.task('config:nginx', lazyRequireTask('./tasks/configNginx'));
-
-// when queue finished successfully or aborted, close db
-// orchestrator events (sic!)
-gulp.on('stop', function() {
-  mongoose.disconnect();
-});
-
 gulp.on('err', function(gulpErr) {
   if (gulpErr.err) {
     // cause
     console.error("Gulp error details", [gulpErr.err.message, gulpErr.err.stack, gulpErr.err.errors].filter(Boolean));
   }
-  mongoose.disconnect();
 });
-
 

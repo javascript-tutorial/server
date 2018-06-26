@@ -1,12 +1,10 @@
 'use strict';
 
-const mongoose = require('lib/mongoose');
 const Article = require('../models/article');
 const Task = require('../models/task');
 const ArticleRenderer = require('../renderer/articleRenderer');
 const TaskRenderer = require('../renderer/taskRenderer');
 const _ = require('lodash');
-const CacheEntry = require('cache').CacheEntry;
 const makeAnchor = require('textUtil/makeAnchor');
 const t = require('i18n');
 
@@ -110,7 +108,7 @@ exports.get = function *get(next) {
 // siblings
 function* renderArticle(slug) {
 
-  const article = yield Article.findOne({ slug: slug }).exec();
+  const article = yield Article.findOne({ slug: slug });
   if (!article) {
     return null;
   }
@@ -272,7 +270,7 @@ function* renderArticle(slug) {
   function *renderTasks() {
     var tasks = yield Task.find({
       parent: article._id
-    }).sort({weight: 1}).exec();
+    }).sort({weight: 1});
 
     const taskRenderer = new TaskRenderer();
 

@@ -4,7 +4,6 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
 const config = require('config');
-const mongoose = require('lib/mongoose');
 const glob = require("glob");
 
 const log = require('log')();

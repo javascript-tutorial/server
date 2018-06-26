@@ -1,11 +1,9 @@
 'use strict';
 
-const mongoose = require('lib/mongoose');
 const Article = require('../models/article');
 const Task = require('../models/task');
 const _ = require('lodash');
 const ArticleRenderer = require('../renderer/articleRenderer');
-const CacheEntry = require('cache').CacheEntry;
 
 exports.get = function *get(next) {
 
@@ -80,7 +78,7 @@ function* renderTree(tree) {
 
 
 function* populateContent(articleObj) {
-  var article = yield Article.findById(articleObj.id).exec();
+  var article = yield Article.findById(articleObj.id);
 
   var renderer = new ArticleRenderer();
 

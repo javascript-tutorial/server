@@ -204,7 +204,7 @@ ArticleRenderer.prototype.renderWithCache = function*(article, options) {
 
 
 ArticleRenderer.regenerateCaches = function*() {
-  var articles = yield Article.find({}).exec();
+  var articles = yield Article.find({});
 
   for (var i = 0; i < articles.length; i++) {
     var article = articles[i];

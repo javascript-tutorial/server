@@ -1,6 +1,5 @@
 'use strict';
 
-const mongoose = require('lib/mongoose');
 const Article = require('../models/article');
 const Task = require('../models/task');
 const ArticleRenderer = require('../renderer/articleRenderer');
@@ -55,7 +54,7 @@ function* renderMap() {
 
       var tasks = yield Task.find({
         parent: child._id
-      }).sort({weight: 1}).select('-_id slug title importance').lean().exec();
+      }).sort({weight: 1}).select('-_id slug title importance').lean();
 
       tasks = tasks.map(function(task) {
         task.url = Task.getUrlBySlug(task.slug);

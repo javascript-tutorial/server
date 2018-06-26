@@ -1,7 +1,5 @@
 'use strict';
 
-const mongoose = require('lib/mongoose');
-
 var ids = [];
 for (var i = 0; i < 10; i++) ids[i] = new mongoose.Types.ObjectId();
 

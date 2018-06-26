@@ -5,7 +5,6 @@
 var Stream = require('stream').Stream;
 var util = require('util');
 
-var assert = require('assert-plus');
 var bunyan = require('bunyan');
 var LRU = require('lru-cache');
 var os = require('os');
@@ -30,12 +29,6 @@ var os = require('os');
 class RequestCaptureStream extends Stream {
   constructor(opts) {
     super();
-
-    assert.object(opts, 'options');
-    assert.optionalObject(opts.stream, 'options.stream');
-    assert.optionalString(opts.level, 'options.level');
-    assert.optionalNumber(opts.maxRecords, 'options.maxRecords');
-    assert.optionalNumber(opts.maxRequestIds, 'options.maxRequestIds');
 
     this.level = opts.level ? bunyan.resolveLevel(opts.level) : bunyan.WARN;
     this.limit = opts.maxRecords || 100;
@@ -74,8 +67,6 @@ class RequestCaptureStream extends Stream {
       ring.records.length = 0;
       this.requestMap.set(reqId, ring);
     }
-
-    assert.ok(ring, 'no ring found');
 
     ring.write(record);
 

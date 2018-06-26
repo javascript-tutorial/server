@@ -1,7 +1,6 @@
 'use strict';
 
 const config = require('config');
-const Plunk = require('plunk').Plunk;
 const Task = require('../models/task');
 const log = require('log')();
 
@@ -38,7 +37,7 @@ TaskRenderer.prototype.renderContent = function* (task, options) {
 
 TaskRenderer.prototype.addContentPlunkLink = function*(task, content) {
 
-  var sourcePlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/source'}).exec();
+  var sourcePlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/source'});
 
   if (sourcePlunk) {
 
@@ -140,7 +139,7 @@ TaskRenderer.prototype.renderSolution = function* (task, options) {
 
 TaskRenderer.prototype.addSolutionPlunkLink = function*(task, solution) {
 
-  var solutionPlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/solution'}).exec();
+  var solutionPlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/solution'});
 
   if (solutionPlunk) {
     var files = solutionPlunk.files.toObject();
@@ -159,7 +158,7 @@ TaskRenderer.prototype.addSolutionPlunkLink = function*(task, solution) {
 
 
 TaskRenderer.regenerateCaches = function*() {
-  var tasks = yield Task.find({}).exec();
+  var tasks = yield Task.find({});
 
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];
