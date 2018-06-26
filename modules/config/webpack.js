@@ -118,10 +118,18 @@ module.exports = function(config) {
               {
                 loader: 'css-loader',
                 options: {
-                  minimize: process.env.NODE_ENV == 'production' ? true : false
+                  minimize: process.env.NODE_ENV == 'production' ? true : false,
+                  importLoaders: 1
                 }
               },
-              'autoprefixer-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: [
+                    require('autoprefixer')
+                  ]
+                }
+              },
               'hover-loader',
               {
                 loader: 'stylus-loader',

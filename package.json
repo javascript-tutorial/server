@@ -13,8 +13,8 @@
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
   "dependencies": {
-    "autoprefixer-loader": "*",
-    "babel-core": "^6",
+    "autoprefixer": "*",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7",
     "babel-plugin-transform-flow-strip-types": "*",
     "babel-plugin-transform-runtime": "*",
@@ -55,6 +55,7 @@
     "node-uuid": "*",
     "node-zip": "*",
     "path-to-regexp": "*",
+    "postcss-loader": "*",
     "prismjs": "^1",
     "request": "*",
     "request-promise": "*",
@@ -62,6 +63,8 @@
     "rupture": "*",
     "style-loader": "*",
     "stylus-loader": "*",
+    "uglify-js": "*",
+    "uglifyjs-webpack-plugin": "^1",
     "webpack": "^3"
   },
   "engineStrict": true,
