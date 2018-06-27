@@ -1,10 +1,10 @@
 'use strict';
 
-var delegate = require('client/delegate');
-var prism = require('client/prism');
-var xhr = require('client/xhr');
-var TutorialMapModal = require('./tutorialMapModal');
-var TutorialMap = require('./tutorialMap');
+let delegate = require('client/delegate');
+let prism = require('client/prism');
+let xhr = require('client/xhr');
+let TutorialMapModal = require('./tutorialMapModal');
+let TutorialMap = require('./tutorialMap');
 
 function init() {
 
@@ -24,7 +24,7 @@ function init() {
 
   prism.init();
 
-  var tutorialMapElem = document.querySelector('.tutorial-map');
+  let tutorialMapElem = document.querySelector('.tutorial-map');
   if (tutorialMapElem) {
     new TutorialMap(tutorialMapElem);
   } else if (/[&?]map\b/.test(location.href)) {
@@ -36,7 +36,7 @@ function init() {
 
 function initNewsletterForm() {
 
-  var form = document.querySelector('[data-newsletter-subscribe-form]');
+  let form = document.querySelector('[data-newsletter-subscribe-form]');
   if (!form) return;
 
   form.onsubmit = function(event) {
@@ -52,7 +52,7 @@ function showTutorialMapModal() {
   if (!/[&?]map\b/.test(location.href)) {
     window.history.replaceState(null, null, ~location.href.indexOf('?') ? (location.href + '&map') : (location.href + '?map'));
   }
-  var modal = new TutorialMapModal();
+  let modal = new TutorialMapModal();
   modal.elem.addEventListener('tutorial-map-remove', function() {
     window.history.replaceState(null, null, location.href.replace(/[&?]map\b/, ''));
   });
@@ -63,13 +63,13 @@ function initSidebarHighlight() {
 
   function highlight() {
 
-    var current = document.getElementsByClassName('sidebar__navigation-link_active');
+    let current = document.getElementsByClassName('sidebar__navigation-link_active');
     if (current[0]) current[0].classList.remove('sidebar__navigation-link_active');
 
     //debugger;
-    var h2s = document.getElementsByTagName('h2');
-    for (var i = 0; i < h2s.length; i++) {
-      var h2 = h2s[i];
+    let h2s = document.getElementsByTagName('h2');
+    for (let i = 0; i < h2s.length; i++) {
+      let h2 = h2s[i];
       // first in-page header
       // >1, because when visiting http://javascript.local/native-prototypes#native-prototype-change,
       // top may be 0.375 or kind of...
@@ -78,8 +78,8 @@ function initSidebarHighlight() {
     i--; // we need the one before it (currently reading)
 
     if (i >= 0) {
-      var href = h2s[i].firstElementChild && h2s[i].firstElementChild.getAttribute('href');
-      var li = document.querySelector('.sidebar__navigation-link a[href="' + href + '"]');
+      let href = h2s[i].firstElementChild && h2s[i].firstElementChild.getAttribute('href');
+      let li = document.querySelector('.sidebar__navigation-link a[href="' + href + '"]');
       if (href && li) {
         li.classList.add('sidebar__navigation-link_active');
       }
@@ -116,8 +116,8 @@ function initTaskButtons() {
 
 function initFolderList() {
   delegate(document, '.lessons-list__lesson_level_1 > .lessons-list__link', 'click', function(event) {
-    var link = event.delegateTarget;
-    var openFolder = link.closest('.lessons-list').querySelector('.lessons-list__lesson_open');
+    let link = event.delegateTarget;
+    let openFolder = link.closest('.lessons-list').querySelector('.lessons-list__lesson_open');
     // close the previous open folder (thus making an accordion)
     if (openFolder && openFolder != link.parentNode) {
       openFolder.classList.remove('lessons-list__lesson_open');
@@ -129,8 +129,8 @@ function initFolderList() {
 
 window.runDemo = function(button) {
 
-  var demoElem;
-  var parent = button;
+  let demoElem;
+  let parent = button;
 
   /* jshint -W084 */
   while (parent = parent.parentElement) {

@@ -1,9 +1,9 @@
-var csvPath = require('path').resolve(__dirname, 'memory.csv');
-var out = require('fs').createWriteStream(csvPath);
+let csvPath = require('path').resolve(__dirname, 'memory.csv');
+let out = require('fs').createWriteStream(csvPath);
 
 setInterval(function() {
-  var time = Date.now();
-  var memo = process.memoryUsage();
+  let time = Date.now();
+  let memo = process.memoryUsage();
   out.write(
     time + ',' +
     memo.rss + ', ' +

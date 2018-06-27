@@ -2,7 +2,7 @@ function onSwipe(elem, options) {
 
   options = options || {};
 
-  var startX,
+  let startX,
       startY,
       dist,
       onRight = options.onRight || function() {},
@@ -14,7 +14,7 @@ function onSwipe(elem, options) {
       startTime;
 
   elem.addEventListener('touchstart', function(e) {
-    var touchobj = e.changedTouches[0];
+    let touchobj = e.changedTouches[0];
     dist = 0;
     startX = touchobj.pageX;
     startY = touchobj.pageY;
@@ -23,7 +23,7 @@ function onSwipe(elem, options) {
   });
 
   elem.addEventListener('touchend', function(e) {
-    var touchobj = e.changedTouches[0];
+    let touchobj = e.changedTouches[0];
     dist = touchobj.pageX - startX; // get total dist traveled by finger while in contact with surface
     elapsedTime = Date.now() - startTime; // get time elapsed
 
@@ -37,8 +37,8 @@ function onSwipe(elem, options) {
     // too slow
     if (elapsedTime > allowedTime) return;
 
-    var insideScrollable = false;
-    var elem = e.target;
+    let insideScrollable = false;
+    let elem = e.target;
     while(elem != document.body) {
       if (elem.scrollWidth > elem.clientWidth) {
         insideScrollable = true;

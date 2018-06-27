@@ -1,6 +1,6 @@
 
 function findDelegateTarget(event, selector) {
-  var currentNode = event.target;
+  let currentNode = event.target;
   while (currentNode) {
     if (currentNode.matches(selector)) {
       return currentNode;
@@ -22,7 +22,7 @@ function findDelegateTarget(event, selector) {
 function delegate(topElement, selector, eventName, handler, context) {
   /* jshint -W040 */
   topElement.addEventListener(eventName, function(event) {
-    var found = findDelegateTarget(event, selector);
+    let found = findDelegateTarget(event, selector);
 
     // .currentTarget is read only, I can not overwrite it to the "found" element
     // Object.create wrapper would break event.preventDefault()

@@ -53,7 +53,7 @@ module.exports = function(md) {
     }
 
 
-    var locals = {
+    let locals = {
       tabs,
       height,
       src:    path.join(options.resourceWebRoot, token.blockTagAttrs.src) + '/'

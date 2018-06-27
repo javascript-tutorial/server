@@ -1,14 +1,14 @@
 'use strict';
 
-var fs = require('fs');
-var nib = require('nib');
-var rupture = require('rupture');
-var path = require('path');
-var config = require('config');
-var webpack = require('webpack');
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+let fs = require('fs');
+let nib = require('nib');
+let rupture = require('rupture');
+let path = require('path');
+let config = require('config');
+let webpack = require('webpack');
+let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+let WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fse = require('fs-extra');
 
@@ -16,7 +16,7 @@ const fse = require('fs-extra');
 // no webpack dependencies inside
 // no es6 (for 6to5 processing) inside
 // NB: includes angular-*
-var noProcessModulesRegExp = /node_modules\/(angular|prismjs)/;
+let noProcessModulesRegExp = /node_modules\/(angular|prismjs)/;
 
 module.exports = function(config) {
 // tutorial.js?hash
@@ -28,12 +28,12 @@ module.exports = function(config) {
         `${name}.${ext}`;
   }
 
-  var modulesDirectories = ['node_modules'];
+  let modulesDirectories = ['node_modules'];
   if (process.env.NODE_PATH) {
     modulesDirectories = modulesDirectories.concat(process.env.NODE_PATH.split(/[:;]/).map(p => path.resolve(p)));
   }
 
-  var webpackConfig = {
+  let webpackConfig = {
     output: {
       // fs path
       path:       path.join(config.publicRoot, 'pack'),

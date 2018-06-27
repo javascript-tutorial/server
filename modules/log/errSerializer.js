@@ -1,7 +1,7 @@
 module.exports = function(err) {
   if (!err || !err.stack)
     return err;
-  var obj = {
+  let obj = {
     message: err.message,
     name: err.name,
     stack: getFullErrorStack(err),
@@ -21,9 +21,9 @@ module.exports = function(err) {
  * https://github.com/davepacheco/node-extsprintf/blob/master/lib/extsprintf.js
  */
 function getFullErrorStack(ex) {
-  var ret = ex.stack || ex.toString();
+  let ret = ex.stack || ex.toString();
   if (ex.cause) {
-    var cex = typeof (ex.cause) === 'function' ? ex.cause() : ex.cause;
+    let cex = typeof (ex.cause) === 'function' ? ex.cause() : ex.cause;
     if (cex) {
       ret += '\nCaused by: ' + getFullErrorStack(cex);
     }

@@ -1,9 +1,9 @@
-var getDocumentHeight = require('client/dom/getDocumentHeight');
+let getDocumentHeight = require('client/dom/getDocumentHeight');
 
 function iframeResize(ifrElem, callback) {
 
 
-  var timeoutTimer = setTimeout(function() {
+  let timeoutTimer = setTimeout(function() {
     // default height
     callback(new Error("timeout"));
   }, 500);
@@ -27,7 +27,7 @@ function iframeResize(ifrElem, callback) {
   // so I create a clone and work on it
   if (!ifrElem.offsetWidth) {
     // clone iframe at another place to see the size
-    var cloneIframe = ifrElem.cloneNode(true);
+    let cloneIframe = ifrElem.cloneNode(true);
     cloneIframe.name = "";
 
     cloneIframe.style.height = '50px';
@@ -36,7 +36,7 @@ function iframeResize(ifrElem, callback) {
     cloneIframe.style.top = '10000px';
 
     cloneIframe.onload = function() {
-      var height = getDocumentHeight(this.contentDocument);
+      let height = getDocumentHeight(this.contentDocument);
       ifrElem.style.display = 'block';
       cloneIframe.remove();
       done(null, height);
@@ -49,7 +49,7 @@ function iframeResize(ifrElem, callback) {
   ifrElem.style.display = 'block';
   ifrElem.style.height = '1px';
 
-  var height = getDocumentHeight(ifrElem.contentDocument);
+  let height = getDocumentHeight(ifrElem.contentDocument);
 
   ifrElem.style.height = '';
   done(null, height);
@@ -73,12 +73,12 @@ module.exports = iframeResize;
 /*
  window.onmessage = function(e) {
  if (e.origin != "http://ru.lookatcode.com") return;
- var data = JSON.parse(e.data);
+ let data = JSON.parse(e.data);
  if (!data || data.cmd != "resize-iframe") return;
- var elem = document.getElementsByName(data.name)[0];
+ let elem = document.getElementsByName(data.name)[0];
 
  elem.style.height = +data.height + 10 + "px";
- var deferred = iframeResizeCrossDomain.deferreds[data.id];
+ let deferred = iframeResizeCrossDomain.deferreds[data.id];
  deferred.resolve();
  };
 
@@ -99,22 +99,22 @@ module.exports = iframeResize;
 
  if (!ifrElem.offsetWidth) {
  // move iframe to another place to resize there
- var placeholder = document.createElement('span');
+ let placeholder = document.createElement('span');
  ifrElem.parentNode.insertBefore(placeholder, ifrElem);
  document.body.appendChild(ifrElem);
  }
 
  ifrElem.style.display = 'none';
 
- var id = "" + Math.random();
- var message = { cmd: 'resize-iframe', name: ifrElem[0].name, id: id };
+ let id = "" + Math.random();
+ let message = { cmd: 'resize-iframe', name: ifrElem[0].name, id: id };
  // TODO
  iframeResizeCrossDomain.deferreds[id] = deferred;
  deferred.always(function() {
  delete iframeResizeCrossDomain.deferreds[id];
  });
 
- var frame = iframeResizeCrossDomain.iframe;
+ let frame = iframeResizeCrossDomain.iframe;
  if (frame.loaded) {
  frame.contentWindow.postMessage(JSON.stringify(message), "http://ru.lookatcode.com");
  } else {

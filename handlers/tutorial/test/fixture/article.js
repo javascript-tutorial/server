@@ -1,7 +1,7 @@
 'use strict';
 
-var ids = [];
-for (var i = 0; i < 10; i++) ids[i] = new mongoose.Types.ObjectId();
+let ids = [];
+for (let i = 0; i < 10; i++) ids[i] = new mongoose.Types.ObjectId();
 
 exports.Article = [
   {

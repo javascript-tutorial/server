@@ -51,7 +51,7 @@ module.exports = class ArticleRenderer {
 //
 // Кроме того, парсер может распарсить много документов для сбора метаданных
   _unmapLibsNames(libs) {
-    var libsUnmapped = [];
+    let libsUnmapped = [];
 
     // заменить все-все короткие имена
     // предполагается, что короткое имя при раскрытии не содержит другого короткого имени (легко заимплементить)
@@ -80,8 +80,8 @@ module.exports = class ArticleRenderer {
 
 
   _libsToJsCss(libs) {
-    var js = [];
-    var css = [];
+    let js = [];
+    let css = [];
 
     _.uniq(libs).forEach(function (lib) {
       if (!~lib.indexOf('://')) {
@@ -127,9 +127,9 @@ module.exports = class ArticleRenderer {
 
     for (let idx = 0; idx < tokens.length; idx++) {
       let token = tokens[idx];
-      if (token.type == 'heading_open') {
+      if (token.type === 'heading_open') {
         let i = idx + 1;
-        while (tokens[i].type != 'heading_close') i++;
+        while (tokens[i].type !== 'heading_close') i++;
 
         let headingTokens = tokens.slice(idx + 1, i);
 
@@ -146,7 +146,7 @@ module.exports = class ArticleRenderer {
 
     let content = parser.render(tokens);
 
-    for (var i = 0; i < article.libs.length; i++) {
+    for (let i = 0; i < article.libs.length; i++) {
       this.libs.push(article.libs[i]);
     }
 
@@ -167,14 +167,14 @@ module.exports = class ArticleRenderer {
       head: this.getHead()
     };
   }
-}
+};
 
 /*
 ArticleRenderer.regenerateCaches = function*() {
-  var articles = await Article.find({});
+  let articles = await Article.find({});
 
-  for (var i = 0; i < articles.length; i++) {
-    var article = articles[i];
+  for (let i = 0; i < articles.length; i++) {
+    let article = articles[i];
     log.debug("regenerate article", article._id);
     await (new ArticleRenderer()).renderWithCache(article, {refreshCache: true});
   }

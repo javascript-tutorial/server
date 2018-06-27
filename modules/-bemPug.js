@@ -1,6 +1,6 @@
 // Adapted from bemto.jade, copyright(c) 2012 Roman Komarov <kizu@kizu.ru>
 
-var pug = require('pug-runtime');
+let pug = require('pug-runtime');
 
 module.exports = function(settings) {
   settings = settings || {};
@@ -11,8 +11,8 @@ module.exports = function(settings) {
 
   return function(buf, bem_chain, tag, isElement) {
     //console.log("-->", arguments);
-    var block = this.block;
-    var attributes = this.attributes || {};
+    let block = this.block;
+    let attributes = this.attributes || {};
 
     if (!attributes.class && tag && !isElement) {
       throw new Error("Block without class: " + tag);
@@ -20,14 +20,14 @@ module.exports = function(settings) {
 
     // Rewriting the class for elements and modifiers
     if (attributes.class) {
-      var bem_classes = attributes.class;
+      let bem_classes = attributes.class;
 
       if (bem_classes instanceof Array) {
         bem_classes = bem_classes.join(' ');
       }
       bem_classes = bem_classes.split(' ');
 
-      var bem_block;
+      let bem_block;
       try {
         bem_block = bem_classes[0].match(new RegExp('^(((?!' + settings.element + '|' + settings.modifier + ').)+)'))[1];
       } catch (e) {
@@ -40,15 +40,15 @@ module.exports = function(settings) {
         bem_classes[0] = bem_chain[bem_chain.length - 1] + settings.element + bem_classes[0];
       }
 
-      var current_block = (isElement ? bem_chain[bem_chain.length - 1] + settings.element : '') + bem_block;
+      let current_block = (isElement ? bem_chain[bem_chain.length - 1] + settings.element : '') + bem_block;
 
       // Adding the block if there is only modifier and/or element
       if (bem_classes.indexOf(current_block) === -1) {
         bem_classes[bem_classes.length] = current_block;
       }
 
-      for (var i = 0; i < bem_classes.length; i++) {
-        var klass = bem_classes[i];
+      for (let i = 0; i < bem_classes.length; i++) {
+        let klass = bem_classes[i];
 
         if (klass.match(new RegExp('^(?!' + settings.element + ')' + settings.modifier))) {
           // Expanding the modifiers
@@ -84,7 +84,7 @@ module.exports = function(settings) {
   // used for tweaking what tag we are throwing and do we need to wrap anything here
   function bem_tag(buf, block, attributes, bem_chain, tag) {
     // rewriting tag name on different contexts
-    var newTag = tag || 'div';
+    let newTag = tag || 'div';
 
     switch (newTag) {
     case 'img':

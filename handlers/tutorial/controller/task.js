@@ -2,65 +2,58 @@
 
 const Task = require('../models/task');
 const Article = require('../models/article');
+const TutorialTree = require('../models/tutorialTree');
 const TaskRenderer = require('../renderer/taskRenderer');
+const t = require('i18n');
 
-exports.get = function *get(next) {
+exports.get = async function(ctx, next) {
 
-  const task = await Task.findOne({
-    slug: this.params.slug
-  }).populate('parent');
+  const task = TutorialTree.instance().bySlug(ctx.params.slug);
 
   if (!task) {
-    await next;
+    await next();
     return;
   }
 
   const renderer = new TaskRenderer();
 
-  const rendered = await renderer.renderWithCache(task);
+  const rendered = await renderer.render(task);
 
+  ctx.locals.githubLink = task.githubLink;
 
-  this.locals.githubLink = task.githubLink;
+  let breadcrumbs = [];
 
-  var breadcrumbs = [];
-
-  var parentId = task.parent._id;
+  let parentSlug = task.parent;
   while (true) {
-    let parent = await Article.findById(parentId, {slug: 1, title: 1, parent: 1});
+    let parent = TutorialTree.instance().bySlug(parentSlug);
     if (!parent) break;
     breadcrumbs.push({
       url:   parent.getUrl(),
       title: parent.title
     });
-    parentId = parent.parent;
+    parentSlug = parent.parent;
   }
   breadcrumbs.push({
-    title: 'Учебник',
+    title: t('site.tutorial'),
     url:   '/'
   });
-  /*
-   breadcrumbs.push({
-   title: 'JavaScript.ru',
-   url: 'http://javascript.ru'
-   });
-   */
 
-  this.locals.breadcrumbs = breadcrumbs.reverse();
+  ctx.locals.breadcrumbs = breadcrumbs.reverse();
 
-  this.locals.siteToolbarCurrentSection = "tutorial";
+  ctx.locals.siteToolbarCurrentSection = "tutorial";
 
   // No support for task.libs & head just yet (not needed?)
-  this.locals.title = task.title;
+  ctx.locals.title = task.title;
 
-  this.locals.task = {
+  ctx.locals.task = {
     title:      task.title,
     importance: task.importance,
     content:    rendered.content,
     solution:   rendered.solution
   };
 
-  this.locals.articleUrl = task.parent.getUrl();
+  ctx.locals.articleUrl = task.parent.getUrl();
 
-  this.body = this.render("task");
+  ctx.body = ctx.render("task");
 };
 

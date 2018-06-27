@@ -2,7 +2,7 @@ module.exports = function() {
 
   let figurePngs = document.querySelectorAll('figure img[src$=".png"]');
 
-  for (var i = 0; i < figurePngs.length; i++) {
+  for (let i = 0; i < figurePngs.length; i++) {
     let png = figurePngs[i];
 
     // load @2x version (must exist)

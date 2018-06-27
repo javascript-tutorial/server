@@ -3,7 +3,7 @@ const escapeHtml = require('escape-html');
 const _ = require('lodash');
 const path = require('path');
 
-var isDevelopment = process.env.NODE_ENV == 'development';
+let isDevelopment = process.env.NODE_ENV == 'development';
 
 // can be called not from this MW, but from anywhere
 // this.templateDir can be anything
@@ -11,7 +11,7 @@ function renderError(ctx, err) {
   /*jshint -W040 */
 
   // don't pass just err, because for "stack too deep" errors it leads to logging problems
-  var report = {
+  let report = {
     message: err.message,
     stack: err.stack,
     errors: err.errors, // for validation errors
@@ -28,15 +28,15 @@ function renderError(ctx, err) {
   // may be error if headers are already sent!
   ctx.set('X-Content-Type-Options', 'nosniff');
 
-  var preferredType = ctx.accepts('html', 'json');
+  let preferredType = ctx.accepts('html', 'json');
 
   if (err.name == 'ValidationError') {
     ctx.status = 400;
 
     if (preferredType == 'json') {
-      var errors = {};
+      let errors = {};
 
-      for (var field in err.errors) {
+      for (let field in err.errors) {
         errors[field] = err.errors[field].message;
       }
 
@@ -56,7 +56,7 @@ function renderError(ctx, err) {
   if (isDevelopment) {
     ctx.status = err.status || 500;
 
-    var stack = (err.stack || '')
+    let stack = (err.stack || '')
       .split('\n').slice(1)
       .map(function(v) {
         return '<li>' + escapeHtml(v).replace(/  /g, ' &nbsp;') + '</li>';
@@ -87,7 +87,7 @@ function renderError(ctx, err) {
       ctx.body.description = err.description;
     }
   } else {
-    var templateName = ~[500, 401, 404, 403].indexOf(ctx.status) ? ctx.status : 500;
+    let templateName = ~[500, 401, 404, 403].indexOf(ctx.status) ? ctx.status : 500;
     ctx.body = ctx.render(`${__dirname}/templates/${templateName}`, {
       useAbsoluteTemplatePath: true,
       error: err,
@@ -101,10 +101,10 @@ function renderError(ctx, err) {
 exports.init = function(app) {
 
   app.use(async function(ctx, next) {
-    ctx.renderError = renderError;
+    // ctx.renderError = renderError;
 
     try {
-      await next;
+      await next();
     } catch (err) {
       if (typeof err !== 'object') { // 'fx error' from money or mb another module
         err = new Error(err);
@@ -112,13 +112,16 @@ exports.init = function(app) {
       // ctx middleware is not like others, it is not endpoint
       // so wrapHmvcMiddleware is of little use
       try {
-        ctx.renderError(err);
+        renderError(ctx, err);
       } catch(renderErr) {
         // could not render, maybe template not found or something
         ctx.status = 500;
         ctx.body = "Server render error";
         ctx.log.error(renderErr); // make it last to ensure that status/body are set
       }
+
+      console.log("HERE 2");
+
     }
   });
 

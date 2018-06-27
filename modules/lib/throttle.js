@@ -1,7 +1,7 @@
 
 function throttle(func, ms) {
 
-  var isThrottled = false,
+  let isThrottled = false,
       savedArgs,
       savedThis;
 

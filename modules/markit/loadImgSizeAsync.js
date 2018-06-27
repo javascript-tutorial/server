@@ -13,14 +13,14 @@ const t = require('i18n');
 const fs = require('mz/fs');
 const gm = require('gm');
 
-var LANG = require('config').lang;
+let LANG = require('config').lang;
 
 t.requirePhrase('markit.error', require('./locales/error/' + LANG + '.yml'));
 
 class SrcError extends Error {
 }
 
-module.exports = function* (tokens, options) {
+module.exports = async function(tokens, options) {
 
 
   for (let idx = 0; idx < tokens.length; idx++) {
@@ -44,7 +44,7 @@ module.exports = function* (tokens, options) {
 
   }
 
-  function* processImageOrFigure(token) {
+  async function processImageOrFigure(token) {
 
     if (token.attrIndex('height') != -1 || token.attrIndex('width') != -1) return;
 
@@ -75,7 +75,7 @@ module.exports = function* (tokens, options) {
     return absolutePath;
   }
 
-  function* getImageInfo(src) {
+  async function getImageInfo(src) {
 
     let sourcePath = srcUnderRoot(
       options.publicRoot,
@@ -112,9 +112,9 @@ module.exports = function* (tokens, options) {
 
 
     try {
-      return await function(callback) {
-        imageSize(sourcePath, callback);
-      };
+      return await new Promise((resolve, reject) => {
+        imageSize(sourcePath, (err, res) => err ? reject(err) : resolve(res));
+      });
 
     } catch (e) {
       if (e instanceof TypeError) {
@@ -125,7 +125,7 @@ module.exports = function* (tokens, options) {
     }
   }
 
-  function* doProcessImageOrFigure(token) {
+  async function doProcessImageOrFigure(token) {
     let src = tokenUtils.attrGet(token, 'src');
     if (!src) return;
 

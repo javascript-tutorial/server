@@ -16,8 +16,8 @@ module.exports = function(md) {
       return renderKey(content.slice(4));
     } else {
       let codePrefixes = ['pattern', 'match', 'subject'];
-      for (var i = 0; i < codePrefixes.length; i++) {
-        var prefix = codePrefixes[i];
+      for (let i = 0; i < codePrefixes.length; i++) {
+        let prefix = codePrefixes[i];
         if (content.startsWith(prefix + ':')) {
           return `<code class="${prefix}">${md.utils.escapeHtml(content.slice(prefix.length + 1))}</code>`;
         }
@@ -29,18 +29,18 @@ module.exports = function(md) {
 
   function renderKey(keys) {
 
-    var results = [];
+    let results = [];
 
     if (keys === '+') {
       return `<kbd class="shortcut">+</kbd>`;
     }
 
-    var plusLabel = Math.random();
+    let plusLabel = Math.random();
     keys = keys.replace(/\+\+/g, '+' + plusLabel);
     keys = keys.split('+');
 
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
       results.push((key == plusLabel) ? '+' : md.utils.escapeHtml(key));
       if (i < keys.length - 1) {
         results.push('<span class="shortcut__plus">+</span>');

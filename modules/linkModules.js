@@ -3,18 +3,18 @@
  * because even require('log') requires "log" to be linked in.
  * @type {exports}
  */
-var fs = require('fs');
-var glob = require('glob');
-var path = require('path');
+let fs = require('fs');
+let glob = require('glob');
+let path = require('path');
 
-var DEBUG = false;
+let DEBUG = false;
 
 // Ensures the existance of a symlink linkDst -> linkSrc
 // returns true if link was created
 // returns false if link exists alread (and is correct)
 // throws error if conflict (another file or link by that name)
 function createSymlinkSync(linkSrc, linkDst) {
-  var lstatDst;
+  let lstatDst;
   // check same-named link
   try {
     lstatDst = fs.lstatSync(linkDst);
@@ -26,7 +26,7 @@ function createSymlinkSync(linkSrc, linkDst) {
       throw new Error("Conflict: path exist and is not a link: " + linkDst);
     }
 
-    var oldDst = fs.readlinkSync(linkDst);
+    let oldDst = fs.readlinkSync(linkDst);
     if (oldDst == linkSrc) {
       return false; // already exists and is correct
     }
@@ -39,8 +39,8 @@ function createSymlinkSync(linkSrc, linkDst) {
   // if src is "module.js", check "module/"
   // if src is "module/", check module.js
 
-  var conflictingName;
-  var conflictingNameLstat;
+  let conflictingName;
+  let conflictingNameLstat;
   try {
     conflictingName = linkDst.endsWith('.js') ? linkDst.slice(0, -3) : (linkDst + '.js');
     conflictingNameLstat = fs.lstatSync(conflictingName);
@@ -56,16 +56,16 @@ function createSymlinkSync(linkSrc, linkDst) {
 }
 
 module.exports = function(options) {
-  var modules = [];
+  let modules = [];
   options.src.forEach(function(pattern) {
     modules = modules.concat(glob.sync(pattern));
   });
 
-  for (var i = 0; i < modules.length; i++) {
-    var moduleToLinkRelPath = modules[i];  // hmvc/auth
-    var moduleToLinkName = path.basename(moduleToLinkRelPath); // auth
-    var linkSrc = path.join('..', moduleToLinkRelPath);
-    var linkDst = path.join('node_modules', moduleToLinkName);
+  for (let i = 0; i < modules.length; i++) {
+    let moduleToLinkRelPath = modules[i];  // hmvc/auth
+    let moduleToLinkName = path.basename(moduleToLinkRelPath); // auth
+    let linkSrc = path.join('..', moduleToLinkRelPath);
+    let linkDst = path.join('node_modules', moduleToLinkName);
 
     if (createSymlinkSync(linkSrc, linkDst)) {
       if (DEBUG) console.log(linkSrc + " -> " + linkDst);

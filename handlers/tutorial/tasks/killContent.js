@@ -1,8 +1,8 @@
 'use strict';
 
-var co = require('co');
-var Article = require('../models/article');
-var Task = require('../models/task');
+let co = require('co');
+let Article = require('../models/article');
+let Task = require('../models/task');
 const ArticleRenderer = require('../renderer/articleRenderer');
 const TaskRenderer = require('../renderer/taskRenderer');
 
@@ -25,10 +25,10 @@ module.exports = function() {
 
 function* killArticles() {
 
-  var articles = await Article.find({});
+  let articles = await Article.find({});
 
-  for (var i = 0; i < articles.length; i++) {
-    var article = articles[i];
+  for (let i = 0; i < articles.length; i++) {
+    let article = articles[i];
 
     article.content = '# ' + article.title + '\n\n## Article ' + article.weight + '\n\nText';
 
@@ -40,12 +40,12 @@ function* killArticles() {
 
 function* renderArticles() {
 
-  var articles = await Article.find({});
+  let articles = await Article.find({});
 
-  for (var i = 0; i < articles.length; i++) {
-    var article = articles[i];
+  for (let i = 0; i < articles.length; i++) {
+    let article = articles[i];
 
-    var renderer = new ArticleRenderer();
+    let renderer = new ArticleRenderer();
 
     await renderer.renderWithCache(article, {refreshCache: true});
 
@@ -58,12 +58,12 @@ function* renderArticles() {
 
 function* renderTasks() {
 
-  var tasks = await Task.find({});
+  let tasks = await Task.find({});
 
-  for (var i = 0; i < tasks.length; i++) {
-    var task = tasks[i];
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
 
-    var renderer = new TaskRenderer();
+    let renderer = new TaskRenderer();
 
     await renderer.renderWithCache(task, {refreshCache: true});
 
@@ -75,10 +75,10 @@ function* renderTasks() {
 
 function* killTasks() {
 
-  var tasks = await Task.find({});
+  let tasks = await Task.find({});
 
-  for (var i = 0; i < tasks.length; i++) {
-    var task = tasks[i];
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
 
     task.content =  '# ' + task.title + '\n\nTask content ' + task.weight;
     task.solution = 'Task solution ' + task.weight;

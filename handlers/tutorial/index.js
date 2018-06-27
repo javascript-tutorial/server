@@ -14,6 +14,7 @@ exports.init = function(app) {
   app.use(mountHandlerMiddleware('/', __dirname));
 };
 
+exports.TutorialViewStorage = require('./models/tutorialViewStorage');
 exports.Article = require('./models/article');
 exports.Task = require('./models/task');
 exports.TutorialTree = require('./models/tutorialTree');

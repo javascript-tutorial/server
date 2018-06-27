@@ -2,7 +2,7 @@
  * For new notification types extend Notification
  */
 
-var delegate = require('client/delegate');
+let delegate = require('client/delegate');
 
 /**
  * Calculates translateY positions when notifications are added/removed
@@ -20,13 +20,13 @@ class NotificationManager {
   }
 
   unregister(notification) {
-    var idx = this.notifications.indexOf(notification);
+    let idx = this.notifications.indexOf(notification);
     this.notifications.splice(idx, 1);
     this.recalculate();
   }
 
   recalculate() {
-    var top = this.verticalSpace;
+    let top = this.verticalSpace;
     this.notifications.forEach(notification => {
       notification.top = top;
       top += notification.height + this.verticalSpace;
@@ -35,7 +35,7 @@ class NotificationManager {
 
 }
 
-var manager;
+let manager;
 
 exports.init = function(options) {
   manager = new NotificationManager(options);
@@ -45,7 +45,7 @@ exports.init = function(options) {
 class Notification {
 
   constructor(html, type, timeout) {
-    var elemHtml = `<div class="notification notification_popup notification_${type}">
+    let elemHtml = `<div class="notification notification_popup notification_${type}">
     <div class="notification__content">${html}</div>
     <button title="Закрыть" class="notification__close"></button></div>`;
 

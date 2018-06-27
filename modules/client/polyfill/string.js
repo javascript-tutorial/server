@@ -1,6 +1,6 @@
 if (!String.prototype.startsWith) {
   String.prototype.startsWith = function(string) {
-    var index = arguments.length < 2 ? 0 : arguments[1];
+    let index = arguments.length < 2 ? 0 : arguments[1];
 
     return this.slice(index).indexOf(string) === 0;
   };
@@ -8,8 +8,8 @@ if (!String.prototype.startsWith) {
 
 if (!String.prototype.endsWith) {
   String.prototype.endsWith = function(string) {
-    var index = arguments.length < 2 ? this.length : arguments[1];
-    var foundIndex = this.lastIndexOf(string);
+    let index = arguments.length < 2 ? this.length : arguments[1];
+    let foundIndex = this.lastIndexOf(string);
     return foundIndex !== -1 && foundIndex === index - string.length;
   };
 }

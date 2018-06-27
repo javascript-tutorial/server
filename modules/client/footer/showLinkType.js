@@ -1,20 +1,20 @@
-var hoverIntent = require('client/hoverIntent');
+let hoverIntent = require('client/hoverIntent');
 
 module.exports = function() {
 
-  var tooltipSpan = null;
-  var shiftX = 8;
-  var shiftY = 10;
+  let tooltipSpan = null;
+  let shiftX = 8;
+  let shiftY = 10;
 
   function updatePosition(event) {
-    var left = event.clientX + shiftX;
+    let left = event.clientX + shiftX;
     if (left + tooltipSpan.offsetWidth > document.documentElement.clientWidth) { // if beyond the right document border
       // mirror to the left
       left = Math.max(0, event.clientX - shiftX - tooltipSpan.offsetWidth);
     }
     tooltipSpan.style.left = left + 'px';
 
-    var top = event.clientY + shiftY;
+    let top = event.clientY + shiftY;
     if (top + tooltipSpan.offsetHeight > document.documentElement.clientHeight) {
       top = Math.max(0, event.clientY - shiftY - tooltipSpan.offsetHeight);
     }
@@ -27,7 +27,7 @@ module.exports = function() {
   // we show tooltip element for any link hover, but few of them actually get styled
   function onOver(event) {
     if (!event.target.closest) return; // over svg
-    var target = event.target.closest('a, [data-tooltip]');
+    let target = event.target.closest('a, [data-tooltip]');
 
     if (!target) return;
 

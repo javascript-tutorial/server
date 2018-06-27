@@ -5,7 +5,7 @@
 if (process.env.NODE_ENV == 'development') {
 
   global.p = function() {
-    var stack = new Error().stack.split("\n")[2].trim();
+    let stack = new Error().stack.split("\n")[2].trim();
     console.log("----> " + global.p.counter++ + " at " + stack);
   };
   global.p.counter = 1;
@@ -24,8 +24,8 @@ if (process.env.NODE_ENV == 'development') {
  * Here I try to see what actually died
  */
 if (process.env.DEBUG_ERROR) {
-  var proto = require('events').EventEmitter.prototype;
-  var emit = proto.emit;
+  let proto = require('events').EventEmitter.prototype;
+  let emit = proto.emit;
   proto.emit = function(type, err) {
     if (type == 'error') {
       console.log(this.test, this.constructor.name, err.message, err.stack);

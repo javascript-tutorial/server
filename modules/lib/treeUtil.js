@@ -1,7 +1,7 @@
 function walkArray(node, visitor) {
 
-  for (var i = 0; i < node.children.length; i++) {
-    var treeNode = node.children[i];
+  for (let i = 0; i < node.children.length; i++) {
+    let treeNode = node.children[i];
     visitor(treeNode);
     if (treeNode.children) {
       walkArray(treeNode, visitor);

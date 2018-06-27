@@ -15,28 +15,28 @@ function stripSpaceIndent(text) {
 
   if (!text) return text;
 
-  var stripPattern = /^ *(?=\S+)/gm;
+  let stripPattern = /^ *(?=\S+)/gm;
 
-  var indentLen = text.match(stripPattern)
+  let indentLen = text.match(stripPattern)
     .reduce(function (min, line) {
       return Math.min(min, line.length);
     }, Infinity);
 
-  var indent = new RegExp('^ {' + indentLen + '}', 'gm');
+  let indent = new RegExp('^ {' + indentLen + '}', 'gm');
   return indentLen > 0 ? text.replace(indent, '') : text;
 }
 
 function stripTabIndent(text) {
   if (!text) return text;
 
-  var stripPattern = /^\t*(?=\S+)/gm;
+  let stripPattern = /^\t*(?=\S+)/gm;
 
-  var indentLen = text.match(stripPattern)
+  let indentLen = text.match(stripPattern)
     .reduce(function (min, line) {
       return Math.min(min, line.length);
     }, Infinity);
 
-  var indent = new RegExp('^\t{' + indentLen + '}', 'gm');
+  let indent = new RegExp('^\t{' + indentLen + '}', 'gm');
   return indentLen > 0 ? text.replace(indent, '') : text;
 }
 

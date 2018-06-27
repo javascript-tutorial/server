@@ -1,15 +1,16 @@
 'use strict';
 
-const TutorialView = require('../models/tutorialView');
+const TutorialViewStorage = require('../models/tutorialViewStorage');
 
-exports.get = function*() {
+exports.get = async function(ctx) {
   let view;
 
-  for(let webpath in TutorialView.storage) {
-    view = TutorialView.storage[webpath];
-    if (view.plunkId == this.query.plunkId) {
-      this.set('Content-Type', 'application/zip');
-      this.body = view.getZip();
+  let storage = TutorialViewStorage.instance();
+  for(let webpath in storage.getAll()) {
+    view = storage.get(webpath);
+    if (view.plunkId == ctx.query.plunkId) {
+      ctx.set('Content-Type', 'application/zip');
+      ctx.body = view.getZip();
     }
   }
 

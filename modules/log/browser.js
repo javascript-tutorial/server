@@ -3,7 +3,7 @@
 // supports standard methods, but no settings
 module.exports = function() {
 
-  var logger = {
+  let logger = {
     info: function() {
       this.isDebug && console.info.apply(console, arguments);
     },

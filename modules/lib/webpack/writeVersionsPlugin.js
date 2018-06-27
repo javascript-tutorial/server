@@ -1,4 +1,4 @@
-var fs = require('fs');
+let fs = require('fs');
 
 function WriteVersionsPlugin(file) {
   this.file = file;
@@ -6,9 +6,9 @@ function WriteVersionsPlugin(file) {
 
 WriteVersionsPlugin.prototype.writeStats = function(compiler, stats) {
   stats = stats.toJson();
-  var assetsByChunkName = stats.assetsByChunkName;
+  let assetsByChunkName = stats.assetsByChunkName;
 
-  for (var name in assetsByChunkName) {
+  for (let name in assetsByChunkName) {
     if (assetsByChunkName[name] instanceof Array) {
       assetsByChunkName[name] = assetsByChunkName[name].map(function(path) {
         return compiler.options.output.publicPath + path;

@@ -1,6 +1,6 @@
-var Router = require('koa-router');
+let Router = require('koa-router');
 
-var router = module.exports = new Router();
+let router = module.exports = new Router();
 
 router.get('/', async function(ctx) {
   ctx.body = ctx.render('index');

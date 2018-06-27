@@ -1,10 +1,10 @@
 'use strict';
 
-var path = require('path');
-var url = require('url');
-var fs = require('mz/fs');
-var config = require('config');
-var util = require('util');
+let path = require('path');
+let url = require('url');
+let fs = require('mz/fs');
+let config = require('config');
+let util = require('util');
 
 function clean(pathOrPiece) {
   pathOrPiece = pathOrPiece.replace(/[^\/.a-z0-9_-]/gim, '');
@@ -27,22 +27,22 @@ exports.all = async function(ctx) {
   }
 
   // for /article/ajax-xmlhttprequest/xhr/test: xhr/test
-  var serverPath = clean(ctx.params.serverPath);
-  var slug = clean(ctx.params.slug);
-  var view = clean(ctx.params.view);
-  var taskOrArticle = ctx.url.match(/\w+/)[0];
+  let serverPath = clean(ctx.params.serverPath);
+  let slug = clean(ctx.params.slug);
+  let view = clean(ctx.params.view);
+  let taskOrArticle = ctx.url.match(/\w+/)[0];
 
-  var modulePath = path.join(config.publicRoot, taskOrArticle, slug, view, 'server.js');
+  let modulePath = path.join(config.publicRoot, taskOrArticle, slug, view, 'server.js');
 
   ctx.log.debug("trying modulePath", modulePath);
 
   if (await fs.exists(modulePath)) {
 
-    var server = require(modulePath);
+    let server = require(modulePath);
 
     ctx.req.url = "/" + serverPath;
 
-    var originalUrl = ctx.request.originalUrl;
+    let originalUrl = ctx.request.originalUrl;
     if (~originalUrl.indexOf('?')) {
       ctx.req.url += originalUrl.slice(originalUrl.indexOf('?'));
     }

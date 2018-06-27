@@ -1,13 +1,13 @@
-var requestAnimationFrameId;
+let requestAnimationFrameId;
 
-var DEBUG = false;
+let DEBUG = false;
 function log() {
   if (DEBUG) {
     console.log.apply(console, arguments);
   }
 }
 
-var TABLET_WIDTH = 840;
+let TABLET_WIDTH = 840;
 
 (function() {
 
@@ -31,16 +31,16 @@ var TABLET_WIDTH = 840;
 
 function compactifySidebar() {
   log("compactifySidebar");
-  var sidebar = document.querySelector('.sidebar');
+  let sidebar = document.querySelector('.sidebar');
 
-  var sidebarContent = sidebar.querySelector('.sidebar__content');
-  var sidebarInner = sidebar.querySelector('.sidebar__inner');
+  let sidebarContent = sidebar.querySelector('.sidebar__content');
+  let sidebarInner = sidebar.querySelector('.sidebar__inner');
 
-  var hasStickyFooter = sidebar.classList.contains('sidebar_sticky-footer');
-  var isCompact = sidebar.classList.contains('sidebar_compact');
+  let hasStickyFooter = sidebar.classList.contains('sidebar_sticky-footer');
+  let isCompact = sidebar.classList.contains('sidebar_compact');
 
   if (isCompact) {
-    var emptySpaceSize;
+    let emptySpaceSize;
     if (hasStickyFooter) {
       emptySpaceSize = sidebarContent.lastElementChild.getBoundingClientRect().top -
       sidebarContent.lastElementChild.previousElementSibling.getBoundingClientRect().bottom;
@@ -69,8 +69,8 @@ function compactifySidebar() {
 
 function onWindowScrollAndResize() {
 
-  var toolbarSelector = '.sitetoolbar-light';
-  var sitetoolbar = document.querySelector(toolbarSelector);
+  let toolbarSelector = '.sitetoolbar-light';
+  let sitetoolbar = document.querySelector(toolbarSelector);
 
 
   if (!sitetoolbar) {
@@ -78,7 +78,7 @@ function onWindowScrollAndResize() {
     return; // page in a no-top-nav layout
   }
 
-  var sidebar = document.querySelector('.sidebar');
+  let sidebar = document.querySelector('.sidebar');
 
   if (sidebar) {
     sidebar.style.top = Math.max(sitetoolbar.getBoundingClientRect().bottom, 0) + 'px';
@@ -91,8 +91,8 @@ function onWindowScrollAndResize() {
 }
 
 function setUserScaleIfTablet() {
-  var isTablet = document.documentElement.clientWidth <= TABLET_WIDTH;
-  var content = document.querySelector('meta[name="viewport"]').content;
+  let isTablet = document.documentElement.clientWidth <= TABLET_WIDTH;
+  let content = document.querySelector('meta[name="viewport"]').content;
   content = content.replace(/user-scalable=\w+/, 'user-scalable=' + (isTablet ? 'yes' : 'no'));
   document.querySelector('meta[name="viewport"]').content = content;
 }

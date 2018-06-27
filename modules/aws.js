@@ -1,5 +1,5 @@
-var AWS = require('aws-sdk');
-var config = require('config');
+let AWS = require('aws-sdk');
+let config = require('config');
 
 // logger: process.stdout to debug
 

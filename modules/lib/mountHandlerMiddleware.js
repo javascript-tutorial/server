@@ -16,10 +16,10 @@ module.exports = function(prefix, moduleDir) {
     let templateDir = path.join(moduleDir, 'templates');
 
     // before entering middeware
-    let apply = () => self.templateDir = templateDir;
+    let apply = () => this.templateDir = templateDir;
 
     // before leaving middleware
-    let undo = () => delete self.templateDir;
+    let undo = () => delete this.templateDir;
 
     apply();
 
@@ -28,7 +28,7 @@ module.exports = function(prefix, moduleDir) {
         // when middleware does await next, undo changes
         undo();
         try {
-          await next;
+          await next();
         } finally {
           // ...then apply back, when control goes back after await next
           apply();

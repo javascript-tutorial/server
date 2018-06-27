@@ -11,7 +11,7 @@ const ServerParser = require('markit').ServerParser;
 
 module.exports = class TutorialParser extends ServerParser {
 
-  *parse(text) {
+  async parse(text) {
     const tokens = await super.parse(text);
     await resolveTutorialLinks(tokens, this.md.options);
     return tokens;

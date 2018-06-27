@@ -9,7 +9,7 @@ const pug = require('pug');
  */
 require.extensions['.pug'] = function(module, filename) {
 
-  var compiled = pug.compile(
+  let compiled = pug.compile(
     fs.readFileSync(filename, 'utf-8'),
     Object.assign({}, config.pug, {
       pretty:        false,

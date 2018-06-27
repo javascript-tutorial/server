@@ -2,11 +2,11 @@
 
 require('app');
 
-var dataUtil = require('lib/dataUtil');
-var assert = require('assert');
-var path = require('path');
-var treeUtil = require('lib/treeUtil');
-var Article = require('../../models/article');
+let dataUtil = require('lib/dataUtil');
+let assert = require('assert');
+let path = require('path');
+let treeUtil = require('lib/treeUtil');
+let Article = require('../../models/article');
 
 describe('Article', function() {
 
@@ -16,9 +16,9 @@ describe('Article', function() {
 
 
   it('sets created & modified', function*() {
-    var date = new Date();
+    let date = new Date();
 
-    var article = new Article({
+    let article = new Article({
       title: "Title",
       slug: 'slug',
       content: "Content",
@@ -37,7 +37,7 @@ describe('Article', function() {
   describe('findTree', function() {
 
     it("returns nested structure { children: [ ... ] }", function* () {
-      var tree = await Article.findTree();
+      let tree = await Article.findTree();
       tree.children.length.should.be.eql(2);
       tree.children[0].children.length.should.be.eql(2);
       tree.children[1].children.length.should.be.eql(2);

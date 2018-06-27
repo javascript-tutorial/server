@@ -61,7 +61,7 @@ Modal.prototype.setContent = function(htmlOrNode) {
   }
   // use data-modal-autofocus where only modal should autofocus,
   // a field with data-modal-autofocus will not get focus, unless shown in modal
-  var autofocus = this.contentElem.querySelector('[data-modal-autofocus],[autofocus]');
+  let autofocus = this.contentElem.querySelector('[data-modal-autofocus],[autofocus]');
   if (autofocus) autofocus.focus();
 };
 

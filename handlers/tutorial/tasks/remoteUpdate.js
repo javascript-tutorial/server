@@ -3,31 +3,31 @@
  * (drop breaks elastic)
  */
 
-var co = require('co');
-var fs = require('fs');
-var path = require('path');
-var log = require('log')();
-var del = require('del');
-var gutil = require('gulp-util');
-var execSync = require('child_process').execSync;
-var config = require('config');
+let co = require('co');
+let fs = require('fs');
+let path = require('path');
+let log = require('log')();
+let del = require('del');
+let gutil = require('gulp-util');
+let execSync = require('child_process').execSync;
+let config = require('config');
 
-var ecosystem = require(path.join(config.projectRoot, 'ecosystem.json'));
+let ecosystem = require(path.join(config.projectRoot, 'ecosystem.json'));
 
 module.exports = function(options) {
 
   return function() {
 
-    var args = require('yargs')
+    let args = require('yargs')
       .usage("Path to host is required.")
       .demand(['host'])
       .argv;
 
-    var collections = ['tasks', 'plunks', 'articles', 'references'];
+    let collections = ['tasks', 'plunks', 'articles', 'references'];
 
-    var host = args.host;
+    let host = args.host;
 
-    var db = config.lang == 'ru' ? 'js' : 'js_en';
+    let db = config.lang == 'ru' ? 'js' : 'js_en';
 
     return co(function* () {
 
@@ -63,7 +63,7 @@ module.exports = function(options) {
 
 
 
-      var file = fs.openSync("/tmp/cmd.js", "w");
+      let file = fs.openSync("/tmp/cmd.js", "w");
 
       fs.writeFileSync("/tmp/check.sh", 'mongo ' + db + ' --eval "db.articles.find().length()";\n');
 
@@ -75,9 +75,9 @@ module.exports = function(options) {
 
         // remove non-existing articles
         // insert (replace) synced ones
-        var cmd = `
+        let cmd = `
         db.COLL.find({}, {id:1}).forEach(function(d) {
-          var cursor = db.getSiblingDB('js_sync').COLL.find({_id:d._id}, {id:1});
+          let cursor = db.getSiblingDB('js_sync').COLL.find({_id:d._id}, {id:1});
 
           if (!cursor.hasNext()) {
             db.COLL.remove({_id: d._id});
@@ -104,7 +104,7 @@ module.exports = function(options) {
       exec('ssh ' + host + ' "bash /tmp/check.sh"');
 
       /* jshint -W106 */
-      var env = ecosystem.apps[0]['env_' + args.host];
+      let env = ecosystem.apps[0]['env_' + args.host];
 
       exec(`ssh ${host} "cd ${config.projectRoot} && SITE_HOST=${env.SITE_HOST} STATIC_HOST=${env.STATIC_HOST} gulp tutorial:cacheRegenerate && gulp cache:clean"`);
     });

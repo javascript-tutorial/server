@@ -60,7 +60,7 @@ describe('MarkIt', function() {
       result.should.be.html(`<div data-trusted="1" class="code-example" data-demo-height="300">
       <div class="codebox code-example__codebox">
         <div class="codebox__code" data-code="1">
-        <pre class="line-numbers language-javascript"><code class="language-javascript">var a = 5</code></pre>
+        <pre class="line-numbers language-javascript"><code class="language-javascript">let a = 5</code></pre>
         </div>
       </div>
     </div>`);

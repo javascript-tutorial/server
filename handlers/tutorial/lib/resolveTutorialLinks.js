@@ -22,7 +22,7 @@ t.requirePhrase('tutorial.article', require('../locales/article/' + LANG + '.yml
 t.requirePhrase('tutorial.task', require('../locales/task/' + LANG + '.yml'));
 
 
-module.exports = function* (tokens) {
+module.exports = async function (tokens) {
 
   let isEmptyLink, isAutoLink;
   for (let idx = 0; idx < tokens.length; idx++) {

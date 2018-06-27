@@ -7,13 +7,13 @@ module.exports = function(number, locale) {
 };
 
 function ru(_number) {
-  var _arr_numbers = new Array();
+  let _arr_numbers = new Array();
   _arr_numbers[1] = new Array('', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать');
   _arr_numbers[2] = new Array('', '', 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто');
   _arr_numbers[3] = new Array('', 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот');
   function number_parser(_num, _desc) {
-    var _string = '';
-    var _num_hundred = '';
+    let _string = '';
+    let _num_hundred = '';
     if (_num.length == 3) {
       _num_hundred = _num.substr(0, 1);
       _num = _num.substr(1, 3);
@@ -21,16 +21,16 @@ function ru(_number) {
     }
     if (_num < 20) _string += _arr_numbers[1][parseFloat(_num)] + ' ';
     else {
-      var _first_num = _num.substr(0, 1);
-      var _second_num = _num.substr(1, 2);
+      let _first_num = _num.substr(0, 1);
+      let _second_num = _num.substr(1, 2);
       _string += _arr_numbers[2][_first_num] + ' ' + _arr_numbers[1][_second_num] + ' ';
     }
     switch (_desc) {
     case 0:
-      var last = _num.length - 1;
-      var _last_num = parseFloat(_num.charAt(last));
-      var _slice_num = _num.slice(0, -1);
-      var _pre_last_num = parseFloat(_slice_num);
+      let last = _num.length - 1;
+      let _last_num = parseFloat(_num.charAt(last));
+      let _slice_num = _num.slice(0, -1);
+      let _pre_last_num = parseFloat(_slice_num);
       if (_last_num == 1 && 1 != _pre_last_num) _string += 'рубль';
       else if (_last_num > 1 && _last_num < 5 && 1 != _pre_last_num)  _string += 'рубля';
       else if ("" != _slice_num) _string += 'рублей';
@@ -42,10 +42,10 @@ function ru(_number) {
       break;
 
     case 1:
-      var last = _num.length - 1;
-      var _last_num = parseFloat(_num.charAt(last));
-      var _slice_num = _num.slice(0, -1);
-      var _pre_last_num = parseFloat(_slice_num);
+      let last = _num.length - 1;
+      let _last_num = parseFloat(_num.charAt(last));
+      let _slice_num = _num.slice(0, -1);
+      let _pre_last_num = parseFloat(_slice_num);
       if (_last_num == 1 && 1 != _pre_last_num) _string += 'тысяча ';
       else if (_last_num == 1 && 1 == _pre_last_num.toString().length) _string += 'тысяча ';
       else if (_last_num > 1 && _last_num < 5 && 1 != _pre_last_num) _string += 'тысячи ';
@@ -55,22 +55,22 @@ function ru(_number) {
       break;
 
     case 2:
-      var _last_num = parseFloat(_num.substr(-1));
-      var last = _num.length - 1;
-      var _last_num = parseFloat(_num.charAt(last));
-      var _slice_num = _num.slice(0, -1);
-      var _pre_last_num = parseFloat(_slice_num);
+      let _last_num = parseFloat(_num.substr(-1));
+      let last = _num.length - 1;
+      let _last_num = parseFloat(_num.charAt(last));
+      let _slice_num = _num.slice(0, -1);
+      let _pre_last_num = parseFloat(_slice_num);
       if (_last_num == 1 && 1 != _pre_last_num) _string += 'миллион ';
       else if (_last_num == 1 && 1 == _pre_last_num.toString().length) _string += 'миллион ';
       else if (_last_num > 1 && _last_num < 5 && 1 != _pre_last_num) _string += 'миллиона ';
       else _string += 'миллионов ';
       break;
     case 3:
-      var _last_num = parseFloat(_num.substr(-1));
-      var last = _num.length - 1;
-      var _last_num = parseFloat(_num.charAt(last));
-      var _slice_num = _num.slice(0, -1);
-      var _pre_last_num = parseFloat(_slice_num);
+      let _last_num = parseFloat(_num.substr(-1));
+      let last = _num.length - 1;
+      let _last_num = parseFloat(_num.charAt(last));
+      let _slice_num = _num.slice(0, -1);
+      let _pre_last_num = parseFloat(_slice_num);
       if (_last_num == 1 && 1 != _pre_last_num) _string += 'миллиард ';
       else if (_last_num == 1 && 1 == _pre_last_num.toString().length) _string += 'миллиард ';
       else if (_last_num > 1 && _last_num < 5 && 1 != _pre_last_num) _string += 'миллиарда ';
@@ -82,9 +82,9 @@ function ru(_number) {
   }
 
   function decimals_parser(_num) {
-    var _first_num = _num.substr(0, 1);
-    var _second_num = parseFloat(_num.substr(1, 2));
-    var _string = ' ' + _first_num + _second_num;
+    let _first_num = _num.substr(0, 1);
+    let _second_num = parseFloat(_num.substr(1, 2));
+    let _string = ' ' + _first_num + _second_num;
     if (_second_num == 1 && 1 != _first_num) _string += ' копейка';
     else if (_second_num > 1 && _second_num < 5 && 1 != _first_num) _string += ' копейки';
     else _string += ' копеек';
@@ -99,16 +99,16 @@ function ru(_number) {
   }
   _number = _number.toFixed(2);
   if (_number.indexOf('.') != -1) {
-    var _number_arr = _number.split('.');
-    var _number = _number_arr[0];
-    var _number_decimals = _number_arr[1];
+    let _number_arr = _number.split('.');
+    let _number = _number_arr[0];
+    let _number_decimals = _number_arr[1];
   }
-  var _number_length = _number.length;
-  var _string = '';
-  var _num_parser = '';
-  var _count = 0;
-  for (var _p = (_number_length - 1); _p >= 0; _p--) {
-    var _num_digit = _number.substr(_p, 1);
+  let _number_length = _number.length;
+  let _string = '';
+  let _num_parser = '';
+  let _count = 0;
+  for (let _p = (_number_length - 1); _p >= 0; _p--) {
+    let _num_digit = _number.substr(_p, 1);
     _num_parser = _num_digit + _num_parser;
     if ((_num_parser.length == 3 || _p == 0) && !isNaN(parseFloat(_num_parser))) {
       _string = number_parser(_num_parser, _count) + _string;
@@ -124,7 +124,7 @@ function ru(_number) {
 // https://rsdn.ru/forum/src/2899783.flat
 function ua(number) {
 
-  var mapNumbers = {
+  let mapNumbers = {
     0:   [2, 1, "нуль"],
     1:   [0, 2, "один", "одна"],
     2:   [1, 2, "два", "дві"],
@@ -164,7 +164,7 @@ function ua(number) {
     900: [2, 1, "дев'ятсот"]
   };
 
-  var mapOrders = [
+  let mapOrders = [
     {_Gender: false, _arrStates: ["гривня", "гривні", "гривень"], _bAddZeroWord: true},
     {_Gender: false, _arrStates: ["тисяча", "тисячі", "тисяч"]},
     {_Gender: true, _arrStates: ["мільйон", "мільйона", "мільйонів"]},
@@ -172,10 +172,10 @@ function ua(number) {
     {_Gender: true, _arrStates: ["триліон", "триліона", "триліонів"]}
   ];
 
-  var objKop = {_Gender: false, _arrStates: ["копійка", "копійки", "копійок"]};
+  let objKop = {_Gender: false, _arrStates: ["копійка", "копійки", "копійок"]};
 
   function Value(dVal, bGender) {
-    var xVal = mapNumbers[dVal];
+    let xVal = mapNumbers[dVal];
     if (xVal[1] == 1) {
       return xVal[2];
     } else {
@@ -184,9 +184,9 @@ function ua(number) {
   }
 
   function From0To999(fValue, oObjDesc, fnAddNum, fnAddDesc) {
-    var nCurrState = 2;
+    let nCurrState = 2;
     if (Math.floor(fValue / 100) > 0) {
-      var fCurr = Math.floor(fValue / 100) * 100;
+      let fCurr = Math.floor(fValue / 100) * 100;
       fnAddNum(Value(fCurr, oObjDesc._Gender));
       nCurrState = mapNumbers[fCurr][0];
       fValue -= fCurr;
@@ -198,7 +198,7 @@ function ua(number) {
         nCurrState = mapNumbers[fValue][0];
       }
     } else {
-      var fCurr = Math.floor(fValue / 10) * 10;
+      let fCurr = Math.floor(fValue / 10) * 10;
       fnAddNum(Value(fCurr, oObjDesc._Gender));
       nCurrState = mapNumbers[fCurr][0];
       fValue -= fCurr;
@@ -213,12 +213,12 @@ function ua(number) {
   }
 
   function FloatToSamplesInWordsUkr(fAmount) {
-    var fInt = Math.floor(fAmount + 0.005);
-    var fDec = Math.floor(((fAmount - fInt) * 100) + 0.5);
+    let fInt = Math.floor(fAmount + 0.005);
+    let fDec = Math.floor(((fAmount - fInt) * 100) + 0.5);
 
-    var arrRet = [];
-    var iOrder = 0;
-    var arrSouthands = [];
+    let arrRet = [];
+    let iOrder = 0;
+    let arrSouthands = [];
     for (; fInt > 0.9999; fInt /= 1000) {
       arrSouthands.push(Math.floor(fInt % 1000));
     }
@@ -230,7 +230,7 @@ function ua(number) {
       arrRet.push(strVal);
     }
 
-    for (var iSouth = arrSouthands.length - 1; iSouth >= 0; --iSouth) {
+    for (let iSouth = arrSouthands.length - 1; iSouth >= 0; --iSouth) {
       From0To999(arrSouthands[iSouth], mapOrders[iSouth], PushToRes, PushToRes);
     }
 

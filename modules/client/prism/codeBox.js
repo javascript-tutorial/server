@@ -1,12 +1,12 @@
-var resizeOnload = require('client/head/resizeOnload');
-var isScrolledIntoView = require('client/isScrolledIntoView');
-var addLineNumbers = require('./addLineNumbers');
+let resizeOnload = require('client/head/resizeOnload');
+let isScrolledIntoView = require('client/isScrolledIntoView');
+let addLineNumbers = require('./addLineNumbers');
 
 function CodeBox(elem) {
 
-  var preElem = elem.querySelector('pre');
-  var codeElem = preElem.querySelector('code');
-  var code = codeElem.textContent;
+  let preElem = elem.querySelector('pre');
+  let codeElem = preElem.querySelector('code');
+  let code = codeElem.textContent;
 
   Prism.highlightElement(codeElem);
   addLineNumbers(preElem);
@@ -14,21 +14,21 @@ function CodeBox(elem) {
   addBlockHighlight(preElem, elem.getAttribute('data-highlight-block'));
   addInlineHighlight(preElem, elem.getAttribute('data-highlight-inline'));
 
-  var isJS = preElem.classList.contains('language-javascript');
-  var isHTML = preElem.classList.contains('language-markup');
-  var isTrusted = +elem.getAttribute('data-trusted');
-  var isNoStrict = +elem.getAttribute('data-no-strict');
+  let isJS = preElem.classList.contains('language-javascript');
+  let isHTML = preElem.classList.contains('language-markup');
+  let isTrusted = +elem.getAttribute('data-trusted');
+  let isNoStrict = +elem.getAttribute('data-no-strict');
 
   if (!isNoStrict && isJS) code="'use strict';\n" + code;
 
-  var jsFrame;
-  var globalFrame;
-  var htmlResult;
-  var isFirstRun = true;
+  let jsFrame;
+  let globalFrame;
+  let htmlResult;
+  let isFirstRun = true;
 
   if (!isJS && !isHTML) return;
 
-  var runElem = elem.querySelector('[data-action="run"]');
+  let runElem = elem.querySelector('[data-action="run"]');
   if (runElem) {
     runElem.onclick = function() {
       this.blur();
@@ -37,7 +37,7 @@ function CodeBox(elem) {
     };
   }
 
-  var editElem = elem.querySelector('[data-action="edit"]');
+  let editElem = elem.querySelector('[data-action="edit"]');
   if (editElem) {
     editElem.onclick = function() {
       this.blur();
@@ -57,7 +57,7 @@ function CodeBox(elem) {
   }
 
   function postJSFrame() {
-    var win = jsFrame.contentWindow;
+    let win = jsFrame.contentWindow;
     if (typeof win.postMessage != 'function') {
       alert("Извините, запуск кода требует более современный браузер");
       return;
@@ -67,7 +67,7 @@ function CodeBox(elem) {
 
   function runHTML() {
 
-    var frame;
+    let frame;
 
     if (htmlResult && elem.hasAttribute('data-refresh')) {
       htmlResult.remove();
@@ -92,7 +92,7 @@ function CodeBox(elem) {
         // this html has nothing to show
         frame.style.display = 'none';
       } else if (elem.hasAttribute('data-demo-height')) {
-        var height = +elem.getAttribute('data-demo-height');
+        let height = +elem.getAttribute('data-demo-height');
         frame.style.height = height + 'px';
       }
       htmlResult.appendChild(frame);
@@ -103,7 +103,7 @@ function CodeBox(elem) {
     }
 
     if (isTrusted) {
-      var doc = frame.contentDocument || frame.contentWindow.document;
+      let doc = frame.contentDocument || frame.contentWindow.document;
 
       doc.open();
       doc.write(normalizeHtml(code));
@@ -134,14 +134,14 @@ function CodeBox(elem) {
       }
 
     } else {
-      var form = document.createElement('form');
+      let form = document.createElement('form');
       form.style.display = 'none';
       form.method = 'POST';
       form.enctype = "multipart/form-data";
       form.action = "https://ru.lookatcode.com/showhtml";
       form.target = frame.name;
 
-      var textarea = document.createElement('textarea');
+      let textarea = document.createElement('textarea');
       textarea.name = 'code';
       textarea.value = normalizeHtml(code);
       form.appendChild(textarea);
@@ -168,7 +168,7 @@ function CodeBox(elem) {
 
   // Evaluates a script in a global context
   function globalEval( code ) {
-    var script = document.createElement( "script" );
+    let script = document.createElement( "script" );
     script.text = code;
     document.head.appendChild( script ).parentNode.removeChild( script );
   }
@@ -193,7 +193,7 @@ function CodeBox(elem) {
       form.action = "https://ru.lookatcode.com/showhtml";
       form.target = 'js-global-frame';
 
-      var textarea = document.createElement('textarea');
+      let textarea = document.createElement('textarea');
       textarea.name = 'code';
       textarea.value = normalizeHtml('<script>\n' + code + '\n</script>');
       form.appendChild(textarea);
@@ -244,27 +244,27 @@ function CodeBox(elem) {
 
   function edit() {
 
-    var html;
+    let html;
     if (isHTML) {
       html = normalizeHtml(code);
     } else {
-      var codeIndented = code.replace(/^/gim, '    ');
+      let codeIndented = code.replace(/^/gim, '    ');
       html = '<!DOCTYPE html>\n<html>\n\n<body>\n  <script>\n' + codeIndented + '\n  </script>\n</body>\n\n</html>';
     }
 
-    var form = document.createElement('form');
+    let form = document.createElement('form');
     form.action = "http://plnkr.co/edit/?p=preview";
     form.method = "POST";
     form.target = "_blank";
 
     document.body.appendChild(form);
 
-    var textarea = document.createElement('textarea');
+    let textarea = document.createElement('textarea');
     textarea.name = "files[index.html]";
     textarea.value = html;
     form.appendChild(textarea);
 
-    var input = document.createElement('input');
+    let input = document.createElement('input');
     input.name = "description";
     input.value = "Fork from " + window.location;
     form.appendChild(input);
@@ -275,19 +275,19 @@ function CodeBox(elem) {
 
 
   function normalizeHtml(code) {
-    var codeLc = code.toLowerCase();
-    var hasBodyStart = codeLc.match('<body>');
-    var hasBodyEnd = codeLc.match('</body>');
-    var hasHtmlStart = codeLc.match('<html>');
-    var hasHtmlEnd = codeLc.match('</html>');
+    let codeLc = code.toLowerCase();
+    let hasBodyStart = codeLc.match('<body>');
+    let hasBodyEnd = codeLc.match('</body>');
+    let hasHtmlStart = codeLc.match('<html>');
+    let hasHtmlEnd = codeLc.match('</html>');
 
-    var hasDocType = codeLc.match(/^\s*<!doctype/);
+    let hasDocType = codeLc.match(/^\s*<!doctype/);
 
     if (hasDocType) {
       return code;
     }
 
-    var result = code;
+    let result = code;
 
     if (!hasHtmlStart) {
       result = '<html>\n' + result;
@@ -330,17 +330,17 @@ function addBlockHighlight(pre, lines) {
     return;
   }
 
-  var ranges = lines.replace(/\s+/g, '').split(',');
+  let ranges = lines.replace(/\s+/g, '').split(',');
 
   /*jshint -W084 */
-  for (var i = 0, range; range = ranges[i++];) {
+  for (let i = 0, range; range = ranges[i++];) {
     range = range.split('-');
 
-    var start = +range[0],
+    let start = +range[0],
         end = +range[1] || start;
 
 
-    var mask = '<code class="block-highlight" data-start="' + start + '" data-end="' + end + '">' +
+    let mask = '<code class="block-highlight" data-start="' + start + '" data-end="' + end + '">' +
       new Array(start + 1).join('\n') +
       '<code class="mask">' + new Array(end - start + 2).join('\n') + '</code></code>';
 
@@ -353,15 +353,15 @@ function addBlockHighlight(pre, lines) {
 function addInlineHighlight(pre, ranges) {
 
   // select code with the language text, not block-highlighter
-  var codeElem = pre.querySelector('code[class*="language-"]');
+  let codeElem = pre.querySelector('code[class*="language-"]');
 
   ranges = ranges ? ranges.split(",") : [];
 
-  for (var i = 0; i < ranges.length; i++) {
-    var piece = ranges[i].split(':');
-    var lineNum = +piece[0], strRange = piece[1].split('-');
-    var start = +strRange[0], end = +strRange[1];
-    var mask = '<code class="inline-highlight">' +
+  for (let i = 0; i < ranges.length; i++) {
+    let piece = ranges[i].split(':');
+    let lineNum = +piece[0], strRange = piece[1].split('-');
+    let start = +strRange[0], end = +strRange[1];
+    let mask = '<code class="inline-highlight">' +
       new Array(lineNum + 1).join('\n') +
       new Array(start + 1).join(' ') +
       '<code class="mask">' + new Array(end - start + 1).join(' ') + '</code></code>';

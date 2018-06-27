@@ -23,7 +23,7 @@ function mutation(nodes) {
   }
 }
 
-var methods = {
+let methods = {
   // safari = webkitMatchesSelector
   matches: Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector,
   replace() {
@@ -38,7 +38,7 @@ var methods = {
     this.appendChild(mutation(arguments));
   },
   remove() {
-    var parentNode = this.parentNode;
+    let parentNode = this.parentNode;
     if (parentNode) {
       return parentNode.removeChild(this);
     }
@@ -55,7 +55,7 @@ var methods = {
     }
   },
   closest: function(selector) {
-    var node = this;
+    let node = this;
 
     while (node) {
       if (node.matches && node.matches(selector)) return node;
@@ -65,7 +65,7 @@ var methods = {
   }
 };
 
-for (var methodName in methods) {
+for (let methodName in methods) {
   if (!Element.prototype[methodName]) {
     Element.prototype[methodName] = methods[methodName];
   }

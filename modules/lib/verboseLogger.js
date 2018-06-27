@@ -6,15 +6,15 @@ module.exports = class VerboseLogger {
   }
 
   middleware() {
-    var self = this;
+    let self = this;
 
     return async function (ctx, next) {
 
-      if (self.logPaths.check(ctxx.path)) {
+      if (self.logPaths.check(ctx.path)) {
         ctx.log.info({requestVerbose: ctx.request});
       }
 
-      await next;
+      await next();
     };
 
   }
@@ -23,7 +23,7 @@ module.exports = class VerboseLogger {
 /*
 VerboseLogger.prototype.log = function(context) {
 
-  for (var name in context.req.headers) {
+  for (let name in context.req.headers) {
     console.log(name + ": " + context.req.headers[name]);
   }
 

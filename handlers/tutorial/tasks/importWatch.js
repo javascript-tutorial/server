@@ -1,34 +1,34 @@
 'use strict';
 
-var TutorialImporter = require('../lib/tutorialImporter');
-var TutorialTree = require('../models/tutorialTree');
-var FiguresImporter = require('../figuresImporter');
-var co = require('co');
-var fs = require('fs');
-var path = require('path');
-var livereload = require('gulp-livereload');
-var log = require('log')();
-var chokidar = require('chokidar');
-var os = require('os');
+let TutorialImporter = require('../lib/tutorialImporter');
+let TutorialTree = require('../models/tutorialTree');
+let FiguresImporter = require('../figuresImporter');
+let co = require('co');
+let fs = require('fs');
+let path = require('path');
+let livereload = require('gulp-livereload');
+let log = require('log')();
+let chokidar = require('chokidar');
+let os = require('os');
 
 module.exports = function(options) {
 
   return async function() {
 
-    var args = require('yargs')
+    let args = require('yargs')
       .usage("Path to tutorial root is required.")
       .demand(['root'])
       .argv;
 
-    var root = fs.realpathSync(args.root);
+    let root = fs.realpathSync(args.root);
 
     if (!root) {
       throw new Error("Import watch root does not exist " + options.root);
     }
 
-    var tree = TutorialTree.instance();
+    let tree = TutorialTree.instance();
 
-    var importer = new TutorialImporter({
+    let importer = new TutorialImporter({
       root: root
     });
 
@@ -57,7 +57,7 @@ module.exports = function(options) {
 function watchTutorial(root) {
 
 
-  var importer = new TutorialImporter({
+  let importer = new TutorialImporter({
     root:     root,
     onchange: function(path) {
       log.info("livereload.change", path);
@@ -66,7 +66,7 @@ function watchTutorial(root) {
   });
 
 
-  var subRoots = fs.readdirSync(root);
+  let subRoots = fs.readdirSync(root);
   subRoots = subRoots.filter(function(subRoot) {
     return parseInt(subRoot);
   }).map(function(dir) {
@@ -75,7 +75,7 @@ function watchTutorial(root) {
 
   // under linux usePolling: true,
   // to handle the case when linux VM uses shared folder from Windows
-  var tutorialWatcher = chokidar.watch(subRoots, {ignoreInitial: true, usePolling: os.platform() != 'darwin'});
+  let tutorialWatcher = chokidar.watch(subRoots, {ignoreInitial: true, usePolling: os.platform() != 'darwin'});
 
   tutorialWatcher.on('add', onTutorialModify.bind(null, false));
   tutorialWatcher.on('change', onTutorialModify.bind(null, false));
@@ -90,7 +90,7 @@ function watchTutorial(root) {
 
     co(function* () {
 
-      var folder;
+      let folder;
       if (isDir) {
         folder = filePath;
       } else {
@@ -108,13 +108,13 @@ function watchTutorial(root) {
 
 function watchFigures(root) {
 
-  var figuresFilePath = path.join(root, 'figures.sketch');
-  var importer = new FiguresImporter({
+  let figuresFilePath = path.join(root, 'figures.sketch');
+  let importer = new FiguresImporter({
     root: root,
     figuresFilePath: figuresFilePath
   });
 
-  var figuresWatcher = chokidar.watch(figuresFilePath, {ignoreInitial: true});
+  let figuresWatcher = chokidar.watch(figuresFilePath, {ignoreInitial: true});
   figuresWatcher.on('change', onFiguresModify);
 
   function onFiguresModify() {

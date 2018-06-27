@@ -2,12 +2,12 @@
 
 // Adapted and rewritten, from restify by Ilya Kantor
 // initial Copyright 2012 Mark Cavage, Inc.  All rights reserved.
-var Stream = require('stream').Stream;
-var util = require('util');
+let Stream = require('stream').Stream;
+let util = require('util');
 
-var bunyan = require('bunyan');
-var LRU = require('lru-cache');
-var os = require('os');
+let bunyan = require('bunyan');
+let LRU = require('lru-cache');
+let os = require('os');
 
 ///--- API
 
@@ -49,9 +49,9 @@ class RequestCaptureStream extends Stream {
     // only request records
     if (!record.requestId) return;
 
-    var reqId = record.requestId;
-    var ring;
-    var self = this;
+    let reqId = record.requestId;
+    let ring;
+    let self = this;
 
     if (!(ring = this.requestMap.get(reqId))) {
       if (++this._offset > this.maxRequestIds)
@@ -77,7 +77,7 @@ class RequestCaptureStream extends Stream {
 
   dump(ring) {
 
-    var i, r;
+    let i, r;
     for (i = 0; i < ring.records.length; i++) {
       r = ring.records[i];
       this.stream.write(this.stream.raw ? r : JSON.stringify(r, bunyan.safeCycles()) + '\n');

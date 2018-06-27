@@ -2,7 +2,7 @@
 
 
 function removeCut(state) {
-  for (var idx = state.tokens.length - 1; idx >= 0; idx--) {
+  for (let idx = state.tokens.length - 1; idx >= 0; idx--) {
 
     if (state.tokens[idx].type !== 'inline') continue;
 
@@ -11,7 +11,7 @@ function removeCut(state) {
 }
 
 function doReplacementsInToken(inlineTokens) {
-  var i, token;
+  let i, token;
 
   for (i = 0; i < inlineTokens.length; i++) {
     token = inlineTokens[i];

@@ -16,9 +16,9 @@
  */
 document.documentElement.addEventListener('wheel', function(event) {
 
-  var target = event.target;
+  let target = event.target;
 
-  var foundScrollable = false;
+  let foundScrollable = false;
 
   while (target != document.documentElement) {
 
@@ -59,11 +59,11 @@ document.documentElement.addEventListener('wheel', function(event) {
 });
 
 // prevents parent scrolls from iframes (usually)
-var iframes = document.querySelectorAll('iframe');
-for (var i = 0; i < iframes.length; i++) {
-  var iframe = iframes[i];
+let iframes = document.querySelectorAll('iframe');
+for (let i = 0; i < iframes.length; i++) {
+  let iframe = iframes[i];
   iframe.addEventListener('wheel', function(e) {
-    var html = this.contentWindow.document.documentElement;
+    let html = this.contentWindow.document.documentElement;
     if (html.scrollHeight != html.clientHeight) {
       e.preventDefault();
     }

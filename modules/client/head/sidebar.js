@@ -5,7 +5,7 @@ document.addEventListener('keydown', onKeyDown);
 
 function toggle() {
 
-  var pageWrapper = document.querySelector('.page-wrapper');
+  let pageWrapper = document.querySelector('.page-wrapper');
 
   document.querySelector('.page').classList.toggle('page_sidebar_on');
 

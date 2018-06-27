@@ -1,7 +1,7 @@
 'use strict';
 
-var throttle = require('lib/throttle');
-var delegate = require('client/delegate');
+let throttle = require('lib/throttle');
+let delegate = require('client/delegate');
 
 function TutorialMap(elem) {
   this.elem = elem;
@@ -17,7 +17,7 @@ function TutorialMap(elem) {
   this.textInputBlock = this.elem.querySelector('.tutorial-map__filter .text-input');
 
   this.layoutSwitch = this.elem.querySelector('[data-tutorial-map-layout-switch]');
-  var isMapSingleColumn = +localStorage.isMapSingleColumn;
+  let isMapSingleColumn = +localStorage.isMapSingleColumn;
   this.layoutSwitch.querySelector('[value="0"]').checked = !isMapSingleColumn;
   this.layoutSwitch.querySelector('[value="1"]').checked = isMapSingleColumn;
   this.updateLayout();
@@ -37,7 +37,7 @@ function TutorialMap(elem) {
 
   this.delegate('.tutorial-map__item > .tutorial-map__link', 'click', function(event) {
     event.preventDefault();
-    var href = event.delegateTarget.getAttribute('href');
+    let href = event.delegateTarget.getAttribute('href');
     if (this.chaptersCollapsed[href]) {
       delete this.chaptersCollapsed[href];
     } else {
@@ -47,7 +47,7 @@ function TutorialMap(elem) {
     this.showChaptersCollapsed();
   });
 
-  var activeLink = this.elem.querySelector('[href="' + location.pathname + '"]');
+  let activeLink = this.elem.querySelector('[href="' + location.pathname + '"]');
   if (activeLink) {
     activeLink.classList.add('tutorial-map__link_active');
   }
@@ -58,9 +58,9 @@ function TutorialMap(elem) {
 
 
 TutorialMap.prototype.showChaptersCollapsed = function() {
-  var links = this.elem.querySelectorAll('.tutorial-map__item > .tutorial-map__link');
-  for (var i = 0; i < links.length; i++) {
-    var link = links[i];
+  let links = this.elem.querySelectorAll('.tutorial-map__item > .tutorial-map__link');
+  for (let i = 0; i < links.length; i++) {
+    let link = links[i];
 
     if (this.chaptersCollapsed[link.getAttribute('href')]) {
       link.parentNode.classList.add('tutorial-map__item_collapsed');
@@ -76,7 +76,7 @@ TutorialMap.prototype.onLayoutSwitchChange = function(event) {
 
 
 TutorialMap.prototype.updateLayout = function() {
-  var isMapSingleColumn = +this.elem.querySelector('[name="map-layout"]:checked').value;
+  let isMapSingleColumn = +this.elem.querySelector('[name="map-layout"]:checked').value;
   if (isMapSingleColumn) {
     this.elem.classList.add('tutorial-map_singlecol');
   } else {
@@ -125,35 +125,35 @@ TutorialMap.prototype.focus = function() {
 
 TutorialMap.prototype.filter = function(value) {
   value = value.toLowerCase();
-  var showingTasks = this.showTasksCheckbox.checked;
+  let showingTasks = this.showTasksCheckbox.checked;
 
-  var links = this.elem.querySelectorAll('.tutorial-map-link');
+  let links = this.elem.querySelectorAll('.tutorial-map-link');
 
-  var topItems = this.elem.querySelectorAll('.tutorial-map__item');
+  let topItems = this.elem.querySelectorAll('.tutorial-map__item');
 
   function checkLiMatch(li) {
     return isSubSequence(li.querySelector('a').innerHTML.toLowerCase(), value.replace(/\s/g, ''));
   }
 
   // an item is shown if any of its children is shown OR it's link matches the filter
-  for (var i = 0; i < topItems.length; i++) {
-    var li = topItems[i];
-    var subItems = li.querySelectorAll('.tutorial-map__sub-item');
+  for (let i = 0; i < topItems.length; i++) {
+    let li = topItems[i];
+    let subItems = li.querySelectorAll('.tutorial-map__sub-item');
 
-    var childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
+    let childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
 
-      var childMatch = false;
+      let childMatch = false;
 
       if (showingTasks) {
-        var subItems = subItem.querySelectorAll('.tutorial-map__sub-sub-item');
+        let subItems = subItem.querySelectorAll('.tutorial-map__sub-sub-item');
         childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
-          var match = checkLiMatch(subItem);
+          let match = checkLiMatch(subItem);
           subItem.hidden = !match;
           return prevValue || match;
         }, false);
       }
 
-      var match = childMatch || checkLiMatch(subItem);
+      let match = childMatch || checkLiMatch(subItem);
       //console.log(subItem, match);
       subItem.hidden = !match;
 
@@ -172,8 +172,8 @@ delegate.delegateMixin(TutorialMap.prototype);
 
 
 function isSubSequence(str1, str2) {
-  var i = 0;
-  var j = 0;
+  let i = 0;
+  let j = 0;
   while (i < str1.length && j < str2.length) {
     if (str1[i] == str2[j]) {
       i++;

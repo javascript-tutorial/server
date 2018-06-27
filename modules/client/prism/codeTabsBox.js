@@ -1,5 +1,5 @@
-var delegate = require('client/delegate');
-var addLineNumbers = require('./addLineNumbers');
+let delegate = require('client/delegate');
+let addLineNumbers = require('./addLineNumbers');
 
 function CodeTabsBox(elem) {
   if (window.ebookType) {
@@ -36,14 +36,14 @@ function CodeTabsBox(elem) {
 CodeTabsBox.prototype.onSwitchClick = function(e) {
   e.preventDefault();
 
-  var siblings = e.delegateTarget.parentNode.children;
-  var tabs = this.elem.querySelector('[data-code-tabs-content]').children;
+  let siblings = e.delegateTarget.parentNode.children;
+  let tabs = this.elem.querySelector('[data-code-tabs-content]').children;
 
 
-  var selectedIndex;
-  for(var i=0; i<siblings.length; i++) {
-    var switchElem = siblings[i];
-    var tabElem = tabs[i];
+  let selectedIndex;
+  for(let i=0; i<siblings.length; i++) {
+    let switchElem = siblings[i];
+    let tabElem = tabs[i];
     if (switchElem == e.delegateTarget) {
       selectedIndex = i;
       tabElem.classList.add('code-tabs__section_current');
@@ -67,8 +67,8 @@ CodeTabsBox.prototype.onSwitchClick = function(e) {
 
 CodeTabsBox.prototype.highlightTab = function(tab) {
   if (tab.highlighted) return;
-  var preElem = tab.querySelector('pre');
-  var codeElem = preElem.querySelector('code');
+  let preElem = tab.querySelector('pre');
+  let codeElem = preElem.querySelector('code');
   Prism.highlightElement(codeElem);
   addLineNumbers(preElem);
   tab.highlighted = true;

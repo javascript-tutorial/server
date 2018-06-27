@@ -1,33 +1,36 @@
 'use strict';
 
 const Article = require('../models/article');
+const TutorialTree = require('../models/tutorialTree');
 const Task = require('../models/task');
 const _ = require('lodash');
 const ArticleRenderer = require('../renderer/articleRenderer');
+const localStorage = require('localStorage').instance();
+const t = require('i18n');
 
-exports.get = function *get(next) {
+const LANG = require('config').lang;
 
-  this.locals.sitetoolbar = true;
-  this.locals.siteToolbarCurrentSection = "tutorial";
-  this.locals.title = "Современный учебник JavaScript";
+t.requirePhrase('tutorial.frontpage', require('../locales/frontpage/' + LANG + '.yml'));
 
+exports.get = async function(ctx, next) {
 
-  var tutorial = await CacheEntry.getOrGenerate({
-    key:  'tutorial:frontpage',
-    tags: ['article']
-  }, renderTutorial);
+  ctx.locals.sitetoolbar = true;
+  ctx.locals.siteToolbarCurrentSection = "tutorial";
+  ctx.locals.title = t('tutorial.frontpage.modern_javascript_tutorial');
+
+  let tutorial = await localStorage.getOrGenerate('tutorial:frontpage', renderTutorial);
 
   if (!tutorial.length) {
-    this.throw(404, "Database is empty?"); // empty db
+    ctx.throw(404, "Database is empty?"); // empty db
   }
 
-  var locals = {
+  let locals = {
     chapters: tutorial
   };
 
-  this.body = this.render('frontpage', locals);
+  ctx.body = ctx.render('frontpage', locals);
 };
-
+/*
 // content
 // metadata
 // modified
@@ -37,14 +40,14 @@ exports.get = function *get(next) {
 // next
 // path
 // siblings
-function* renderTutorial() {
+async function renderTutorial() {
   const tree = await Article.findTree();
 
-  var treeRendered = await renderTree(tree);
+  let treeRendered = await renderTree(tree);
 
   // render top-level content
-  for (var i = 0; i < treeRendered.length; i++) {
-    var child = treeRendered[i];
+  for (let i = 0; i < treeRendered.length; i++) {
+    let child = treeRendered[i];
     await populateContent(child);
   }
 
@@ -55,12 +58,12 @@ function* renderTutorial() {
 
 
 function* renderTree(tree) {
-  var children = [];
+  let children = [];
 
-  for (var i = 0; i < tree.children.length; i++) {
-    var child = tree.children[i];
+  for (let i = 0; i < tree.children.length; i++) {
+    let child = tree.children[i];
 
-    var childRendered = {
+    let childRendered = {
       id: child._id,
       url:   Article.getUrlBySlug(child.slug),
       title: child.title
@@ -78,11 +81,12 @@ function* renderTree(tree) {
 
 
 function* populateContent(articleObj) {
-  var article = await Article.findById(articleObj.id);
+  let article = await Article.findById(articleObj.id);
 
-  var renderer = new ArticleRenderer();
+  let renderer = new ArticleRenderer();
 
-  var rendered = await renderer.renderWithCache(article);
+  let rendered = await renderer.renderWithCache(article);
 
   articleObj.content = rendered.content;
 }
+*/

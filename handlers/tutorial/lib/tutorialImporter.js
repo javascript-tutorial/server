@@ -15,6 +15,7 @@ const log = require('log')();
 
 const TutorialTree = require('../models/tutorialTree');
 const TutorialView = require('../models/tutorialView');
+const TutorialViewStorage = require('../models/tutorialViewStorage');
 const TutorialParser = require('./tutorialParser');
 const stripTitle = require('markit').stripTitle;
 const stripYamlMetadata = require('markit').stripYamlMetadata;
@@ -362,7 +363,7 @@ module.exports = class TutorialImporter {
     let webPath = parent.getResourceWebRoot() + '/' + pathName;
 
     log.debug("syncView webpath", webPath);
-    let view = TutorialView.storage[webPath];
+    let view = TutorialViewStorage.instance().get(webPath);
 
     if (view) {
       log.debug("Plunk from db", view);
@@ -422,14 +423,14 @@ module.exports = class TutorialImporter {
 
     let source = makeSource(sourceJs, testJs);
 
-    let sourceView = TutorialView.storage[sourceWebPath];
+    let sourceView = TutorialViewStorage.instance().get(sourceWebPath);
 
     if (!sourceView) {
       sourceView = new TutorialView({
         webPath: sourceWebPath,
         description: "Fork from https://" + config.domain.main
       });
-      TutorialView.storage[sourceWebPath] = sourceView;
+      TutorialViewStorage.instance().set(sourceWebPath, sourceView);
     }
 
     let sourceFilesForView = {
@@ -451,14 +452,14 @@ module.exports = class TutorialImporter {
 
     let solution = makeSolution(solutionJs, testJs);
 
-    let solutionView = TutorialView.storage[solutionWebPath];
+    let solutionView = TutorialViewStorage.instance().get(solutionWebPath);
 
     if (!solutionView) {
       solutionView = new TutorialView({
         webPath:     solutionWebPath,
         description: "Fork from https://" + config.domain.main
       });
-      TutorialView.storage[solutionWebPath] = solutionView;
+      TutorialViewStorage.instance().set(solutionWebPath, solutionView);
     }
 
     let solutionFilesForView = {
@@ -556,19 +557,19 @@ function copySync(srcPath, dstPath) {
 
 function readFs(dir) {
 
-  var files = fs.readdirSync(dir);
+  let files = fs.readdirSync(dir);
 
-  var hadErrors = false;
+  let hadErrors = false;
   files = files.filter(function(file) {
     if (file[0] == ".") return false;
 
-    var filePath = path.join(dir, file);
+    let filePath = path.join(dir, file);
     if (fs.statSync(filePath).isDirectory()) {
       log.error("Directory not allowed: " + file);
       hadErrors = true;
     }
 
-    var type = mime.lookup(file).split('/');
+    let type = mime.lookup(file).split('/');
     if (type[0] != 'text' && type[1] != 'json' && type[1] != 'javascript' && type[1] != 'svg+xml') {
       log.error("Bad file extension: " + file);
       hadErrors = true;
@@ -582,8 +583,8 @@ function readFs(dir) {
   }
 
   files = files.sort(function(fileA, fileB) {
-    var extA = fileA.slice(fileA.lastIndexOf('.') + 1);
-    var extB = fileB.slice(fileB.lastIndexOf('.') + 1);
+    let extA = fileA.slice(fileA.lastIndexOf('.') + 1);
+    let extB = fileB.slice(fileB.lastIndexOf('.') + 1);
 
     if (extA == extB) {
       return fileA > fileB ? 1 : -1;
@@ -605,9 +606,9 @@ function readFs(dir) {
     return fileA > fileB ? 1 : -1;
   });
 
-  var filesForPlunk = {};
-  for (var i = 0; i < files.length; i++) {
-    var file = files[i];
+  let filesForPlunk = {};
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i];
     filesForPlunk[file] = {
       filename: file,
       content: stripIndents(fs.readFileSync(path.join(dir, file), 'utf-8'))

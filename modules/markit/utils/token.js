@@ -6,13 +6,13 @@
  * Replace all attributes with name `name` with one with the value `attrData`
  **/
 function attrReplace(token, name, value) {
-  var found;
+  let found;
 
-  var attrs = token.attrs;
+  let attrs = token.attrs;
 
   if (attrs) {
     // modify the existing attr is possible
-    for (var i = 0; i < attrs.length; i++) {
+    for (let i = 0; i < attrs.length; i++) {
       if (attrs[i][0] === name) {
         if (!found) {
           attrs[i][1] = value;

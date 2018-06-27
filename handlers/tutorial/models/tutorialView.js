@@ -3,12 +3,12 @@ let _ = require('lodash');
 let log = require('log')();
 let Zip = require('node-zip');
 
+
 let request = require('request-promise').defaults({
   simple: false,
   resolveWithFullResponse: true
 });
 
-let storage = Object.create(null);
 
 module.exports = class TutorialView {
   constructor(data) {
@@ -20,10 +20,6 @@ module.exports = class TutorialView {
     if (!this.files) {
       this.files = [];
     }
-  }
-
-  static storage() {
-    return storage;
   }
 
   getPlunkUrl() {

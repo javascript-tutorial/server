@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 
-var handlers = [
+let handlers = [
   'static',
   'requestId',
   'requestLog',
@@ -41,6 +41,6 @@ var handlers = [
 
   process.env.NODE_ENV=='development' && 'dev',
   'tutorial'
-];
+].filter(Boolean);
 
 module.exports = handlers;

@@ -8,8 +8,8 @@ const MdEditor = require('./mdEditor');
 function init() {
   let editorElems = document.querySelectorAll('.mdeditor');
 
-  for (var i = 0; i < editorElems.length; i++) {
-    var editorElem = editorElems[i];
+  for (let i = 0; i < editorElems.length; i++) {
+    let editorElem = editorElems[i];
     new MdEditor({
       elem: editorElem
     });

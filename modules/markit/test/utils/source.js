@@ -1,8 +1,8 @@
-var extractHighlight = require('../../utils/source/extractHighlight');
-var stripIndents = require('textUtil/stripIndents');
+let extractHighlight = require('../../utils/source/extractHighlight');
+let stripIndents = require('textUtil/stripIndents');
 
-var fs = require('fs');
-var path = require('path');
+let fs = require('fs');
+let path = require('path');
 
 function readIn(name) {
   return fs.readFileSync(path.join(__dirname, 'source/in', name), 'utf-8');

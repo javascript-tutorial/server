@@ -17,7 +17,7 @@ PathListCheck.prototype.add = function(path) {
 
 PathListCheck.prototype.check = function(path) {
 
-  for (var i = 0; i < this.paths.length; i++) {
+  for (let i = 0; i < this.paths.length; i++) {
     log.trace("path test " + path + " against " + this.paths[i]);
     if (this.paths[i].test(path)) {
       log.trace("path match found");

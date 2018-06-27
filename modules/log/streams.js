@@ -1,6 +1,6 @@
 const RequestCaptureStream = require('./requestCaptureStream');
 
-var streams;
+let streams;
 
 if (process.env.LOG_LEVEL) {
   streams = [{

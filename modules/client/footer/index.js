@@ -1,7 +1,7 @@
 //require('./preventDocumentScroll');
-var showLinkType = require('./showLinkType');
-var load2x = require('./load2x');
-var trackSticky = require('client/trackSticky');
+let showLinkType = require('./showLinkType');
+let load2x = require('./load2x');
+let trackSticky = require('client/trackSticky');
 
 
 function init() {

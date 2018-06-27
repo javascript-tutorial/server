@@ -1,12 +1,12 @@
 
 exports.init = function(app) {
-  app.use(function*(next) {
+  app.use(async function(ctx, next) {
 
-    this.nocache = function() {
-      this.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    ctx.nocache = function() {
+      ctx.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     };
 
-    await next;
+    await next();
   });
 
 };

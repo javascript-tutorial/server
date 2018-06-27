@@ -1,10 +1,10 @@
-var getScrollbarHeight = require('./getScrollbarHeight');
-var scrollbarHeight;
+let getScrollbarHeight = require('./getScrollbarHeight');
+let scrollbarHeight;
 
 function getDocumentHeight(doc) {
   doc = doc || document;
 
-  var height = Math.max(
+  let height = Math.max(
     doc.body.scrollHeight, doc.documentElement.scrollHeight,
     doc.body.offsetHeight, doc.documentElement.offsetHeight,
     doc.body.clientHeight, doc.documentElement.clientHeight

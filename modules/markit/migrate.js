@@ -101,8 +101,8 @@ module.exports = function(text) {
     listItem = listItem.replace(/\n\n([.<*!а-яёa-z0-9])/gim, '\n\n    $1');
 
     let codeLabels = listItem.match(/~CODELABEL:\d+(\n|$)/g) || [];
-    for (var i = 0; i < codeLabels.length; i++) {
-      var label = codeLabels[i];
+    for (let i = 0; i < codeLabels.length; i++) {
+      let label = codeLabels[i];
       if (label[label.length - 1] != '\n') label += '\n';
       codeBlockLabels[label] = indent(codeBlockLabels[label]);
     }

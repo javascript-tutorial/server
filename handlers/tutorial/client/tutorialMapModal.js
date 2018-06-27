@@ -1,12 +1,12 @@
 'use strict';
 
-var xhr = require('client/xhr');
+let xhr = require('client/xhr');
 
-var delegate = require('client/delegate');
-var Modal = require('client/head/modal');
-var Spinner = require('client/spinner');
-var TutorialMap = require('./tutorialMap');
-var trackSticky = require('client/trackSticky');
+let delegate = require('client/delegate');
+let Modal = require('client/head/modal');
+let Spinner = require('client/spinner');
+let TutorialMap = require('./tutorialMap');
+let trackSticky = require('client/trackSticky');
 
 /**
  * Options:
@@ -20,14 +20,14 @@ function TutorialMapModal() {
   this.elem = document.createElement('div');
   document.body.appendChild(this.elem);
 
-  var modal = new Modal({hasClose: false});
-  var spinner = new Spinner();
+  let modal = new Modal({hasClose: false});
+  let spinner = new Spinner();
   modal.setContent(spinner.elem);
   spinner.start();
 
   this.onDocumentKeyDown = this.onDocumentKeyDown.bind(this);
 
-  var request = xhr({
+  let request = xhr({
     url: '/tutorial/map'
   });
 

@@ -52,7 +52,7 @@ module.exports = class ServerParser {
       html:          true,
       publicRoot:    config.publicRoot,
       staticHost:    config.server.staticHost,
-      quotes:        config.lang == 'ru' ? '«»„“' : '“”‘’'
+      quotes:        config.lang === 'ru' ? '«»„“' : '“”‘’'
     }, options));
 
     onlineOfflinePlugin(this.md);
@@ -80,7 +80,7 @@ module.exports = class ServerParser {
     deflistPlugin(this.md);
   }
 
-  *parse(text) {
+  async parse(text) {
     const tokens = this.md.parse(text, this.env);
     await loadSrcAsync(tokens, this.md.options);
     await loadImgSizeAsync(tokens, this.md.options);

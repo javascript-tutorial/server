@@ -1,5 +1,5 @@
 // generate a simple object id
-var crypto = require('crypto');
+let crypto = require('crypto');
 
 // oid('course1') => generates always same id
 module.exports = function oid(str) {
@@ -9,7 +9,7 @@ module.exports = function oid(str) {
 module.exports.withTime = oidWithTime;
 
 function oidWithTime(str) {
-  var time = Math.floor(Date.now() / 1000).toString(16);
+  let time = Math.floor(Date.now() / 1000).toString(16);
   while (time.length < 8) { // never happens in real-life time
     time = '0' + time;
   }

@@ -5,27 +5,27 @@
  * @type {TutorialImporter|exports}
  */
 
-var TutorialImporter = require('../lib/tutorialImporter');
-var TutorialTree = require('../models/tutorialTree');
-var co = require('co');
-var fs = require('fs');
-var path = require('path');
-var log = require('log')();
+let TutorialImporter = require('../lib/tutorialImporter');
+let TutorialTree = require('../models/tutorialTree');
+let co = require('co');
+let fs = require('fs');
+let path = require('path');
+let log = require('log')();
 
 module.exports = function(options) {
 
   return function() {
 
-    var args = require('yargs')
+    let args = require('yargs')
       .usage("Path to tutorial root is required.")
       .demand(['root'])
       .argv;
 
-    var root = fs.realpathSync(args.root);
+    let root = fs.realpathSync(args.root);
 
-    var tree = TutorialTree.instance();
+    let tree = TutorialTree.instance();
 
-    var importer = new TutorialImporter({
+    let importer = new TutorialImporter({
       root: root
     });
 

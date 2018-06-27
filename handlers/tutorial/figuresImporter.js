@@ -26,31 +26,31 @@ FiguresImporter.prototype.syncFigures = function*() {
     return;
   }
 
-  var outputDir = path.join(config.tmpRoot, 'sketchtool');
+  let outputDir = path.join(config.tmpRoot, 'sketchtool');
 
   fse.removeSync(outputDir);
   fse.mkdirsSync(outputDir);
 
-  var artboardsByPages = JSON.parse(execSync(this.sketchtool + ' list artboards "' + this.figuresFilePath + '"', {
+  let artboardsByPages = JSON.parse(execSync(this.sketchtool + ' list artboards "' + this.figuresFilePath + '"', {
     encoding: 'utf-8'
   }));
 
-  var artboards = artboardsByPages
+  let artboards = artboardsByPages
     .pages
     .reduce(function(prev, current) {
       return prev.concat(current.artboards);
     }, []);
 
-  var svgIds = [];
-  var pngIds = [];
-  var artboardsExported = [];
+  let svgIds = [];
+  let pngIds = [];
+  let artboardsExported = [];
 
-  for (var i = 0; i < artboards.length; i++) {
-    var artboard = artboards[i];
+  for (let i = 0; i < artboards.length; i++) {
+    let artboard = artboards[i];
 
     // only allow artboards with extensions are exported
     // others are temporary / helpers
-    var ext = path.extname(artboard.name).slice(1);
+    let ext = path.extname(artboard.name).slice(1);
     if (ext == 'png') {
       pngIds.push(artboard.id);
       artboardsExported.push(artboard);
@@ -77,17 +77,17 @@ FiguresImporter.prototype.syncFigures = function*() {
 
   // files are exported as array-pop.svg.svg, metric-css.png@2x.png
   // => remove first extension
-  var images = glob.sync(path.join(outputDir, '*.*'));
+  let images = glob.sync(path.join(outputDir, '*.*'));
   images.forEach(function(image) {
     fs.renameSync(image, image.replace(/.(svg|png)/, ''));
   });
 
-  var allFigureFilePaths = glob.sync(path.join(this.root, '**/*.{png,svg}'));
+  let allFigureFilePaths = glob.sync(path.join(this.root, '**/*.{png,svg}'));
 
   function findArtboardPaths(artboard) {
 
-    var paths = [];
-    for (var j = 0; j < allFigureFilePaths.length; j++) {
+    let paths = [];
+    for (let j = 0; j < allFigureFilePaths.length; j++) {
       if (path.basename(allFigureFilePaths[j]) == artboard.name) {
         paths.push(path.dirname(allFigureFilePaths[j]));
       }
@@ -100,21 +100,21 @@ FiguresImporter.prototype.syncFigures = function*() {
   // copy should trigger folder resync on watch
   // and that's right (img size changed, <img> must be rerendered)
 
-  for (var i = 0; i < artboardsExported.length; i++) {
-    var artboard = artboardsExported[i];
-    var artboardPaths = findArtboardPaths(artboard);
+  for (let i = 0; i < artboardsExported.length; i++) {
+    let artboard = artboardsExported[i];
+    let artboardPaths = findArtboardPaths(artboard);
     if (!artboardPaths.length) {
       log.error("Artboard path not found " + artboard.name);
       continue;
     }
 
-    for (var j = 0; j < artboardPaths.length; j++) {
-      var artboardPath = artboardPaths[j];
+    for (let j = 0; j < artboardPaths.length; j++) {
+      let artboardPath = artboardPaths[j];
 
       log.info("syncFigure move " + artboard.name + " -> " + artboardPath);
       fse.copySync(path.join(outputDir, artboard.name), path.join(artboardPath, artboard.name));
       if (path.extname(artboard.name) == '.png') {
-        var x2Name = artboard.name.replace('.png', '@2x.png');
+        let x2Name = artboard.name.replace('.png', '@2x.png');
         fse.copySync(path.join(outputDir, x2Name), path.join(artboardPath, x2Name));
       }
     }

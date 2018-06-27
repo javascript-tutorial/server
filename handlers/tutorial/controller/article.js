@@ -8,7 +8,7 @@ const TaskRenderer = require('../renderer/taskRenderer');
 const _ = require('lodash');
 const makeAnchor = require('textUtil/makeAnchor');
 const t = require('i18n');
-const localStorage = require('localStorage');
+const localStorage = require('localStorage').instance();
 
 exports.get = async function get(ctx, next) {
   
@@ -19,7 +19,7 @@ exports.get = async function get(ctx, next) {
   );
 
   if (!renderedArticle) {
-    await next;
+    await next();
     return;
   }
 
@@ -52,7 +52,7 @@ exports.get = async function get(ctx, next) {
     let headerLinks = renderedArticle.headers
       .filter(function(header) {
         // [level, titleHtml, anchor]
-        return header.level == 2;
+        return header.level === 2;
       }).map(function(header) {
         return {
           title: header.title,

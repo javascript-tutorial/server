@@ -7,12 +7,12 @@
 
 // Chrome
 // at page load browser autoscrolls the page to #hash
-var isInitialScroll = true;
+let isInitialScroll = true;
 // then at onload autoscrolls to last remembered position
-var isOnloadScroll = false;
+let isOnloadScroll = false;
 
 // scroll as a result of clicking (probably, navigation)
-var isClickScroll = false;
+let isClickScroll = false;
 
 document.addEventListener('DOMContentLoaded', function() {
 //  console.log("DOMContentLoaded");
