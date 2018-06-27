@@ -13,6 +13,29 @@ module.exports = class TutorialTree {
     return this.bySlugMap[slug];
   }
 
+  getSiblings(slug) {
+    let entry = this.bySlug(slug);
+    return entry.parent ? this.bySlug(entry.parent).children : this.tree;
+  }
+
+  getPrev(slug) {
+    let entry = this.bySlug(slug);
+    let parentChildren = entry.parent ? this.bySlug(entry.parent).children : this.tree;
+    let idx = parentChildren.indexOf(slug);
+    assert(idx >= 0);
+
+    return idx == 0 ? null : parentChildren[idx - 1];
+  }
+
+  getNext(slug) {
+    let entry = this.bySlug(slug);
+    let parentChildren = entry.parent ? this.bySlug(entry.parent).children : this.tree;
+    let idx = parentChildren.indexOf(slug);
+    assert(idx >= 0);
+
+    return idx == (parentChildren.length-1) ? null : parentChildren[idx + 1];
+  }
+
   addToSlugMap(entry) {
     this.bySlugMap[entry.slug] = entry;
   }

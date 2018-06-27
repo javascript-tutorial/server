@@ -13,7 +13,7 @@ exports.init = function(app) {
 
   // set expires to this.expires
   app.use(function* (next) {
-    yield *next;
+    await *next;
 
     if (!this.expires) return;
 

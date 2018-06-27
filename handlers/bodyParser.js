@@ -23,14 +23,14 @@ BodyParser.prototype.middleware = function() {
     if (!self.ignore.check(this.path)) {
       this.log.debug("bodyParser will parse");
 
-      yield* self.parser.call(this, next);
+      await self.parser.call(this, next);
 
       this.log.debug("bodyParser done parse");
     } else {
       this.log.debug("bodyParser skip");
     }
 
-    yield* next;
+    await next;
   };
 };
 

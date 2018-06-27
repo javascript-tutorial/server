@@ -1,5 +1,5 @@
 // spawn webpack in a separate process to improve overall build speed
-var spawn = require('child_process').spawn;
+let spawn = require('child_process').spawn;
 
 module.exports = function() {
 

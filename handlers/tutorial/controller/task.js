@@ -6,18 +6,18 @@ const TaskRenderer = require('../renderer/taskRenderer');
 
 exports.get = function *get(next) {
 
-  const task = yield Task.findOne({
+  const task = await Task.findOne({
     slug: this.params.slug
   }).populate('parent');
 
   if (!task) {
-    yield* next;
+    await next;
     return;
   }
 
   const renderer = new TaskRenderer();
 
-  const rendered = yield* renderer.renderWithCache(task);
+  const rendered = await renderer.renderWithCache(task);
 
 
   this.locals.githubLink = task.githubLink;
@@ -26,7 +26,7 @@ exports.get = function *get(next) {
 
   var parentId = task.parent._id;
   while (true) {
-    let parent = yield Article.findById(parentId, {slug: 1, title: 1, parent: 1});
+    let parent = await Article.findById(parentId, {slug: 1, title: 1, parent: 1});
     if (!parent) break;
     breadcrumbs.push({
       url:   parent.getUrl(),

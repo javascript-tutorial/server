@@ -30,12 +30,12 @@ class Application extends KoaApplication {
 // mongoose buffers queries,
 // so for TEST/DEV there's no reason to wait
 // for PROD, there is a reason: to check if DB is ok before taking a request
-  *waitBoot() {
+  async waitBoot() {
 
     for (var path in this.handlers) {
       var handler = this.handlers[path];
       if (!handler.boot) continue;
-      yield* handler.boot();
+      await handler.boot();
     }
 
   }
@@ -47,28 +47,28 @@ class Application extends KoaApplication {
 // app.listen can also be called from tests directly (and synchronously), without waitBoot (many times w/ random port)
 // it's ok for tests, db requests are buffered, no need to waitBoot
 
-  *waitBootAndListen(host, port) {
-    yield* this.waitBoot();
+  async waitBootAndListen(host, port) {
+    await this.waitBoot();
 
-    yield (callback) => {
-      this.server = this.listen(port, host, callback);
-    };
+    await new Promise((resolve) => {
+      this.server = this.listen(port, host, resolve);
+    });
 
     this.log.info('Server is listening %s:%d', host, port);
   }
 
-  *close() {
+  async close() {
     this.log.info("Closing app server...");
-    yield function(callback) {
-      this.server.close(callback);
-    }.bind(this);
+    await new Promise(resolve => {
+      this.server.close(resolve);
+    });
 
     this.log.info("App connections are closed");
 
     for (var path in this.handlers) {
       var handler = this.handlers[path];
       if (!handler.close) continue;
-      yield* handler.close();
+      await handler.close();
     }
 
     this.log.info("App stopped");
@@ -92,7 +92,7 @@ class Application extends KoaApplication {
       this.use(function *(next) {
         log.trace("-> setup " + path);
         var d = new Date();
-        yield* next;
+        await next;
         log.trace("<- setup " + path, new Date() - d);
       });
     }

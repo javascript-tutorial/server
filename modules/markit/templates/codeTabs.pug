@@ -1,22 +1,22 @@
-include /bem
+include /bem/index
 
 +b.code-tabs._result_on
   +e.tools
     +e.scroll-wrap
-      +e('button').scroll-button._left(title="&larr;" data-code-tabs-left)
+      +e('button').scroll-button._left(title="&larr;", data-code-tabs-left)
     +e.switches-wrap
       +e.switches(data-code-tabs-switches)
         +e.switches-items
-          +e.switch._current Результат
+          +e.switch._current= t('markit.codeTabs.result')
           each tab in tabs
             +e.switch #{tab.title}
     +e.scroll-wrap
       +e('button').scroll-button._right(title="&rarr;" data-code-tabs-right)
     +e.buttons
       if external
-        +e('a').button._external(target="_blank", title="открыть в отдельном окне", href=external.href)
+        +e('a').button._external(target="_blank", title=t('markit.codeTabs.open_in_window'), href=external.href)
       if edit
-        +e('a').button._edit(target="_blank", title="редактировать в песочнице", href=edit.href)
+        +e('a').button._edit(target="_blank", title=t("markit.codeTabs.edit_in_sandbox"), href=edit.href)
       if zip
         +e('a').button._download(target="_blank", href=zip.href)
 

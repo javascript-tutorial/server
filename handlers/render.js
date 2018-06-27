@@ -6,7 +6,7 @@ const path = require('path');
 const config = require('config');
 const fs = require('fs');
 const log = require('log')();
-const jade = require('lib/serverJade');
+const pug = require('lib/serverPug');
 const assert = require('assert');
 const t = require('i18n');
 
@@ -87,11 +87,11 @@ function addStandardHelpers(locals, ctx) {
   };
 
   locals.t = t;
-  locals.bem = require('bemJade')();
+  //locals.bem = require('bemPug')();
 
   locals.pack = function(name, ext) {
     var versions = JSON.parse(
-      fs.readFileSync(path.join(config.manifestRoot, 'pack.versions.json'), {encoding: 'utf-8'})
+      fs.readFileSync(path.join(config.cacheRoot, 'webpback.versions.json'), {encoding: 'utf-8'})
     );
     var versionName = versions[name];
     // e.g style = [ style.js, style.js.map, style.css, style.css.map ]
@@ -129,7 +129,7 @@ exports.init = function(app) {
 
     var renderFileCache = {};
 
-    this.locals = Object.assign({}, config.jade);
+    this.locals = Object.assign({}, config.pug);
 
     /**
      * Render template
@@ -170,7 +170,7 @@ exports.init = function(app) {
 
       var templatePathResolved = resolvePath(templatePath, loc);
       this.log.debug("render file " + templatePathResolved);
-      return jade.renderFile(templatePathResolved, loc);
+      return pug.renderFile(templatePathResolved, loc);
     };
 
     function resolvePath(templatePath, options) {
@@ -183,8 +183,8 @@ exports.init = function(app) {
       // first we try template.en.jade
       // if fails then template.jade
       var templatePathWithLangAndExt = templatePath + '.' + config.lang;
-      if (!/\.jade$/.test(templatePathWithLangAndExt)) {
-        templatePathWithLangAndExt += '.jade';
+      if (!/\.pug/.test(templatePathWithLangAndExt)) {
+        templatePathWithLangAndExt += '.pug';
       }
 
 
@@ -202,7 +202,7 @@ exports.init = function(app) {
       }
 
       if (!fs.existsSync(templatePathResolved)) {
-        templatePathResolved = templatePathResolved.replace(`.${config.lang}.jade`, '.jade');
+        templatePathResolved = templatePathResolved.replace(`.${config.lang}.pug`, '.pug');
       }
 
       renderFileCache[cacheKey] = templatePathResolved;
@@ -210,7 +210,7 @@ exports.init = function(app) {
       return templatePathResolved;
     }
 
-    yield* next;
+    await next;
   });
 
 };

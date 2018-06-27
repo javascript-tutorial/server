@@ -41,8 +41,9 @@ module.exports = function(options) {
         await importer.sync(path.join(root, subRoot));
       }
 
-      // yield* importer.generateCaches();
+      // await importer.generateCaches();
 
+      // console.log("SLUGMAP", tree.bySlugMap);
       log.info("DONE");
 
     }();

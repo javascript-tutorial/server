@@ -1,4 +1,4 @@
-var filters = require('jade').filters;
+var filters = require('pug').filters;
 
 var UglifyJS = require("uglify-js");
 

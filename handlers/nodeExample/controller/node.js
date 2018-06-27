@@ -19,40 +19,40 @@ function clean(pathOrPiece) {
 }
 
 
-exports.all = function*() {
+exports.all = async function(ctx) {
 
   // bad path: http://javascript.local/task/capslock-warning-field/solution
-  if (this.params.serverPath === undefined) {
-    this.throw(404);
+  if (ctx.params.serverPath === undefined) {
+    ctx.throw(404);
   }
 
   // for /article/ajax-xmlhttprequest/xhr/test: xhr/test
-  var serverPath = clean(this.params.serverPath);
-  var slug = clean(this.params.slug);
-  var view = clean(this.params.view);
-  var taskOrArticle = this.url.match(/\w+/)[0];
+  var serverPath = clean(ctx.params.serverPath);
+  var slug = clean(ctx.params.slug);
+  var view = clean(ctx.params.view);
+  var taskOrArticle = ctx.url.match(/\w+/)[0];
 
   var modulePath = path.join(config.publicRoot, taskOrArticle, slug, view, 'server.js');
 
-  this.log.debug("trying modulePath", modulePath);
+  ctx.log.debug("trying modulePath", modulePath);
 
-  if (yield fs.exists(modulePath)) {
+  if (await fs.exists(modulePath)) {
 
     var server = require(modulePath);
 
-    this.req.url = "/" + serverPath;
+    ctx.req.url = "/" + serverPath;
 
-    var originalUrl = this.request.originalUrl;
+    var originalUrl = ctx.request.originalUrl;
     if (~originalUrl.indexOf('?')) {
-      this.req.url += originalUrl.slice(originalUrl.indexOf('?'));
+      ctx.req.url += originalUrl.slice(originalUrl.indexOf('?'));
     }
 
-    this.res.statusCode = 200; // reset default koa 404 assignment
-    this.log.debug("passing control to modulePath server, url=", this.req.url);
-    this.respond = false;
-    server.accept(this.req, this.res);
+    ctx.res.statusCode = 200; // reset default koa 404 assignment
+    ctx.log.debug("passing control to modulePath server, url=", ctx.req.url);
+    ctx.respond = false;
+    server.accept(ctx.req, ctx.res);
   } else {
-    this.throw(404);
+    ctx.throw(404);
   }
 
 };

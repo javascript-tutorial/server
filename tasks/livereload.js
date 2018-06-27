@@ -1,8 +1,8 @@
-var livereload = require('gulp-livereload');
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var throttle = require('lodash/throttle');
-var chokidar = require('chokidar');
+let livereload = require('gulp-livereload');
+let gulp = require('gulp');
+let gutil = require('gulp-util');
+let throttle = require('lodash/throttle');
+let chokidar = require('chokidar');
 
 // options.watch must NOT be www/**, because that breaks (why?!?) supervisor reloading
 // www/**/*.* is fine

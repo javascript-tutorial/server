@@ -61,21 +61,21 @@ MultipartParser.prototype.middleware = function() {
     // skip these methods
     var contentType = this.get('content-type') || '';
     if (!~['DELETE', 'POST', 'PUT', 'PATCH'].indexOf(this.method) || !contentType.startsWith('multipart/form-data')) {
-      return yield* next;
+      return await next;
     }
 
     if (!self.ignore.check(this.path)) {
       this.log.debug("multipart will parse");
 
       // this may throw an error w/ status 400 or 415 or...
-      this.request.body = yield self.parse(this.req);
+      this.request.body = await self.parse(this.req);
 
       this.log.debug("multipart done parse");
     } else {
       this.log.debug("multipart skip");
     }
 
-    yield* next;
+    await next;
   };
 };
 

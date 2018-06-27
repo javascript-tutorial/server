@@ -12,7 +12,7 @@ exports.get = function *get(next) {
   this.locals.title = "Современный учебник JavaScript";
 
 
-  var tutorial = yield CacheEntry.getOrGenerate({
+  var tutorial = await CacheEntry.getOrGenerate({
     key:  'tutorial:frontpage',
     tags: ['article']
   }, renderTutorial);
@@ -38,14 +38,14 @@ exports.get = function *get(next) {
 // path
 // siblings
 function* renderTutorial() {
-  const tree = yield* Article.findTree();
+  const tree = await Article.findTree();
 
-  var treeRendered = yield* renderTree(tree);
+  var treeRendered = await renderTree(tree);
 
   // render top-level content
   for (var i = 0; i < treeRendered.length; i++) {
     var child = treeRendered[i];
-    yield* populateContent(child);
+    await populateContent(child);
   }
 
 
@@ -67,7 +67,7 @@ function* renderTree(tree) {
     };
 
     if (child.isFolder) {
-      childRendered.children = yield* renderTree(child);
+      childRendered.children = await renderTree(child);
     }
 
     children.push(childRendered);
@@ -78,11 +78,11 @@ function* renderTree(tree) {
 
 
 function* populateContent(articleObj) {
-  var article = yield Article.findById(articleObj.id);
+  var article = await Article.findById(articleObj.id);
 
   var renderer = new ArticleRenderer();
 
-  var rendered = yield* renderer.renderWithCache(article);
+  var rendered = await renderer.renderWithCache(article);
 
   articleObj.content = rendered.content;
 }

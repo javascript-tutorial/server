@@ -97,7 +97,7 @@ function watchTutorial(root) {
         folder = path.dirname(filePath);
       }
 
-      yield* importer.sync(folder);
+      await importer.sync(folder);
 
     }).catch(function(err) {
       log.error(err);
@@ -121,7 +121,7 @@ function watchFigures(root) {
 
     co(function* () {
 
-      yield* importer.syncFigures();
+      await importer.syncFigures();
 
     }).catch(function(err) {
       throw err;

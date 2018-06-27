@@ -1,6 +1,6 @@
-var co = require('co');
-var app = require('app');
-var config = require('config');
+let co = require('co');
+let app = require('app');
+let config = require('config');
 
 module.exports = function() {
   return function(callback) {

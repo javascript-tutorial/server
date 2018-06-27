@@ -7,7 +7,7 @@ var isDevelopment = process.env.NODE_ENV == 'development';
 
 // can be called not from this MW, but from anywhere
 // this.templateDir can be anything
-function renderError(err) {
+function renderError(ctx, err) {
   /*jshint -W040 */
 
   // don't pass just err, because for "stack too deep" errors it leads to logging problems
@@ -16,22 +16,22 @@ function renderError(err) {
     stack: err.stack,
     errors: err.errors, // for validation errors
     status: err.status,
-    referer: this.get('referer'),
-    cookie: this.get('cookie')
+    referer: ctx.get('referer'),
+    cookie: ctx.get('cookie')
   };
   if (!err.expose) { // dev error
-    report.requestVerbose = this.request;
+    report.requestVerbose = ctx.request;
   }
 
-  this.log.error(report);
+  ctx.log.error(report);
 
   // may be error if headers are already sent!
-  this.set('X-Content-Type-Options', 'nosniff');
+  ctx.set('X-Content-Type-Options', 'nosniff');
 
-  var preferredType = this.accepts('html', 'json');
+  var preferredType = ctx.accepts('html', 'json');
 
   if (err.name == 'ValidationError') {
-    this.status = 400;
+    ctx.status = 400;
 
     if (preferredType == 'json') {
       var errors = {};
@@ -40,11 +40,11 @@ function renderError(err) {
         errors[field] = err.errors[field].message;
       }
 
-      this.body = {
+      ctx.body = {
         errors: errors
       };
     } else {
-      this.body = this.render(path.join(__dirname, "templates/400"), {
+      ctx.body = ctx.render(path.join(__dirname, "templates/400"), {
         useAbsoluteTemplatePath: true,
         error: err
       });
@@ -54,7 +54,7 @@ function renderError(err) {
   }
 
   if (isDevelopment) {
-    this.status = err.status || 500;
+    ctx.status = err.status || 500;
 
     var stack = (err.stack || '')
       .split('\n').slice(1)
@@ -63,35 +63,35 @@ function renderError(err) {
       }).join('');
 
     if (preferredType == 'json') {
-      this.body = {
+      ctx.body = {
         message: err.message,
         stack: stack
       };
-      this.body.statusCode = err.statusCode || err.status;
+      ctx.body.statusCode = err.statusCode || err.status;
     } else {
-      this.type = 'text/html; charset=utf-8';
-      this.body = "<html><body><h1>" + err.message + "</h1><ul>" + stack + "</ul></body></html>";
+      ctx.type = 'text/html; charset=utf-8';
+      ctx.body = "<html><body><h1>" + err.message + "</h1><ul>" + stack + "</ul></body></html>";
     }
 
     return;
   }
 
-  this.status = err.expose ? err.status : 500;
+  ctx.status = err.expose ? err.status : 500;
 
   if (preferredType == 'json') {
-    this.body = {
+    ctx.body = {
       message: err.message,
       statusCode: err.status || err.statusCode
     };
     if (err.description) {
-      this.body.description = err.description;
+      ctx.body.description = err.description;
     }
   } else {
-    var templateName = ~[500, 401, 404, 403].indexOf(this.status) ? this.status : 500;
-    this.body = this.render(`${__dirname}/templates/${templateName}`, {
+    var templateName = ~[500, 401, 404, 403].indexOf(ctx.status) ? ctx.status : 500;
+    ctx.body = ctx.render(`${__dirname}/templates/${templateName}`, {
       useAbsoluteTemplatePath: true,
       error: err,
-      requestId: this.requestId
+      requestId: ctx.requestId
     });
   }
 
@@ -100,45 +100,27 @@ function renderError(err) {
 
 exports.init = function(app) {
 
-  app.use(function*(next) {
-    this.renderError = renderError;
+  app.use(async function(ctx, next) {
+    ctx.renderError = renderError;
 
     try {
-      yield* next;
+      await next;
     } catch (err) {
-      if (typeof err == 'string') { // fx error
+      if (typeof err !== 'object') { // 'fx error' from money or mb another module
         err = new Error(err);
       }
-      // this middleware is not like others, it is not endpoint
+      // ctx middleware is not like others, it is not endpoint
       // so wrapHmvcMiddleware is of little use
       try {
-        this.renderError(err);
+        ctx.renderError(err);
       } catch(renderErr) {
         // could not render, maybe template not found or something
-        this.status = 500;
-        this.body = "Server render error";
-        this.log.error(renderErr); // make it last to ensure that status/body are set
+        ctx.status = 500;
+        ctx.body = "Server render error";
+        ctx.log.error(renderErr); // make it last to ensure that status/body are set
       }
     }
   });
 
-  // this middleware handles error BEFORE ^^^
-  // rewrite mongoose wrong mongoose parameter -> 400 (not 500)
-  app.use(function* rewriteCastError(next) {
-
-    try {
-      yield next;
-    } catch (err) {
-      if (err.name == 'CastError') {
-        // malformed or absent mongoose params
-        if (process.env.NODE_ENV == 'production') { // do not rewrite in dev/test env
-          this.throw(400);
-        }
-      }
-
-      throw err;
-    }
-
-  });
 
 };

@@ -24,7 +24,7 @@ module.exports = function(options) {
       var urlPath = url.parse(args.url).pathname.split('/').filter(Boolean);
 
       if (urlPath.length == 1) {
-        var article = yield Article.findOne({slug: urlPath[0]});
+        var article = await Article.findOne({slug: urlPath[0]});
         if (!article) {
           console.log("Not found!");
           return;
@@ -48,7 +48,7 @@ module.exports = function(options) {
       }
 
       if (urlPath[0] == 'task') {
-        var task = yield Task.findOne({slug: urlPath[1]});
+        var task = await Task.findOne({slug: urlPath[1]});
         if (!task) {
           return;
         }

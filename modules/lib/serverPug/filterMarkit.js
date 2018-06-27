@@ -1,6 +1,6 @@
 'use strict';
 
-let filters = require('jade').filters;
+let filters = require('pug').filters;
 
 let BasicParser = require('markit').BasicParser;
 

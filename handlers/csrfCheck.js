@@ -12,7 +12,7 @@ CsrfChecker.prototype.middleware = function() {
   return function*(next) {
     // skip these methods
     if (this.method === 'GET' || this.method === 'HEAD' || this.method === 'OPTIONS') {
-      return yield* next;
+      return await next;
     }
 
     var checkCsrf = true;
@@ -38,7 +38,7 @@ CsrfChecker.prototype.middleware = function() {
       this.log.debug("csrf skip");
     }
 
-    yield* next;
+    await next;
   };
 };
 
@@ -56,7 +56,7 @@ exports.init = function(app) {
 
     try {
       // first, do the middleware, maybe authorize user in the process
-      yield* next;
+      await next;
     } finally {
       // then if we have a user, set XSRF token
       if (this.req.user) {

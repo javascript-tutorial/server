@@ -6,6 +6,6 @@ exports.init = function(app) {
   app.use(function*(next) {
     /* jshint -W106 */
     this.requestId = this.get('X-Request-Id') || uuid();
-    yield next;
+    await next;
   });
 };

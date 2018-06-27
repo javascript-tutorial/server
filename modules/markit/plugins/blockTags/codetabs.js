@@ -6,10 +6,10 @@ assert(typeof IS_CLIENT === 'undefined');
 
 const path = require('path');
 const getPrismLanguage = require('../../getPrismLanguage');
-const jade = require('lib/serverJade');
-const bem = require('bemJade');
 
-const codeTabsTemplate = require('../../templates/codeTabs.jade');
+require('lib/serverPug');
+
+const codeTabsTemplate = require('../../templates/codeTabs.pug');
 
 module.exports = function(md) {
 

@@ -6,7 +6,7 @@ exports.init = function(app) {
       this.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     };
 
-    yield* next;
+    await next;
   });
 
 };

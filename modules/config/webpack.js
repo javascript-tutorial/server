@@ -83,8 +83,8 @@ module.exports = function(config) {
           use: ['json-loader', 'yaml-loader']
         },
         {
-          test: /\.jade$/,
-          use: 'jade-loader?root=' + config.projectRoot + '/templates'
+          test: /\.pug$/,
+          use: 'pug-loader?root=' + config.projectRoot + '/templates'
         },
         {
           test: /\.js$/,
@@ -204,7 +204,7 @@ module.exports = function(config) {
         name: 'head',
         filename: extHash('head', 'js')
       }),
-      new WriteVersionsPlugin(path.join(config.manifestRoot, 'pack.versions.json')),
+      new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
       new ExtractTextPlugin(extHash('[name]', 'css', '[contenthash]'), {allChunks: true}),
 

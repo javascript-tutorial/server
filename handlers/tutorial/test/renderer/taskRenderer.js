@@ -8,7 +8,7 @@ const Task = require('../../models/task');
 describe("TaskRenderer", function() {
 
   beforeEach(function* () {
-    yield Task.destroy();
+    await Task.destroy();
   });
 
   it("renderContent", function* () {
@@ -23,7 +23,7 @@ describe("TaskRenderer", function() {
 
     const renderer = new TaskRenderer();
 
-    const result = yield renderer.renderContent(task, {});
+    const result = await renderer.renderContent(task, {});
 
     result.replace(/\n/g, '').should.be.eql('<p>Content</p>');
   });
@@ -40,7 +40,7 @@ describe("TaskRenderer", function() {
     });
     const renderer = new TaskRenderer();
 
-    const result = yield renderer.renderSolution(task, {});
+    const result = await renderer.renderSolution(task, {});
 
     result.should.be.eql([{title: 'Part 1', content: '<p>Content 1</p>\n'},
       {title: 'Part 2', content: '<p>Content 2</p>\n'}]);

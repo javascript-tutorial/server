@@ -1,9 +1,9 @@
 // make sure Promise is wrapped early,
 // to assign mongoose.Promise = global.Promise the wrapped variant any time later
-var path = require('path');
-var fs = require('fs');
-var env = process.env;
-var yaml = require('js-yaml');
+let path = require('path');
+let fs = require('fs');
+let env = process.env;
+let yaml = require('js-yaml');
 
 // NODE_ENV = development || test || production
 env.NODE_ENV = env.NODE_ENV || 'development';
@@ -11,9 +11,9 @@ env.NODE_ENV = env.NODE_ENV || 'development';
 //if (!env.SITE_HOST) throw new Error("env.SITE_HOST is not set");
 //if (!env.STATIC_HOST) throw new Error("env.STATIC_HOST is not set");
 
-var secret = require('./secret');
+let secret = require('./secret');
 
-var lang = env.NODE_LANG || 'en';
+let lang = env.NODE_LANG || 'en';
 
 require('util').inspect.defaultOptions.depth = 3;
 
@@ -23,7 +23,7 @@ if (env.DEV_TRACE) {
   require('clarify');
 }
 
-var config = module.exports = {
+let config = module.exports = {
   // production domain, for tutorial imports, descriptions, etc
   // for the places where in-dev we must use a real domain
   domain: {
@@ -50,7 +50,7 @@ var config = module.exports = {
   assetVersioning: env.ASSET_VERSIONING == 'file' ? 'file' :
                      env.ASSET_VERSIONING == 'query' ? 'query' : null,
 
-  jade:   {
+  pug:   {
     basedir: path.join(process.cwd(), 'templates'),
     cache:   env.NODE_ENV != 'development'
   },
@@ -59,15 +59,12 @@ var config = module.exports = {
   // public files, served by nginx
   publicRoot:            path.join(process.cwd(), 'public'),
   // private files, for expiring links, not directly accessible
-  downloadRoot:          path.join(process.cwd(), 'download'),
-  archiveRoot:           path.join(process.cwd(), 'archive'),
+  tutorialRoot:          path.join(process.cwd(), '..', 'javascript-tutorial-' + lang),
   tmpRoot:               path.join(process.cwd(), 'tmp'),
   localesRoot:           path.join(process.cwd(), 'locales'),
   // js/css build versions
-  manifestRoot:          path.join(process.cwd(), 'manifest'),
-  migrationsRoot:        path.join(process.cwd(), 'migrations'),
-  tutorialGithubBaseUrl: 'https://github.com/iliakan/javascript-tutorial-' + lang + '/tree/master/' +
-  '',
+  cacheRoot:          path.join(process.cwd(), 'cache'),
+  tutorialGithubBaseUrl: 'https://github.com/iliakan/javascript-tutorial-' + lang + '/tree/master',
 
   handlers: require('./handlers')
 };

@@ -29,7 +29,7 @@ module.exports = function(options) {
       .pipe(gp.debug())
 
       .pipe(es.map(function(file, cb) {
-        var normalResolutionPath = file.path.replace(/@2x(?=\.[^.]+$)/, '');
+        let normalResolutionPath = file.path.replace(/@2x(?=\.[^.]+$)/, '');
         gutil.log(file.path + ' -> ' + normalResolutionPath);
         gm(file.path).resize("50%").write(normalResolutionPath, cb);
       }));

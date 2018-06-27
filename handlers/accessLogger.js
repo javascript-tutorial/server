@@ -19,7 +19,7 @@ exports.init = function(app) {
     }, "--> %s %s", req.method, req.originalUrl || req.url);
 
     try {
-      yield next;
+      await next;
     } catch (err) {
       // log uncaught downstream errors
       log(this, start, err);

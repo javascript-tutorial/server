@@ -1,8 +1,6 @@
 // Adapted from bemto.jade, copyright(c) 2012 Roman Komarov <kizu@kizu.ru>
 
-/* jshint -W106 */
-
-var jade = require('jade/lib/runtime');
+var pug = require('pug-runtime');
 
 module.exports = function(settings) {
   settings = settings || {};
@@ -116,7 +114,7 @@ module.exports = function(settings) {
       }
     }
 
-    buf.push('<' + newTag + jade.attrs(jade.merge([attributes]), true) + ">");
+    buf.push('<' + newTag + pug.attrs(pug.merge([attributes]), true) + ">");
 
     if (block) block();
 

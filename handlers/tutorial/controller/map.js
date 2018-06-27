@@ -8,8 +8,6 @@ const TaskRenderer = require('../renderer/taskRenderer');
 const _ = require('lodash');
 const makeAnchor = require('textUtil/makeAnchor');
 
-const localStorage = require('localStorage');
-
 const t = require('i18n');
 
 const LANG = require('config').lang;
@@ -20,16 +18,17 @@ exports.get = function* get() {
 
   const tutorialTree = TutorialTree.instance();
 
-  var template = this.get('X-Requested-With') ? '_map' : 'map';
+  const template = this.get('X-Requested-With') ? '_map' : 'map';
 
+  console.log(tutorialTree.tree);
   this.body = this.render(template, {
     bySlug: tutorialTree.bySlug.bind(tutorialTree),
     roots: [
-      treeRendered[0],
-      treeRendered[1],
+      tutorialTree.tree[0],
+      tutorialTree.tree[1],
       {
         title: t('site.additional_articles'),
-        children: treeRendered.slice(2)
+        children: tutorialTree.tree.slice(2)
       }
     ]
   });

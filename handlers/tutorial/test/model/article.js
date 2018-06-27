@@ -11,7 +11,7 @@ var Article = require('../../models/article');
 describe('Article', function() {
 
   before(function* () {
-    yield* dataUtil.loadModels(path.join(__dirname, '../fixture/article'), {reset: true});
+    await dataUtil.loadModels(path.join(__dirname, '../fixture/article'), {reset: true});
   });
 
 
@@ -27,17 +27,17 @@ describe('Article', function() {
       weight: 0
     });
 
-    yield article.persist();
+    await article.persist();
 
     assert(article.modified >= date);
 
-    yield article.destroy();
+    await article.destroy();
   });
 
   describe('findTree', function() {
 
     it("returns nested structure { children: [ ... ] }", function* () {
-      var tree = yield Article.findTree();
+      var tree = await Article.findTree();
       tree.children.length.should.be.eql(2);
       tree.children[0].children.length.should.be.eql(2);
       tree.children[1].children.length.should.be.eql(2);

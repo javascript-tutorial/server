@@ -1,22 +1,23 @@
 const PathListCheck = require('pathListCheck');
 
-function VerboseLogger() {
-  this.logPaths = new PathListCheck();
-}
+module.exports = class VerboseLogger {
+  constructor() {
+    this.logPaths = new PathListCheck();
+  }
 
+  middleware() {
+    var self = this;
 
-VerboseLogger.prototype.middleware = function() {
-  var self = this;
+    return async function (ctx, next) {
 
-  return function*(next) {
+      if (self.logPaths.check(ctxx.path)) {
+        ctx.log.info({requestVerbose: ctx.request});
+      }
 
-    if (self.logPaths.check(this.path)) {
-      this.log.info({requestVerbose: this.request});
-    }
+      await next;
+    };
 
-    yield* next;
-  };
-
+  }
 };
 
 /*
@@ -33,4 +34,3 @@ VerboseLogger.prototype.log = function(context) {
 };
 */
 
-module.exports = VerboseLogger;

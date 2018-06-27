@@ -7,8 +7,8 @@
 module.exports = function(routerModulePath) {
   var middleware = module.parent.require(routerModulePath).middleware();
 
-  return function*(next) {
-    yield* middleware.call(this, next);
+  return async function(ctx, next) {
+    await middleware(ctx, next);
   };
 
 };

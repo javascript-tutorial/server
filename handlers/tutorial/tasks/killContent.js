@@ -12,11 +12,11 @@ module.exports = function() {
 
     return co(function*() {
 
-      yield* killArticles();
-      yield* killTasks();
+      await killArticles();
+      await killTasks();
 
-      yield* renderTasks();
-      yield* renderArticles();
+      await renderTasks();
+      await renderArticles();
       console.log("DONE");
     });
   };
@@ -25,14 +25,14 @@ module.exports = function() {
 
 function* killArticles() {
 
-  var articles = yield Article.find({});
+  var articles = await Article.find({});
 
   for (var i = 0; i < articles.length; i++) {
     var article = articles[i];
 
     article.content = '# ' + article.title + '\n\n## Article ' + article.weight + '\n\nText';
 
-    yield article.persist();
+    await article.persist();
 
   }
 
@@ -40,16 +40,16 @@ function* killArticles() {
 
 function* renderArticles() {
 
-  var articles = yield Article.find({});
+  var articles = await Article.find({});
 
   for (var i = 0; i < articles.length; i++) {
     var article = articles[i];
 
     var renderer = new ArticleRenderer();
 
-    yield* renderer.renderWithCache(article, {refreshCache: true});
+    await renderer.renderWithCache(article, {refreshCache: true});
 
-    yield article.persist();
+    await article.persist();
 
   }
 
@@ -58,16 +58,16 @@ function* renderArticles() {
 
 function* renderTasks() {
 
-  var tasks = yield Task.find({});
+  var tasks = await Task.find({});
 
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];
 
     var renderer = new TaskRenderer();
 
-    yield* renderer.renderWithCache(task, {refreshCache: true});
+    await renderer.renderWithCache(task, {refreshCache: true});
 
-    yield task.persist();
+    await task.persist();
 
   }
 
@@ -75,7 +75,7 @@ function* renderTasks() {
 
 function* killTasks() {
 
-  var tasks = yield Task.find({});
+  var tasks = await Task.find({});
 
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];
@@ -83,7 +83,7 @@ function* killTasks() {
     task.content =  '# ' + task.title + '\n\nTask content ' + task.weight;
     task.solution = 'Task solution ' + task.weight;
 
-    yield task.persist();
+    await task.persist();
   }
 
 }

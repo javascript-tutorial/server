@@ -29,7 +29,7 @@ module.exports = function(options) {
 
     return co(function* () {
 
-      yield* importer.syncFigures();
+      await importer.syncFigures();
 
       log.info("Figures imported");
     });

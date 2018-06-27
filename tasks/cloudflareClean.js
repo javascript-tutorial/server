@@ -8,7 +8,7 @@ const log = require('log')();
 function* cleanDomain(domain) {
 
 
-  var params = {
+  let params = {
     a:     "fpurge_ts",
     tkn:   config.cloudflare.apiKey,
     email: config.cloudflare.email,
@@ -16,7 +16,7 @@ function* cleanDomain(domain) {
     v:     1
   };
 
-  return yield request.post({
+  return await request.post({
     url:    config.cloudflare.url,
     form: params,
     json:   true
@@ -26,18 +26,18 @@ function* cleanDomain(domain) {
 
 module.exports = function(options) {
 
-  var domains = options.domains;
+  let domains = options.domains;
   return function() {
 
 
 
     return co(function*() {
 
-      for (var i = 0; i < domains.length; i++) {
-        var domain = domains[i];
+      for (let i = 0; i < domains.length; i++) {
+        let domain = domains[i];
 
         log.info("Cloudfare clean", domain);
-        var result = yield cleanDomain(domain);
+        let result = await cleanDomain(domain);
         if (result.body.result != 'success') {
           log.error(result.body);
           //log.error(result.request);

@@ -1,4 +1,6 @@
-include /bem
+include /bem/index
+
+- console.log(roots)
 
 +b.tutorial-map
   +e.filter
@@ -13,7 +15,9 @@ include /bem
           = t('tutorial.map.show_tasks')
 
   +b.tutorial-map-list
-    each topic in roots
+    each slug in roots
+      - let topic = bySlug(slug)
+      - console.log(slug, topic)
       +e.item
         +e('h2').title= topic.title
         +b('ul').tutorial-map-list-two

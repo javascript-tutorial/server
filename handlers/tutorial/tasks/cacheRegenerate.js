@@ -10,8 +10,8 @@ module.exports = function() {
 
   return function() {
     return co(function*() {
-      yield* ArticleRenderer.regenerateCaches();
-      yield* TaskRenderer.regenerateCaches();
+      await ArticleRenderer.regenerateCaches();
+      await TaskRenderer.regenerateCaches();
     });
 
   };

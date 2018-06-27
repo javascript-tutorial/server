@@ -7,7 +7,7 @@ exports.init = function(app) {
       requestId: this.requestId
     });
 
-    yield* next;
+    await next;
   });
 
 };

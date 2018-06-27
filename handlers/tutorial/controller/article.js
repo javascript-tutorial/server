@@ -1,5 +1,6 @@
 'use strict';
 
+const TutorialTree = require('../models/tutorialTree');
 const Article = require('../models/article');
 const Task = require('../models/task');
 const ArticleRenderer = require('../renderer/articleRenderer');
@@ -7,20 +8,22 @@ const TaskRenderer = require('../renderer/taskRenderer');
 const _ = require('lodash');
 const makeAnchor = require('textUtil/makeAnchor');
 const t = require('i18n');
+const localStorage = require('localStorage');
 
-exports.get = function *get(next) {
-
-  var renderedArticle = yield* CacheEntry.getOrGenerate({
-    key:  'tutorial:article:' + this.params.slug,
-    tags: ['article']
-  }, renderArticle.bind(this, this.params.slug), process.env.TUTORIAL_EDIT);
+exports.get = async function get(ctx, next) {
+  
+  let renderedArticle = await localStorage.getOrGenerate(
+    'tutorial:article:' + ctx.params.slug, 
+    () => renderArticle(ctx, ctx.params.slug), 
+    process.env.TUTORIAL_EDIT
+  );
 
   if (!renderedArticle) {
-    yield* next;
+    await next;
     return;
   }
 
-  var locals = renderedArticle;
+  let locals = renderedArticle;
 
   locals.sitetoolbar = true;
 
@@ -31,7 +34,7 @@ exports.get = function *get(next) {
     locals.comments = true;
   }
 
-  var sections = [];
+  let sections = [];
   if (renderedArticle.isFolder) {
 
     sections.push({
@@ -46,7 +49,7 @@ exports.get = function *get(next) {
       links: [renderedArticle.breadcrumbs[renderedArticle.breadcrumbs.length-1]]
     });
 
-    var headerLinks = renderedArticle.headers
+    let headerLinks = renderedArticle.headers
       .filter(function(header) {
         // [level, titleHtml, anchor]
         return header.level == 2;
@@ -68,7 +71,7 @@ exports.get = function *get(next) {
 
   if (!renderedArticle.isFolder) {
 
-    var section2 = {
+    let section2 = {
       class: '_separator_before',
       links: []
     };
@@ -106,21 +109,21 @@ exports.get = function *get(next) {
 // next
 // path
 // siblings
-function* renderArticle(slug) {
+async function renderArticle(ctx, slug) {
 
-  const article = yield Article.findOne({ slug: slug });
+  const tree = TutorialTree.instance();
+  const article = tree.bySlug(slug);
   if (!article) {
     return null;
   }
 
-  this.log.debug("article", article._id);
+  ctx.log.debug("article", article._id);
+  
+  let renderer = new ArticleRenderer();
 
+  let rendered = await renderer.render(article);
 
-  var renderer = new ArticleRenderer();
-
-  var rendered = yield* renderer.renderWithCache(article);
-
-  this.log.debug("rendered");
+  ctx.log.debug("rendered");
 
   rendered.isFolder = article.isFolder;
   rendered.modified = article.modified;
@@ -130,62 +133,61 @@ function* renderArticle(slug) {
   rendered.githubLink = article.githubLink;
   rendered.canonicalPath = article.getUrl();
 
-  const tree = yield* Article.findTree();
-  const articleInTree = tree.byId(article._id);
-
-  yield* renderProgress();
-  yield* renderPrevNext();
-  yield* renderBreadCrumb();
-  yield* renderSiblings();
-  yield* renderChildren();
-  yield* renderTasks();
+  await renderProgress();
+  await renderPrevNext();
+  await renderBreadCrumb();
+  await renderSiblings();
+  await renderChildren();
+  await renderTasks();
 
 
   // strip / and /tutorial
   rendered.level = rendered.breadcrumbs.length - 2; // starts at 0
 
-  if (articleInTree.isFolder) {
+  if (article.isFolder) {
     // levelMax is 2 for deep courses or 1 for plain courses
-    rendered.levelMax = articleInTree.children[0].isFolder ? rendered.level + 2 : rendered.level + 1;
+    rendered.levelMax = tree.bySlug(children[0]).isFolder ? rendered.level + 2 : rendered.level + 1;
   }
 
 
-  function* renderPrevNext() {
+  async function renderPrevNext() {
 
-    var prev = tree.byId(articleInTree.prev);
+    let prev = tree.getPrev(article.slug);
 
     if (prev) {
+      prev = tree.bySlug(prev);
       rendered.prev = {
-        url:   Article.getUrlBySlug(prev.slug),
+        url:   prev.getUrl(),
         title: prev.title
       };
     }
 
-    var next = tree.byId(articleInTree.next);
+    let next = tree.getNext(article.slug);
     if (next) {
+      next = tree.bySlug(next);
       rendered.next = {
-        url:   Article.getUrlBySlug(next.slug),
+        url:   next.getUrl(),
         title: next.title
       };
     }
   }
 
-  function* renderProgress() {
-    var parent = articleInTree.parent;
-    var bookRoot = articleInTree;
-    while (parent) {
-      bookRoot = tree.byId(parent);
-      parent = bookRoot.parent;
+
+
+  async function renderProgress() {
+    let parent = article;
+    while (parent.parent) {
+      parent = tree.bySlug(parent.parent);
     }
 
     // now bookroot is 1st level tree item, book root, let's count items in it
 
     //console.log(bookRoot);
 
-    var bookLeafCount = 0;
-    var bookChildNumber;
-    function countChildren(tree) {
-      if (tree == articleInTree) {
+    let bookLeafCount = 0;
+    let bookChildNumber;
+    function countChildren(article) {
+      if (tree === article) {
         bookChildNumber = bookLeafCount + 1;
       }
 
@@ -207,58 +209,55 @@ function* renderArticle(slug) {
     //console.log(bookLeafCount, bookChildNumber);
   }
 
-  function* renderBreadCrumb() {
-    var path = [];
-    var parent = articleInTree.parent;
+  async function renderBreadCrumb() {
+    let path = [];
+    let parent = article.parent;
     while (parent) {
-      var a = tree.byId(parent);
+      let a = tree.bySlug(parent);
       path.push({
         title: a.title,
-        url:   Article.getUrlBySlug(a.slug)
+        url:   a.getUrl()
       });
       parent = a.parent;
     }
     path.push({
-      title: 'Учебник',
+      title: t('site.tutorial'),
       url: '/'
     });
-    /*
-    path.push({
-      title: 'JavaScript.ru',
-      url: 'http://javascript.ru'
-    });
-    */
     path = path.reverse();
 
     rendered.breadcrumbs = path;
   }
 
-  function* renderSiblings() {
-    var siblings = tree.siblings(articleInTree._id);
-    rendered.siblings = siblings.map(function(sibling) {
+  async function renderSiblings() {
+    let siblings = tree.getSiblings(article.slug);
+    rendered.siblings = siblings.map(slug => {
+      let sibling = tree.bySlug(slug);
       return {
         title: sibling.title,
-        url:   Article.getUrlBySlug(sibling.slug)
+        url:   sibling.getUrl()
       };
     });
   }
 
-  function* renderChildren() {
-    if (!articleInTree.isFolder) return;
-    var children = articleInTree.children || [];
-    rendered.children = children.map(function(child) {
-      var renderedChild = {
+  async function renderChildren() {
+    if (!article.isFolder) return;
+    let children = article.children || [];
+    rendered.children = children.map(slug => {
+      let child = tree.bySlug(slug);
+      let renderedChild = {
         title: child.title,
-        url:   Article.getUrlBySlug(child.slug),
+        url:   child.getUrl(),
         weight: child.weight
       };
 
       if (child.isFolder) {
-        renderedChild.children = (child.children || []).map(function(subChild) {
+        renderedChild.children = (child.children || []).map((slug) => {
+          let subChild = tree.bySlug(slug);
           return {
             title: subChild.title,
-            url:   Article.getUrlBySlug(subChild.slug),
-            weight: child.weight
+            url:   subChild.getUrl(),
+            weight: subChild.weight
           };
         });
       }
@@ -267,20 +266,18 @@ function* renderArticle(slug) {
     });
   }
 
-  function *renderTasks() {
-    var tasks = yield Task.find({
-      parent: article._id
-    }).sort({weight: 1});
+  async function renderTasks() {
+    let tasks = article.children.map(slug => {
+      return tree.bySlug(slug);
+    });
 
     const taskRenderer = new TaskRenderer();
 
-
     rendered.tasks = [];
 
-    for (var i = 0; i < tasks.length; i++) {
-      var task = tasks[i];
+    for (let task of tasks) {
 
-      var taskRendered = yield* taskRenderer.renderWithCache(task);
+      let taskRendered = await taskRenderer.render(task);
       rendered.tasks.push({
         url: task.getUrl(),
         title: task.title,

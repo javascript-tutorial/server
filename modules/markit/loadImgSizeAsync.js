@@ -28,7 +28,7 @@ module.exports = function* (tokens, options) {
 
     if (token.type == 'figure') {
 
-      yield* processImageOrFigure(token);
+      await processImageOrFigure(token);
       continue;
     }
 
@@ -39,7 +39,7 @@ module.exports = function* (tokens, options) {
       // <td><figure></td> gives figure inside inline token
       if (inlineToken.type != 'image' && inlineToken.type != 'figure') continue;
 
-      yield* processImageOrFigure(inlineToken);
+      await processImageOrFigure(inlineToken);
     }
 
   }
@@ -49,7 +49,7 @@ module.exports = function* (tokens, options) {
     if (token.attrIndex('height') != -1 || token.attrIndex('width') != -1) return;
 
     try {
-      yield* doProcessImageOrFigure(token);
+      await doProcessImageOrFigure(token);
     } catch (error) {
       if (error instanceof SrcError) {
         // replace image with error text
@@ -86,7 +86,7 @@ module.exports = function* (tokens, options) {
     let stat;
 
     try {
-      stat = yield fs.stat(sourcePath);
+      stat = await fs.stat(sourcePath);
     } catch (e) {
       throw new SrcError(t('markit.error.image_not_found', {src}));
     }
@@ -97,7 +97,7 @@ module.exports = function* (tokens, options) {
 
     if (/\.svg$/i.test(sourcePath)) {
       try {
-        let size = yield function(callback) {
+        let size = await function(callback) {
           // GraphicsMagick fails with `gm identify my.svg`
           gm(sourcePath).options({imageMagick: true}).identify('{"width":%w,"height":%h}', callback);
         };
@@ -112,7 +112,7 @@ module.exports = function* (tokens, options) {
 
 
     try {
-      return yield function(callback) {
+      return await function(callback) {
         imageSize(sourcePath, callback);
       };
 
@@ -129,7 +129,7 @@ module.exports = function* (tokens, options) {
     let src = tokenUtils.attrGet(token, 'src');
     if (!src) return;
 
-    let imageInfo = yield* getImageInfo(src);
+    let imageInfo = await getImageInfo(src);
 
     tokenUtils.attrReplace(token, 'width', imageInfo.width);
     tokenUtils.attrReplace(token, 'height', imageInfo.height);

@@ -26,18 +26,18 @@ TaskRenderer.prototype.renderContent = function* (task, options) {
     resourceWebRoot: task.getResourceWebRoot()
   }, options));
 
-  const tokens = yield* parser.parse(task.content);
+  const tokens = await parser.parse(task.content);
 
   let content = parser.render(tokens);
 
-  content = yield* this.addContentPlunkLink(task, content);
+  content = await this.addContentPlunkLink(task, content);
   return content;
 };
 
 
 TaskRenderer.prototype.addContentPlunkLink = function*(task, content) {
 
-  var sourcePlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/source'});
+  var sourcePlunk = await Plunk.findOne({webPath: task.getResourceWebRoot() + '/source'});
 
   if (sourcePlunk) {
 
@@ -57,8 +57,8 @@ TaskRenderer.prototype.addContentPlunkLink = function*(task, content) {
 
 TaskRenderer.prototype.render = function*(task, options) {
 
-  this.content = yield* this.renderContent(task, options);
-  this.solution = yield* this.renderSolution(task, options);
+  this.content = await this.renderContent(task, options);
+  this.solution = await this.renderSolution(task, options);
 
   return {
     content:  this.content,
@@ -73,11 +73,11 @@ TaskRenderer.prototype.renderWithCache = function*(task, options) {
 
   if (task.rendered && useCache) return task.rendered;
 
-  var rendered = yield* this.render(task, options);
+  var rendered = await this.render(task, options);
 
   task.rendered = rendered;
 
-  yield task.persist();
+  await task.persist();
 
   return rendered;
 };
@@ -89,7 +89,7 @@ TaskRenderer.prototype.renderSolution = function* (task, options) {
     resourceWebRoot: task.getResourceWebRoot()
   }, options));
 
-  const tokens = yield* parser.parse(task.solution);
+  const tokens = await parser.parse(task.solution);
 
   const solutionParts = [];
 
@@ -98,7 +98,7 @@ TaskRenderer.prototype.renderSolution = function* (task, options) {
   // no parts, single solution
   if (tokens.length == 0 || tokens[0].type != 'heading_open') {
     let solution = parser.render(tokens);
-    solution = yield* this.addSolutionPlunkLink(task, solution);
+    solution = await this.addSolutionPlunkLink(task, solution);
     return solution;
   }
 
@@ -132,14 +132,14 @@ TaskRenderer.prototype.renderSolution = function* (task, options) {
   }
 
   var solutionPartLast = solutionParts[solutionParts.length - 1];
-  solutionParts[solutionParts.length - 1].content = yield* this.addSolutionPlunkLink(task, solutionPartLast.content);
+  solutionParts[solutionParts.length - 1].content = await this.addSolutionPlunkLink(task, solutionPartLast.content);
 
   return solutionParts;
 };
 
 TaskRenderer.prototype.addSolutionPlunkLink = function*(task, solution) {
 
-  var solutionPlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/solution'});
+  var solutionPlunk = await Plunk.findOne({webPath: task.getResourceWebRoot() + '/solution'});
 
   if (solutionPlunk) {
     var files = solutionPlunk.files.toObject();
@@ -158,12 +158,12 @@ TaskRenderer.prototype.addSolutionPlunkLink = function*(task, solution) {
 
 
 TaskRenderer.regenerateCaches = function*() {
-  var tasks = yield Task.find({});
+  var tasks = await Task.find({});
 
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];
     log.debug("regenerate task", task._id);
-    yield* (new TaskRenderer()).renderWithCache(task, {refreshCache: true});
+    await (new TaskRenderer()).renderWithCache(task, {refreshCache: true});
   }
 };
 

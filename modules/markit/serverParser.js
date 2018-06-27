@@ -82,8 +82,8 @@ module.exports = class ServerParser {
 
   *parse(text) {
     const tokens = this.md.parse(text, this.env);
-    yield* loadSrcAsync(tokens, this.md.options);
-    yield* loadImgSizeAsync(tokens, this.md.options);
+    await loadSrcAsync(tokens, this.md.options);
+    await loadImgSizeAsync(tokens, this.md.options);
 
     return tokens;
   }

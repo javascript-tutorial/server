@@ -2,23 +2,23 @@
  * Autorun tasks *sequentially* on watch events
  */
 
-var gulp = require('gulp');
-var minimatch = require("minimatch");
-var chokidar = require('chokidar');
-var fs = require('fs');
-var runSequence = require('run-sequence');
-var glob = require('glob');
-var path = require('path');
+let gulp = require('gulp');
+let minimatch = require("minimatch");
+let chokidar = require('chokidar');
+let fs = require('fs');
+let runSequence = require('run-sequence');
+let glob = require('glob');
+let path = require('path');
 
-var taskQueue = [];
-var taskRunning = '';
+let taskQueue = [];
+let taskRunning = '';
 
-var DEBUG = false;
+let DEBUG = false;
 
 function log() {
   if (!DEBUG) return;
 
-  var args = [].slice.call(arguments);
+  let args = [].slice.call(arguments);
   args.unshift(Date.now() % 1e6);
 
   console.log.apply(console, args);
@@ -54,18 +54,18 @@ function runNext() {
 function onModify(filePath) {
   if (~filePath.indexOf('___jb_')) return; // ignore JetBrains Webstorm tmp files
 
-  var relFilePath = filePath.slice(this.root.length + 1);
+  let relFilePath = filePath.slice(this.root.length + 1);
 
   if (DEBUG) console.log("->", relFilePath);
 
   function watch(mapping) {
     // mapping.watch mapping.ignore mapping.task
-    var patternsWatch = Array.isArray(mapping.watch) ? mapping.watch : [mapping.watch];
-    var patternsIgnore = !mapping.ignore ? [] :
+    let patternsWatch = Array.isArray(mapping.watch) ? mapping.watch : [mapping.watch];
+    let patternsIgnore = !mapping.ignore ? [] :
       Array.isArray(mapping.ignore) ? mapping.ignore : [mapping.ignore];
 
     // matches any watch => found=true
-    var found = false, i, pattern;
+    let found = false, i, pattern;
     for (i = 0; i < patternsWatch.length; i++) {
       pattern = patternsWatch[i];
       if (minimatch(relFilePath, pattern)) {
@@ -99,11 +99,11 @@ function onModify(filePath) {
 module.exports = function(options) {
 
   return function(callback) {
-    var dirs = options.dirs.map(function(dir) {
+    let dirs = options.dirs.map(function(dir) {
       return path.join(options.root, dir);
     });
 
-    var watcher = chokidar.watch(dirs, {ignoreInitial: true});
+    let watcher = chokidar.watch(dirs, {ignoreInitial: true});
 
     watcher.root = options.root;
     watcher.taskMapping = options.taskMapping;

@@ -45,11 +45,11 @@ module.exports = function* (tokens) {
           token.children[i + 2].type == 'link_close';
 
         if (pathname.startsWith('task/')) {
-          let task = yield Task.findOne({slug: pathname.slice('task/'.length)}, 'slug title');
+          let task = await Task.findOne({slug: pathname.slice('task/'.length)}, 'slug title');
           if (task) replaceLink(token.children, i, task.title, task.getUrl(), urlParsed);
           else replaceLinkWithError(token.children, i, t('tutorial.task.task_not_found', {path: pathname}));
         } else {
-          let article = yield Article.findOne({slug: pathname}, 'slug title');
+          let article = await Article.findOne({slug: pathname}, 'slug title');
           if (article) replaceLink(token.children, i, article.title, article.getUrl(), urlParsed);
           else replaceLinkWithError(token.children, i, t('tutorial.article.article_not_found', {path: pathname}));
         }

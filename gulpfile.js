@@ -9,7 +9,6 @@ const path = require('path');
 const fs = require('fs');
 const assert = require('assert');
 const runSequence = require('run-sequence');
-const ll   = require('gulp-ll');
 
 const config = require('config');
 
@@ -25,9 +24,9 @@ const jsSources = [
 
 
 function lazyRequireTask(path) {
-  var args = [].slice.call(arguments, 1);
+  let args = [].slice.call(arguments, 1);
   return function(callback) {
-    var task = require(path).apply(this, args);
+    let task = require(path).apply(this, args);
 
     return task(callback);
   };
@@ -61,8 +60,6 @@ function requireModuleTasks(moduleName) {
 
 }
 
-ll.tasks('nodemon', 'client:webpack', 'server');
-
 // usage: gulp db:load --from fixture/init --harmony
 gulp.task('db:load', lazyRequireTask('./tasks/dbLoad'));
 gulp.task('db:clear', lazyRequireTask('./tasks/dbClear'));
@@ -70,7 +67,7 @@ gulp.task('db:clear', lazyRequireTask('./tasks/dbClear'));
 gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   // shared client/server code has require('template.jade) which precompiles template on run
   // so I have to restart server to pickup the template change
-  ext:    "js,jade",
+  ext:    "js,pug",
 
   nodeArgs: process.env.NODE_DEBUG  ? ['--debug'] : [],
   script: "./bin/server.js",
@@ -95,7 +92,7 @@ gulp.task("client:livereload", lazyRequireTask("./tasks/livereload", {
 
 requireModuleTasks('tutorial');
 
-var testSrcs = ['{handlers,modules}/**/test/**/*.js'];
+let testSrcs = ['{handlers,modules}/**/test/**/*.js'];
 // on Travis, keys are required for E2E Selenium tests
 // for PRs there are no keys, so we disable E2E
 if (!process.env.TEST_E2E || process.env.CI && process.env.TRAVIS_SECURE_ENV_VARS=="false") {
@@ -129,17 +126,6 @@ gulp.task("client:sync-resources", lazyRequireTask('./tasks/syncResources', {
   assets: 'public'
 }));
 
-// show errors if encountered
-gulp.task('client:compile-css',
-  lazyRequireTask('./tasks/compileCss', {
-    src: './styles/base.styl',
-    dst: './public/styles',
-    publicDst: process.env.STATIC_HOST + '/styles/',  // from browser point of view
-    manifest: path.join(config.manifestRoot, 'styles.versions.json'),
-    assetVersioning: config.assetVersioning
-  })
-);
-
 
 gulp.task('client:minify', lazyRequireTask('./tasks/minify'));
 gulp.task('client:resize-retina-images', lazyRequireTask('./tasks/resizeRetinaImages'));
@@ -158,7 +144,7 @@ gulp.task('edit', ['tutorial:importWatch', "client:sync-resources", 'client:live
 
 
 gulp.task('dev', function(callback) {
-  runSequence("client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
+  runSequence("tutorial:import", "client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
 });
 
 gulp.on('err', function(gulpErr) {

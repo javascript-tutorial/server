@@ -39,6 +39,7 @@ var handlers = [
 
   'conditional',
 
+  process.env.NODE_ENV=='development' && 'dev',
   'tutorial'
 ];
 

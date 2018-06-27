@@ -51,7 +51,7 @@ module.exports = function* (tokens, options) {
 
     let src = path.join(options.resourceWebRoot, token.blockTagAttrs.src);
 
-    let plunk = yield Plunk.findOne({webPath: src});
+    let plunk = await Plunk.findOne({webPath: src});
 
     if (!plunk) {
       throw new SrcError(t('markit.error.no_such_plunk', {src}));
@@ -66,7 +66,7 @@ module.exports = function* (tokens, options) {
 
     let src = path.join(options.resourceWebRoot, href.slice('sandbox:'.length));
 
-    let plunk = yield Plunk.findOne({webPath: src});
+    let plunk = await Plunk.findOne({webPath: src});
 
     if (!plunk) {
       throw new SrcError(t('markit.error.no_such_plunk', {src: href}));
@@ -77,7 +77,7 @@ module.exports = function* (tokens, options) {
 
   function* blocktag_iframe(token) {
     if (token.blockTagAttrs.edit || token.blockTagAttrs.zip) {
-      yield* src2plunk(token);
+      await src2plunk(token);
     }
   }
 
@@ -93,7 +93,7 @@ module.exports = function* (tokens, options) {
     let content;
 
     try {
-      content = yield fs.readFile(sourcePath, 'utf-8');
+      content = await fs.readFile(sourcePath, 'utf-8');
     } catch (e) {
       throw new SrcError(
         t('markit.error.read_file', {src: token.blockTagAttrs.src}) +
@@ -111,7 +111,7 @@ module.exports = function* (tokens, options) {
       let process = methods[token.type];
       if (process) {
         try {
-          yield* process(token);
+          await process(token);
         } catch (err) {
           if (err instanceof SrcError) {
             token.type = isInline ? 'markdown_error_inline' : 'markdown_error_block';
@@ -123,7 +123,7 @@ module.exports = function* (tokens, options) {
       }
 
       if (token.children) {
-        yield* walk(token.children, true);
+        await walk(token.children, true);
       }
 
     }
@@ -131,7 +131,7 @@ module.exports = function* (tokens, options) {
   }
 
 
-  yield* walk(tokens);
+  await walk(tokens);
 };
 
 
