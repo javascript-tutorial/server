@@ -2,49 +2,41 @@
 
 let TutorialImporter = require('../lib/tutorialImporter');
 let TutorialTree = require('../models/tutorialTree');
+let TutorialViewStorage = require('../models/tutorialViewStorage');
 let FiguresImporter = require('../figuresImporter');
-let co = require('co');
 let fs = require('fs');
 let path = require('path');
 let livereload = require('gulp-livereload');
 let log = require('log')();
 let chokidar = require('chokidar');
 let os = require('os');
+let config = require('config');
 
 module.exports = function(options) {
 
   return async function() {
 
-    let args = require('yargs')
-      .usage("Path to tutorial root is required.")
-      .demand(['root'])
-      .argv;
-
-    let root = fs.realpathSync(args.root);
-
-    if (!root) {
-      throw new Error("Import watch root does not exist " + options.root);
-    }
-
     let tree = TutorialTree.instance();
+    let viewStorage = TutorialViewStorage.instance();
 
     let importer = new TutorialImporter({
-      root: root
+      root: config.tutorialRoot
     });
 
-    tree.destroyAll();
+    tree.clear();
+    viewStorage.clear();
 
-    let subRoots = fs.readdirSync(root);
+    let subRoots = fs.readdirSync(config.tutorialRoot);
 
     for (let subRoot of subRoots) {
       if (!parseInt(subRoot)) continue;
-      await importer.sync(path.join(root, subRoot));
+      await importer.sync(path.join(config.tutorialRoot, subRoot));
     }
 
     log.info("Import complete");
 
-    watchTutorial(root);
-    watchFigures(root);
+    watchTutorial();
+    watchFigures();
 
     livereload.listen();
 
@@ -54,11 +46,11 @@ module.exports = function(options) {
 };
 
 
-function watchTutorial(root) {
+function watchTutorial() {
 
 
   let importer = new TutorialImporter({
-    root:     root,
+    root:     config.tutorialRoot,
     onchange: function(path) {
       log.info("livereload.change", path);
       livereload.changed(path);
@@ -66,16 +58,16 @@ function watchTutorial(root) {
   });
 
 
-  let subRoots = fs.readdirSync(root);
+  let subRoots = fs.readdirSync(config.tutorialRoot);
   subRoots = subRoots.filter(function(subRoot) {
     return parseInt(subRoot);
   }).map(function(dir) {
-    return path.join(root, dir);
+    return path.join(config.tutorialRoot, dir);
   });
 
-  // under linux usePolling: true,
+  // under linux set WATCH_USE_POLLING
   // to handle the case when linux VM uses shared folder from Windows
-  let tutorialWatcher = chokidar.watch(subRoots, {ignoreInitial: true, usePolling: os.platform() != 'darwin'});
+  let tutorialWatcher = chokidar.watch(subRoots, {ignoreInitial: true, usePolling: process.env.WATCH_USE_POLLING});
 
   tutorialWatcher.on('add', onTutorialModify.bind(null, false));
   tutorialWatcher.on('change', onTutorialModify.bind(null, false));
@@ -88,29 +80,25 @@ function watchTutorial(root) {
 
     log.debug("ImportWatch Modify " + filePath);
 
-    co(function* () {
+    let folder;
+    if (isDir) {
+      folder = filePath;
+    } else {
+      folder = path.dirname(filePath);
+    }
 
-      let folder;
-      if (isDir) {
-        folder = filePath;
-      } else {
-        folder = path.dirname(filePath);
-      }
-
-      await importer.sync(folder);
-
-    }).catch(function(err) {
+    importer.sync(folder).catch(function(err) {
       log.error(err);
     });
   }
 
 }
 
-function watchFigures(root) {
+function watchFigures() {
 
-  let figuresFilePath = path.join(root, 'figures.sketch');
+  let figuresFilePath = path.join(config.tutorialRoot, 'figures.sketch');
   let importer = new FiguresImporter({
-    root: root,
+    root: config.tutorialRoot,
     figuresFilePath: figuresFilePath
   });
 
@@ -119,12 +107,8 @@ function watchFigures(root) {
 
   function onFiguresModify() {
 
-    co(function* () {
-
-      await importer.syncFigures();
-
-    }).catch(function(err) {
-      throw err;
+    importer.syncFigures().catch(function(err) {
+      console.error(err);
     });
   }
 

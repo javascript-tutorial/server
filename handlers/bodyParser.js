@@ -30,9 +30,9 @@ class BodyParser {
         ctx.log.debug("bodyParser done parse");
       } else {
         ctx.log.debug("bodyParser skip");
+        await next();
       }
 
-      await next();
     };
   };
 }

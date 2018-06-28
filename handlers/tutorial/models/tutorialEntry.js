@@ -2,8 +2,6 @@
 
 const config = require('config');
 const path = require('path');
-const TutorialTree = require('./tutorialTree');
-const assert = require('assert');
 
 module.exports = class TutorialEntry {
   constructor() {
@@ -26,7 +24,7 @@ module.exports = class TutorialEntry {
   };
 
   static getResourceWebRootBySlug(slug) {
-    return '/' + this.constructor.name.toLowerCase() + '/' + slug;
+    return '/' + this.name.toLowerCase() + '/' + slug;
   };
 
   getResourceWebRoot() {

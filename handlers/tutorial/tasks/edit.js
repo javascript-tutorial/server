@@ -1,6 +1,5 @@
 'use strict';
 
-let co = require('co');
 let fs = require('fs');
 let path = require('path');
 let log = require('log')();
@@ -13,7 +12,7 @@ module.exports = function(options) {
 
   return function() {
 
-    return co(function* () {
+    return async function() {
 
       let args = require('yargs')
         .usage("tutorial url is required.")
@@ -64,6 +63,6 @@ module.exports = function(options) {
         execSync('s ' + result + ' ' + result.replace('task.md', 'solution.md'));
       }
 
-    });
+    }();
   };
 };

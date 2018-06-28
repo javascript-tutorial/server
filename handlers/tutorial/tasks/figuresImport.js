@@ -6,7 +6,7 @@
  */
 
 let FiguresImporter = require('../figuresImporter');
-let co = require('co');
+
 let fs = require('fs');
 let path = require('path');
 let log = require('log')();
@@ -27,12 +27,12 @@ module.exports = function(options) {
       figuresFilePath: path.join(root, 'figures.sketch')
     });
 
-    return co(function* () {
+    return async function() {
 
       await importer.syncFigures();
 
       log.info("Figures imported");
-    });
+    }();
   };
 };
 

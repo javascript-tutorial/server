@@ -68,7 +68,8 @@ function initSidebarHighlight() {
 
     //debugger;
     let h2s = document.getElementsByTagName('h2');
-    for (let i = 0; i < h2s.length; i++) {
+    let i;
+    for (i = 0; i < h2s.length; i++) {
       let h2 = h2s[i];
       // first in-page header
       // >1, because when visiting http://javascript.local/native-prototypes#native-prototype-change,

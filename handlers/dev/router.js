@@ -4,7 +4,6 @@ let router = module.exports = new Router();
 
 router.get('/', async function(ctx) {
   ctx.body = ctx.render('index');
-
 });
 
 router.get('/die', async function(ctx) {

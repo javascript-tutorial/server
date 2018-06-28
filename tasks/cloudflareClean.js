@@ -1,11 +1,10 @@
 const gulp = require('gulp');
 const request = require('request-promise');
 const config = require('config');
-const co = require('co');
 const args = require('yargs')
 const log = require('log')();
 
-function* cleanDomain(domain) {
+async function cleanDomain(domain) {
 
 
   let params = {
@@ -30,8 +29,7 @@ module.exports = function(options) {
   return function() {
 
 
-
-    return co(function*() {
+    return async function() {
 
       for (let i = 0; i < domains.length; i++) {
         let domain = domains[i];
@@ -45,7 +43,7 @@ module.exports = function(options) {
         }
       }
 
-    });
+    }();
 
   };
 

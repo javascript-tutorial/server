@@ -1,6 +1,5 @@
 'use strict';
 
-const co = require('co');
 const util = require('util');
 const fs = require('fs');
 const fse = require('fs-extra');
@@ -126,7 +125,7 @@ module.exports = class TutorialImporter {
 
     const parser = new TutorialParser(options);
 
-    const tokens = await parser.parse(content);
+    await parser.parse(content);
 
     data.githubLink = config.tutorialGithubBaseUrl + sourceFolderPath.slice(this.root.length);
 
@@ -393,7 +392,7 @@ module.exports = class TutorialImporter {
       copySync(path.join(dir, dirFile), path.join(dst, dirFile));
     });
 
-    TutorialView.storage[webPath] = view;
+    TutorialViewStorage.instance().set(webPath, view);
   };
 
 

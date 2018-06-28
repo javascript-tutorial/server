@@ -16,7 +16,7 @@ module.exports = class Article extends TutorialEntry {
       this[field] = data[field];
     });
 
-    if (data.content) {
+    if ('content' in data) { // can be empty string
       this.content = data.content;
     }
 
@@ -36,4 +36,9 @@ module.exports = class Article extends TutorialEntry {
       }
     });
   }
+
+  static deserialize(data) {
+    return new Article(data);
+  }
+
 };

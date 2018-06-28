@@ -10,11 +10,11 @@ const makeAnchor = require('textUtil/makeAnchor');
 const t = require('i18n');
 const localStorage = require('localStorage').instance();
 
-exports.get = async function get(ctx, next) {
-  
+exports.get = async function(ctx, next) {
+
   let renderedArticle = await localStorage.getOrGenerate(
     'tutorial:article:' + ctx.params.slug, 
-    () => renderArticle(ctx, ctx.params.slug), 
+    () => renderArticle(ctx),
     process.env.TUTORIAL_EDIT
   );
 
@@ -96,7 +96,7 @@ exports.get = async function get(ctx, next) {
     sections: sections
   };
 
-  this.body = this.render(renderedArticle.isFolder ? "folder" : "article", locals);
+  ctx.body = ctx.render(renderedArticle.isFolder ? "folder" : "article", locals);
 
 };
 
@@ -109,15 +109,20 @@ exports.get = async function get(ctx, next) {
 // next
 // path
 // siblings
-async function renderArticle(ctx, slug) {
+async function renderArticle(ctx) {
+
+  let slug = ctx.params.slug;
 
   const tree = TutorialTree.instance();
   const article = tree.bySlug(slug);
-  if (!article) {
+
+  // console.log("HERE", slug, article);
+
+  if (!article || !(article instanceof Article)) {
     return null;
   }
 
-  ctx.log.debug("article", article._id);
+  ctx.log.debug("article", article);
   
   let renderer = new ArticleRenderer();
 
@@ -134,11 +139,15 @@ async function renderArticle(ctx, slug) {
   rendered.canonicalPath = article.getUrl();
 
   await renderProgress();
+
   await renderPrevNext();
   await renderBreadCrumb();
   await renderSiblings();
   await renderChildren();
-  await renderTasks();
+
+  if (!article.isFolder) {
+    await renderTasks();
+  }
 
 
   // strip / and /tutorial
@@ -146,7 +155,11 @@ async function renderArticle(ctx, slug) {
 
   if (article.isFolder) {
     // levelMax is 2 for deep courses or 1 for plain courses
-    rendered.levelMax = tree.bySlug(children[0]).isFolder ? rendered.level + 2 : rendered.level + 1;
+
+    rendered.levelMax = rendered.level + 1;
+    if (article.children.length && tree.bySlug(article.children[0]).isFolder) {
+      rendered.levelMax++;
+    }
   }
 
 
@@ -180,6 +193,7 @@ async function renderArticle(ctx, slug) {
       parent = tree.bySlug(parent.parent);
     }
 
+    let bookRoot = parent;
     // now bookroot is 1st level tree item, book root, let's count items in it
 
     //console.log(bookRoot);
@@ -276,7 +290,7 @@ async function renderArticle(ctx, slug) {
     rendered.tasks = [];
 
     for (let task of tasks) {
-
+      console.log("TASK", task);
       let taskRendered = await taskRenderer.render(task);
       rendered.tasks.push({
         url: task.getUrl(),
@@ -290,6 +304,7 @@ async function renderArticle(ctx, slug) {
     }
 
   }
+
 
   return rendered;
 

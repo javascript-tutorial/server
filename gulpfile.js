@@ -60,9 +60,6 @@ function requireModuleTasks(moduleName) {
 
 }
 
-// usage: gulp db:load --from fixture/init --harmony
-gulp.task('db:load', lazyRequireTask('./tasks/dbLoad'));
-gulp.task('db:clear', lazyRequireTask('./tasks/dbClear'));
 
 gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   // shared client/server code has require('template.jade) which precompiles template on run
@@ -144,7 +141,7 @@ gulp.task('edit', ['tutorial:importWatch', "client:sync-resources", 'client:live
 
 
 gulp.task('dev', function(callback) {
-  runSequence("tutorial:import", "client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
+  runSequence("client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
 });
 
 gulp.on('err', function(gulpErr) {

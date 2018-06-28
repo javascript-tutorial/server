@@ -12,25 +12,34 @@ const LANG = require('config').lang;
 
 t.requirePhrase('tutorial.frontpage', require('../locales/frontpage/' + LANG + '.yml'));
 
-exports.get = async function(ctx, next) {
+exports.get = async function (ctx, next) {
 
   ctx.locals.sitetoolbar = true;
   ctx.locals.siteToolbarCurrentSection = "tutorial";
   ctx.locals.title = t('tutorial.frontpage.modern_javascript_tutorial');
 
-  let tutorial = await localStorage.getOrGenerate('tutorial:frontpage', renderTutorial);
+  let topArticles = await localStorage.getOrGenerate('tutorial:frontpage', renderTop);
 
-  if (!tutorial.length) {
+  if (!topArticles.length) {
     ctx.throw(404, "Database is empty?"); // empty db
   }
 
+  let chapters = data.contents.slice(0, 2).concat({
+    title: "Additional articles",
+    content: "List of extra topics that are not covered by first two parts of tutorial. There is no clear hierarchy here, you can access articles in the order you want.",
+    children: data.contents.slice(2)
+  });
   let locals = {
-    chapters: tutorial
+    chapters: TutorialTree.instance().tree,
+    topArticles
   };
+
+
+  console.log(locals);
 
   ctx.body = ctx.render('frontpage', locals);
 };
-/*
+
 // content
 // metadata
 // modified
@@ -40,53 +49,22 @@ exports.get = async function(ctx, next) {
 // next
 // path
 // siblings
-async function renderTutorial() {
-  const tree = await Article.findTree();
+async function renderTop() {
+  const tree = TutorialTree.instance().tree;
 
-  let treeRendered = await renderTree(tree);
+  let articles = [];
 
   // render top-level content
-  for (let i = 0; i < treeRendered.length; i++) {
-    let child = treeRendered[i];
-    await populateContent(child);
+  for (let slug of tree) {
+    let article = TutorialTree.instance().bySlug(slug);
+
+    let renderer = new ArticleRenderer();
+
+    let rendered = await renderer.render(article);
+    articles.push(rendered);
   }
 
 
-  return treeRendered;
+  return articles;
 
 }
-
-
-function* renderTree(tree) {
-  let children = [];
-
-  for (let i = 0; i < tree.children.length; i++) {
-    let child = tree.children[i];
-
-    let childRendered = {
-      id: child._id,
-      url:   Article.getUrlBySlug(child.slug),
-      title: child.title
-    };
-
-    if (child.isFolder) {
-      childRendered.children = await renderTree(child);
-    }
-
-    children.push(childRendered);
-
-  }
-  return children;
-}
-
-
-function* populateContent(articleObj) {
-  let article = await Article.findById(articleObj.id);
-
-  let renderer = new ArticleRenderer();
-
-  let rendered = await renderer.renderWithCache(article);
-
-  articleObj.content = rendered.content;
-}
-*/

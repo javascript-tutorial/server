@@ -38,8 +38,6 @@ let config = module.exports = {
     staticHost: env.STATIC_HOST || ''
   },
 
-  mongoose: require('./mongoose'),
-
   appKeys:  [secret.sessionKey],
   adminKey: secret.adminKey,
 
@@ -59,7 +57,7 @@ let config = module.exports = {
   // public files, served by nginx
   publicRoot:            path.join(process.cwd(), 'public'),
   // private files, for expiring links, not directly accessible
-  tutorialRoot:          path.join(process.cwd(), '..', 'javascript-tutorial-' + lang),
+  tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), '..', 'javascript-tutorial-' + lang),
   tmpRoot:               path.join(process.cwd(), 'tmp'),
   localesRoot:           path.join(process.cwd(), 'locales'),
   // js/css build versions

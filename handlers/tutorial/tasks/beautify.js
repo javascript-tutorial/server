@@ -1,6 +1,5 @@
 'use strict';
 
-let co = require('co');
 let fs = require('fs');
 let path = require('path');
 let log = require('log')();
@@ -26,7 +25,7 @@ module.exports = function(options) {
       preserve_newlines: true
       //space_in_paren: true
     };
-    return co(function* () {
+    return async function() {
 
       let jsFiles = glob.sync( path.join( root, '**', '*.js' ) );
 
@@ -64,7 +63,7 @@ module.exports = function(options) {
       }
 
 
-    });
+    }();
   };
 };
 

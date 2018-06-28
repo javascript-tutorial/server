@@ -15,14 +15,13 @@ include /bem/index
           = t('tutorial.map.show_tasks')
 
   +b.tutorial-map-list
-    each slug in roots
-      - let topic = bySlug(slug)
-      - console.log(slug, topic)
+    each topic in roots
       +e.item
         +e('h2').title= topic.title
         +b('ul').tutorial-map-list-two
           each slug in topic.children
             - let subtopic = bySlug(slug)
+            - console.log(slug, subtopic);
             +e('li').item
               +e.title
                 +e('a').link(href=subtopic.getUrl())= subtopic.title

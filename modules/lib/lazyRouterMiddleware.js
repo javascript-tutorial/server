@@ -8,7 +8,6 @@ module.exports = function(routerModulePath) {
   let middleware = module.parent.require(routerModulePath).middleware();
 
   return async function(ctx, next) {
-    console.log(ctx, next);
     await middleware(ctx, next);
   };
 

@@ -20,12 +20,20 @@ module.exports = class Task extends TutorialEntry {
 
     this.libs = data.libs || [];
 
-    'importance,headJs,headCss,headHtml,solution,parent'.split(',').forEach(field => {
+    'importance,headJs,headCss,headHtml,content,solution,parent'.split(',').forEach(field => {
       if (field in data) {
         this[field] = data[field];
       }
     });
 
+  }
+
+  static getUrlBySlug(slug) {
+    return '/task/' + slug;
+  };
+
+  static deserialize(data) {
+    return new Task(data);
   }
 
 };

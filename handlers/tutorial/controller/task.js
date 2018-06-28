@@ -10,7 +10,7 @@ exports.get = async function(ctx, next) {
 
   const task = TutorialTree.instance().bySlug(ctx.params.slug);
 
-  if (!task) {
+  if (!task || !(task instanceof Task)) {
     await next();
     return;
   }
@@ -52,7 +52,7 @@ exports.get = async function(ctx, next) {
     solution:   rendered.solution
   };
 
-  ctx.locals.articleUrl = task.parent.getUrl();
+  ctx.locals.articleUrl = TutorialTree.instance().bySlug(task.parent).getUrl();
 
   ctx.body = ctx.render("task");
 };

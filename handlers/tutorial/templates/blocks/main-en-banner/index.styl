@@ -1,0 +1,126 @@
+.main-en-banner
+  position relative
+  color #fff
+  background-color #fff
+  background linear-gradient(162deg, #414141 0%, #414141 41.000%, #3d3d3d 41.000%)
+  background-size contain
+  background-repeat no-repeat
+  text-align center
+  padding-top 80px
+  top -60px
+
+  @media phone
+    background-image linear-gradient(to top left, #414141 0%, #414141 50%, #3d3d3d 50%)
+
+  &:before
+    content ''
+    position absolute
+    bottom 0
+    left 50%
+    margin-left -16px
+    border-bottom 19px solid #fff
+    border-left 16px solid transparent
+    border-right 16px solid transparent
+
+  &__inner
+    max-width 1000px
+    width 100%
+    margin 0 auto
+    padding-top 50px
+    box-sizing border-box
+
+    @media phone
+      padding-top 32px
+
+
+  &__github, &__subscribe
+    color #FDC073
+    display inline-block
+    vertical-align middle
+    height 22px
+    line-height 22px
+    margin-right 25px
+
+  &__subscribe
+    cursor pointer
+
+  &__github:hover, &__subscribe:hover
+    color white
+    text-decoration none
+
+  &__github::before
+    @extend $font-github-large
+    font-size 20px
+    padding-right 6px
+    vertical-align middle
+
+  &__subscribe::before
+    @extend $font-mail-inverse
+    font-size 20px
+    padding-right 6px
+    vertical-align middle
+
+  &__texts
+    padding 0 30px
+
+  h1&__title
+    font-family font_en
+    font-weight bold
+    font-size 36px
+    line-height 1.4
+    color #ffffff
+    margin-bottom 15px
+
+    @media phone
+      font-size 28px
+      margin-bottom 23px
+
+  h2&__subtitle
+    font-family font_en
+    font-weight bold
+    font-size 24px
+    line-height 1.4
+    color #ffffff
+    margin-bottom 15px
+
+    @media phone
+      font-size 20px
+      margin-bottom 23px
+
+  p&__text
+    font-family font_en
+    font-size 16px
+    line-height 1.5
+    margin 0
+    padding 0
+
+    &.no-mobile
+      @media phone
+        display none
+
+  &__logo
+    display block
+    margin-left 32px
+    text-align left
+
+    @media phone
+      margin-left 0
+      text-align center
+
+  &__content
+    margin-top 20px
+
+  &__sub
+    width 650px
+    padding 0 10px 50px 10px
+    margin 32px auto 0
+
+    @media (max-width 767px)
+      width auto
+
+  &__list
+    width 100%
+    padding 15px 0 5px
+    display flex
+    justify-content center
+    align-items flex-start

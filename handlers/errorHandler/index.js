@@ -8,7 +8,6 @@ let isDevelopment = process.env.NODE_ENV == 'development';
 // can be called not from this MW, but from anywhere
 // this.templateDir can be anything
 function renderError(ctx, err) {
-  /*jshint -W040 */
 
   // don't pass just err, because for "stack too deep" errors it leads to logging problems
   let report = {
@@ -119,8 +118,6 @@ exports.init = function(app) {
         ctx.body = "Server render error";
         ctx.log.error(renderErr); // make it last to ensure that status/body are set
       }
-
-      console.log("HERE 2");
 
     }
   });

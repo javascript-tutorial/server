@@ -3,6 +3,7 @@
 const config = require('config');
 const Task = require('../models/task');
 const log = require('log')();
+const assert = require('assert');
 
 const TutorialParser = require('../lib/tutorialParser');
 const TutorialViewStorage = require('../models/tutorialViewStorage');
@@ -20,10 +21,10 @@ t.requirePhrase('tutorial.task', require('../locales/task/' + LANG + '.yml'));
 module.exports = class TaskRenderer {
 
   async renderContent(task, options) {
-
     let parser = new TutorialParser(Object.assign({
       resourceWebRoot: task.getResourceWebRoot()
     }, options));
+
 
     const tokens = await parser.parse(task.content);
 
@@ -55,7 +56,7 @@ module.exports = class TaskRenderer {
   }
 
   async render(task, options) {
-
+    assert(task.constructor.name === 'Task');
     this.content = await this.renderContent(task, options);
     this.solution = await this.renderSolution(task, options);
 

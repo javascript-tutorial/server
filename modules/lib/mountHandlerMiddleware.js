@@ -7,24 +7,27 @@ let mount = require('koa-mount');
 // require('modulePath').middleware,
 // but also calls apply/undo upon entering/leaving the middleware
 //   --> here it does: this.templateDir = handlerModule dirname
-module.exports = function(prefix, moduleDir) {
+module.exports = function (prefix, moduleDir) {
 
   // actually includes router when the middleware is accessed (mount prefix matches)
   let lazyRouterMiddleware = require('lib/lazyRouterMiddleware')(path.join(moduleDir, 'router'));
 
-  async function wrapMiddleware(ctx, next) {
-    let templateDir = path.join(moduleDir, 'templates');
+  let templateDir = path.join(moduleDir, 'templates');
+
+  // /users/me  -> /me
+  return mount(prefix, async function wrapMiddleware(ctx, next) {
 
     // before entering middeware
-    let apply = () => this.templateDir = templateDir;
+    let apply = () => ctx.templateDir = templateDir;
 
     // before leaving middleware
-    let undo = () => delete this.templateDir;
+    let undo = () => delete ctx.templateDir;
 
     apply();
 
     try {
-      await lazyRouterMiddleware(ctx, async function() {
+
+      await lazyRouterMiddleware(ctx, async function () {
         // when middleware does await next, undo changes
         undo();
         try {
@@ -33,16 +36,13 @@ module.exports = function(prefix, moduleDir) {
           // ...then apply back, when control goes back after await next
           apply();
         }
-      }());
+      });
 
     } finally {
       undo();
     }
 
-  }
-
-  // /users/me  -> /me
-  return mount(prefix, wrapMiddleware);
+  });
 
 };
 

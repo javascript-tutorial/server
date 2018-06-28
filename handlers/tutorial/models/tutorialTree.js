@@ -1,6 +1,8 @@
 'use strict';
 
 const assert = require('assert');
+const Article = require('./article');
+const Task = require('./task');
 
 module.exports = class TutorialTree {
 
@@ -20,20 +22,42 @@ module.exports = class TutorialTree {
 
   getPrev(slug) {
     let entry = this.bySlug(slug);
-    let parentChildren = entry.parent ? this.bySlug(entry.parent).children : this.tree;
-    let idx = parentChildren.indexOf(slug);
+    let siblings = entry.parent ? this.bySlug(entry.parent).children : this.tree;
+    let idx = siblings.indexOf(slug);
     assert(idx >= 0);
 
-    return idx == 0 ? null : parentChildren[idx - 1];
+    if (idx === 0) {
+      return entry.parent;
+    } else {
+      if (!entry.isFolder) {
+        return siblings[idx - 1];
+      } else {
+        // get last child of prev sibling
+        let prevSibling = this.bySlug(siblings[idx - 1]);
+        while (prevSibling.isFolder) {
+          if (!prevSibling.children.length) break;
+          prevSibling = this.bySlug(prevSibling.children[prevSibling.children.length - 1]);
+        }
+        return prevSibling.slug;
+      }
+
+    }
   }
 
-  getNext(slug) {
+  getNext(slug, canGoDown = true) {
     let entry = this.bySlug(slug);
-    let parentChildren = entry.parent ? this.bySlug(entry.parent).children : this.tree;
-    let idx = parentChildren.indexOf(slug);
+    if (entry.isFolder && entry.children[0] && canGoDown) {
+      return entry.children[0];
+    }
+    let siblings = entry.parent ? this.bySlug(entry.parent).children : this.tree;
+    let idx = siblings.indexOf(slug);
     assert(idx >= 0);
 
-    return idx == (parentChildren.length-1) ? null : parentChildren[idx + 1];
+    if (idx < siblings.length - 1) {
+      return siblings[idx + 1];
+    } else {
+      return entry.parent ? this.getNext(entry.parent, false) : null;
+    }
   }
 
   addToSlugMap(entry) {
@@ -57,33 +81,41 @@ module.exports = class TutorialTree {
 
     this.deleteFromSlugMap(slug);
 
-    let parentChildren = entry.parent ? this.bySlug(entry.parent).children : this.tree;
-    let idx = parentChildren.indexOf(slug);
+    let siblings = entry.parent ? this.bySlug(entry.parent).children : this.tree;
+    let idx = siblings.indexOf(slug);
 
-    assert(id >= 0);
+    // if (idx == -1) console.log(entry, this.bySlug(entry.parent));
+    assert(idx >= 0);
 
-    parentChildren.splice(idx, 1);
+    siblings.splice(idx, 1);
   }
 
   add(entry) {
+    if (this.bySlug(entry)) {
+      throw new Error("Already exists an entry with slug:" + entry.slug);
+    }
+
     this.addToSlugMap(entry);
-    let parentChildren = entry.parent ? this.bySlug(entry.parent).children : this.tree;
+    let siblings = entry.parent ? this.bySlug(entry.parent).children : this.tree;
     let i = 0;
-    while (i < parentChildren.length) {
-      if (parentChildren[i].weight >= entry.weight) {
+    while (i < siblings.length) {
+      if (this.bySlug(siblings[i]).weight >= entry.weight) {
         break;
       }
       i++;
     }
-    if (i === parentChildren.length) {
-      parentChildren.push(entry.slug);
+    if (i === siblings.length) {
+      // console.log("INSERT", entry.slug, "IN", siblings, "PUSH");
+      siblings.push(entry.slug);
     } else {
-      parentChildren.splice(i, 0, entry.slug);
+      // console.log("INSERT", entry.slug, "IN", siblings, "SPLICE", i);
+      siblings.splice(i, 0, entry.slug);
+
     }
   }
 
 
-  destroyAll() {
+  clear() {
     for (let key in this.bySlugMap) {
       delete this.bySlugMap[key];
     }
@@ -95,6 +127,32 @@ module.exports = class TutorialTree {
       this._instance = new TutorialTree();
     }
     return this._instance;
+  }
+
+  serialize() {
+    let bySlugMap = Object.create(null);
+    for (let slug in this.bySlugMap) {
+      let value = this.bySlugMap[slug];
+      bySlugMap[slug] = {type: value.constructor.name, value};
+    }
+    return {
+      tree: this.tree,
+      bySlugMap
+    };
+  }
+
+  load({tree, bySlugMap}) {
+    this.tree.length = 0;
+    this.tree.push(...tree);
+    for (let slug in this.bySlugMap) {
+      delete this.bySlugMap[slug];
+    }
+    let constructors = {Article, Task};
+    for (let slug in bySlugMap) {
+      let {type, value} = bySlugMap[slug];
+      this.bySlugMap[slug] = constructors[type].deserialize(value);
+    }
+
   }
 
 };

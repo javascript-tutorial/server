@@ -9,8 +9,7 @@ const assert = require('assert');
 
 assert(typeof IS_CLIENT === 'undefined');
 
-const Article = require('../models/article');
-const Task = require('../models/task');
+const TutorialTree = require('../models/tutorialTree');
 
 const Token = require('markit').Token;
 const t = require('i18n');
@@ -45,11 +44,11 @@ module.exports = async function (tokens) {
           token.children[i + 2].type == 'link_close';
 
         if (pathname.startsWith('task/')) {
-          let task = await Task.findOne({slug: pathname.slice('task/'.length)}, 'slug title');
+          let task = TutorialTree.instance().bySlug(pathname.slice('task/'.length));
           if (task) replaceLink(token.children, i, task.title, task.getUrl(), urlParsed);
           else replaceLinkWithError(token.children, i, t('tutorial.task.task_not_found', {path: pathname}));
         } else {
-          let article = await Article.findOne({slug: pathname}, 'slug title');
+          let article = TutorialTree.instance().bySlug(pathname);
           if (article) replaceLink(token.children, i, article.title, article.getUrl(), urlParsed);
           else replaceLinkWithError(token.children, i, t('tutorial.article.article_not_found', {path: pathname}));
         }

@@ -1,0 +1,155 @@
+.main-en-contents
+  background white
+  outline none
+
+  @media (min-width: media_step_3)
+    line-height 20px
+
+  ul > li
+    margin 0
+
+  ul > li::before
+      content: ""
+
+  @media (max-width media_step_1)
+    margin-bottom 0
+    padding 0 16px
+
+  @media phone
+    margin-top 34px
+
+  &__container
+    position relative
+
+    &:before
+      content ''
+      height 54px
+      position absolute
+      top -54px
+      right 0
+      left 0
+      background-image linear-gradient(to top, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0) 100%)
+
+    &:first-child:before
+      display none
+
+    @media phone
+      &:before
+        display none
+
+  &__inner
+    max-width 920px
+    margin 0 auto
+    padding-top 48px
+    padding-bottom 64px
+
+    @media phone
+      padding-top 0
+      padding-bottom 16px
+
+  &__part
+    min-width 80px
+    display inline-block
+    margin-bottom 17px
+    padding 0 10px
+    box-sizing border-box
+    background-color #9B6B6B
+    border-radius 12px
+    font-size 12px
+    line-height 23px
+    text-transform uppercase
+    text-align center
+    color #fff
+
+  &__title
+    margin-bottom 8px
+    font-size 20px
+    line-height 28px
+
+  &__description
+    max-width 490px
+    margin-bottom 24px
+
+    p
+      margin 0 0 8px 0
+
+  .list
+    counter-reset one
+    padding 0
+    margin 0
+
+    &__title
+      position relative
+      font-family font_en
+      font-weight bold
+      font-size 16px
+      line-height 24px
+      border-bottom 1px solid rgba(0,0,0,.2)
+      padding-bottom 8px
+      margin-bottom 16px
+
+    &__link
+        color text_grey_dark
+
+    &__item
+      list-style none
+      counter-increment one
+
+  .list-sub
+    padding 0
+    margin 0
+    counter-reset two
+    margin-bottom 24px
+    list-style-type none
+    -webkit-column-gap 10px
+    column-gap 10px
+    -webkit-columns 3
+    columns 3
+
+    @media tablet
+      -webkit-columns 2
+      columns 2
+
+    @media phone
+      -webkit-columns 1
+      columns 1
+
+    &__title
+      position relative
+      padding-left 38px
+      margin-bottom 2px
+
+      &:before
+        position absolute
+        top 4px
+        left 0
+        font-family fixed_width_font
+        font-size 12px
+        line-height 16px
+        content counter(one) '.' counter(two)
+
+    &__link
+        font-size 16px
+        line-height 23px
+
+    &__item
+      counter-increment two
+      -webkit-column-break-inside avoid
+      page-break-inside avoid
+      break-inside avoid
+
+      &_phone_hidden
+        @media phone
+          display none
+
+    &__more
+      cursor pointer
+      display none
+      margin-left 38px
+      font-size 16px
+      line-height 23px
+
+      @media phone
+        display inline-block
+
+

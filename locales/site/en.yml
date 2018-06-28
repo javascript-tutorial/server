@@ -30,3 +30,10 @@ Close: Close
 
 hide_forever: hide permanently
 hidden_forever: This information will not show up any more.
+
+meta:
+  description: 'Modern JavaScript Tutorial: simple, but detailed explanations with examples and tasks, including: closures, document and events, object oriented programming and more.'
+title: The Modern JavaScript Tutorial
+subtitle: "How it's done now. From the basics to advanced topics with simple, but detailed explanations."
+toc: 'Table of contents'
+description: 'Main course contains 2 parts which cover JavaScript as a programming language and working with a browser. There are also additional series of thematic articles.'

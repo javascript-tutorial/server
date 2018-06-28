@@ -14,19 +14,21 @@ const LANG = require('config').lang;
 
 t.requirePhrase('tutorial.map', require('../locales/map/' + LANG + '.yml'));
 
-exports.get = function* get() {
+exports.get = async function(ctx) {
 
   const tutorialTree = TutorialTree.instance();
 
-  const template = this.get('X-Requested-With') ? '_map' : 'map';
+  const template = ctx.get('X-Requested-With') ? '_map' : 'map';
 
   console.log(tutorialTree.tree);
-  this.body = this.render(template, {
+
+  ctx.body = ctx.render(template, {
     bySlug: tutorialTree.bySlug.bind(tutorialTree),
     roots: [
-      tutorialTree.tree[0],
-      tutorialTree.tree[1],
+      tutorialTree.bySlug(tutorialTree.tree[0]),
+      tutorialTree.bySlug(tutorialTree.tree[1]),
       {
+        getUrl() {},
         title: t('site.additional_articles'),
         children: tutorialTree.tree.slice(2)
       }
