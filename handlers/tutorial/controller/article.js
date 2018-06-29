@@ -122,13 +122,13 @@ async function renderArticle(ctx) {
     return null;
   }
 
-  ctx.log.debug("article", article);
+  //ctx.log.debug("article", article);
   
   let renderer = new ArticleRenderer();
 
   let rendered = await renderer.render(article);
 
-  ctx.log.debug("rendered");
+  // ctx.log.debug("rendered");
 
   rendered.isFolder = article.isFolder;
   rendered.modified = article.modified;
@@ -290,7 +290,6 @@ async function renderArticle(ctx) {
     rendered.tasks = [];
 
     for (let task of tasks) {
-      console.log("TASK", task);
       let taskRendered = await taskRenderer.render(task);
       rendered.tasks.push({
         url: task.getUrl(),
