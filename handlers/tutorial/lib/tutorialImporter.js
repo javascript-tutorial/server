@@ -35,7 +35,11 @@ module.exports = class TutorialImporter {
     this.tree = TutorialTree.instance();
   }
 
-  async sync(directory) {
+  /*
+  update=false => removes old entry and re-imports
+  update=true => doesnn't remove anything, for adding only (checks for dupe slugs)
+   */
+  async sync(directory, update = false) {
 
     log.info("sync", directory);
     let dir = fs.realpathSync(directory);
@@ -71,6 +75,10 @@ module.exports = class TutorialImporter {
     parentSlug = parentSlug.slice(parentSlug.indexOf('-') + 1);
 
     let parent = this.tree.bySlug(parentSlug);
+
+    if (update) {
+      this.tree.destroyTree(parentSlug);
+    }
     await this['sync' + type](dir, parent);
 
   }
@@ -102,7 +110,7 @@ module.exports = class TutorialImporter {
     data.weight = parseInt(folderFileName);
     data.slug = folderFileName.slice(folderFileName.indexOf('-') + 1);
 
-    this.tree.destroyTree(data.slug);
+    //this.tree.destroyTree(data.slug);
 
     let options = {
       staticHost: config.server.staticHost,
@@ -173,7 +181,7 @@ module.exports = class TutorialImporter {
     data.weight = parseInt(articlePathName);
     data.slug = articlePathName.slice(articlePathName.indexOf('-') + 1);
 
-    this.tree.destroyTree(data.slug);
+    // this.tree.destroyTree(data.slug);
 
     const options = {
       staticHost: config.server.staticHost,
@@ -286,7 +294,7 @@ module.exports = class TutorialImporter {
 
     data.githubLink = config.tutorialGithubBaseUrl + taskPath.slice(this.root.length);
 
-    this.tree.destroyTree(data.slug);
+    //this.tree.destroyTree(data.slug);
 
     const options = {
       staticHost: config.server.staticHost,

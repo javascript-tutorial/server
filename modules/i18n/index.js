@@ -18,6 +18,10 @@ let docs = {};
 
 t.i18n = i18n;
 
+if (LANG !== 'en') {
+  i18n.setFallback('en');
+}
+
 t.requirePhrase = function(packageName, doc) {
   // if same phrase with same doc was processed - don't redo it
   if (docs[packageName] && docs[packageName].indexOf(doc) != -1) return;

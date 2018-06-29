@@ -9,6 +9,7 @@ module.exports = function() {
     let config = require('config').webpack;
 
     webpack(config, function(err, stats) {
+
       if (!err) {
         // errors in files do not stop webpack watch
         // instead, they are gathered, so I get the first one here (if no other)
@@ -18,8 +19,10 @@ module.exports = function() {
 
       if (err) {
 
+        let message = err.replace(/.*!/, '');
+
         notifier.notify({
-          message: err
+          message
         });
 
         gp.util.log(err);

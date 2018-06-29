@@ -73,6 +73,8 @@ module.exports = class TutorialTree {
 
     if (!entry) return;
 
+    // console.log("DESTROY", slug);
+
     if (entry.children) {
       for (let childSlug of entry.children) {
         this.destroyTree(childSlug);
@@ -91,7 +93,10 @@ module.exports = class TutorialTree {
   }
 
   add(entry) {
-    if (this.bySlug(entry)) {
+
+    // console.log("ADD", entry.slug, "CHECK", this.bySlug(entry.slug));
+
+    if (this.bySlug(entry.slug)) {
       throw new Error("Already exists an entry with slug:" + entry.slug);
     }
 
@@ -112,6 +117,7 @@ module.exports = class TutorialTree {
       siblings.splice(i, 0, entry.slug);
 
     }
+
   }
 
 

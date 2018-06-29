@@ -1,11 +1,10 @@
 extends /layouts/main
 
-include ./blocks/main-en-banner/index
-include ./blocks/main-en-contents/index
+include ../../../templates/blocks/main-en-banner/index
+include ../../../templates/blocks/main-en-contents/index
 
 block append variables
   - var headTitle = 'The Modern Javascript Tutorial';
-  - var sitetoolbar = true
   - var title = false
   - var header = false
   - var comments = true
@@ -17,17 +16,7 @@ block append head
   !=js("tutorial", {defer: true})
   meta(name="description" content=t("site.meta.description"))
 
-block banner
-  +main-en-banner({
-    title: t('site.title'),
-    text: [
-      [t('site.subtitle')]
-    ],
-    subtitle: t('site.toc'),
-    description: t('site.description')
-  })
-
 block content
   +main-en-contents({
-    chapters, topArticles
+    tutorialTree, topArticlesRendered
   })

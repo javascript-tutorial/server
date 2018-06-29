@@ -63,10 +63,10 @@ module.exports = function(config) {
     devtool: process.env.NODE_ENV == 'development' ? "cheap-inline-module-source-map" : // try "eval" ?
                process.env.NODE_ENV == 'production' ? 'source-map' : false,
 
-    profile: true,
+    profile: false,
 
     entry: {
-      styles:                    config.tmpRoot + '/styles.styl',
+      styles:                    'styles/main.styl',
       head:                      'client/head',
       tutorial:                  'tutorial/client',
       footer:                    'client/footer',
@@ -207,27 +207,6 @@ module.exports = function(config) {
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
       new ExtractTextPlugin(extHash('[name]', 'css', '[contenthash]'), {allChunks: true}),
-
-      function() {
-        // create config.tmpRoot/styles.styl with common styles & styles from handlers
-        let content = `
-          @require '~styles/common.styl'
-
-          @require '~styles/${config.lang}.styl'
-        `;
-
-        config.handlers.forEach(handler => {
-          if (fs.existsSync(`${config.projectRoot}/handlers/${handler}/client/styles/global/common.styl`)) {
-            content += `\n@require '~${handler}/client/styles/global/common.styl'`;
-          }
-
-          if (fs.existsSync(`${config.projectRoot}/handlers/${handler}/client/styles/global/${config.lang}.styl`)) {
-            content += `\n@require '~${handler}/client/styles/global/${config.lang}.styl'`;
-          }
-        });
-
-        fs.writeFileSync(`${config.tmpRoot}/styles.styl`, content);
-      },
 
       {
         apply: function(compiler) {

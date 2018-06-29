@@ -12,30 +12,24 @@ const LANG = require('config').lang;
 
 t.requirePhrase('tutorial.frontpage', require('../locales/frontpage/' + LANG + '.yml'));
 
+
 exports.get = async function (ctx, next) {
 
   ctx.locals.sitetoolbar = true;
   ctx.locals.siteToolbarCurrentSection = "tutorial";
   ctx.locals.title = t('tutorial.frontpage.modern_javascript_tutorial');
 
-  let topArticles = await localStorage.getOrGenerate('tutorial:frontpage', renderTop);
+  let topArticlesRendered = await localStorage.getOrGenerate('tutorial:frontpage', renderTop);
 
-  if (!topArticles.length) {
+  if (!Object.keys(topArticlesRendered).length) {
     ctx.throw(404, "Database is empty?"); // empty db
   }
 
-  let chapters = data.contents.slice(0, 2).concat({
-    title: "Additional articles",
-    content: "List of extra topics that are not covered by first two parts of tutorial. There is no clear hierarchy here, you can access articles in the order you want.",
-    children: data.contents.slice(2)
-  });
+
   let locals = {
-    chapters: TutorialTree.instance().tree,
-    topArticles
+    tutorialTree: TutorialTree.instance(),
+    topArticlesRendered
   };
-
-
-  console.log(locals);
 
   ctx.body = ctx.render('frontpage', locals);
 };
@@ -52,7 +46,7 @@ exports.get = async function (ctx, next) {
 async function renderTop() {
   const tree = TutorialTree.instance().tree;
 
-  let articles = [];
+  let articles = {};
 
   // render top-level content
   for (let slug of tree) {
@@ -61,7 +55,8 @@ async function renderTop() {
     let renderer = new ArticleRenderer();
 
     let rendered = await renderer.render(article);
-    articles.push(rendered);
+
+    articles[slug] = rendered;
   }
 
 

@@ -87,7 +87,7 @@ function watchTutorial() {
       folder = path.dirname(filePath);
     }
 
-    importer.sync(folder).catch(function(err) {
+    importer.sync(folder, true).catch(function(err) {
       log.error(err);
     });
   }
