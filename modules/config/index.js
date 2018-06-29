@@ -3,7 +3,7 @@
 let path = require('path');
 let fs = require('fs');
 let env = process.env;
-let yaml = require('js-yaml');
+
 
 // NODE_ENV = development || test || production
 env.NODE_ENV = env.NODE_ENV || 'development';
@@ -59,16 +59,11 @@ let config = module.exports = {
   // private files, for expiring links, not directly accessible
   tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), '..', 'javascript-tutorial-' + lang),
   tmpRoot:               path.join(process.cwd(), 'tmp'),
-  localesRoot:           path.join(process.cwd(), 'locales'),
   // js/css build versions
   cacheRoot:          path.join(process.cwd(), 'cache'),
   tutorialGithubBaseUrl: 'https://github.com/iliakan/javascript-tutorial-' + lang + '/tree/master',
 
   handlers: require('./handlers')
-};
-
-require.extensions['.yml'] = function(module, filename) {
-  module.exports = yaml.safeLoad(fs.readFileSync(filename, 'utf-8'));
 };
 
 
@@ -77,5 +72,5 @@ require.extensions['.yml'] = function(module, filename) {
 config.webpack = require('./webpack')(config);
 
 const t = require('i18n');
-t.requirePhrase('site', require(path.join(config.localesRoot, 'site', config.lang + '.yml')));
+t.requirePhrase('config', 'site');
 

@@ -6,10 +6,8 @@
 
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('markit.edit', require('../../locales/edit/' + LANG + '.yml'));
-t.requirePhrase('markit.error', require('../../locales/error/' + LANG + '.yml'));
+t.requirePhrase('markit', 'edit');
+t.requirePhrase('markit', 'error');
 
 module.exports = function(md) {
 

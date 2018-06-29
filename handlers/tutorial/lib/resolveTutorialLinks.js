@@ -14,11 +14,10 @@ const TutorialTree = require('../models/tutorialTree');
 const Token = require('markit').Token;
 const t = require('i18n');
 const url = require('url');
-const LANG = require('config').lang;
 const tokenUtils = require('markit').tokenUtils;
 
-t.requirePhrase('tutorial.article', require('../locales/article/' + LANG + '.yml'));
-t.requirePhrase('tutorial.task', require('../locales/task/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'article');
+t.requirePhrase('tutorial', 'task');
 
 
 module.exports = async function (tokens) {

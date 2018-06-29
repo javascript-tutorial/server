@@ -14,7 +14,7 @@ const getPrismLanguage = require('../getPrismLanguage');
 
 const LANG = require('config').lang;
 
-t.requirePhrase('markit.code', require('../locales/code/' + LANG + '.yml'));
+t.requirePhrase('markit', 'code');
 
 
 function rewriteFenceToSource(state) {

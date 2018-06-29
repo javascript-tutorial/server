@@ -8,9 +8,7 @@ const ArticleRenderer = require('../renderer/articleRenderer');
 const localStorage = require('localStorage').instance();
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('tutorial.frontpage', require('../locales/frontpage/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'frontpage');
 
 
 exports.get = async function (ctx, next) {

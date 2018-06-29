@@ -2,9 +2,7 @@
 
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('markit.demo', require('../../locales/demo/' + LANG + '.yml'));
+t.requirePhrase('markit', 'demo');
 
 module.exports = function(md) {
 

@@ -13,9 +13,8 @@ const parseAttrs = require('../utils/parseAttrs');
 const makeAnchor = require('textUtil/makeAnchor');
 
 const t = require('i18n');
-const LANG = require('config').lang;
 
-t.requirePhrase('markit.error', require('../locales/error/' + LANG + '.yml'));
+t.requirePhrase('markit', 'error');
 
 // add headingToken.achor
 // not "id" attr, because rendering uses `.anchor` for the extra link OR id

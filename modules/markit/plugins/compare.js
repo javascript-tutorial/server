@@ -40,9 +40,7 @@ const parseAttrs = require('../utils/parseAttrs');
 const t = require('i18n');
 const markdownItContainer = require('markdown-it-container');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('markit.compare', require('../locales/compare/' + LANG + '.yml'));
+t.requirePhrase('markit', 'compare');
 
 module.exports = function(md) {
 

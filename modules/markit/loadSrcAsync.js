@@ -17,9 +17,7 @@ const fs = require('mz/fs');
 const t = require('i18n');
 const tokenUtils = require('./utils/token');
 
-let LANG = require('config').lang;
-
-t.requirePhrase('markit.error', require('./locales/error/' + LANG + '.yml'));
+t.requirePhrase('markit', 'error');
 
 
 class SrcError extends Error {

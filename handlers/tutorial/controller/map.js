@@ -10,9 +10,7 @@ const makeAnchor = require('textUtil/makeAnchor');
 
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('tutorial.map', require('../locales/map/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'map');
 
 exports.get = async function(ctx) {
 
@@ -29,7 +27,7 @@ exports.get = async function(ctx) {
       tutorialTree.bySlug(tutorialTree.tree[1]),
       {
         getUrl() {},
-        title: t('site.additional_articles'),
+        title: t('config.site.additional_articles'),
         children: tutorialTree.tree.slice(2)
       }
     ]

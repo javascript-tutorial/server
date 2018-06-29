@@ -10,9 +10,7 @@ const TutorialViewStorage = require('../models/tutorialViewStorage');
 
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('tutorial.task', require('../locales/task/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'task');
 
 
 /**

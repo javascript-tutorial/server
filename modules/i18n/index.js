@@ -5,6 +5,7 @@ const BabelFish = require('babelfish');
 const i18n = new BabelFish('en');
 
 const LANG = require('config').lang;
+const requireTranslation = require('./requireTranslation');
 
 function t() {
   let args = [LANG];
@@ -19,17 +20,19 @@ let docs = {};
 t.i18n = i18n;
 
 if (LANG !== 'en') {
-  i18n.setFallback('en');
+  i18n.setFallback(LANG, 'en');
 }
 
-t.requirePhrase = function(packageName, doc) {
-  // if same phrase with same doc was processed - don't redo it
-  if (docs[packageName] && docs[packageName].indexOf(doc) != -1) return;
+t.requirePhrase = function(module, packageName) {
+  // if same doc was processed - don't redo it
+  if (docs[module] && docs[module].includes(packageName)) return;
 
-  if (!docs[packageName]) docs[packageName] = [];
-  docs[packageName].push(doc);
+  if (!docs[module]) docs[module] = [];
+  docs[module].push(packageName);
 
-  i18n.addPhrase(LANG, packageName, doc);
+  let doc = requireTranslation(module, packageName);
+
+  i18n.addPhrase(LANG, module + '.' + packageName, doc);
 };
 
 

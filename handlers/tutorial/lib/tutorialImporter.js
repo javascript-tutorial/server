@@ -21,12 +21,9 @@ const stripYamlMetadata = require('markit').stripYamlMetadata;
 const mime = require('mime');
 const stripIndents = require('textUtil/stripIndents');
 
-
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('tutorial.importer', require('../locales/importer/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'importer');
 
 module.exports = class TutorialImporter {
   constructor(options) {

@@ -84,7 +84,7 @@ exports.get = async function(ctx, next) {
     }
 
     section2.links.push({
-      title: t('site.comments'),
+      title: t('config.site.comments'),
       url:   '#comments'
     });
 
@@ -235,7 +235,7 @@ async function renderArticle(ctx) {
       parent = a.parent;
     }
     path.push({
-      title: t('site.tutorial'),
+      title: t('config.site.tutorial'),
       url: '/'
     });
     path = path.reverse();

@@ -3,10 +3,9 @@
 const mountHandlerMiddleware = require('lib/mountHandlerMiddleware');
 
 const t = require('i18n');
-const LANG = require('config').lang;
 
-t.requirePhrase('tutorial.article', require('./locales/article/' + LANG + '.yml'));
-t.requirePhrase('tutorial.task', require('./locales/task/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'article');
+t.requirePhrase('tutorial', 'task');
 
 
 exports.TutorialViewStorage = require('./models/tutorialViewStorage');
