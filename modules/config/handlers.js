@@ -9,7 +9,6 @@ var handlers = [
   'requestId',
   'requestLog',
   'nocache',
-
   // this middleware adds this.render method
   // it is *before errorHandler*, because errors need this.render
   'render',
@@ -40,7 +39,8 @@ var handlers = [
 
   'conditional',
 
-  'tutorial'
+  'tutorial',
+  'jobs'
 ];
 
 module.exports = handlers;

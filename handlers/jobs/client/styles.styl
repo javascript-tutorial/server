@@ -1,0 +1,35 @@
+body
+  .jobs-container
+    width: 50%;
+    margin: 50px auto;
+    a, button
+      text-decoration: none;
+      padding: 5px 10px;
+      border: 1px solid black;
+      border-radius: 2px;
+      color: #111;
+    a:hover, button:hover
+      text-decoration: none;
+      background: #ddd;
+    #newjob
+      margin-top: 40px;
+      float: none;
+      a, button
+        margin-right: 20px;
+      input, textarea
+        display: block;
+        width: 70%;
+        margin-bottom: 20px;
+  .pagination
+    display: inline-block;
+    a
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background-color .3s;
+    a.active
+      background-color: #4CAF50;
+      color: white;
+    a:hover:not(.active)
+      background-color: #ddd;

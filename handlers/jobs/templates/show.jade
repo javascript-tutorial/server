@@ -1,0 +1,13 @@
+extends /layouts/html
+
+block append head
+  !=js("jobs", {defer: true})
+  !=css("jobs")
+
+block body
+  div.jobs-container
+    h1= job.title
+    p= job.description
+    br
+    a(href='/jobs/') Все вакансии
+

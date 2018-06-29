@@ -1,0 +1,15 @@
+extends /layouts/html
+
+block append head
+  !=js("jobs", {defer: true})
+  !=css("jobs")
+
+block body
+  div.jobs-container
+    h4 Условия сервиса
+    | Вакансии публикуются бесплатно. Размещаемая информация передается
+    | без изменений и принадлежит ее авторам.
+    br
+    br
+    a(href='/jobs/') Все вакансии
+
