@@ -169,6 +169,23 @@ exports.init = function(app) {
 
       let templatePathResolved = resolvePath(templatePath, loc);
       ctx.log.debug("render file " + templatePathResolved);
+
+
+      loc.plugins = [{
+        resolve
+      }];
+
+      function resolve(filename, source, loadOptions) {
+        if (filename[0] === '/') {
+          return path.join(loadOptions.basedir, filename);
+        }
+        if (filename[0] === '~') {
+          return require.resolve(filename.slice(1));
+        }
+
+        return path.join(path.dirname(source), filename);
+      }
+
       return pug.renderFile(templatePathResolved, loc);
     };
 

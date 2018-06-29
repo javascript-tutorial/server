@@ -7,11 +7,11 @@ const Task = require('../../models/task');
 
 describe("TaskRenderer", function() {
 
-  beforeEach(function* () {
+  beforeEach(async function () {
     await Task.destroy();
   });
 
-  it("renderContent", function* () {
+  it("renderContent", async function () {
 
     const task = new Task({
       "content":    "Content",
@@ -29,7 +29,7 @@ describe("TaskRenderer", function() {
   });
 
 
-  it("renderSolution", function* () {
+  it("renderSolution", async function () {
 
     const task = new Task({
       "content":    "# Title\n\nContent",

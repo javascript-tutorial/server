@@ -4,7 +4,7 @@ const config = require('config');
 const pug = require('pug');
 
 /**
- * extension for require('file.jade'),
+ * extension for require('file.pug'),
  * works in libs that are shared between client & server
  */
 require.extensions['.pug'] = function(module, filename) {
@@ -14,13 +14,26 @@ require.extensions['.pug'] = function(module, filename) {
     Object.assign({}, config.pug, {
       pretty:        false,
       compileDebug:  false,
-      filename:      filename
+      filename:      filename,
+      plugins: [{
+        resolve
+      }]
     })
   );
 
+  function resolve(filename, source, loadOptions) {
+    if (filename[0] === '/') {
+      return path.join(loadOptions.basedir, filename);
+    }
+    if (filename[0] === '~') {
+      return require.resolve(filename.slice(1));
+    }
+
+    return path.join(path.dirname(source), filename);
+  }
+
   module.exports = function(locals) {
     locals = locals || {};
-    locals.bem = require('bemPug')();
 
     return compiled(locals);
   };
