@@ -5,9 +5,8 @@ set NODE_LANG=%1
 @set ASSET_VERSIONING=query
 @set WATCH=1
 @set SITE_HOST=http://javascript.local
-@set PORT=80
+@set PORT=3000
 @set NODE_PATH=./handlers;./modules
-@set TUTORIAL_EDIT=1
 
 call gulp dev
 
