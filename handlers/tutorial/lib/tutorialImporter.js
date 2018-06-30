@@ -61,10 +61,12 @@ module.exports = class TutorialImporter {
 
       dir = path.dirname(dir);
 
-      if (directory == this.root || directory == '/') {
+      if (directory === this.root || directory === '/') {
         throw new Error("Unknown directory type: " + directory);
       }
     }
+
+    let slug = path.basename(dir).slice(path.basename(dir).indexOf('-') + 1);
 
     let parentDir = path.dirname(dir);
 
@@ -74,7 +76,8 @@ module.exports = class TutorialImporter {
     let parent = this.tree.bySlug(parentSlug);
 
     if (update) {
-      this.tree.destroyTree(parentSlug);
+      console.log("DESTROY", slug);
+      this.tree.destroyTree(slug);
     }
     await this['sync' + type](dir, parent);
 

@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('config');
 const pug = require('pug');
+const pugResolve = require('pugResolve');
 
 /**
  * extension for require('file.pug'),
@@ -16,21 +17,11 @@ require.extensions['.pug'] = function(module, filename) {
       compileDebug:  false,
       filename:      filename,
       plugins: [{
-        resolve
+        resolve: pugResolve
       }]
     })
   );
 
-  function resolve(filename, source, loadOptions) {
-    if (filename[0] === '/') {
-      return path.join(loadOptions.basedir, filename);
-    }
-    if (filename[0] === '~') {
-      return require.resolve(filename.slice(1));
-    }
-
-    return path.join(path.dirname(source), filename);
-  }
 
   module.exports = function(locals) {
     locals = locals || {};

@@ -27,7 +27,7 @@ exports.get = async function(ctx) {
       tutorialTree.bySlug(tutorialTree.tree[1]),
       {
         getUrl() {},
-        title: t('config.site.additional_articles'),
+        title: t('config.additional_articles'),
         children: tutorialTree.tree.slice(2)
       }
     ]

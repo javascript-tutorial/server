@@ -84,7 +84,7 @@ exports.get = async function(ctx, next) {
     }
 
     section2.links.push({
-      title: t('config.site.comments'),
+      title: t('config.comments'),
       url:   '#comments'
     });
 
@@ -114,6 +114,7 @@ async function renderArticle(ctx) {
   let slug = ctx.params.slug;
 
   const tree = TutorialTree.instance();
+
   const article = tree.bySlug(slug);
 
   // console.log("HERE", slug, article);
@@ -122,7 +123,7 @@ async function renderArticle(ctx) {
     return null;
   }
 
-  //ctx.log.debug("article", article);
+  ctx.log.debug("article", article);
   
   let renderer = new ArticleRenderer();
 
@@ -235,7 +236,7 @@ async function renderArticle(ctx) {
       parent = a.parent;
     }
     path.push({
-      title: t('config.site.tutorial'),
+      title: t('config.tutorial'),
       url: '/'
     });
     path = path.reverse();

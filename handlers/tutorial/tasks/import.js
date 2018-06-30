@@ -6,12 +6,7 @@ let log = require('log')();
 module.exports = function(options) {
 
   return function() {
-
-    return async function() {
-
-      await runImport();
-
-    }();
+    return runImport();
   };
 };
 

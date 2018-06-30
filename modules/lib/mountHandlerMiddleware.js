@@ -18,10 +18,16 @@ module.exports = function (prefix, moduleDir) {
   return mount(prefix, async function wrapMiddleware(ctx, next) {
 
     // before entering middeware
-    let apply = () => ctx.templateDir = templateDir;
+    let apply = () => {
+      // console.log("APPLY", templateDir);
+      ctx.templateDir = templateDir;
+    };
 
     // before leaving middleware
-    let undo = () => delete ctx.templateDir;
+    let undo = () => {
+      // console.log("UNDO", templateDir);
+      delete ctx.templateDir;
+    };
 
     apply();
 

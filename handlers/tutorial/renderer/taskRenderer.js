@@ -39,7 +39,7 @@ module.exports = class TaskRenderer {
 
     if (sourcePlunk) {
 
-      let files = sourcePlunk.files.toObject();
+      let files = sourcePlunk.files;
       let hasTest = false;
       for (let file of files) {
         if (file.filename === 'test.js') hasTest = true;
@@ -122,7 +122,7 @@ module.exports = class TaskRenderer {
     let solutionPlunk = TutorialViewStorage.instance().get(task.getResourceWebRoot() + '/solution');
 
     if (solutionPlunk) {
-      let files = solutionPlunk.files.toObject();
+      let files = solutionPlunk.files;
       let hasTest = false;
       for (let i = 0; i < files.length; i++) {
         if (files[i].filename == 'test.js') hasTest = true;

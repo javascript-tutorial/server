@@ -34,7 +34,7 @@ exports.get = async function(ctx, next) {
     parentSlug = parent.parent;
   }
   breadcrumbs.push({
-    title: t('config.site.tutorial'),
+    title: t('config.tutorial'),
     url:   '/'
   });
 

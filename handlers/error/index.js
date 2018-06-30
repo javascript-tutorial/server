@@ -5,6 +5,11 @@ const path = require('path');
 
 let isDevelopment = process.env.NODE_ENV == 'development';
 
+
+const t = require('i18n');
+t.requirePhrase('error');
+
+
 // can be called not from this MW, but from anywhere
 // this.templateDir can be anything
 function renderError(ctx, err) {
@@ -29,6 +34,11 @@ function renderError(ctx, err) {
 
   let preferredType = ctx.accepts('html', 'json');
 
+  // malformed or absent mongoose params
+  if (err.name == 'CastError' && process.env.NODE_ENV == 'production') {
+    ctx.status = 400;
+  }
+
   if (err.name == 'ValidationError') {
     ctx.status = 400;
 
@@ -44,7 +54,6 @@ function renderError(ctx, err) {
       };
     } else {
       ctx.body = ctx.render(path.join(__dirname, "templates/400"), {
-        useAbsoluteTemplatePath: true,
         error: err
       });
     }
@@ -86,11 +95,13 @@ function renderError(ctx, err) {
       ctx.body.description = err.description;
     }
   } else {
-    let templateName = ~[500, 401, 404, 403].indexOf(ctx.status) ? ctx.status : 500;
+    let templateName = [503, 500, 401, 404, 403].includes(ctx.status) ? ctx.status : 500;
     ctx.body = ctx.render(`${__dirname}/templates/${templateName}`, {
       useAbsoluteTemplatePath: true,
       error: err,
-      requestId: ctx.requestId
+      supportEmail: config.supportEmail,
+      requestId: ctx.requestId,
+      t
     });
   }
 

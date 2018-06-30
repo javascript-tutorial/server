@@ -53,6 +53,8 @@ let config = module.exports = {
     cache:   env.NODE_ENV != 'development'
   },
 
+  supportEmail: 'iliakan@javascript.info',
+
   projectRoot:           process.cwd(),
   // public files, served by nginx
   publicRoot:            path.join(process.cwd(), 'public'),
@@ -72,5 +74,5 @@ let config = module.exports = {
 config.webpack = require('./webpack')(config);
 
 const t = require('i18n');
-t.requirePhrase('config', 'site');
+t.requirePhrase('config');
 

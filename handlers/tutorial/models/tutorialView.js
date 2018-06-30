@@ -22,7 +22,7 @@ module.exports = class TutorialView {
     }
   }
 
-  getPlunkUrl() {
+  getUrl() {
     if (this.plunkId) {
       return 'http://plnkr.co/edit/' + this.plunkId + '?p=preview';
     } else {
@@ -90,14 +90,14 @@ module.exports = class TutorialView {
 
     if (this.plunkId) {
       log.debug("update remotely", this.webPath, this.plunkId);
-      await Plunk.updateRemote(this.plunkId, changes, plunkerToken);
+      await this.updatePlunk(this.plunkId, changes, plunkerToken);
     } else {
       log.debug("create plunk remotely", this.webPath);
-      this.plunkId = await TutorialView.createPlunk(this.description, this.files, plunkerToken);
+      this.plunkId = await this.createPlunk(this.description, this.files, plunkerToken);
     }
   }
 
-  static async createPlunk(description, files, plunkerToken) {
+  async createPlunk(description, files, plunkerToken) {
 
     if (!process.env.PLUNK_ENABLED) {
       return Math.random().toString(36).slice(2);
@@ -135,7 +135,7 @@ module.exports = class TutorialView {
 
     log.debug("plunk createRemote", data);
 
-    let result = await TutorialView.requestPlunk(data);
+    let result = await this.requestPlunk(data);
 
     assert.equal(result.statusCode, 201);
 
@@ -176,7 +176,7 @@ module.exports = class TutorialView {
 
     log.debug(options);
 
-    let result = await Plunk.request(options);
+    let result = await this.requestPlunk(options);
 
     assert.equal(result.statusCode, 200);
   };

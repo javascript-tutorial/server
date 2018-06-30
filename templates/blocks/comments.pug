@@ -1,13 +1,13 @@
 +b.comments(id="comments")
   +e.header
     +e("h2").header-title
-      a(href="#comments" name="comments")= t('config.site.comments')
+      a(href="#comments" name="comments")= t('config.comments')
     +e.read-before
-      +e("span").read-before-link= t('config.site.read_before_commenting')
+      +e("span").read-before-link= t('config.read_before_commenting')
       +e.read-before-popup
         +e.read-before-popup-i
           ul
-            each comment in t('config.site.comment.help')
+            each comment in t('config.comment.help')
               li!= comment
 
 

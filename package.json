@@ -21,6 +21,7 @@
     "babel-preset-env": "*",
     "babelfish": "^1.1.2",
     "bemto.pug": "github:kizu/bemto",
+
     "bunyan": "*",
     "clarify": "^2.1.0",
     "css-loader": "*",

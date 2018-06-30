@@ -6,7 +6,7 @@ exports.init = function(app) {
     await next();
 
     if (ctx.status === 404) {
-      // still nothing found? let default errorHandler show 404
+      // still nothing found? let default error show 404
       ctx.throw(404);
     }
   });

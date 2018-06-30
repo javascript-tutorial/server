@@ -9,7 +9,7 @@ const log = require('log')();
 const pug = require('lib/serverPug');
 const assert = require('assert');
 const t = require('i18n');
-
+const pugResolve = require('pugResolve');
 const url = require('url');
 const validate = require('validate');
 const pluralize = require('textUtil/pluralize');
@@ -157,7 +157,6 @@ exports.init = function(app) {
         loc.schema = {};
       }
 
-
       if (!loc.canonicalPath) {
         // strip query
         loc.canonicalPath = ctx.request.originalUrl.replace(/\?.*/, '');
@@ -167,64 +166,21 @@ exports.init = function(app) {
 
       loc.canonicalUrl = config.server.siteHost + loc.canonicalPath;
 
-      let templatePathResolved = resolvePath(templatePath, loc);
-      ctx.log.debug("render file " + templatePathResolved);
+      if (ctx.templateDir) {
+        loc.roots = [ctx.templateDir];
+      }
 
+      if (loc.sitetoolbar === undefined) {
+        loc.sitetoolbar = true;
+      }
 
       loc.plugins = [{
-        resolve
+        resolve: pugResolve
       }];
 
-      function resolve(filename, source, loadOptions) {
-        if (filename[0] === '/') {
-          return path.join(loadOptions.basedir, filename);
-        }
-        if (filename[0] === '~') {
-          return require.resolve(filename.slice(1));
-        }
-
-        return path.join(path.dirname(source), filename);
-      }
-
-      return pug.renderFile(templatePathResolved, loc);
+      return pug.renderFile(pugResolve(templatePath, null, loc), loc);
     };
 
-    function resolvePath(templatePath, options) {
-      let cacheKey = templatePath + ":" + options.useAbsoluteTemplatePath;
-
-      if (renderFileCache[cacheKey]) {
-        return renderFileCache[cacheKey];
-      }
-
-      // first we try template.en.jade
-      // if fails then template.jade
-      let templatePathWithLangAndExt = templatePath + '.' + config.lang;
-      if (!/\.pug/.test(templatePathWithLangAndExt)) {
-        templatePathWithLangAndExt += '.pug';
-      }
-
-
-      let templatePathResolved;
-      if (options.useAbsoluteTemplatePath) {
-        templatePathResolved = templatePathWithLangAndExt;
-      } else {
-        if (templatePath[0] == '/') {
-          ctx.log.debug("Lookup " + templatePathWithLangAndExt + " in " + options.basedir);
-          templatePathResolved = path.join(options.basedir, templatePathWithLangAndExt);
-        } else {
-          ctx.log.debug("Lookup " + templatePathWithLangAndExt + " in " + ctx.templateDir);
-          templatePathResolved = path.join(ctx.templateDir, templatePathWithLangAndExt);
-        }
-      }
-
-      if (!fs.existsSync(templatePathResolved)) {
-        templatePathResolved = templatePathResolved.replace(`.${config.lang}.pug`, '.pug');
-      }
-
-      renderFileCache[cacheKey] = templatePathResolved;
-
-      return templatePathResolved;
-    }
 
     await next();
   });

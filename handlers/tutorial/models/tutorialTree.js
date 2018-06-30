@@ -3,6 +3,7 @@
 const assert = require('assert');
 const Article = require('./article');
 const Task = require('./task');
+const log = require('log')();
 
 module.exports = class TutorialTree {
 
@@ -97,6 +98,7 @@ module.exports = class TutorialTree {
     // console.log("ADD", entry.slug, "CHECK", this.bySlug(entry.slug));
 
     if (this.bySlug(entry.slug)) {
+      log.error("Dupe entry", entry);
       throw new Error("Already exists an entry with slug:" + entry.slug);
     }
 

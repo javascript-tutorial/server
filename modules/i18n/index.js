@@ -8,12 +8,19 @@ const LANG = require('config').lang;
 const requireTranslation = require('./requireTranslation');
 
 function t() {
+
+  if (!i18n.hasPhrase(LANG, arguments[0])) {
+    console.error("No such phrase", arguments[0]);
+  }
+
   let args = [LANG];
   for (let i = 0; i < arguments.length; i++) {
     args.push(arguments[i]);
   }
+
   return i18n.t.apply(i18n, args);
 }
+
 
 let docs = {};
 
@@ -23,7 +30,9 @@ if (LANG !== 'en') {
   i18n.setFallback(LANG, 'en');
 }
 
-t.requirePhrase = function(module, packageName) {
+// packageName can be empty
+t.requirePhrase = function(module, packageName = '') {
+
   // if same doc was processed - don't redo it
   if (docs[module] && docs[module].includes(packageName)) return;
 
@@ -32,7 +41,8 @@ t.requirePhrase = function(module, packageName) {
 
   let doc = requireTranslation(module, packageName);
 
-  i18n.addPhrase(LANG, module + '.' + packageName, doc);
+  i18n.addPhrase(LANG, module + (packageName ? ('.' + packageName) : ''), doc);
+
 };
 
 

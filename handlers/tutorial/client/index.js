@@ -2,60 +2,15 @@
 
 let delegate = require('client/delegate');
 let prism = require('client/prism');
-let xhr = require('client/xhr');
-let TutorialMapModal = require('./tutorialMapModal');
-let TutorialMap = require('./tutorialMap');
 
 function init() {
-
 
   initTaskButtons();
   initFolderList();
 
   initSidebarHighlight();
 
-  initNewsletterForm();
-
-  delegate(document, '[data-action="tutorial-map"]', 'click', function(event) {
-    if (event.which != 1) return; // only left-click, FF needs this
-    event.preventDefault();
-    showTutorialMapModal();
-  });
-
   prism.init();
-
-  let tutorialMapElem = document.querySelector('.tutorial-map');
-  if (tutorialMapElem) {
-    new TutorialMap(tutorialMapElem);
-  } else if (/[&?]map\b/.test(location.href)) {
-    showTutorialMapModal();
-  }
-
-}
-
-
-function initNewsletterForm() {
-
-  let form = document.querySelector('[data-newsletter-subscribe-form]');
-  if (!form) return;
-
-  form.onsubmit = function(event) {
-    event.preventDefault();
-    newsletter.submitSubscribeForm(form);
-  };
-
-}
-
-
-function showTutorialMapModal() {
-
-  if (!/[&?]map\b/.test(location.href)) {
-    window.history.replaceState(null, null, ~location.href.indexOf('?') ? (location.href + '&map') : (location.href + '?map'));
-  }
-  let modal = new TutorialMapModal();
-  modal.elem.addEventListener('tutorial-map-remove', function() {
-    window.history.replaceState(null, null, location.href.replace(/[&?]map\b/, ''));
-  });
 
 }
 
@@ -120,7 +75,7 @@ function initFolderList() {
     let link = event.delegateTarget;
     let openFolder = link.closest('.lessons-list').querySelector('.lessons-list__lesson_open');
     // close the previous open folder (thus making an accordion)
-    if (openFolder && openFolder != link.parentNode) {
+    if (openFolder && openFolder !== link.parentNode) {
       openFolder.classList.remove('lessons-list__lesson_open');
     }
     link.parentNode.classList.toggle('lessons-list__lesson_open');
