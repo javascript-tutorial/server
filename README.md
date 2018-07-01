@@ -56,9 +56,9 @@ You can use it to run the tutorial locally and translate it into your language.
 
 7. Edit the tutorial
 
-    The files are editable in the tutorial text folder (step 4).
+    The files are editable in the tutorial text folder (cloned at step 5).
     As you edit text files, the webpage gets reloaded automatically, so it's handy
-    to split the screen at two sides: put the browser onn the left 50% and edit in the right 50%%.
+    to split the screen at two sides: put the browser to the left half and edit in the right half.
     
 # TroubleShooting
 
