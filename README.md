@@ -16,18 +16,24 @@ You can use it to run the tutorial locally and translate it into your language.
         
     For non-Windows OS use standard install tools (packages or whatever convenient).
 
-2. Create the root folder.
+2. Install global Node modules:
+
+    ```
+    npm install -g bunyan gulp
+    ```
+
+3. Create the root folder.
 
     Create a folder `/js` for the project. You can use any other directory as well, just adjust the paths below.
 
-3. Clone the tutorial server into it:
+4. Clone the tutorial server into it:
 
     ```
     cd /js
     git clone https://github.com/iliakan/javascript-tutorial-server
     ```
 
-4. Clone the tutorial text into it.
+5. Clone the tutorial text into it.
 
     The text repository has "-language" at the end, e.g:
     ```
@@ -35,13 +41,8 @@ You can use it to run the tutorial locally and translate it into your language.
     git clone https://github.com/iliakan/javascript-tutorial-ru
     ```
 
-4. Install global modules:
 
-    ```
-    npm install -g bunyan gulp
-    ```
-
-5. Run the site
+6. Run the site
 
     Run the site with the language:
     ```
@@ -53,7 +54,7 @@ You can use it to run the tutorial locally and translate it into your language.
 
     Then access the site at `http://127.0.0.1:3000`.
 
-6. Edit the tutorial
+7. Edit the tutorial
 
     The files are editable in the tutorial text folder (step 4).
     As you edit text files, the webpage gets reloaded automatically, so it's handy
