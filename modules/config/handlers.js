@@ -3,19 +3,18 @@
 const path = require('path');
 const fs = require('fs');
 
-var handlers = [
+let handlers = [
   'static',
-  'mongooseHandler',
   'requestId',
   'requestLog',
   'nocache',
 
   // this middleware adds this.render method
-  // it is *before errorHandler*, because errors need this.render
+  // it is *before error*, because errors need this.render
   'render',
 
   // errors wrap everything
-  'errorHandler',
+  'error',
 
   // this logger only logs HTTP status and URL
   // before everything to make sure it log all
@@ -40,7 +39,8 @@ var handlers = [
 
   'conditional',
 
+  process.env.NODE_ENV=='development' && 'dev',
   'tutorial'
-];
+].filter(Boolean);
 
 module.exports = handlers;

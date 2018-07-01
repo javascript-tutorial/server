@@ -1,13 +1,13 @@
 
 exports.init = function(app) {
-  app.use(function*(next) {
+  app.use(async function(ctx, next) {
 
     /* jshint -W106 */
-    this.log = app.log.child({
-      requestId: this.requestId
+    ctx.log = app.log.child({
+      requestId: ctx.requestId
     });
 
-    yield* next;
+    await next();
   });
 
 };

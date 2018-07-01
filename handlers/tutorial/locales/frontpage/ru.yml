@@ -1,0 +1,9 @@
+modern_javascript_tutorial: "Современный учебник Javascript"
+subtitle: "Перед вами учебник по JavaScript, начиная с основ, включающий в себя много тонкостей и фишек JavaScript/DOM."
+part: "Часть #{num}"
+more: "Далее…"
+
+
+part3:
+  title: "Additional articles"
+  content: "List of extra topics that are not covered by first two parts of tutorial. There is no clear hierarchy here, you can access articles in the order you want."

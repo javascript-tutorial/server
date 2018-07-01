@@ -4,7 +4,6 @@ const config = require('config');
 const MarkdownIt = require('markdown-it');
 const loadSrcAsync = require('./loadSrcAsync');
 const loadImgSizeAsync = require('./loadImgSizeAsync');
-const dataUtil = require('lib/dataUtil');
 
 const onlineOfflinePlugin = require('./plugins/onlineOffline');
 const extendedCodePlugin = require('./plugins/extendedCode');
@@ -53,7 +52,7 @@ module.exports = class ServerParser {
       html:          true,
       publicRoot:    config.publicRoot,
       staticHost:    config.server.staticHost,
-      quotes:        config.lang == 'ru' ? '«»„“' : '“”‘’'
+      quotes:        config.lang === 'ru' ? '«»„“' : '“”‘’'
     }, options));
 
     onlineOfflinePlugin(this.md);
@@ -81,10 +80,10 @@ module.exports = class ServerParser {
     deflistPlugin(this.md);
   }
 
-  *parse(text) {
+  async parse(text) {
     const tokens = this.md.parse(text, this.env);
-    yield* loadSrcAsync(tokens, this.md.options);
-    yield* loadImgSizeAsync(tokens, this.md.options);
+    await loadSrcAsync(tokens, this.md.options);
+    await loadImgSizeAsync(tokens, this.md.options);
 
     return tokens;
   }

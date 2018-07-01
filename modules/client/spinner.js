@@ -30,7 +30,7 @@ Spinner.prototype.start = function() {
 };
 
 Spinner.prototype.stop = function() {
-  var spinnerElem = this.elem.querySelector('.spinner');
+  let spinnerElem = this.elem.querySelector('.spinner');
   if (!spinnerElem) return; // already stopped or never started
 
   spinnerElem.remove();

@@ -1,16 +1,17 @@
 'use strict';
 
-const Plunk = require('plunk').Plunk;
-const mongoose = require('lib/mongoose');
+const TutorialViewStorage = require('../models/tutorialViewStorage');
 
-exports.get = function*() {
-  var plunk = yield Plunk.findOne({ plunkId: this.query.plunkId }).exec();
+exports.get = async function(ctx) {
+  let view;
 
-  if (!plunk) {
-    this.throw(404);
+  let storage = TutorialViewStorage.instance();
+  for(let webpath in storage.getAll()) {
+    view = storage.get(webpath);
+    if (view.plunkId == ctx.query.plunkId) {
+      ctx.set('Content-Type', 'application/zip');
+      ctx.body = view.getZip();
+    }
   }
-
-  this.set('Content-Type', 'application/zip');
-  this.body = plunk.getZip();
 
 };

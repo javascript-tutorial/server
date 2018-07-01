@@ -1,5 +1,5 @@
 // current page host
-var baseURI = window.location.host;
+let baseURI = window.location.host;
 
 document.addEventListener('click', function(e) {
 
@@ -7,7 +7,7 @@ document.addEventListener('click', function(e) {
   if (e.defaultPrevented) return;
 
   // abandon if no active link or link within domain
-  var link = e.target.closest && e.target.closest("a");
+  let link = e.target.closest && e.target.closest("a");
   if (!link || (baseURI == link.host && !link.hasAttribute('data-track-outbound'))) return;
 
   // invalid or blank target
@@ -17,7 +17,7 @@ document.addEventListener('click', function(e) {
 
   // cancel event and record outbound link
   e.preventDefault();
-  var href = link.href;
+  let href = link.href;
   window.ga('send', 'event', 'outbound', 'click', href, {
     hitCallback: loadPage
   });

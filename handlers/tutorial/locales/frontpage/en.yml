@@ -1,0 +1,8 @@
+modern_javascript_tutorial: "The Modern Javascript Tutorial"
+subtitle: "From the basics to advanced topics, using simple, but detailed explanations."
+part: "Part #{num}"
+more: "More…"
+
+part3:
+  title: "Additional articles"
+  content: "List of extra topics that are not covered by first two parts of tutorial. There is no clear hierarchy here, you can access articles in the order you want."

@@ -1,5 +1,5 @@
-var notification = require('client/notification');
-var getCsrfCookie = require('client/getCsrfCookie');
+let notification = require('client/notification');
+let getCsrfCookie = require('client/getCsrfCookie');
 // Wrapper about XHR
 // # Global Events
 // triggers document.loadstart/loadend on communication start/end
@@ -24,19 +24,19 @@ var getCsrfCookie = require('client/getCsrfCookie');
 
 function xhr(options) {
 
-  var request = new XMLHttpRequest();
+  let request = new XMLHttpRequest();
 
-  var method = options.method || 'GET';
+  let method = options.method || 'GET';
 
-  var body = options.body;
-  var url = options.url;
+  let body = options.body;
+  let url = options.url;
 
   request.open(method, url, options.sync ? false : true);
 
   request.method = method;
 
   // token/header names same as angular $http for easier interop
-  var csrfCookie = getCsrfCookie();
+  let csrfCookie = getCsrfCookie();
   if (csrfCookie && !options.skipCsrf) {
     request.setRequestHeader("X-XSRF-TOKEN", csrfCookie);
   }
@@ -50,20 +50,20 @@ function xhr(options) {
   if (!options.noDocumentEvents) {
     request.addEventListener('loadstart', event => {
       request.timeStart = Date.now();
-      var e = wrapEvent('xhrstart', event);
+      let e = wrapEvent('xhrstart', event);
       document.dispatchEvent(e);
     });
     request.addEventListener('loadend', event => {
-      var e = wrapEvent('xhrend', event);
+      let e = wrapEvent('xhrend', event);
       document.dispatchEvent(e);
     });
     request.addEventListener('success', event => {
-      var e = wrapEvent('xhrsuccess', event);
+      let e = wrapEvent('xhrsuccess', event);
       e.result = event.result;
       document.dispatchEvent(e);
     });
     request.addEventListener('fail', event => {
-      var e = wrapEvent('xhrfail', event);
+      let e = wrapEvent('xhrfail', event);
       e.reason = event.reason;
       document.dispatchEvent(e);
     });
@@ -75,22 +75,22 @@ function xhr(options) {
 
   request.setRequestHeader('X-Requested-With', "XMLHttpRequest");
 
-  var normalStatuses = options.normalStatuses || [200];
+  let normalStatuses = options.normalStatuses || [200];
 
   function wrapEvent(name, e) {
-    var event = new CustomEvent(name);
+    let event = new CustomEvent(name);
     event.originalEvent = e;
     return event;
   }
 
   function fail(reason, originalEvent) {
-    var e = wrapEvent("fail", originalEvent);
+    let e = wrapEvent("fail", originalEvent);
     e.reason = reason;
     request.dispatchEvent(e);
   }
 
   function success(result, originalEvent) {
-    var e = wrapEvent("success", originalEvent);
+    let e = wrapEvent("success", originalEvent);
     e.result = result;
     request.dispatchEvent(e);
   }
@@ -118,8 +118,8 @@ function xhr(options) {
       return;
     }
 
-    var result = request.responseText;
-    var contentType = request.getResponseHeader("Content-Type");
+    let result = request.responseText;
+    let contentType = request.getResponseHeader("Content-Type");
     if (contentType.match(/^application\/json/) || options.json) { // autoparse json if WANT or RECEIVED json
       try {
         result = JSON.parse(result);

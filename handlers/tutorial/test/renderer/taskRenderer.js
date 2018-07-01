@@ -1,19 +1,11 @@
 'use strict';
 
-const app = require('app');
-
 const TaskRenderer = require('../../renderer/taskRenderer');
-const mongoose = require('lib/mongoose');
 const Task = require('../../models/task');
-const Plunk = require('plunk').Plunk;
 
 describe("TaskRenderer", function() {
 
-  beforeEach(function* () {
-    yield Task.destroy();
-  });
-
-  it("renderContent", function* () {
+  it("renderContent", async function () {
 
     const task = new Task({
       "content":    "Content",
@@ -25,13 +17,13 @@ describe("TaskRenderer", function() {
 
     const renderer = new TaskRenderer();
 
-    const result = yield renderer.renderContent(task, {});
+    const result = await renderer.renderContent(task, {});
 
     result.replace(/\n/g, '').should.be.eql('<p>Content</p>');
   });
 
 
-  it("renderSolution", function* () {
+  it("renderSolution", async function () {
 
     const task = new Task({
       "content":    "# Title\n\nContent",
@@ -42,7 +34,7 @@ describe("TaskRenderer", function() {
     });
     const renderer = new TaskRenderer();
 
-    const result = yield renderer.renderSolution(task, {});
+    const result = await renderer.renderSolution(task, {});
 
     result.should.be.eql([{title: 'Part 1', content: '<p>Content 1</p>\n'},
       {title: 'Part 2', content: '<p>Content 2</p>\n'}]);

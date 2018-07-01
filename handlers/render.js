@@ -6,10 +6,10 @@ const path = require('path');
 const config = require('config');
 const fs = require('fs');
 const log = require('log')();
-const jade = require('lib/serverJade');
+const pug = require('lib/serverPug');
 const assert = require('assert');
 const t = require('i18n');
-const money = require('money');
+const pugResolve = require('pugResolve');
 const url = require('url');
 const validate = require('validate');
 const pluralize = require('textUtil/pluralize');
@@ -17,14 +17,14 @@ const BasicParser = require('markit').BasicParser;
 
 // public.versions.json is regenerated and THEN node is restarted on redeploy
 // so it loads a new version.
-var publicVersions;
+let publicVersions;
 
 function getPublicVersion(publicPath) {
   if (!publicVersions) {
     // don't include at module top, let the generating task to finish
     publicVersions = require(path.join(config.projectRoot, 'public.versions.json'));
   }
-  var busterPath = publicPath.slice(1);
+  let busterPath = publicPath.slice(1);
   return publicVersions[busterPath];
 }
 
@@ -65,7 +65,7 @@ function addStandardHelpers(locals, ctx) {
 
   // replace lone surrogates in json, </script> -> <\/script>
   locals.escapeJSON = function(s) {
-    var json = JSON.stringify(s);
+    let json = JSON.stringify(s);
     return json.replace(/\//g, '\\/')
       .replace(/[\u003c\u003e]/g,
         function(c) {
@@ -87,22 +87,22 @@ function addStandardHelpers(locals, ctx) {
   };
 
   locals.t = t;
-  locals.bem = require('bemJade')();
+  //locals.bem = require('bemPug')();
 
   locals.pack = function(name, ext) {
-    var versions = JSON.parse(
-      fs.readFileSync(path.join(config.manifestRoot, 'pack.versions.json'), {encoding: 'utf-8'})
+    let versions = JSON.parse(
+      fs.readFileSync(path.join(config.cacheRoot, 'webpack.versions.json'), {encoding: 'utf-8'})
     );
-    var versionName = versions[name];
+    let versionName = versions[name];
     // e.g style = [ style.js, style.js.map, style.css, style.css.map ]
 
     if (!Array.isArray(versionName)) return versionName;
 
-    var extTestReg = new RegExp(`.${ext}\\b`);
+    let extTestReg = new RegExp(`.${ext}\\b`);
 
     // select right .js\b extension from files
-    for (var i = 0; i < versionName.length; i++) {
-      var versionNameItem = versionName[i]; // e.g. style.css.map
+    for (let i = 0; i < versionName.length; i++) {
+      let versionNameItem = versionName[i]; // e.g. style.css.map
       if (/\.map/.test(versionNameItem)) continue; // we never need a map
       if (extTestReg.test(versionNameItem)) return versionNameItem;
     }
@@ -124,33 +124,32 @@ function addStandardHelpers(locals, ctx) {
 // (!) this.render does not assign this.body to the result
 // that's because render can be used for different purposes, e.g to send emails
 exports.init = function(app) {
-  app.use(function *(next) {
-    var ctx = this;
+  app.use(async function(ctx, next) {
 
-    var renderFileCache = {};
+    let renderFileCache = {};
 
-    this.locals = Object.assign({}, config.jade);
+    ctx.locals = Object.assign({}, config.pug);
 
     /**
      * Render template
      * Find the file:
      *   if locals.useAbsoluteTemplatePath => use templatePath
      *   else if templatePath starts with /   => lookup in locals.basedir
-     *   otherwise => lookup in this.templateDir (MW should set it)
+     *   otherwise => lookup in ctx.templateDir (MW should set it)
      * @param templatePath file to find (see the logic above)
      * @param locals
      * @returns {String}
      */
-    this.render = function(templatePath, locals) {
+    ctx.render = function(templatePath, locals) {
 
       // add helpers at render time, not when middleware is used time
       // probably we will have more stuff initialized here
-      addStandardHelpers(this.locals, this);
+      addStandardHelpers(ctx.locals, ctx);
 
       // warning!
       // Object.assign does NOT copy defineProperty
-      // so I use this.locals as a root and merge all props in it, instead of cloning this.locals
-      var loc = Object.create(this.locals);
+      // so I use ctx.locals as a root and merge all props in it, instead of cloning ctx.locals
+      let loc = Object.create(ctx.locals);
 
       Object.assign(loc, locals);
 
@@ -158,59 +157,32 @@ exports.init = function(app) {
         loc.schema = {};
       }
 
-
       if (!loc.canonicalPath) {
         // strip query
-        loc.canonicalPath = this.request.originalUrl.replace(/\?.*/, '');
+        loc.canonicalPath = ctx.request.originalUrl.replace(/\?.*/, '');
         // /intro/   -> /intro
         loc.canonicalPath = loc.canonicalPath.replace(/\/+$/, '');
       }
 
       loc.canonicalUrl = config.server.siteHost + loc.canonicalPath;
 
-      var templatePathResolved = resolvePath(templatePath, loc);
-      this.log.debug("render file " + templatePathResolved);
-      return jade.renderFile(templatePathResolved, loc);
+      if (ctx.templateDir) {
+        loc.roots = [ctx.templateDir];
+      }
+
+      if (loc.sitetoolbar === undefined) {
+        loc.sitetoolbar = true;
+      }
+
+      loc.plugins = [{
+        resolve: pugResolve
+      }];
+
+      return pug.renderFile(pugResolve(templatePath, null, loc), loc);
     };
 
-    function resolvePath(templatePath, options) {
-      var cacheKey = templatePath + ":" + options.useAbsoluteTemplatePath;
 
-      if (renderFileCache[cacheKey]) {
-        return renderFileCache[cacheKey];
-      }
-
-      // first we try template.en.jade
-      // if fails then template.jade
-      var templatePathWithLangAndExt = templatePath + '.' + config.lang;
-      if (!/\.jade$/.test(templatePathWithLangAndExt)) {
-        templatePathWithLangAndExt += '.jade';
-      }
-
-
-      var templatePathResolved;
-      if (options.useAbsoluteTemplatePath) {
-        templatePathResolved = templatePathWithLangAndExt;
-      } else {
-        if (templatePath[0] == '/') {
-          ctx.log.debug("Lookup " + templatePathWithLangAndExt + " in " + options.basedir);
-          templatePathResolved = path.join(options.basedir, templatePathWithLangAndExt);
-        } else {
-          ctx.log.debug("Lookup " + templatePathWithLangAndExt + " in " + ctx.templateDir);
-          templatePathResolved = path.join(ctx.templateDir, templatePathWithLangAndExt);
-        }
-      }
-
-      if (!fs.existsSync(templatePathResolved)) {
-        templatePathResolved = templatePathResolved.replace(`.${config.lang}.jade`, '.jade');
-      }
-
-      renderFileCache[cacheKey] = templatePathResolved;
-
-      return templatePathResolved;
-    }
-
-    yield* next;
+    await next();
   });
 
 };

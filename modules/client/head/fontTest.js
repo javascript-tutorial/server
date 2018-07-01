@@ -13,11 +13,11 @@
 
 
 module.exports = function() {
-  var elem = document.createElement('span');
+  let elem = document.createElement('span');
   document.body.appendChild(elem);
   elem.className = 'font-test';
   elem.style.fontFamily = 'serif';
-  var initialWidth = elem.offsetWidth;
+  let initialWidth = elem.offsetWidth;
 
   elem.style.fontFamily = '';
 

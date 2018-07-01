@@ -9,20 +9,18 @@ const assert = require('assert');
 
 assert(typeof IS_CLIENT === 'undefined');
 
-const Article = require('../models/article');
-const Task = require('../models/task');
+const TutorialTree = require('../models/tutorialTree');
 
 const Token = require('markit').Token;
 const t = require('i18n');
 const url = require('url');
-const LANG = require('config').lang;
 const tokenUtils = require('markit').tokenUtils;
 
-t.requirePhrase('tutorial.article', require('../locales/article/' + LANG + '.yml'));
-t.requirePhrase('tutorial.task', require('../locales/task/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'article');
+t.requirePhrase('tutorial', 'task');
 
 
-module.exports = function* (tokens) {
+module.exports = async function (tokens) {
 
   let isEmptyLink, isAutoLink;
   for (let idx = 0; idx < tokens.length; idx++) {
@@ -45,11 +43,11 @@ module.exports = function* (tokens) {
           token.children[i + 2].type == 'link_close';
 
         if (pathname.startsWith('task/')) {
-          let task = yield Task.findOne({slug: pathname.slice('task/'.length)}, 'slug title');
+          let task = TutorialTree.instance().bySlug(pathname.slice('task/'.length));
           if (task) replaceLink(token.children, i, task.title, task.getUrl(), urlParsed);
           else replaceLinkWithError(token.children, i, t('tutorial.task.task_not_found', {path: pathname}));
         } else {
-          let article = yield Article.findOne({slug: pathname}, 'slug title');
+          let article = TutorialTree.instance().bySlug(pathname);
           if (article) replaceLink(token.children, i, article.title, article.getUrl(), urlParsed);
           else replaceLinkWithError(token.children, i, t('tutorial.article.article_not_found', {path: pathname}));
         }

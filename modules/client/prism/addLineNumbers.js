@@ -1,10 +1,10 @@
 
 function addLineNumbers(pre) {
 
-  var linesNum = (1 + pre.innerHTML.split('\n').length);
-  var lineNumbersWrapper;
+  let linesNum = (1 + pre.innerHTML.split('\n').length);
+  let lineNumbersWrapper;
 
-  var lines = new Array(linesNum);
+  let lines = new Array(linesNum);
   lines = lines.join('<span></span>');
 
   lineNumbersWrapper = document.createElement('span');

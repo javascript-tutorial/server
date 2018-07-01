@@ -1,3 +1,3 @@
-var bunyan = require('bunyan');
+let bunyan = require('bunyan');
 
 module.exports = bunyan;

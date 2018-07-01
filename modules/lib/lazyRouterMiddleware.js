@@ -5,10 +5,10 @@
 //   require('lib/lazyRouter')('./router')
 // purpose: don't require everything on startup
 module.exports = function(routerModulePath) {
-  var middleware = module.parent.require(routerModulePath).middleware();
+  let middleware = module.parent.require(routerModulePath).middleware();
 
-  return function*(next) {
-    yield* middleware.call(this, next);
+  return async function(ctx, next) {
+    await middleware(ctx, next);
   };
 
 };

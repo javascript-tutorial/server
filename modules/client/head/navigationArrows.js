@@ -1,6 +1,6 @@
 // navigation starts to work right now
-var onSwipe = require('client/onSwipe');
-var ctrlOrAlt = ~navigator.userAgent.toLowerCase().indexOf("mac os x") ? 'ctrl' : 'alt';
+let onSwipe = require('client/onSwipe');
+let ctrlOrAlt = ~navigator.userAgent.toLowerCase().indexOf("mac os x") ? 'ctrl' : 'alt';
 
 function onKeyDown(event) {
   // don't react on Ctrl-> <- if in text
@@ -10,7 +10,7 @@ function onKeyDown(event) {
 
   if (!event[ctrlOrAlt + 'Key']) return;
 
-  var rel = null;
+  let rel = null;
   switch (event.keyCode) {
   case 0x25:
     rel = 'prev';
@@ -22,7 +22,7 @@ function onKeyDown(event) {
     return;
   }
 
-  var link = document.querySelector('link[rel="' + rel + '"]');
+  let link = document.querySelector('link[rel="' + rel + '"]');
   if (!link) return;
 
   document.location = link.href;
@@ -31,17 +31,17 @@ function onKeyDown(event) {
 }
 
 function showHotKeys() {
-  var keyDesc = ctrlOrAlt[0].toUpperCase() + ctrlOrAlt.slice(1);
+  let keyDesc = ctrlOrAlt[0].toUpperCase() + ctrlOrAlt.slice(1);
 
-  var shortcut;
+  let shortcut;
 
-  var next = document.querySelector('link[rel="next"]');
+  let next = document.querySelector('link[rel="next"]');
   if (next) {
     shortcut = document.querySelector('a[href="' + next.getAttribute('href') + '"] .page__nav-text-shortcut');
     shortcut.innerHTML = keyDesc + ' + <span class="page__nav-text-arr">→</span>';
   }
 
-  var prev = document.querySelector('link[rel="prev"]');
+  let prev = document.querySelector('link[rel="prev"]');
   if (prev) {
     shortcut = document.querySelector('a[href="' + prev.getAttribute('href') + '"] .page__nav-text-shortcut');
     shortcut.innerHTML = keyDesc + ' + <span class="page__nav-text-arr">←</span>';
@@ -51,11 +51,11 @@ function showHotKeys() {
 
 onSwipe(document, {
   onRight: function() {
-    var link = document.querySelector('link[rel="prev"]');
+    let link = document.querySelector('link[rel="prev"]');
     if (link) document.location = link.href;
   },
   onLeft: function() {
-    var link = document.querySelector('link[rel="next"]');
+    let link = document.querySelector('link[rel="next"]');
     if (link) document.location = link.href;
   }
 });

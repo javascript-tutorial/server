@@ -1,4 +1,4 @@
-const bem = require('bemJade')();
+const bem = require('bemPug')();
 const thumb = require('client/image').thumb;
 const LANG = require('config').lang;
 

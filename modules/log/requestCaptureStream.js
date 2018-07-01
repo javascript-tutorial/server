@@ -2,13 +2,12 @@
 
 // Adapted and rewritten, from restify by Ilya Kantor
 // initial Copyright 2012 Mark Cavage, Inc.  All rights reserved.
-var Stream = require('stream').Stream;
-var util = require('util');
+let Stream = require('stream').Stream;
+let util = require('util');
 
-var assert = require('assert-plus');
-var bunyan = require('bunyan');
-var LRU = require('lru-cache');
-var os = require('os');
+let bunyan = require('bunyan');
+let LRU = require('lru-cache');
+let os = require('os');
 
 ///--- API
 
@@ -31,12 +30,6 @@ class RequestCaptureStream extends Stream {
   constructor(opts) {
     super();
 
-    assert.object(opts, 'options');
-    assert.optionalObject(opts.stream, 'options.stream');
-    assert.optionalString(opts.level, 'options.level');
-    assert.optionalNumber(opts.maxRecords, 'options.maxRecords');
-    assert.optionalNumber(opts.maxRequestIds, 'options.maxRequestIds');
-
     this.level = opts.level ? bunyan.resolveLevel(opts.level) : bunyan.WARN;
     this.limit = opts.maxRecords || 100;
     this.maxRequestIds = opts.maxRequestIds || 1000;
@@ -56,9 +49,9 @@ class RequestCaptureStream extends Stream {
     // only request records
     if (!record.requestId) return;
 
-    var reqId = record.requestId;
-    var ring;
-    var self = this;
+    let reqId = record.requestId;
+    let ring;
+    let self = this;
 
     if (!(ring = this.requestMap.get(reqId))) {
       if (++this._offset > this.maxRequestIds)
@@ -75,8 +68,6 @@ class RequestCaptureStream extends Stream {
       this.requestMap.set(reqId, ring);
     }
 
-    assert.ok(ring, 'no ring found');
-
     ring.write(record);
 
     if (record.level >= this.level && !(record.status && record.status < 500) ) {
@@ -86,7 +77,7 @@ class RequestCaptureStream extends Stream {
 
   dump(ring) {
 
-    var i, r;
+    let i, r;
     for (i = 0; i < ring.records.length; i++) {
       r = ring.records[i];
       this.stream.write(this.stream.raw ? r : JSON.stringify(r, bunyan.safeCycles()) + '\n');

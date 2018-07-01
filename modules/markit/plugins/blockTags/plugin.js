@@ -4,7 +4,7 @@ const parseAttrs = require('../../utils/parseAttrs');
 const getPrismLanguage = require('../../getPrismLanguage');
 
 function rewriteInlineToBlockTags(state) {
-  for (var idx = 1; idx < state.tokens.length - 1; idx++) {
+  for (let idx = 1; idx < state.tokens.length - 1; idx++) {
     if (state.tokens[idx - 1].type == 'paragraph_open' &&
       state.tokens[idx + 1].type == 'paragraph_close' &&
       state.tokens[idx].type == 'inline') {

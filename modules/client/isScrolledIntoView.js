@@ -1,8 +1,8 @@
 
 function isScrolledIntoView(elem) {
-  var coords = elem.getBoundingClientRect();
+  let coords = elem.getBoundingClientRect();
 
-  var visibleHeight = 0;
+  let visibleHeight = 0;
 
   if (coords.top < 0) {
     visibleHeight = coords.bottom;

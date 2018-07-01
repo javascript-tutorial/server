@@ -1,0 +1,25 @@
+400:
+  title: Invalid request
+401:
+  title: Authentication required
+  description: Probably, you need to <a href="#" data-action-login>login</a>?
+
+403:
+  title: Access forbidden
+  wrong_user: Perhaps, you logged in with the wrong user?
+  login: Perhaps, you need to <a href="#" data-action-login>login</a>?
+
+404:
+  title: Page not found
+  use_search:  'To find the page, you can use search:'
+  search: Search
+  use_top: …or top navigation.
+
+500:
+  title: Server error
+  subject: "Error 500 at #{href}"
+  description: 'We analyze errors, but you can speed up the process by reporting details to <a href="mailto:#{email}?subject=#{subject}">#{email}</a>.'
+
+503:
+  title: Service unavailable
+  desc: Service unavailable, sorry, please try to access it later.

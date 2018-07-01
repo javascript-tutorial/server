@@ -5,27 +5,46 @@ const BabelFish = require('babelfish');
 const i18n = new BabelFish('en');
 
 const LANG = require('config').lang;
+const requireTranslation = require('./requireTranslation');
+
+let err = console.error;
+
+if (typeof IS_CLIENT === 'undefined') {
+  const log = require('log')();
+  err = (...args) => log.error(...args)
+}
 
 function t() {
-  let args = [LANG];
-  for (let i = 0; i < arguments.length; i++) {
-    args.push(arguments[i]);
+
+  if (!i18n.hasPhrase(LANG, arguments[0])) {
+    err("No such phrase", arguments[0]);
   }
-  return i18n.t.apply(i18n, args);
+
+  return i18n.t(LANG, ...arguments);
 }
+
 
 let docs = {};
 
 t.i18n = i18n;
 
-t.requirePhrase = function(packageName, doc) {
-  // if same phrase with same doc was processed - don't redo it
-  if (docs[packageName] && docs[packageName].indexOf(doc) != -1) return;
+if (LANG !== 'en') {
+  i18n.setFallback(LANG, 'en');
+}
 
-  if (!docs[packageName]) docs[packageName] = [];
-  docs[packageName].push(doc);
+// packageName can be empty
+t.requirePhrase = function(module, packageName = '') {
 
-  i18n.addPhrase(LANG, packageName, doc);
+  // if same doc was processed - don't redo it
+  if (docs[module] && docs[module].includes(packageName)) return;
+
+  if (!docs[module]) docs[module] = [];
+  docs[module].push(packageName);
+
+  let doc = requireTranslation(module, packageName);
+
+  i18n.addPhrase(LANG, module + (packageName ? ('.' + packageName) : ''), doc);
+
 };
 
 

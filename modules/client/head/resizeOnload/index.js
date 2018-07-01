@@ -1,8 +1,8 @@
-var iframeResize = require('./iframeResize');
-var throttle = require('lib/throttle');
+let iframeResize = require('./iframeResize');
+let throttle = require('lib/throttle');
 // track resized iframes in window.onresize
 
-var onResizeQueue = [];
+let onResizeQueue = [];
 
 exports.iframe = function(iframe) {
 
@@ -20,10 +20,10 @@ exports.codeTabs = function(iframe) {
   function hideShowArrows() {
 
     // add arrows if needed
-    var elem = iframe.closest('.code-tabs');
-    var contentElem = iframe.closest('[data-code-tabs-content]');
-    var switchesElem = elem.querySelector('[data-code-tabs-switches]');
-    var switchesElemItems = switchesElem.firstElementChild;
+    let elem = iframe.closest('.code-tabs');
+    let contentElem = iframe.closest('[data-code-tabs-content]');
+    let switchesElem = elem.querySelector('[data-code-tabs-switches]');
+    let switchesElemItems = switchesElem.firstElementChild;
 
     if (switchesElemItems.offsetWidth > switchesElem.offsetWidth) {
       elem.classList.add('code-tabs_scroll');

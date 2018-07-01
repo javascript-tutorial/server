@@ -1,16 +1,11 @@
 #!/usr/bin/env node
 
 const config = require('config');
-const co = require('co');
 const app = require('app');
 const log = require('log')();
 
-co(function*() {
-
-  yield* app.waitBootAndListen(config.server.host, config.server.port);
-
+app.waitBootAndListen(config.server.host, config.server.port).then(() => {
   log.info("App is listening");
-
 }).catch(function(err) {
   log.error(err);
   process.exit(1); // fatal error, could not boot!
@@ -18,14 +13,14 @@ co(function*() {
 
 // отслеживаем unhandled ошибки
 // https://iojs.org/api/process.html#process_event_rejectionhandled
-var unhandledRejections = [];
+let unhandledRejections = [];
 process.on('unhandledRejection', function(reason, p) {
   p.trackRejectionId = Math.random();
 
   setTimeout(function() { // 100 ms to catch up and handle rejection
     if (p.trackRejectionId) { // if not rejectionHandled yet, report
       unhandledRejections.push(p);
-      var report = {
+      let report = {
         err: reason,
         trackRejectionId: p.trackRejectionId,
         length: unhandledRejections.length

@@ -9,26 +9,19 @@ const path = require('path');
 const fs = require('fs');
 const assert = require('assert');
 const runSequence = require('run-sequence');
-const ll   = require('gulp-ll');
 
 const config = require('config');
-const mongoose = require('lib/mongoose');
 
 process.on('uncaughtException', function(err) {
   console.error(err.message, err.stack, err.errors);
   process.exit(255);
 });
 
-const jsSources = [
-  'handlers/**/*.js', 'modules/**/*.js', 'tasks/**/*.js', '*.js'
-];
-
-
 
 function lazyRequireTask(path) {
-  var args = [].slice.call(arguments, 1);
+  let args = [].slice.call(arguments, 1);
   return function(callback) {
-    var task = require(path).apply(this, args);
+    let task = require(path).apply(this, args);
 
     return task(callback);
   };
@@ -41,14 +34,13 @@ function requireModuleTasks(moduleName) {
 
   let hasDeps;
   try {
-    fs.accessSync(path.join(dir, '.deps.json'));
+    fs.accessSync(path.join(dir, 'deps.json'));
     hasDeps = true;
-
   } catch(e) {
     hasDeps = false;
   }
 
-  let deps = hasDeps ? require(path.join(dir, '.deps.json')) : {};
+  let deps = hasDeps ? require(path.join(dir, 'deps.json')) : {};
 
   for(let taskFile of taskFiles) {
     // migrate:myTask
@@ -58,28 +50,21 @@ function requireModuleTasks(moduleName) {
 
     let taskNameFull = moduleName.replace(/\//g, ':') + ':' + taskName;
 
-    // console.log("task", taskNameFull, "deps", deps[taskName] || [], "path", path.join(dir, taskFile) );
-
     gulp.task(taskNameFull, deps[taskName] || [], lazyRequireTask(path.join(dir, taskFile)) );
   }
 
 }
 
-ll.tasks('nodemon', 'client:webpack', 'server');
-
-// usage: gulp db:load --from fixture/init --harmony
-gulp.task('db:load', lazyRequireTask('./tasks/dbLoad'));
-gulp.task('db:clear', lazyRequireTask('./tasks/dbClear'));
 
 gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   // shared client/server code has require('template.jade) which precompiles template on run
   // so I have to restart server to pickup the template change
-  ext:    "js,jade",
+  ext:    "js,yml",
 
   nodeArgs: process.env.NODE_DEBUG  ? ['--debug'] : [],
   script: "./bin/server.js",
   //ignoreRoot: ['.git', 'node_modules'].concat(glob.sync('{handlers,modules}/**/client')), // ignore handlers' client code
-  ignore: ['**/client/', '**/photoCut/'], // ignore handlers' client code
+  ignore: ['**/client/'], // ignore handlers' client code
   watch:  ["handlers", "modules"]
 }));
 
@@ -97,11 +82,9 @@ gulp.task("client:livereload", lazyRequireTask("./tasks/livereload", {
   ]
 }));
 
-
-requireModuleTasks('migrate');
 requireModuleTasks('tutorial');
 
-var testSrcs = ['{handlers,modules}/**/test/**/*.js'];
+let testSrcs = ['{handlers,modules}/**/test/**/*.js'];
 // on Travis, keys are required for E2E Selenium tests
 // for PRs there are no keys, so we disable E2E
 if (!process.env.TEST_E2E || process.env.CI && process.env.TRAVIS_SECURE_ENV_VARS=="false") {
@@ -135,17 +118,6 @@ gulp.task("client:sync-resources", lazyRequireTask('./tasks/syncResources', {
   assets: 'public'
 }));
 
-// show errors if encountered
-gulp.task('client:compile-css',
-  lazyRequireTask('./tasks/compileCss', {
-    src: './styles/base.styl',
-    dst: './public/styles',
-    publicDst: process.env.STATIC_HOST + '/styles/',  // from browser point of view
-    manifest: path.join(config.manifestRoot, 'styles.versions.json'),
-    assetVersioning: config.assetVersioning
-  })
-);
-
 
 gulp.task('client:minify', lazyRequireTask('./tasks/minify'));
 gulp.task('client:resize-retina-images', lazyRequireTask('./tasks/resizeRetinaImages'));
@@ -160,22 +132,11 @@ gulp.task('build', function(callback) {
 
 gulp.task('server', lazyRequireTask('./tasks/server'));
 
-// no build
-gulp.task('edit', ['tutorial:importWatch', "client:sync-resources", 'client:livereload', 'server']);
+gulp.task('edit', ['client:webpack', 'tutorial:importWatch', "client:sync-resources", 'client:livereload', 'server']);
 
 
 gulp.task('dev', function(callback) {
   runSequence("client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
-});
-
-gulp.task('cache:clean', lazyRequireTask('./tasks/cacheClean'));
-
-gulp.task('config:nginx', lazyRequireTask('./tasks/configNginx'));
-
-// when queue finished successfully or aborted, close db
-// orchestrator events (sic!)
-gulp.on('stop', function() {
-  mongoose.disconnect();
 });
 
 gulp.on('err', function(gulpErr) {
@@ -183,7 +144,5 @@ gulp.on('err', function(gulpErr) {
     // cause
     console.error("Gulp error details", [gulpErr.err.message, gulpErr.err.stack, gulpErr.err.errors].filter(Boolean));
   }
-  mongoose.disconnect();
 });
-
 

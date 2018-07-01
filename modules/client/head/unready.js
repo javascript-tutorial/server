@@ -3,7 +3,7 @@
 
 // cancel clicks on <a class="unready"> and <button class="unready">
 document.addEventListener("click", function(event) {
-  var target = event.target;
+  let target = event.target;
   while (target) {
     if (!target.className.match) return; // click on SVG element in FF, className is an object
 

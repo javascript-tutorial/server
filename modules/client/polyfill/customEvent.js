@@ -4,7 +4,7 @@ try {
 } catch (e) {
 
   window.CustomEvent = function(event, params) {
-    var evt;
+    let evt;
     params = params || {
       bubbles:    false,
       cancelable: false,

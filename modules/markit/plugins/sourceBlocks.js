@@ -14,12 +14,12 @@ const getPrismLanguage = require('../getPrismLanguage');
 
 const LANG = require('config').lang;
 
-t.requirePhrase('markit.code', require('../locales/code/' + LANG + '.yml'));
+t.requirePhrase('markit', 'code');
 
 
 function rewriteFenceToSource(state) {
 
-  for (var idx = 0; idx < state.tokens.length; idx++) {
+  for (let idx = 0; idx < state.tokens.length; idx++) {
 
     if (state.tokens[idx].type == 'fence') {
       let attrs = parseAttrs(state.tokens[idx].info, true);
@@ -45,7 +45,7 @@ module.exports = function(md) {
 
     let attrs = token.blockTagAttrs;
 
-    var lang = attrs.blockName;
+    let lang = attrs.blockName;
     let prismLanguage = getPrismLanguage(lang);
 
     token.attrPush([ 'data-trusted', (options.html && !attrs.untrusted) ? 1 : 0]);

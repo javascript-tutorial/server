@@ -2,18 +2,18 @@
 // NB: this file is RELOADED for EVERY REQUIRE
 // (cleared from cache, to get parent filename every time)
 
-var bunyan = require('./bunyan');
-var requestSerializer = require('./requestSerializer');
-var requestVerboseSerializer = require('./requestVerboseSerializer');
-var resSerializer = require('./resSerializer');
-var errSerializer = require('./errSerializer');
-var httpErrorSerializer = require('./httpErrorSerializer');
-var path = require('path');
+let bunyan = require('./bunyan');
+let requestSerializer = require('./requestSerializer');
+let requestVerboseSerializer = require('./requestVerboseSerializer');
+let resSerializer = require('./resSerializer');
+let errSerializer = require('./errSerializer');
+let httpErrorSerializer = require('./httpErrorSerializer');
+let path = require('path');
 
 
 // log.debug({req: ...})
 // exported => new serializers can be added by other modules
-var serializers = exports.serializers = {
+let serializers = exports.serializers = {
   requestVerbose: requestVerboseSerializer,
   request:        requestSerializer,
   res:            resSerializer,
@@ -21,7 +21,7 @@ var serializers = exports.serializers = {
   httpError:      httpErrorSerializer
 };
 
-var streams = require('./streams');
+let streams = require('./streams');
 
 // if no name, then name is a parent module filename (or it's directory if index)
 module.exports = function(name) {
@@ -32,7 +32,7 @@ module.exports = function(name) {
     }
   }
 
-  var logger = bunyan.createLogger({
+  let logger = bunyan.createLogger({
     name:        name,
     streams:     streams,
     serializers: serializers

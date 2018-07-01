@@ -6,19 +6,19 @@
 //  if (text.length <= maxLength) return text;
 //
 //  // The summary may not be longer than maximum length specified. Initial slice.
-//  var summary = text.slice(0, maxLength);
+//  let summary = text.slice(0, maxLength);
 //
 //  // Store the actual length of the UTF8 string -- which might not be the same
 //  // as $size.
-//  var maxRpos = summary.length;
+//  let maxRpos = summary.length;
 //
 //  // How much to cut off the end of the summary so that it doesn't end in the
 //  // middle of a paragraph, sentence, or word.
 //  // Initialize it to maximum in order to find the minimum.
-//  var minRpos = maxRpos;
+//  let minRpos = maxRpos;
 //
 //  // Build an array of arrays of break points grouped by preference.
-//  var breakPoints = ["\n", '. ', '! ',  '? ', ', ', ')', ']'];
+//  let breakPoints = ["\n", '. ', '! ',  '? ', ', ', ')', ']'];
 //  // Iterate over the groups of break points until a break point is found.
 //  foreach ($break_points as $points) {
 //    // Look for each break point, starting at the end of the summary.

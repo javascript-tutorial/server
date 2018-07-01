@@ -5,11 +5,11 @@ if (!document.documentElement.dataset &&
   (!Object.getOwnPropertyDescriptor(Element.prototype, 'dataset')  ||
   !Object.getOwnPropertyDescriptor(Element.prototype, 'dataset').get)
 ) {
-  var propDescriptor = {
+  let propDescriptor = {
     enumerable: true,
     get: function () {
       'use strict';
-      var i,
+      let i,
           that = this,
           HTML5_DOMStringMap,
           attrVal, attrName, propName,

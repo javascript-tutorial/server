@@ -1,13 +1,13 @@
 
-var lastPageX = Infinity, lastPageY = Infinity, lastTime = Date.now();
+let lastPageX = Infinity, lastPageY = Infinity, lastTime = Date.now();
 
-var elementOver;
+let elementOver;
 
-var elementHoverOver;
+let elementHoverOver;
 
-var speedTolerance = 0.2;
+let speedTolerance = 0.2;
 
-var handlers = {};
+let handlers = {};
 
 function hoverIntent(selector, over, out) {
   handlers[selector] = {over: over, out: out};
@@ -20,18 +20,18 @@ document.addEventListener('mouseout', mouseout);
 function mousemove(event) {
   if (elementHoverOver) return;
 
-  var distance = Math.sqrt(Math.pow(event.pageX - lastPageX, 2) + Math.pow(event.pageY - lastPageY, 2));
-  var speed = distance / (Date.now() - lastTime);
+  let distance = Math.sqrt(Math.pow(event.pageX - lastPageX, 2) + Math.pow(event.pageY - lastPageY, 2));
+  let speed = distance / (Date.now() - lastTime);
 
   // slow down => call over(), get the element of interest,
   // then out() when leaving it
   if (speed < speedTolerance) {
     //console.log("speed", speed);
-    var elem = document.elementFromPoint(event.clientX, event.clientY);
+    let elem = document.elementFromPoint(event.clientX, event.clientY);
     if (!elem) return; // the coords are out of window (happens)
     if (elem != elementOver) {
-      for (var selector in handlers) {
-        var closest = elem.closest(selector);
+      for (let selector in handlers) {
+        let closest = elem.closest(selector);
         if (closest) {
           //console.log("over ", closest);
           elementHoverOver = { elem: closest, out: handlers[selector].out};
@@ -51,7 +51,7 @@ function mousemove(event) {
 function mouseout(event) {
   if (!elementHoverOver) return;
 
-  var parent = event.relatedTarget;
+  let parent = event.relatedTarget;
   while(parent) {
     if (parent == elementHoverOver.elem) {
       //console.log("mouseout false", event.target, elementHoverOver.elem);
@@ -62,7 +62,7 @@ function mouseout(event) {
   }
 
 
-  var out = elementHoverOver.out;
+  let out = elementHoverOver.out;
   elementHoverOver = null;
   out(event);
 

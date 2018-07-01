@@ -1,0 +1,39 @@
+toolbar:
+  logo:
+    svg: sitetoolbar__logo.en.svg
+    width: 185 # 171
+
+sorry_old_browser: Sorry, IE<10 is not supported, please use a newer browser.
+contact_us: contact us
+about_the_project: about the project
+ilya_kantor: Ilya Kantor
+comments: Comments
+loading: Loading...
+search: Search
+share: Share
+donate: Donate
+read_before_commenting: read before commenting…
+
+tutorial: Tutorial
+tutorial_map: Tutorial map
+additional_articles: Additional articles
+comment:
+  help:
+    - You're welcome to post additions, questions to the articles and answers to them.
+    - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
+    - If you can't understand something in the article – please elaborate.
+
+edit_on_github: Edit on Github
+Error: Error
+close: close
+Close: Close
+
+hide_forever: hide permanently
+hidden_forever: This information will not show up any more.
+
+meta:
+  description: 'Modern JavaScript Tutorial: simple, but detailed explanations with examples and tasks, including: closures, document and events, object oriented programming and more.'
+title: The Modern JavaScript Tutorial
+subtitle: "How it's done now. From the basics to advanced topics with simple, but detailed explanations."
+toc: 'Table of contents'
+description: 'Main course contains 2 parts which cover JavaScript as a programming language and working with a browser. There are also additional series of thematic articles.'

@@ -1,25 +1,28 @@
-var webpack = require('webpack');
-var gp = require('gulp-load-plugins')();
-var notifier = require('node-notifier');
+let webpack = require('webpack');
+let gp = require('gulp-load-plugins')();
+let notifier = require('node-notifier');
 
 module.exports = function() {
 
   return function(callback) {
 
-    var config = require('config').webpack;
+    let config = require('config').webpack;
 
     webpack(config, function(err, stats) {
+
       if (!err) {
         // errors in files do not stop webpack watch
         // instead, they are gathered, so I get the first one here (if no other)
-        var jsonStats = stats.toJson();
+        let jsonStats = stats.toJson();
         err = jsonStats.errors[0];
       }
 
       if (err) {
 
+        let message = err.replace(/.*!/, '');
+
         notifier.notify({
-          message: err
+          message
         });
 
         gp.util.log(err);

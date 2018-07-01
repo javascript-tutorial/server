@@ -1,33 +1,35 @@
 'use strict';
 
-const mongoose = require('lib/mongoose');
 const Article = require('../models/article');
+const TutorialTree = require('../models/tutorialTree');
 const Task = require('../models/task');
 const _ = require('lodash');
 const ArticleRenderer = require('../renderer/articleRenderer');
-const CacheEntry = require('cache').CacheEntry;
+const localStorage = require('localStorage').instance();
+const t = require('i18n');
 
-exports.get = function *get(next) {
-
-  this.locals.sitetoolbar = true;
-  this.locals.siteToolbarCurrentSection = "tutorial";
-  this.locals.title = "Современный учебник JavaScript";
+t.requirePhrase('tutorial', 'frontpage');
 
 
-  var tutorial = yield CacheEntry.getOrGenerate({
-    key:  'tutorial:frontpage',
-    tags: ['article']
-  }, renderTutorial);
+exports.get = async function (ctx, next) {
 
-  if (!tutorial.length) {
-    this.throw(404, "Database is empty?"); // empty db
+  ctx.locals.sitetoolbar = true;
+  ctx.locals.siteToolbarCurrentSection = "tutorial";
+  ctx.locals.title = t('tutorial.frontpage.modern_javascript_tutorial');
+
+  let topArticlesRendered = await localStorage.getOrGenerate('tutorial:frontpage', renderTop, process.env.TUTORIAL_EDIT);
+
+  if (!Object.keys(topArticlesRendered).length) {
+    ctx.throw(404, "Database is empty?"); // empty db
   }
 
-  var locals = {
-    chapters: tutorial
+
+  let locals = {
+    tutorialTree: TutorialTree.instance(),
+    topArticlesRendered
   };
 
-  this.body = this.render('frontpage', locals);
+  ctx.body = ctx.render('frontpage', locals);
 };
 
 // content
@@ -39,52 +41,23 @@ exports.get = function *get(next) {
 // next
 // path
 // siblings
-function* renderTutorial() {
-  const tree = yield* Article.findTree();
+async function renderTop() {
+  const tree = TutorialTree.instance().tree;
 
-  var treeRendered = yield* renderTree(tree);
+  let articles = {};
 
   // render top-level content
-  for (var i = 0; i < treeRendered.length; i++) {
-    var child = treeRendered[i];
-    yield* populateContent(child);
+  for (let slug of tree) {
+    let article = TutorialTree.instance().bySlug(slug);
+
+    let renderer = new ArticleRenderer();
+
+    let rendered = await renderer.render(article);
+
+    articles[slug] = rendered;
   }
 
 
-  return treeRendered;
+  return articles;
 
-}
-
-
-function* renderTree(tree) {
-  var children = [];
-
-  for (var i = 0; i < tree.children.length; i++) {
-    var child = tree.children[i];
-
-    var childRendered = {
-      id: child._id,
-      url:   Article.getUrlBySlug(child.slug),
-      title: child.title
-    };
-
-    if (child.isFolder) {
-      childRendered.children = yield* renderTree(child);
-    }
-
-    children.push(childRendered);
-
-  }
-  return children;
-}
-
-
-function* populateContent(articleObj) {
-  var article = yield Article.findById(articleObj.id).exec();
-
-  var renderer = new ArticleRenderer();
-
-  var rendered = yield* renderer.renderWithCache(article);
-
-  articleObj.content = rendered.content;
 }

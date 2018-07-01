@@ -1,5 +1,5 @@
 // prism requires data-manual attribute on the current script NOT to highlightAll automatically
-var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
+let script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
 script.setAttribute('data-manual', 1);
 
 require('prismjs/components/prism-core.js');
@@ -15,16 +15,16 @@ require('prismjs/components/prism-java.js');
 
 Prism.tokenTag = 'code'; // for iBooks to use monospace font
 
-var CodeBox = require('./codeBox');
-var CodeTabsBox = require('./codeTabsBox');
+let CodeBox = require('./codeBox');
+let CodeTabsBox = require('./codeTabsBox');
 
 function initCodeBoxes(container) {
 
   // highlight inline
-  var codeExampleElems = container.querySelectorAll('.code-example:not([data-prism-done])');
+  let codeExampleElems = container.querySelectorAll('.code-example:not([data-prism-done])');
 
-  for (var i = 0; i < codeExampleElems.length; i++) {
-    var codeExampleElem = codeExampleElems[i];
+  for (let i = 0; i < codeExampleElems.length; i++) {
+    let codeExampleElem = codeExampleElems[i];
     new CodeBox(codeExampleElem);
     codeExampleElem.setAttribute('data-prism-done', '1');
   }
@@ -34,9 +34,9 @@ function initCodeBoxes(container) {
 
 function initCodeTabsBox(container) {
 
-  var elems = container.querySelectorAll('div.code-tabs:not([data-prism-done])');
+  let elems = container.querySelectorAll('div.code-tabs:not([data-prism-done])');
 
-  for (var i = 0; i < elems.length; i++) {
+  for (let i = 0; i < elems.length; i++) {
     new CodeTabsBox(elems[i]);
     elems[i].setAttribute('data-prism-done', '1');
   }

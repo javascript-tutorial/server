@@ -1,176 +1,155 @@
 'use strict';
 
 const config = require('config');
-const Plunk = require('plunk').Plunk;
 const Task = require('../models/task');
 const log = require('log')();
+const assert = require('assert');
 
 const TutorialParser = require('../lib/tutorialParser');
+const TutorialViewStorage = require('../models/tutorialViewStorage');
 
 const t = require('i18n');
 
-const LANG = require('config').lang;
-
-t.requirePhrase('tutorial.task', require('../locales/task/' + LANG + '.yml'));
+t.requirePhrase('tutorial', 'task');
 
 
 /**
  * Can render many articles, keeping metadata
- * @constructor
  */
-function TaskRenderer() {
-}
+module.exports = class TaskRenderer {
 
-TaskRenderer.prototype.renderContent = function* (task, options) {
-
-  let parser = new TutorialParser(Object.assign({
-    resourceWebRoot: task.getResourceWebRoot()
-  }, options));
-
-  const tokens = yield* parser.parse(task.content);
-
-  let content = parser.render(tokens);
-
-  content = yield* this.addContentPlunkLink(task, content);
-  return content;
-};
+  async renderContent(task, options) {
+    let parser = new TutorialParser(Object.assign({
+      resourceWebRoot: task.getResourceWebRoot()
+    }, options));
 
 
-TaskRenderer.prototype.addContentPlunkLink = function*(task, content) {
+    const tokens = await parser.parse(task.content);
 
-  var sourcePlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/source'}).exec();
+    let content = parser.render(tokens);
 
-  if (sourcePlunk) {
-
-    var files = sourcePlunk.files.toObject();
-    var hasTest = false;
-    for (var i = 0; i < files.length; i++) {
-      if (files[i].filename == 'test.js') hasTest = true;
-    }
-
-    var title = hasTest ? t('tutorial.task.open_task.sandbox.tests') : t('tutorial.task.open_task.sandbox.no_tests');
-
-    content += `<p><a href="${sourcePlunk.getUrl()}" target="_blank" data-plunk-id="${sourcePlunk.plunkId}">${title}</a></p>`;
+    content = await this.addContentPlunkLink(task, content);
+    return content;
   }
 
-  return content;
-};
 
-TaskRenderer.prototype.render = function*(task, options) {
+  async addContentPlunkLink(task, content) {
 
-  this.content = yield* this.renderContent(task, options);
-  this.solution = yield* this.renderSolution(task, options);
+    let sourcePlunk = TutorialViewStorage.instance().get(task.getResourceWebRoot() + '/source');
 
-  return {
-    content:  this.content,
-    solution: this.solution
-  };
-};
+    if (sourcePlunk) {
 
-TaskRenderer.prototype.renderWithCache = function*(task, options) {
-  options = options || {};
+      let files = sourcePlunk.files;
+      let hasTest = false;
+      for (let file of files) {
+        if (file.filename === 'test.js') hasTest = true;
+      }
 
-  var useCache = !options.refreshCache && !process.env.TUTORIAL_EDIT;
+      let title = hasTest ? t('tutorial.task.open_task.sandbox.tests') : t('tutorial.task.open_task.sandbox.no_tests');
 
-  if (task.rendered && useCache) return task.rendered;
+      content += `<p><a href="${sourcePlunk.getUrl()}" target="_blank" data-plunk-id="${sourcePlunk.plunkId}">${title}</a></p>`;
+    }
 
-  var rendered = yield* this.render(task, options);
+    return content;
+  }
 
-  task.rendered = rendered;
+  async render(task, options) {
+    assert(task.constructor.name === 'Task');
+    this.content = await this.renderContent(task, options);
+    this.solution = await this.renderSolution(task, options);
 
-  yield task.persist();
+    return {
+      content: this.content,
+      solution: this.solution
+    };
+  }
 
-  return rendered;
-};
+  async renderSolution(task, options) {
+
+    let parser = new TutorialParser(Object.assign({
+      resourceWebRoot: task.getResourceWebRoot()
+    }, options));
+
+    const tokens = await parser.parse(task.solution);
+
+    const solutionParts = [];
 
 
-TaskRenderer.prototype.renderSolution = function* (task, options) {
+    // if no #header at start
+    // no parts, single solution
+    if (tokens.length == 0 || tokens[0].type != 'heading_open') {
+      let solution = parser.render(tokens);
+      solution = await this.addSolutionPlunkLink(task, solution);
+      return solution;
+    }
 
-  let parser = new TutorialParser(Object.assign({
-    resourceWebRoot: task.getResourceWebRoot()
-  }, options));
+    // otherwise, split into parts
+    let currentPart;
+    for (let idx = 0; idx < tokens.length; idx++) {
+      let token = tokens[idx];
+      if (token.type == 'heading_open') {
 
-  const tokens = yield* parser.parse(task.solution);
+        let i = idx + 1;
+        while (tokens[i].type != 'heading_close') i++;
 
-  const solutionParts = [];
+        let headingTokens = tokens.slice(idx + 1, i);
 
+        currentPart = {
+          title: stripTags(parser.render(headingTokens)),
+          content: []
+        };
+        solutionParts.push(currentPart);
+        idx = i;
+        continue;
+      }
 
-  // if no #header at start
-  // no parts, single solution
-  if (tokens.length == 0 || tokens[0].type != 'heading_open') {
-    let solution = parser.render(tokens);
-    solution = yield* this.addSolutionPlunkLink(task, solution);
+      currentPart.content.push(token);
+    }
+
+    for (let i = 0; i < solutionParts.length; i++) {
+      let part = solutionParts[i];
+      part.content = parser.render(part.content);
+    }
+
+    let solutionPartLast = solutionParts[solutionParts.length - 1];
+    solutionParts[solutionParts.length - 1].content = await this.addSolutionPlunkLink(task, solutionPartLast.content);
+
+    return solutionParts;
+  }
+
+  async addSolutionPlunkLink(task, solution) {
+
+    let solutionPlunk = TutorialViewStorage.instance().get(task.getResourceWebRoot() + '/solution');
+
+    if (solutionPlunk) {
+      let files = solutionPlunk.files;
+      let hasTest = false;
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].filename == 'test.js') hasTest = true;
+      }
+
+      let title = hasTest ? t('tutorial.task.open_solution.sandbox.tests') : t('tutorial.task.open_solution.sandbox.no_tests');
+
+      solution += `<p><a href="${solutionPlunk.getUrl()}" target="_blank" data-plunk-id="${solutionPlunk.plunkId}">${title}</a></p>`;
+    }
+
     return solution;
   }
-
-
-  // otherwise, split into parts
-  let currentPart;
-  for (let idx = 0; idx < tokens.length; idx++) {
-    let token = tokens[idx];
-    if (token.type == 'heading_open') {
-
-      let i = idx + 1;
-      while (tokens[i].type != 'heading_close') i++;
-
-      let headingTokens = tokens.slice(idx + 1, i);
-
-      currentPart = {
-        title: stripTags(parser.render(headingTokens)),
-        content: []
-      };
-      solutionParts.push(currentPart);
-      idx = i;
-      continue;
-    }
-
-    currentPart.content.push(token);
-  }
-
-  for (let i = 0; i < solutionParts.length; i++) {
-    var part = solutionParts[i];
-    part.content = parser.render(part.content);
-  }
-
-  var solutionPartLast = solutionParts[solutionParts.length - 1];
-  solutionParts[solutionParts.length - 1].content = yield* this.addSolutionPlunkLink(task, solutionPartLast.content);
-
-  return solutionParts;
 };
 
-TaskRenderer.prototype.addSolutionPlunkLink = function*(task, solution) {
-
-  var solutionPlunk = yield Plunk.findOne({webPath: task.getResourceWebRoot() + '/solution'}).exec();
-
-  if (solutionPlunk) {
-    var files = solutionPlunk.files.toObject();
-    var hasTest = false;
-    for (var i = 0; i < files.length; i++) {
-      if (files[i].filename == 'test.js') hasTest = true;
-    }
-
-    let title = hasTest ? t('tutorial.task.open_solution.sandbox.tests') : t('tutorial.task.open_solution.sandbox.no_tests');
-
-    solution += `<p><a href="${solutionPlunk.getUrl()}" target="_blank" data-plunk-id="${solutionPlunk.plunkId}">${title}</a></p>`;
-  }
-
-  return solution;
-};
-
-
+/*
 TaskRenderer.regenerateCaches = function*() {
-  var tasks = yield Task.find({}).exec();
+  let tasks = await Task.find({});
 
-  for (var i = 0; i < tasks.length; i++) {
-    var task = tasks[i];
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
     log.debug("regenerate task", task._id);
-    yield* (new TaskRenderer()).renderWithCache(task, {refreshCache: true});
+    await (new TaskRenderer()).renderWithCache(task, {refreshCache: true});
   }
-};
+};*/
 
 
 function stripTags(text) {
   return text.replace(/<\/?[a-z].*?>/gim, '');
 }
 
-module.exports = TaskRenderer;

@@ -7,22 +7,22 @@ module.exports = function(resources) {
 
   return function(callback) {
 
-    for (var src in resources) {
-      var dst = resources[src];
+    for (let src in resources) {
+      let dst = resources[src];
 
-      var files = glob.sync(src + '/**');
-      for (var i = 0; i < files.length; i++) {
-        var srcPath = files[i];
+      let files = glob.sync(src + '/**');
+      for (let i = 0; i < files.length; i++) {
+        let srcPath = files[i];
 
-        var dstPath = srcPath.replace(src, dst);
-        var srcStat = fs.statSync(srcPath);
+        let dstPath = srcPath.replace(src, dst);
+        let srcStat = fs.statSync(srcPath);
 
         if (srcStat.isDirectory()) {
           fse.ensureDirSync(dstPath);
           continue;
         }
 
-        var dstMtime = 0;
+        let dstMtime = 0;
         try {
           dstMtime = fs.statSync(dstPath).mtime;
         } catch(e) {}

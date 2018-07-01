@@ -1,6 +1,6 @@
 // Transliteration ported from https://github.com/yaroslav/russian/blob/master/lib/russian/transliteration.rb
 
-var LOWER_SINGLE = {
+let LOWER_SINGLE = {
   "і": "i", "ґ": "g", "ё": "yo", "№": "#", "є": "e",
   "ї": "yi", "а": "a", "б": "b",
   "в": "v", "г": "g", "д": "d", "е": "e", "ж": "zh",
@@ -11,12 +11,12 @@ var LOWER_SINGLE = {
   "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya"
 };
 
-var LOWER_MULTI = {
+let LOWER_MULTI = {
   "ье": "ie",
   "ьё": "ie"
 };
 
-var UPPER_SINGLE = {
+let UPPER_SINGLE = {
   "Ґ": "G", "Ё": "YO", "Є": "E", "Ї": "YI", "І": "I",
   "А": "A", "Б": "B", "В": "V", "Г": "G",
   "Д": "D", "Е": "E", "Ж": "ZH", "З": "Z", "И": "I",
@@ -26,30 +26,30 @@ var UPPER_SINGLE = {
   "Ш": "SH", "Щ": "SCH", "Ъ": "", "Ы": "Y", "Ь": "",
   "Э": "E", "Ю": "YU", "Я": "YA"
 };
-var UPPER_MULTI = {
+let UPPER_MULTI = {
   "ЬЕ": "IE",
   "ЬЁ": "IE"
 };
 
-var LOWER = Object.assign({}, LOWER_SINGLE, LOWER_MULTI);
+let LOWER = Object.assign({}, LOWER_SINGLE, LOWER_MULTI);
 
-var UPPER = Object.assign({}, UPPER_SINGLE, UPPER_MULTI);
+let UPPER = Object.assign({}, UPPER_SINGLE, UPPER_MULTI);
 
-var MULTI_KEYS = Object.keys(Object.assign({}, LOWER_MULTI, UPPER_MULTI)).sort(function(a, b) {
+let MULTI_KEYS = Object.keys(Object.assign({}, LOWER_MULTI, UPPER_MULTI)).sort(function(a, b) {
   return a.length > b.length;
 });
 
 
 // Transliterate a string with russian/ukrainian characters
 function transliterate(str) {
-  var reg = new RegExp(MULTI_KEYS.join('|') + '|\\w|.', 'g');
+  let reg = new RegExp(MULTI_KEYS.join('|') + '|\\w|.', 'g');
 
-  var result = "";
-  var chars = str.match(reg);
-  for (var i = 0; i < chars.length; i++) {
+  let result = "";
+  let chars = str.match(reg);
+  for (let i = 0; i < chars.length; i++) {
     if (chars[i] in UPPER && chars[i + 1] in LOWER) {
       // combined case
-      var r = UPPER[chars[i]].toLowerCase();
+      let r = UPPER[chars[i]].toLowerCase();
       result += r[0].toUpperCase() + r.slice(1);
     } else if (chars[i] in UPPER) {
       result += UPPER[chars[i]];

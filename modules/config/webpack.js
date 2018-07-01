@@ -1,23 +1,27 @@
 'use strict';
 
-var fs = require('fs');
-var nib = require('nib');
-var rupture = require('rupture');
-var path = require('path');
-var config = require('config');
-var webpack = require('webpack');
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-var WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var del = require('del');
+let fs = require('fs');
+let nib = require('nib');
+let rupture = require('rupture');
+let path = require('path');
+let config = require('config');
+let webpack = require('webpack');
+let WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const fse = require('fs-extra');
+const glob = require('glob');
 
 // 3rd party / slow to build modules
 // no webpack dependencies inside
 // no es6 (for 6to5 processing) inside
 // NB: includes angular-*
-var noProcessModulesRegExp = /node_modules\/(angular|prismjs)/;
+let noProcessModulesRegExp = /node_modules\/(angular|prismjs)/;
 
-module.exports = function(config) {
+let devMode = process.env.NODE_ENV == 'development';
+
+module.exports = function (config) {
 // tutorial.js?hash
 // tutorial.hash.js
   function extHash(name, ext, hash) {
@@ -27,15 +31,15 @@ module.exports = function(config) {
         `${name}.${ext}`;
   }
 
-  var modulesDirectories = ['node_modules'];
+  let modulesDirectories = ['node_modules'];
   if (process.env.NODE_PATH) {
     modulesDirectories = modulesDirectories.concat(process.env.NODE_PATH.split(/[:;]/).map(p => path.resolve(p)));
   }
 
-  var webpackConfig = {
+  let webpackConfig = {
     output: {
       // fs path
-      path:       path.join(config.publicRoot, 'pack'),
+      path: path.join(config.publicRoot, 'pack'),
       // path as js sees it
       // if I use another domain here, need enable Allow-Access-.. header there
       // and add  to scripts, to let error handler track errors
@@ -44,107 +48,139 @@ module.exports = function(config) {
       // в prod-режиме не можем ?, т.к. CDN его обрезают, поэтому [hash] в имени
       //  (какой-то [hash] здесь необходим, иначе к chunk'ам типа 3.js, которые генерируются require.ensure,
       //  будет обращение без хэша при загрузке внутри сборки. при изменении - барузерный кеш их не подхватит)
-      filename:   extHash("[name]", 'js'),
+      filename: extHash("[name]", 'js'),
 
       chunkFilename: extHash("[name]-[id]", 'js'),
-      library:       '[name]',
-      pathInfo:      process.env.NODE_ENV == 'development'
+      library: '[name]',
+      pathinfo: devMode
     },
 
-    cache: process.env.NODE_ENV == 'development',
+    cache: devMode,
+
+
+    mode: devMode ? 'development' : 'production', // for tests uses prod too
 
     watchOptions: {
       aggregateTimeout: 10
     },
 
-    watch: process.env.NODE_ENV == 'development',
+    watch: devMode,
 
-    devtool: process.env.NODE_ENV == 'development' ? "cheap-inline-module-source-map" : // try "eval" ?
-               process.env.NODE_ENV == 'production' ? 'source-map' : null,
+    devtool: devMode ? "cheap-inline-module-source-map" : // try "eval" ?
+      process.env.NODE_ENV == 'production' ? 'source-map' : false,
 
-    profile: true,
+    profile: false,
 
     entry: {
-      styles:                    config.tmpRoot + '/styles.styl',
-      head:                      'client/head',
-      tutorial:                  'tutorial/client',
-      footer:                    'client/footer',
+      styles: config.tmpRoot + '/styles.styl',
+      head: 'client/head',
+      tutorial: 'tutorial/client',
+      footer: 'client/footer',
     },
 
     module: {
-      loaders: [
+      rules: [
         {
-          test:   /\.json$/,
-          loader: 'json'
+          test: /\.json$/,
+          use: 'json-loader'
         },
         {
-          test:   /\.yml$/,
-          loader: 'json!yaml'
+          test: /\.yml$/,
+          use: ['json-loader', 'yaml-loader']
         },
         {
-          test:   /\.jade$/,
-          loader: "jade?root=" + config.projectRoot + '/templates'
+          test: /\.pug$/,
+          use: 'pug-loader?root=' + config.projectRoot + '/templates'
         },
         {
-          test:    /\.js$/,
+          test: /\.js$/,
           // babel shouldn't process modules which contain ws/browser.js,
           // which must not be run in strict mode (global becomes undefined)
           // babel would make all modules strict!
           exclude: /node_modules\/(angular|prismjs|moment|blueimp-canvas-to-blob|codemirror|markdown-it)/,
-          loaders: ['ng-annotate', 'babel?presets[]=es2015'] // babel will work first
+          use: [
+            // babel will work first
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  ['env', {
+                    //useBuiltIns: true,
+                    targets: {
+                      browsers: "> 3%"
+                    }
+                  }]
+                ]
+              }
+            }
+          ]
         },
         {
-          test:   /\.styl$/,
-          // ExtractTextPlugin breaks HMR for CSS
-          loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!hover!stylus?linenos=true&resolve url=true')
-          //loader: 'style!css!autoprefixer?browsers=last 2 version!stylus?linenos=true'
+          test: /\.styl$/,
+          // MiniCssExtractPlugin breaks HMR for CSS
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  require('autoprefixer')
+                ]
+              }
+            },
+            'hover-loader',
+            {
+              loader: 'stylus-loader',
+              options: {
+                linenos: true,
+                'resolve url': true,
+                use: [
+                  rupture(),
+                  nib(),
+                  function (style) {
+                    style.define('lang', config.lang);
+                  }
+                ]
+              },
+            }
+          ]
         },
         {
-          test:   /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
-          loader: extHash('file?name=[path][name]', '[ext]')
+          test: /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
+          use: extHash('file-loader?name=[path][name]', '[ext]')
         }
       ],
-      noParse: [
-        // regexp gets full path with loader like
-        // '/js/javascript-nodejs/node_modules/client/angular.js'
-        // or even
-        // '/js/javascript-nodejs/node_modules/6to5-loader/index.js?modules=commonInterop!/js/javascript-nodejs/node_modules/client/head/index.js'
-        {
-          test: function(path) {
-            /*
-             if (path.indexOf('!') != -1) {
-             path = path.slice(path.lastIndexOf('!') + 1);
-             }
-             */
-            //console.log(path);
-            return noProcessModulesRegExp.test(path);
-          }
-        }
-      ]
+      noParse: function (path) {
+        /*
+         if (path.indexOf('!') != -1) {
+         path = path.slice(path.lastIndexOf('!') + 1);
+         }
+         */
+        //console.log(path);
+        return noProcessModulesRegExp.test(path);
+      }
     },
 
-    stylus: {
-      use: [
-        rupture(),
-        nib(),
-        function(style) {
-          style.define('lang', config.lang);
-        }]
-    },
 
     resolve: {
       // allow require('styles') which looks for styles/index.styl
-      extensions: ['.js', '', '.styl'],
-      alias:      {
-        config:          'client/config'
+      extensions: ['.js', '.styl'],
+      alias: {
+        config: 'client/config',
       },
-                  modulesDirectories
+      modules: modulesDirectories
     },
 
+
     resolveLoader: {
-                       modulesDirectories,
-      moduleTemplates: ['*-loader', '', '*Loader'],
-      extensions:      ['.js', '']
+      modules: modulesDirectories,
+      extensions: ['.js']
     },
 
     node: {
@@ -153,7 +189,7 @@ module.exports = function(config) {
 
     plugins: [
       new webpack.DefinePlugin({
-        LANG:      JSON.stringify(config.lang),
+        LANG: JSON.stringify(config.lang),
         IS_CLIENT: true
       }),
 
@@ -166,36 +202,31 @@ module.exports = function(config) {
       // https://github.com/webpack/webpack/issues/198
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
-      // any common chunks from entries go to head
-      new CommonsChunkPlugin("head", extHash("head", 'js')),
-      new WriteVersionsPlugin(path.join(config.manifestRoot, "pack.versions.json")),
+      new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
-      new ExtractTextPlugin(extHash('[name]', 'css', '[contenthash]'), {allChunks: true}),
+      new MiniCssExtractPlugin({
+        filename: extHash("[name]", 'css'),
+        chunkFilename: extHash("[id]", 'css'),
+      }),
 
-      function() {
-        // create config.tmpRoot/styles.styl with common styles & styles from handlers
-        let content = `
-          @require '~styles/common.styl'
+      function () {
 
-          @require '~styles/${config.lang}.styl'
-        `;
+        let styles = glob.sync('{styles,templates}/**/*.styl', {cwd: config.projectRoot});
 
-        config.handlers.forEach(handler => {
-          if (fs.existsSync(`${config.projectRoot}/handlers/${handler}/client/styles/global/common.styl`)) {
-            content += `\n@require '~${handler}/client/styles/global/common.styl'`;
-          }
+        // config.handlers.forEach(handler => {
+        //   let handlerStyles = glob.sync(`handlers/${handler}/client/styles/**/*.styl`, {cwd: config.projectRoot});
+        //   styles.push(...handlerStyles);
+        // });
 
-          if (fs.existsSync(`${config.projectRoot}/handlers/${handler}/client/styles/global/${config.lang}.styl`)) {
-            content += `\n@require('~${handler}/client/styles/global/${config.lang}.styl'`;
-          }
-        });
+        let content = styles.map(s => `@require '../${s}'`).join("\n");
 
         fs.writeFileSync(`${config.tmpRoot}/styles.styl`, content);
       },
 
       {
-        apply: function(compiler) {
-          compiler.plugin("done", function(stats) {
+        apply: function (compiler) {
+          compiler.plugin("done", function (stats) {
+            console.log("Webpack done");
             stats = stats.toJson();
             fs.writeFileSync(`${config.tmpRoot}/stats.json`, JSON.stringify(stats));
           });
@@ -204,14 +235,38 @@ module.exports = function(config) {
     ],
 
     recordsPath: path.join(config.tmpRoot, 'webpack.json'),
-    devServer:   {
-      port:               3001, // dev server itself does not use it, but outer tasks do
+    devServer: {
+      port: 3001, // dev server itself does not use it, but outer tasks do
       historyApiFallback: true,
-      hot:                true,
-      watchDelay:         10,
+      hot: true,
+      watchDelay: 10,
       //noInfo: true,
-      publicPath:         process.env.STATIC_HOST + ':3001/pack/',
-      contentBase:        config.publicRoot
+      publicPath: process.env.STATIC_HOST + ':3001/pack/',
+      contentBase: config.publicRoot
+    },
+
+
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: 2,
+          uglifyOptions: {
+            ecma: 8,
+            warnings: false,
+            compress: {
+              drop_console: true,
+              drop_debugger: true
+            },
+            output: {
+              beautify: true,
+              indent_level: 0 // for error reporting, to see which line actually has the problem
+              // source maps actually didn't work in Qbaka that's why I put it here
+            }
+          }
+        }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
     }
   };
 
@@ -221,7 +276,7 @@ module.exports = function(config) {
     webpackConfig.plugins.push(
       function clearBeforeRun() {
         function clear(compiler, callback) {
-          del.sync(this.options.output.path + '/*');
+          fse.removeSync(webpackConfig.output.path + '/*');
           callback();
         }
 
@@ -229,23 +284,7 @@ module.exports = function(config) {
         // thus removing unchanged files
         // => use this plugin only in normal run
         this.plugin('run', clear);
-      },
-
-      /* jshint -W106 */
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          // don't show unreachable variables etc
-          warnings:     false,
-          drop_console: true,
-          unsafe:       true,
-          screw_ie8:    true
-        },
-        beautify: true,
-        output:   {
-          indent_level: 0 // for error reporting, to see which line actually has the problem
-          // source maps actually didn't work in Qbaka that's why I put it here
-        }
-      })
+      }
     );
   }
 

@@ -1,82 +1,81 @@
 'use strict';
 
-var co = require('co');
-var fs = require('fs');
-var path = require('path');
-var log = require('log')();
-var glob = require('glob');
-var beautify = require('js-beautify');
-var readlineSync = require('readline-sync');
+let fs = require('fs');
+let path = require('path');
+let log = require('log')();
+let glob = require('glob');
+let beautify = require('js-beautify');
+let readlineSync = require('readline-sync');
 
 module.exports = function(options) {
 
   return function() {
 
-    var args = require('yargs')
+    let args = require('yargs')
       .usage("Path to tutorial root is required.")
       .demand(['root'])
       .argv;
 
-    var root = fs.realpathSync(args.root);
+    let root = fs.realpathSync(args.root);
 
-    var options = {
+    let options = {
       indent_size: 2,
       selector_separator_newline: true,
       newline_between_rules: true,
       preserve_newlines: true
       //space_in_paren: true
     };
-    return co(function* () {
+    return async function() {
 
-      var jsFiles = glob.sync( path.join( root, '**', '*.js' ) );
+      let jsFiles = glob.sync( path.join( root, '**', '*.js' ) );
 
-      for (var i = 0; i < jsFiles.length; i++) {
-        var jsFile = jsFiles[i];
-        var content = fs.readFileSync(jsFile, 'utf8');
+      for (let i = 0; i < jsFiles.length; i++) {
+        let jsFile = jsFiles[i];
+        let content = fs.readFileSync(jsFile, 'utf8');
 
         fs.writeFileSync(jsFile, beautify.js(content, options), 'utf8');
       }
 
-      var cssFiles = glob.sync(path.join(root, '**', '*.css'));
+      let cssFiles = glob.sync(path.join(root, '**', '*.css'));
 
-      for (var i = 0; i < cssFiles.length; i++) {
-        var cssFile = cssFiles[i];
-        var content = fs.readFileSync(cssFile, 'utf8');
+      for (let i = 0; i < cssFiles.length; i++) {
+        let cssFile = cssFiles[i];
+        let content = fs.readFileSync(cssFile, 'utf8');
         fs.writeFileSync(cssFile, beautify.css(content, options), 'utf8');
       }
 
 
-      var htmlFiles = glob.sync(path.join(root, '**', '*.html'));
+      let htmlFiles = glob.sync(path.join(root, '**', '*.html'));
 
-      for (var i = 0; i < htmlFiles.length; i++) {
-        var htmlFile = htmlFiles[i];
-        var content = fs.readFileSync(htmlFile, 'utf8');
+      for (let i = 0; i < htmlFiles.length; i++) {
+        let htmlFile = htmlFiles[i];
+        let content = fs.readFileSync(htmlFile, 'utf8');
         fs.writeFileSync(htmlFile, beautify.html(content, options), 'utf8');
       }
 
-      var mdFiles = glob.sync(path.join(root, '**', '*.md'));
+      let mdFiles = glob.sync(path.join(root, '**', '*.md'));
 
-      for (var i = 0; i < mdFiles.length; i++) {
-        var mdFile = mdFiles[i];
-        var content = fs.readFileSync(mdFile, 'utf8');
+      for (let i = 0; i < mdFiles.length; i++) {
+        let mdFile = mdFiles[i];
+        let content = fs.readFileSync(mdFile, 'utf8');
         console.log(mdFile);
         fs.writeFileSync(mdFile, beautifyMd(content, mdFile, options), 'utf8');
       }
 
 
-    });
+    }();
   };
 };
 
 function beautifyMd(content, mdFile, options) {
 
-  var contentNew;
+  let contentNew;
 
   contentNew = content.replace(/```(js|html|css)\n([\s\S]*?)\n```/gim, function(match, lang, code) {
-    var codeOpts = code.match(/^\/\/\+.*\n/) || code.match(/^<!--\+.*\n/) || code.match(/^\/\*\+.*\n/);
+    let codeOpts = code.match(/^\/\/\+.*\n/) || code.match(/^<!--\+.*\n/) || code.match(/^\/\*\+.*\n/);
     if (!codeOpts) codeOpts = ''; // for str methods to work
 
-    var codeNoOpts;
+    let codeNoOpts;
 
     if (codeOpts) {
       codeOpts = codeOpts[0];
@@ -93,7 +92,7 @@ function beautifyMd(content, mdFile, options) {
       return match;
     }
 
-    var beautified = codeNoOpts;
+    let beautified = codeNoOpts;
     beautified = beautified.replace(/^[ \t]*\*!\*/gim, lang == 'html' ? '<!--*!*-->' : '/**!**/');
     beautified = beautified.replace(/^[ \t]*\*\/!\*/gim, lang == 'html' ? '<!--*/!*-->' : '/**-!**/');
 
@@ -120,13 +119,13 @@ function beautifyMd(content, mdFile, options) {
     console.log("-------------------------------------------------------");
     console.log(beautified);
 
-    var keep = readlineSync.question('Beautify [y]?');
+    let keep = readlineSync.question('Beautify [y]?');
 
-    var result;
+    let result;
     if (keep == 'y' || keep === '') {
       result = codeOpts + beautified;
     } else {
-      var codeOptsNoBeautify = codeOpts.slice(0, 2) == '//' ? codeOpts.replace("\n", " no-beautify\n") :
+      let codeOptsNoBeautify = codeOpts.slice(0, 2) == '//' ? codeOpts.replace("\n", " no-beautify\n") :
         codeOpts.slice(0, 2) == '/*' ? codeOpts.replace("*/", " no-beautify */") :
           codeOpts.slice(0, 2) == '<!' ? codeOpts.replace("-->", " no-beautify -->") :
             lang == 'html' ? '<!--+ no-beautify -->\n' :

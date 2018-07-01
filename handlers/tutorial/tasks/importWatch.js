@@ -1,45 +1,56 @@
 'use strict';
 
-var TutorialImporter = require('../tutorialImporter');
-var FiguresImporter = require('../figuresImporter');
-var co = require('co');
-var fs = require('fs');
-var path = require('path');
-var livereload = require('gulp-livereload');
-var log = require('log')();
-var chokidar = require('chokidar');
-var os = require('os');
+let TutorialImporter = require('../lib/tutorialImporter');
+let TutorialTree = require('../models/tutorialTree');
+let TutorialViewStorage = require('../models/tutorialViewStorage');
+let FiguresImporter = require('../figuresImporter');
+let fs = require('fs');
+let path = require('path');
+let livereload = require('gulp-livereload');
+let log = require('log')();
+let chokidar = require('chokidar');
+let os = require('os');
+let config = require('config');
 
 module.exports = function(options) {
 
-  return function(callback) {
+  return async function() {
 
-    var args = require('yargs')
-      .usage("Path to tutorial root is required.")
-      .demand(['root'])
-      .argv;
+    let tree = TutorialTree.instance();
+    let viewStorage = TutorialViewStorage.instance();
 
-    var root = fs.realpathSync(args.root);
+    let importer = new TutorialImporter({
+      root: config.tutorialRoot
+    });
 
-    if (!root) {
-      throw new Error("Import watch root does not exist " + options.root);
+    tree.clear();
+    viewStorage.clear();
+
+    let subRoots = fs.readdirSync(config.tutorialRoot);
+
+    for (let subRoot of subRoots) {
+      if (!parseInt(subRoot)) continue;
+      await importer.sync(path.join(config.tutorialRoot, subRoot));
     }
 
-    watchTutorial(root);
-    watchFigures(root);
+    log.info("Import complete");
+
+    watchTutorial();
+    watchFigures();
 
     livereload.listen();
 
+    await new Promise(resolve => {});
   };
 
 };
 
 
-function watchTutorial(root) {
+function watchTutorial() {
 
 
-  var importer = new TutorialImporter({
-    root:     root,
+  let importer = new TutorialImporter({
+    root:     config.tutorialRoot,
     onchange: function(path) {
       log.info("livereload.change", path);
       livereload.changed(path);
@@ -47,16 +58,16 @@ function watchTutorial(root) {
   });
 
 
-  var subRoots = fs.readdirSync(root);
+  let subRoots = fs.readdirSync(config.tutorialRoot);
   subRoots = subRoots.filter(function(subRoot) {
     return parseInt(subRoot);
   }).map(function(dir) {
-    return path.join(root, dir);
+    return path.join(config.tutorialRoot, dir);
   });
 
-  // under linux usePolling: true,
+  // under linux set WATCH_USE_POLLING
   // to handle the case when linux VM uses shared folder from Windows
-  var tutorialWatcher = chokidar.watch(subRoots, {ignoreInitial: true, usePolling: os.platform() != 'darwin'});
+  let tutorialWatcher = chokidar.watch(subRoots, {ignoreInitial: true, usePolling: process.env.WATCH_USE_POLLING});
 
   tutorialWatcher.on('add', onTutorialModify.bind(null, false));
   tutorialWatcher.on('change', onTutorialModify.bind(null, false));
@@ -69,43 +80,35 @@ function watchTutorial(root) {
 
     log.debug("ImportWatch Modify " + filePath);
 
-    co(function* () {
+    let folder;
+    if (isDir) {
+      folder = filePath;
+    } else {
+      folder = path.dirname(filePath);
+    }
 
-      var folder;
-      if (isDir) {
-        folder = filePath;
-      } else {
-        folder = path.dirname(filePath);
-      }
-
-      yield* importer.sync(folder);
-
-    }).catch(function(err) {
+    importer.sync(folder, true).catch(function(err) {
       log.error(err);
     });
   }
 
 }
 
-function watchFigures(root) {
+function watchFigures() {
 
-  var figuresFilePath = path.join(root, 'figures.sketch');
-  var importer = new FiguresImporter({
-    root: root,
+  let figuresFilePath = path.join(config.tutorialRoot, 'figures.sketch');
+  let importer = new FiguresImporter({
+    root: config.tutorialRoot,
     figuresFilePath: figuresFilePath
   });
 
-  var figuresWatcher = chokidar.watch(figuresFilePath, {ignoreInitial: true});
+  let figuresWatcher = chokidar.watch(figuresFilePath, {ignoreInitial: true});
   figuresWatcher.on('change', onFiguresModify);
 
   function onFiguresModify() {
 
-    co(function* () {
-
-      yield* importer.syncFigures();
-
-    }).catch(function(err) {
-      throw err;
+    importer.syncFigures().catch(function(err) {
+      console.error(err);
     });
   }
 

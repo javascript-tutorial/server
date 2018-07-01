@@ -3,11 +3,11 @@ module.exports = trackSticky;
 
 function trackSticky() {
 
-  var stickyElems = document.querySelectorAll('[data-sticky]');
+  let stickyElems = document.querySelectorAll('[data-sticky]');
 
-  for (var i = 0; i < stickyElems.length; i++) {
-    var stickyElem = stickyElems[i];
-    var container = stickyElem.dataset.sticky ?
+  for (let i = 0; i < stickyElems.length; i++) {
+    let stickyElem = stickyElems[i];
+    let container = stickyElem.dataset.sticky ?
       document.querySelector(stickyElem.dataset.sticky) : document.body;
 
     if (stickyElem.getBoundingClientRect().top < 0) {
@@ -19,8 +19,8 @@ function trackSticky() {
         return;
       }
 
-      var savedLeft = stickyElem.getBoundingClientRect().left;
-      var placeholder = createPlaceholder(stickyElem);
+      let savedLeft = stickyElem.getBoundingClientRect().left;
+      let placeholder = createPlaceholder(stickyElem);
 
       stickyElem.parentNode.insertBefore(placeholder, stickyElem);
 
@@ -55,8 +55,8 @@ function trackSticky() {
  * @returns {*|!HTMLElement}
  */
 function createPlaceholder(elem) {
-  var placeholder = document.createElement('div');
-  var style = getComputedStyle(elem);
+  let placeholder = document.createElement('div');
+  let style = getComputedStyle(elem);
   placeholder.style.width = elem.offsetWidth + 'px';
   placeholder.style.marginLeft = style.marginLeft;
   placeholder.style.marginRight = style.marginRight;

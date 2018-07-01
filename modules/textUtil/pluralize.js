@@ -14,7 +14,7 @@ function getPluralType(n) {
 // pluralize(10, 'груша', 'груши', 'груш')
 function pluralize(count, strOne, strFew, strMany) {
 
-  var type = getPluralType(count);
+  let type = getPluralType(count);
 
   switch(type) {
   case 'one':

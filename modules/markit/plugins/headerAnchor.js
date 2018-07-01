@@ -11,19 +11,17 @@
 
 const parseAttrs = require('../utils/parseAttrs');
 const makeAnchor = require('textUtil/makeAnchor');
-const StringMap = require("stringmap");
 
 const t = require('i18n');
-const LANG = require('config').lang;
 
-t.requirePhrase('markit.error', require('../locales/error/' + LANG + '.yml'));
+t.requirePhrase('markit', 'error');
 
 // add headingToken.achor
 // not "id" attr, because rendering uses `.anchor` for the extra link OR id
 function readHeadingAnchor(state) {
 
   let env = state.env;
-  if (!env.headingsMap) env.headingsMap = new StringMap();
+  if (!env.headingsMap) env.headingsMap = new Map();
 
   let tokens = state.tokens;
   for (let idx = 0; idx < state.tokens.length; idx++) {

@@ -1,7 +1,7 @@
 test;
 
 *!*
-var f = *!*function()*/!* {
+let f = *!*function()*/!* {
   alert(*!*1*/!*);
 }
 */!*

@@ -5,10 +5,10 @@ function capitalizeKeys(obj) {
     return obj.map(capitalizeKeys);
   }
 
-  var output = {};
+  let output = {};
 
-  for (var key in obj) {
-    var keyCapitalized = key.replace(/_(\w)/g, function(match, letter) {
+  for (let key in obj) {
+    let keyCapitalized = key.replace(/_(\w)/g, function(match, letter) {
       return letter.toUpperCase();
     });
     if (Object.prototype.toString.apply(obj[key]) === '[object Object]') {

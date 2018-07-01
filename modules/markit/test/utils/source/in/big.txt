@@ -1,4 +1,4 @@
-var Animal = Class.extend({
+let Animal = Class.extend({
   init: function(name) {
     this.name = name;
   },
@@ -8,7 +8,7 @@ var Animal = Class.extend({
 });
 
 // Объявить класс Rabbit, *!*наследующий*/!* от Animal
-var Rabbit = *!*Animal.extend*/!*({
+let Rabbit = *!*Animal.extend*/!*({
 
   init: function(name) {
 *!*
@@ -24,6 +24,6 @@ var Rabbit = *!*Animal.extend*/!*({
 });
 
 *!*
-var rabbit = new Rabbit("Кроль");
+let rabbit = new Rabbit("Кроль");
 rabbit.run(); // "Кроль бежит!", затем "..и мощно прыгает за морковкой!"
 */!*

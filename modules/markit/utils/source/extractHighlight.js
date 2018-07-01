@@ -13,11 +13,11 @@ function deTab(text) {
   // use the sentinel to anchor our regex so it doesn't explode
   text = text.replace(/~B(.+?)~A/g,
     function(wholeMatch, m1) {
-      var leadingText = m1;
-      var numSpaces = 2 - leadingText.length % 2;  // attacklab: g_tab_width
+      let leadingText = m1;
+      let numSpaces = 2 - leadingText.length % 2;  // attacklab: g_tab_width
 
       // there *must* be a better way to do this:
-      for (var i = 0; i < numSpaces; i++) leadingText += " ";
+      for (let i = 0; i < numSpaces; i++) leadingText += " ";
 
       return leadingText;
     }
@@ -34,9 +34,9 @@ module.exports = function(text) {
   text = deTab(text);
   text += "\n";
 
-  var r = {block: [], inline: []};
-  var last = null;
-  var newText = [];
+  let r = {block: [], inline: []};
+  let last = null;
+  let newText = [];
 
   text.split("\n").forEach(function(line) {
     if (/^\s*\*!\*\s*$/.test(line)) { // only *!*
@@ -58,10 +58,10 @@ module.exports = function(text) {
       newText.push(line);
     } else {
       newText.push("");
-      var offset = 0;
+      let offset = 0;
       while(true) {
-        var fromPos = line.indexOf('*!*');
-        var toPos = line.indexOf('*/!*');
+        let fromPos = line.indexOf('*!*');
+        let toPos = line.indexOf('*/!*');
         if (fromPos != -1 && toPos != -1) {
           r.inline.push( (newText.length-1) + ':' + (offset+fromPos) + '-' + (offset+toPos-3) );
           newText[newText.length-1] += line.slice(0, toPos+4).replace(/\*\/?!\*/g, '');
