@@ -17,7 +17,7 @@ exports.get = async function (ctx, next) {
   ctx.locals.siteToolbarCurrentSection = "tutorial";
   ctx.locals.title = t('tutorial.frontpage.modern_javascript_tutorial');
 
-  let topArticlesRendered = await localStorage.getOrGenerate('tutorial:frontpage', renderTop);
+  let topArticlesRendered = await localStorage.getOrGenerate('tutorial:frontpage', renderTop, process.env.TUTORIAL_EDIT);
 
   if (!Object.keys(topArticlesRendered).length) {
     ctx.throw(404, "Database is empty?"); // empty db

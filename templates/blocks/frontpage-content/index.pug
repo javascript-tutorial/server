@@ -1,4 +1,4 @@
-mixin frontpage-contents(data)
+mixin frontpage-content(data)
   - let {tutorialTree, topArticlesRendered} = data;
 
   mixin partList(children)
@@ -16,7 +16,7 @@ mixin frontpage-contents(data)
           if (topic.children.length > 6)
             +e('li').more= t('tutorial.frontpage.more')
 
-  +b.main-en-contents
+  +b.frontpage-content
     +e.container
       - let folder = tutorialTree.bySlug('js')
       +e.inner

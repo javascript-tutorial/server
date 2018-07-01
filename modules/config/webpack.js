@@ -205,18 +205,18 @@ module.exports = function (config) {
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
       new MiniCssExtractPlugin({
-        filename: devMode ? '[name].css' : extHash("[name]", 'css'),
-        chunkFilename: devMode ? '[id].css' : extHash("[id]", 'css'),
+        filename: extHash("[name]", 'css'),
+        chunkFilename: extHash("[id]", 'css'),
       }),
 
       function () {
 
-        let styles = glob.sync('styles/**/*.styl', {cwd: config.projectRoot});
+        let styles = glob.sync('{styles,templates}/**/*.styl', {cwd: config.projectRoot});
 
-        config.handlers.forEach(handler => {
-          let handlerStyles = glob.sync(`handlers/${handler}/client/styles/**/*.styl`, {cwd: config.projectRoot});
-          styles.push(...handlerStyles);
-        });
+        // config.handlers.forEach(handler => {
+        //   let handlerStyles = glob.sync(`handlers/${handler}/client/styles/**/*.styl`, {cwd: config.projectRoot});
+        //   styles.push(...handlerStyles);
+        // });
 
         let content = styles.map(s => `@require '../${s}'`).join("\n");
 

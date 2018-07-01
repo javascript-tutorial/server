@@ -59,7 +59,7 @@ function requireModuleTasks(moduleName) {
 gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   // shared client/server code has require('template.jade) which precompiles template on run
   // so I have to restart server to pickup the template change
-  ext:    "js",
+  ext:    "js,yml",
 
   nodeArgs: process.env.NODE_DEBUG  ? ['--debug'] : [],
   script: "./bin/server.js",
