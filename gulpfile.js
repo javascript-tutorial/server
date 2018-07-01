@@ -132,7 +132,7 @@ gulp.task('build', function(callback) {
 
 gulp.task('server', lazyRequireTask('./tasks/server'));
 
-gulp.task('edit', ['tutorial:importWatch', "client:sync-resources", 'client:livereload', 'server']);
+gulp.task('edit', ['client:webpack', 'tutorial:importWatch', "client:sync-resources", 'client:livereload', 'server']);
 
 
 gulp.task('dev', function(callback) {

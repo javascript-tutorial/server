@@ -276,7 +276,7 @@ module.exports = function (config) {
     webpackConfig.plugins.push(
       function clearBeforeRun() {
         function clear(compiler, callback) {
-          fse.removeSync(this.options.output.path + '/*');
+          fse.removeSync(webpackConfig.output.path + '/*');
           callback();
         }
 
