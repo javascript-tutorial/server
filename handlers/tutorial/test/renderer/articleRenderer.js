@@ -1,15 +1,10 @@
-const app = require('app');
 
 const ArticleRenderer = require('../../renderer/articleRenderer');
 const Article = require('../../models/article');
 
 describe("ArticleRenderer", function() {
 
-  beforeEach(function* () {
-    await Article.destroy();
-  });
-
-  it("appends -2, -3... to header with same title", function* () {
+  it("appends -2, -3... to header with same title", async function() {
 
     const article = new Article({
       title:   "Title",

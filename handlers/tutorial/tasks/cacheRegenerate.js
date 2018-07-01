@@ -1,7 +1,5 @@
 'use strict';
 
-const gulp = require('gulp');
-
 const ArticleRenderer = require('../renderer/articleRenderer');
 const TaskRenderer = require('../renderer/taskRenderer');
 

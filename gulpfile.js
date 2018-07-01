@@ -17,11 +17,6 @@ process.on('uncaughtException', function(err) {
   process.exit(255);
 });
 
-const jsSources = [
-  'handlers/**/*.js', 'modules/**/*.js', 'tasks/**/*.js', '*.js'
-];
-
-
 
 function lazyRequireTask(path) {
   let args = [].slice.call(arguments, 1);
@@ -64,12 +59,12 @@ function requireModuleTasks(moduleName) {
 gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   // shared client/server code has require('template.jade) which precompiles template on run
   // so I have to restart server to pickup the template change
-  ext:    "js,pug",
+  ext:    "js",
 
   nodeArgs: process.env.NODE_DEBUG  ? ['--debug'] : [],
   script: "./bin/server.js",
   //ignoreRoot: ['.git', 'node_modules'].concat(glob.sync('{handlers,modules}/**/client')), // ignore handlers' client code
-  ignore: ['**/client/', '**/photoCut/'], // ignore handlers' client code
+  ignore: ['**/client/'], // ignore handlers' client code
   watch:  ["handlers", "modules"]
 }));
 

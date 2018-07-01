@@ -2,7 +2,7 @@
 
 Hi everyone!
 
-This repository hosts a server to edit the javascript tutorial at https://javascript.info. 
+This repository hosts a server to edit the javascript tutorial https://javascript.info.
 
 See Install.md for details.
 

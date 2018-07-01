@@ -7,18 +7,20 @@ const i18n = new BabelFish('en');
 const LANG = require('config').lang;
 const requireTranslation = require('./requireTranslation');
 
+let err = console.error;
+
+if (typeof IS_CLIENT === 'undefined') {
+  const log = require('log')();
+  err = (...args) => log.error(...args)
+}
+
 function t() {
 
   if (!i18n.hasPhrase(LANG, arguments[0])) {
-    console.error("No such phrase", arguments[0]);
+    err("No such phrase", arguments[0]);
   }
 
-  let args = [LANG];
-  for (let i = 0; i < arguments.length; i++) {
-    args.push(arguments[i]);
-  }
-
-  return i18n.t.apply(i18n, args);
+  return i18n.t(LANG, ...arguments);
 }
 
 

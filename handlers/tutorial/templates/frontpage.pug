@@ -1,7 +1,6 @@
 extends /layouts/main
 
-include ../../../templates/blocks/main-en-banner/index
-include ../../../templates/blocks/main-en-contents/index
+include ../../../templates/blocks/frontpage-content
 
 block append variables
   - var headTitle = 'The Modern Javascript Tutorial';
@@ -17,6 +16,6 @@ block append head
   meta(name="description" content=t("site.meta.description"))
 
 block content
-  +main-en-contents({
+  +frontpage-content({
     tutorialTree, topArticlesRendered
   })

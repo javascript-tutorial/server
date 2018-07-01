@@ -1,15 +1,9 @@
 'use strict';
 
-const app = require('app');
-
 const TaskRenderer = require('../../renderer/taskRenderer');
 const Task = require('../../models/task');
 
 describe("TaskRenderer", function() {
-
-  beforeEach(async function () {
-    await Task.destroy();
-  });
 
   it("renderContent", async function () {
 
