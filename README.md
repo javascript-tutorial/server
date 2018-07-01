@@ -47,10 +47,12 @@ You can use it to run the tutorial locally and translate it into your language.
     Run the site with the language:
     ```
     cd /js/javascript-tutorial-server
-    ./edit en
+    ./edit ru
     ```
 
-    Wait for a couple of seconds as it reads the tutorial from disk and builds static assets.
+    Please note that the argument of `edit` is exactly the language you cloned at step 5.
+    
+    Wait a bit as it reads the tutorial from disk and builds static assets.
 
     Then access the site at `http://127.0.0.1:3000`.
 
