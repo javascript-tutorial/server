@@ -4,13 +4,15 @@ Hi everyone!
 
 This is a standalone server for the javascript tutorial https://javascript.info.
 
+You can use it to run the tutorial locally and translate it into your language.
+
 # Installation
 
 1. Install [Git](https://git-scm.com/downloads) and [Node.JS](https://nodejs.org).
 
     These are required to update and run the project.
     
-    (Optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
+    (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
         
     For non-Windows OS use standard install tools (packages or whatever convenient).
 
