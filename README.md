@@ -62,7 +62,7 @@ You can use it to run the tutorial locally and translate it into your language.
     
 # TroubleShooting
 
-If something doesn't work -- [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
+If something doesn't work – [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
 
 --  
 Yours,  
