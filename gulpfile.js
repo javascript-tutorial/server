@@ -74,8 +74,6 @@ gulp.task("client:livereload", lazyRequireTask("./tasks/livereload", {
 
   watch: [
     "public/pack/**/*.*",
-    // not using this file, using only styles.css (extracttextplugin)
-    "!public/pack/styles.js",
     // this file changes every time we update styles
     // don't watch it, so that the page won't reload fully on style change
     "!public/pack/head.js"

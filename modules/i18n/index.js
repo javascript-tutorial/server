@@ -1,50 +1,43 @@
 'use strict';
 
-const BabelFish = require('babelfish');
-
-const i18n = new BabelFish('en');
 
 const LANG = require('config').lang;
-const requireTranslation = require('./requireTranslation');
 
-let err = console.error;
+const log = require('log')();
+const path = require('path');
+const fs = require('fs');
+let config = require('config');
+let yaml = require('js-yaml');
 
-if (typeof IS_CLIENT === 'undefined') {
-  const log = require('log')();
-  err = (...args) => log.error(...args)
-}
-
-function t() {
-
-  if (!i18n.hasPhrase(LANG, arguments[0])) {
-    err("No such phrase", arguments[0]);
-  }
-
-  return i18n.t(LANG, ...arguments);
-}
-
+let t = require('./t');
 
 let docs = {};
 
-t.i18n = i18n;
-
-if (LANG !== 'en') {
-  i18n.setFallback(LANG, 'en');
-}
-
-// packageName can be empty
-t.requirePhrase = function(module, packageName = '') {
+t.requirePhrase = function(moduleName, packageName = '') {
 
   // if same doc was processed - don't redo it
-  if (docs[module] && docs[module].includes(packageName)) return;
+  if (docs[moduleName] && docs[moduleName].includes(packageName)) {
+    return;
+  }
 
-  if (!docs[module]) docs[module] = [];
-  docs[module].push(packageName);
+  if (!docs[moduleName]) docs[moduleName] = [];
+  docs[moduleName].push(packageName);
 
-  let doc = requireTranslation(module, packageName);
 
-  i18n.addPhrase(LANG, module + (packageName ? ('.' + packageName) : ''), doc);
+  let translationPath = moduleName ?
+    path.join(path.dirname(require.resolve(moduleName)), 'locales', packageName) :
+    path.join(config.projectRoot, 'locales', packageName);
 
+  if (fs.existsSync(path.join(translationPath, LANG + '.yml'))) {
+    translationPath = path.join(translationPath, LANG + '.yml');
+  } else {
+    translationPath = path.join(translationPath, 'en.yml');
+  }
+
+  let doc = yaml.safeLoad(fs.readFileSync(translationPath, 'utf-8'));
+  let name = (moduleName || 'locales') + (packageName ? ('.' + packageName) : '');
+
+  t.i18n.add(name, doc);
 };
 
 

@@ -1,9 +1,7 @@
-// make sure Promise is wrapped early,
-// to assign mongoose.Promise = global.Promise the wrapped variant any time later
 let path = require('path');
 let fs = require('fs');
+let yaml = require('js-yaml');
 let env = process.env;
-
 
 // NODE_ENV = development || test || production
 env.NODE_ENV = env.NODE_ENV || 'development';
@@ -68,11 +66,17 @@ let config = module.exports = {
   handlers: require('./handlers')
 };
 
+require.extensions['.yml'] = function(module, filename) {
+  module.exports = yaml.safeLoad(fs.readFileSync(filename, 'utf-8'));
+};
+
+
+// after module.exports for circle dep w/ config
+const t = require('i18n');
+
+t.requirePhrase(''); // root locales
 
 // webpack config uses general config
 // we have a loop dep here
 config.webpack = require('./webpack')(config);
-
-const t = require('i18n');
-t.requirePhrase('config');
 

@@ -4,9 +4,11 @@ let fs = require('fs');
 let nib = require('nib');
 let rupture = require('rupture');
 let path = require('path');
+let chokidar = require('chokidar');
 let config = require('config');
 let webpack = require('webpack');
 let WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
+let CssWatchRebuildPlugin = require('lib/webpack/cssWatchRebuildPlugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -61,7 +63,8 @@ module.exports = function (config) {
     mode: devMode ? 'development' : 'production', // for tests uses prod too
 
     watchOptions: {
-      aggregateTimeout: 10
+      aggregateTimeout: 10,
+      ignored: /node_modules/
     },
 
     watch: devMode,
@@ -83,6 +86,10 @@ module.exports = function (config) {
         {
           test: /\.json$/,
           use: 'json-loader'
+        },
+        {
+          test: /\.i18n/,
+          use: 'translation-loader'
         },
         {
           test: /\.yml$/,
@@ -172,7 +179,7 @@ module.exports = function (config) {
       // allow require('styles') which looks for styles/index.styl
       extensions: ['.js', '.styl'],
       alias: {
-        config: 'client/config',
+        config: 'client/config'
       },
       modules: modulesDirectories
     },
@@ -202,6 +209,14 @@ module.exports = function (config) {
       // https://github.com/webpack/webpack/issues/198
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
+      // ignore site locale files except the lang
+      new webpack.IgnorePlugin({
+        // ignore yml files not like LANG.yml
+        test: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml'
+      },  // under dirs like: ../locales/..
+        /\/locales(\/|$)/
+      ),
+
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
       new MiniCssExtractPlugin({
@@ -209,24 +224,13 @@ module.exports = function (config) {
         chunkFilename: extHash("[id]", 'css'),
       }),
 
-      function () {
-
-        let styles = glob.sync('{styles,templates}/**/*.styl', {cwd: config.projectRoot});
-
-        // config.handlers.forEach(handler => {
-        //   let handlerStyles = glob.sync(`handlers/${handler}/client/styles/**/*.styl`, {cwd: config.projectRoot});
-        //   styles.push(...handlerStyles);
-        // });
-
-        let content = styles.map(s => `@require '../${s}'`).join("\n");
-
-        fs.writeFileSync(`${config.tmpRoot}/styles.styl`, content);
-      },
+      new CssWatchRebuildPlugin({
+        styles: '{templates,styles}'
+      }),
 
       {
         apply: function (compiler) {
           compiler.plugin("done", function (stats) {
-            console.log("Webpack done");
             stats = stats.toJson();
             fs.writeFileSync(`${config.tmpRoot}/stats.json`, JSON.stringify(stats));
           });

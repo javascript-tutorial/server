@@ -12,7 +12,6 @@ const t = require('i18n');
 const pugResolve = require('pugResolve');
 const url = require('url');
 const validate = require('validate');
-const pluralize = require('textUtil/pluralize');
 const BasicParser = require('markit').BasicParser;
 
 // public.versions.json is regenerated and THEN node is restarted on redeploy
@@ -60,7 +59,6 @@ function addStandardHelpers(locals, ctx) {
 
   locals.env = process.env;
 
-  locals.pluralize = pluralize;
   locals.domain = config.domain;
 
   // replace lone surrogates in json, </script> -> <\/script>

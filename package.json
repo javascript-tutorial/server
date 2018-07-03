@@ -22,6 +22,7 @@
     "babelfish": "^1.1.2",
     "bemto.pug": "github:kizu/bemto",
     "bunyan": "*",
+    "chokidar": "^2.0.4",
     "clarify": "^2.1.0",
     "css-loader": "^0",
     "file-loader": "^1.1",
@@ -35,6 +36,7 @@
     "gulp-util": "*",
     "image-size": "*",
     "js-yaml": "*",
+    "json-loader": "^0.5.7",
     "koa": "^2",
     "koa-bodyparser": "^4",
     "koa-conditional-get": "^2",
@@ -48,6 +50,7 @@
     "markdown-it-deflist": "*",
     "mime": "*",
     "mini-css-extract-plugin": "^0",
+    "minimatch": "^3.0.4",
     "multiparty": "*",
     "mz": "*",
     "nib": "*",
@@ -70,7 +73,8 @@
     "trace": "^3.1.0",
     "uglify-js": "^3",
     "uglifyjs-webpack-plugin": "^1",
-    "webpack": "^4"
+    "webpack": "^4",
+    "yaml-loader": "^0.5.0"
   },
   "engineStrict": true,
   "repository": {
