@@ -14,10 +14,9 @@ If you have an old copy of the English tutorial, please rename `1-js/05-data-typ
 1. Install [Git](https://git-scm.com/downloads) and [Node.JS](https://nodejs.org).
 
     These are required to update and run the project.
+    For non-Windows OS use standard install tools (packages or whatever convenient).
     
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
-        
-    For non-Windows OS use standard install tools (packages or whatever convenient).
 
 2. Install global Node modules:
 
@@ -38,12 +37,11 @@ If you have an old copy of the English tutorial, please rename `1-js/05-data-typ
 
 5. Clone the tutorial text into it.
 
-    The text repository has "-language" at the end, e.g:
+    The text repository has `-language` at the end, e.g `ru`:
     ```
     cd /js
     git clone https://github.com/iliakan/javascript-tutorial-ru
     ```
-
 
 6. Run the site
 
@@ -61,11 +59,9 @@ If you have an old copy of the English tutorial, please rename `1-js/05-data-typ
 
 7. Edit the tutorial
 
-    The files are editable in the tutorial text folder (cloned at step 5).
-    As you edit text files, the webpage gets reloaded automatically, so it's handy
-    to split the screen at two sides: put the browser to the left half and edit in the right half.
+    As you edit text files in the tutorial text repository (cloned at step 5), 
+    the webpage gets reloaded automatically. 
     
-
     
 # TroubleShooting
 

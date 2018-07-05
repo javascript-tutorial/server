@@ -5,6 +5,7 @@
  */
 
 const tokenUtils = require('../utils/token');
+const lang = require('config').lang;
 
 module.exports = function(md) {
 
@@ -24,7 +25,7 @@ module.exports = function(md) {
           if (href.startsWith('mdn:')) {
             let parts = href.slice(4).split('/');
 
-            let locale = process.env.NODE_LANG == 'en' ? 'en-US' : process.env.NODE_LANG;
+            let locale = lang == 'en' ? 'en-US' : lang;
 
             let prefix = `https://developer.mozilla.org/${locale}/docs/Web`;
 
