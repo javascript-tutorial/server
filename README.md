@@ -71,7 +71,7 @@ If you'd like to edit the server code, *not* the tutorial text (assuming you're 
 
 ```
 // import and cache the "ru" version of the tutorial from /js/javascript-tutorial-ru
-// can be any language 
+// (can be any language)
 cd /js/javascript-tutorial-server
 NODE_LANG=ru npm run gulp tutorial:import
 ``` 
