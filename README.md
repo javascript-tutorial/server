@@ -8,7 +8,7 @@ You can use it to run the tutorial locally and translate it into your language.
 
 # Installation
 
-(If you have an old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`.)
+(If you have an old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`).
 
 
 1. Install [Git](https://git-scm.com/downloads) and [Node.JS](https://nodejs.org).
