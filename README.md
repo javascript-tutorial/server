@@ -63,6 +63,27 @@ If you have an old copy of the English tutorial, please rename `1-js/05-data-typ
     the webpage gets reloaded automatically. 
     
     
+# Dev mode
+
+If you'd like to edit the server code, *not* the tutorial text (you know Node.js), run this once:
+
+```
+// import and cache the "ru" version of the tutorial from /js/javascript-tutorial-ru
+// can be any language 
+cd /js/javascript-tutorial-server
+NODE_LANG=ru npm run gulp tutorial:import
+``` 
+    
+And then:
+
+```
+cd /js/javascript-tutorial-server
+./dev ru
+```
+
+Running `./dev` does not watch tutorial text for changes, but reloads the server after code changes. 
+Again, that's for developing the server code itself, not writing the tutorial.
+    
 # TroubleShooting
 
 If something doesn't work – [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
