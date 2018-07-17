@@ -83,7 +83,8 @@ cd /js/javascript-tutorial-server
 ./dev ru
 ```
 
-Running `./dev` does not watch tutorial text for changes, but reloads the server after code changes. 
+Running `./dev` uses the cached version of the tutorial, it does not watch tutorial text for changes.
+But it reloads the server after code changes. 
 Again, that's for developing the server code itself, not writing the tutorial.
     
 # TroubleShooting
