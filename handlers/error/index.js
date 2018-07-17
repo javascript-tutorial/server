@@ -9,7 +9,6 @@ let isDevelopment = process.env.NODE_ENV == 'development';
 const t = require('i18n');
 t.requirePhrase('error');
 
-
 // can be called not from this MW, but from anywhere
 // this.templateDir can be anything
 function renderError(ctx, err) {
