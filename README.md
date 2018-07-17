@@ -14,7 +14,7 @@ You can use it to run the tutorial locally and translate it into your language.
 1. Install [Git](https://git-scm.com/downloads) and [Node.JS](https://nodejs.org).
 
     These are required to update and run the project.
-    For non-Windows OS use standard install tools (packages or whatever convenient).
+    For Windows just download and install, otherwise use standard OS install tools (packages or whatever convenient).
     
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
 
