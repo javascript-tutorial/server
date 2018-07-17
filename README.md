@@ -37,7 +37,9 @@ You can use it to run the tutorial locally and translate it into your language.
 
 5. Clone the tutorial text into it.
 
-    The text repository has `"-language"` postfix at the end, e.g for the French version `fr`, for Russian – `ru` etc:
+    The text repository has `"-language"` postfix at the end, e.g for the French version `fr`, for Russian – `ru` etc.
+    
+    For the Russian version:
     ```
     cd /js
     git clone https://github.com/iliakan/javascript-tutorial-ru
@@ -45,7 +47,7 @@ You can use it to run the tutorial locally and translate it into your language.
 
 6. Run the site
 
-    Run the site with the language:
+    Run the site with the same language:
     ```
     cd /js/javascript-tutorial-server
     ./edit ru
