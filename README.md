@@ -67,7 +67,7 @@ You can use it to run the tutorial locally and translate it into your language.
     
 # Dev mode
 
-If you'd like to edit the server code, *not* the tutorial text (you know Node.js), run this once:
+If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), run this once:
 
 ```
 // import and cache the "ru" version of the tutorial from /js/javascript-tutorial-ru
