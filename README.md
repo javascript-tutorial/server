@@ -91,6 +91,8 @@ Again, that's for developing the server code itself, not writing the tutorial.
 
 If something doesn't work – [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
 
+Write OS and Node.js version.
+
 --  
 Yours,  
 Ilya Kantor 
