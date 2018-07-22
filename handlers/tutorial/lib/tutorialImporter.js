@@ -1,6 +1,5 @@
 'use strict';
 
-const util = require('util');
 const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
@@ -76,7 +75,7 @@ module.exports = class TutorialImporter {
     let parent = this.tree.bySlug(parentSlug);
 
     if (update) {
-      console.log("DESTROY", slug);
+      //console.log("DESTROY", slug);
       this.tree.destroyTree(slug);
     }
     await this['sync' + type](dir, parent);
@@ -259,7 +258,7 @@ module.exports = class TutorialImporter {
 
     if (stat.isFile()) {
       if (ext === 'png' || ext === 'jpg' || ext === 'gif' || ext === 'svg') {
-        await importImage(sourcePath, destDir);
+        importImage(sourcePath, destDir);
         return;
       }
       copySync(sourcePath, destPath);
@@ -542,7 +541,7 @@ function getFileExt(filePath) {
   return ext && ext[1];
 }
 
-function* importImage(srcPath, dstDir) {
+function importImage(srcPath, dstDir) {
   log.info("importImage", srcPath, "to", dstDir);
   const filename = path.basename(srcPath);
   const dstPath = path.join(dstDir, filename);
@@ -576,7 +575,7 @@ function readFs(dir) {
       hadErrors = true;
     }
 
-    let type = mime.lookup(file).split('/');
+    let type = mime.getType(file).split('/');
     if (type[0] != 'text' && type[1] != 'json' && type[1] != 'javascript' && type[1] != 'svg+xml') {
       log.error("Bad file extension: " + file);
       hadErrors = true;
