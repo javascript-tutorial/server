@@ -176,6 +176,8 @@ exports.init = function(app) {
         resolve: pugResolve
       }];
 
+      log.debug("render template", templatePath);
+
       return pug.renderFile(pugResolve(templatePath, null, loc), loc);
     };
 

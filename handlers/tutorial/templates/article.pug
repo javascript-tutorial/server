@@ -7,7 +7,7 @@ block sidebar
   include sidebar
 
 block sidebar-buttons
-  +b("a").map(href="/tutorial/map", data-action="tutorial-map", data-tooltip="Карта учебника")
+  +b("a").map(href="/tutorial/map", data-action="tutorial-map", data-tooltip=t('locales.tutorial_map'))
 
 block append head
   meta(property="og:title", content=title || headTitle)
