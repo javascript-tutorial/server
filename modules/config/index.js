@@ -28,6 +28,7 @@ let config = module.exports = {
     static: env.BASE_CURRENT_STATIC || env.BASE || 'http://localhost:3000',
   },
   urlBaseProduction: {
+    // when even in dev mode we must reference prod, use this (maybe remove it?)
     main: env.BASE_PRODUCTION_MAIN || env.BASE || 'http://localhost:3000',
     static: env.BASE_PRODUCTION_STATIC || env.BASE || 'http://localhost:3000'
   },
