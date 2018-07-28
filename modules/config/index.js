@@ -24,13 +24,13 @@ if (env.DEV_TRACE) {
 let config = module.exports = {
   urlBase: {
     // node may be behind nginx, use this in documents
-    main: env.BASE_CURRENT_MAIN || env.BASE || 'http://localhost:3000',
-    static: env.BASE_CURRENT_STATIC || env.BASE || 'http://localhost:3000',
+    main: env.URL_BASE_MAIN || env.URL_BASE || 'http://localhost:3000',
+    static: env.URL_BASE_STATIC || env.URL_BASE || 'http://localhost:3000',
   },
   urlBaseProduction: {
     // when even in dev mode we must reference prod, use this (maybe remove it?)
-    main: env.BASE_PRODUCTION_MAIN || env.BASE || 'http://localhost:3000',
-    static: env.BASE_PRODUCTION_STATIC || env.BASE || 'http://localhost:3000'
+    main: env.URL_BASE_PRODUCTION_MAIN || env.URL_BASE || 'http://localhost:3000',
+    static: env.URL_BASE_PRODUCTION_STATIC || env.URL_BASE || 'http://localhost:3000'
   },
 
   server: {
