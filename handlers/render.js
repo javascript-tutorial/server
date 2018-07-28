@@ -59,7 +59,7 @@ function addStandardHelpers(locals, ctx) {
 
   locals.env = process.env;
 
-  locals.domain = config.domain;
+  locals.urlBase = config.urlBase;
 
   // replace lone surrogates in json, </script> -> <\/script>
   locals.escapeJSON = function(s) {
@@ -162,7 +162,7 @@ exports.init = function(app) {
         loc.canonicalPath = loc.canonicalPath.replace(/\/+$/, '');
       }
 
-      loc.canonicalUrl = config.server.siteHost + loc.canonicalPath;
+      loc.canonicalUrl = config.urlBase.main + loc.canonicalPath;
 
       if (ctx.templateDir) {
         loc.roots = [ctx.templateDir];

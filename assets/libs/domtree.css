@@ -1,0 +1,22 @@
+/*
+.domtree .node rect {
+  cursor: pointer;
+  fill: #fff;
+}
+
+.domtree .node text {
+  fill: #333333;
+  font: 12px "Helvetica Nue", sans-serif;
+  pointer-events: none;
+}
+
+.domtree path.link {
+  fill: none;
+  stroke: #BEC3C7;
+  stroke-width: 1px;
+}
+*/
+.domtree {
+  border: 1px solid #f5f2f0;
+  border-radius: 4px;
+}

@@ -5,8 +5,6 @@
 @set TUTORIAL_EDIT=1
 @set ASSET_VERSIONING=query
 @set WATCH=1
-@set SITE_HOST=http://javascript.local
-@set PORT=3000
 @set NODE_PATH=./handlers;./modules
 
 call gulp edit

@@ -51,7 +51,7 @@ module.exports = class ServerParser {
       linkHeaderTag: true,
       html:          true,
       publicRoot:    config.publicRoot,
-      staticHost:    config.server.staticHost,
+      staticHost:    config.urlBase.static,
       quotes:        config.lang === 'ru' ? '«»„“' : '“”‘’'
     }, options));
 

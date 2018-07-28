@@ -22,18 +22,19 @@ if (env.DEV_TRACE) {
 }
 
 let config = module.exports = {
-  // production domain, for tutorial imports, descriptions, etc
-  // for the places where in-dev we must use a real domain
-  domain: {
-    main:   'javascript.local',
-    static: 'javascript.local'
+  urlBase: {
+    // node may be behind nginx, use this in documents
+    main: env.BASE_CURRENT_MAIN || env.BASE || 'http://localhost:3000',
+    static: env.BASE_CURRENT_STATIC || env.BASE || 'http://localhost:3000',
+  },
+  urlBaseProduction: {
+    main: env.BASE_PRODUCTION_MAIN || env.BASE || 'http://localhost:3000',
+    static: env.BASE_PRODUCTION_STATIC || env.BASE || 'http://localhost:3000'
   },
 
   server: {
-    port:       env.PORT || 3000,
-    host:       env.HOST || '0.0.0.0',
-    siteHost:   env.SITE_HOST || '',
-    staticHost: env.STATIC_HOST || ''
+    port: env.PORT || 3000,
+    host: env.HOST || 'localhost'
   },
 
   appKeys:  [secret.sessionKey],
