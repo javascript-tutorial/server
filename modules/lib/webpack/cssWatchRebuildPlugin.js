@@ -51,10 +51,10 @@ class CssWatchFS {
 
     let styles = glob.sync(`${this.roots[name]}/**/*.styl`, {cwd: config.projectRoot});
 
-    // config.handlers.forEach(handler => {
-    //   let handlerStyles = glob.sync(`handlers/${handler}/client/styles/**/*.styl`, {cwd: config.projectRoot});
-    //   styles.push(...handlerStyles);
-    // });
+    config.handlers.forEach(handler => {
+      let handlerStyles = glob.sync(`handlers/${handler}/client/styles/**/*.styl`, {cwd: config.projectRoot});
+      styles.push(...handlerStyles);
+    });
 
     let content = styles.map(s => `@require '../${s}'`).join("\n");
 

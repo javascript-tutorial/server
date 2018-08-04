@@ -9,6 +9,7 @@ let config = require('config');
 let webpack = require('webpack');
 let WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
 let CssWatchRebuildPlugin = require('lib/webpack/cssWatchRebuildPlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -227,6 +228,19 @@ module.exports = function (config) {
       new CssWatchRebuildPlugin({
         styles: '{templates,styles}'
       }),
+
+      new CopyWebpackPlugin(
+        config.handlers.map(handler => {
+          let from = `handlers/${handler}/client/assets`;
+          if (!fse.existsSync(from)) return;
+
+          return {
+            from,
+            to: config.publicRoot
+          }
+        }).filter(Boolean),
+        { debug: 'warning'}
+      ),
 
       {
         apply: function (compiler) {

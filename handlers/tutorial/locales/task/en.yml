@@ -11,6 +11,7 @@ open_solution:
 Importance: Importance
 importance: importance
 solution: solution
+back: back to the lesson
 importance_help: How important is the task, from 1 to 5
 
 task_not_found: "Task \"#{path}\" not found"

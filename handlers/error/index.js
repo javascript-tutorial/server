@@ -38,6 +38,7 @@ function renderError(ctx, err) {
     ctx.status = 400;
   }
 
+  // mongoose validation error
   if (err.name == 'ValidationError') {
     ctx.status = 400;
 
