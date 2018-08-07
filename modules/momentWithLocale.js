@@ -1,3 +1,3 @@
-require('moment/locale/ru');
+require('moment/locale/' + process.env.NODE_LANG);
 
 module.exports = require('moment');
