@@ -209,15 +209,15 @@ module.exports = class TutorialImporter {
     data.githubLink = config.tutorialGithubBaseUrl + articlePath.slice(this.root.length) + '/article.md';
 
     try {
-      data.headJs = fs.readFileSync(path.join(articlePath, 'head.js'));
+      data.headJs = fs.readFileSync(path.join(articlePath, 'head.js'), {encoding: 'utf8'});
     } catch (e) {
     }
     try {
-      data.headCss = fs.readFileSync(path.join(articlePath, 'head.css'));
+      data.headCss = fs.readFileSync(path.join(articlePath, 'head.css'), {encoding: 'utf8'});
     } catch (e) {
     }
     try {
-      data.headHtml = fs.readFileSync(path.join(articlePath, 'head.html'));
+      data.headHtml = fs.readFileSync(path.join(articlePath, 'head.html'), {encoding: 'utf8'});
     } catch (e) {
     }
 

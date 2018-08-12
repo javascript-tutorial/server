@@ -34,7 +34,9 @@ app.proxy = true;
 
 // ========= Helper handlers ===========
 
-config.handlers.forEach(handler => app.requireHandler(handler));
+for(const handlerName in config.handlers) {
+  app.requireHandler(handlerName);
+}
 
 // must be last
 app.requireHandler('404');

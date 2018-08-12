@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 
-let handlers = [
+let handlerNames = [
   'static',
   'requestId',
   'requestLog',
@@ -42,5 +42,18 @@ let handlers = [
   process.env.NODE_ENV=='development' && 'dev',
   'tutorial'
 ].filter(Boolean);
+
+let handlers = {};
+
+for (const name of handlerNames) {
+  let handlerPath = require.resolve(name);
+  if (handlerPath.endsWith('index.js')) {
+    handlerPath = path.dirname(handlerPath);
+  }
+  handlers[name] = {
+    path: handlerPath
+  }
+}
+
 
 module.exports = handlers;

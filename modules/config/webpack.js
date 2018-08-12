@@ -24,6 +24,7 @@ let noProcessModulesRegExp = /node_modules\/(angular|prismjs)/;
 
 let devMode = process.env.NODE_ENV == 'development';
 
+
 module.exports = function (config) {
 // tutorial.js?hash
 // tutorial.hash.js
@@ -38,6 +39,19 @@ module.exports = function (config) {
   if (process.env.NODE_PATH) {
     modulesDirectories = modulesDirectories.concat(process.env.NODE_PATH.split(/[:;]/).map(p => path.resolve(p)));
   }
+
+  let assetPaths = [];
+  for(let handlerName in config.handlers) {
+    let handlerPath = config.handlers[handlerName].path;
+    let from = `${handlerPath}/client/assets`;
+    console.log(from);
+
+    if (fse.existsSync(from)) {
+      assetPaths.push(from);
+    }
+  }
+  console.log(assetPaths);
+
 
   let webpackConfig = {
     output: {
@@ -230,16 +244,14 @@ module.exports = function (config) {
       }),
 
       new CopyWebpackPlugin(
-        config.handlers.map(handler => {
-          let from = `handlers/${handler}/client/assets`;
-          if (!fse.existsSync(from)) return;
-
+        assetPaths.map(path => {
           return {
-            from,
+            from: path,
             to: config.publicRoot
           }
-        }).filter(Boolean),
-        { debug: 'warning'}
+        }),
+        { debug: 'debug'}
+        // { debug: 'warning'}
       ),
 
       {
