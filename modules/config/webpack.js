@@ -208,14 +208,18 @@ module.exports = function (config) {
 
       // prevent autorequire all moment locales
       // https://github.com/webpack/webpack/issues/198
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/
+      }),
+
 
       // ignore site locale files except the lang
       new webpack.IgnorePlugin({
-        // ignore yml files not like LANG.yml
-        test: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml'
-      },  // under dirs like: ../locales/..
-        /\/locales(\/|$)/
+          checkResource: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml',
+          // under dirs like: ../locales/..
+          checkContext: arg => /\/locales(\/|$)/.test(arg)
+        }
       ),
 
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
