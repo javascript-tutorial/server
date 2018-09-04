@@ -23,30 +23,3 @@ require('./navigationArrows');
 require('./hover');
 require('./trackLinks');
 
-// must use CommonsChunkPlugin
-// to ensure that other modules use exactly this (initialized) client/notify
-require('client/notification').init();
-
-exports.showTopNotification = function() {
-  let notification = document.querySelector('.notification_top');
-
-  let id = notification.id;
-
-  notification.querySelector('button').onclick = function() {
-    localStorage.topNotificationHidden = id;
-    notification.style.display = 'none';
-  };
-
-  if (!id) throw new Error('Top notification must have an id');
-
-  // topNotificationHidden has the id of the hidden notification (current or previous one)
-  let hiddenId = localStorage.topNotificationHidden;
-  if (hiddenId == id) return;
-
-  // not same id or no id saved
-  delete localStorage.topNotificationHidden;
-
-  notification.style.display = '';
-};
-
-

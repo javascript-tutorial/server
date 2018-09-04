@@ -1,8 +1,0 @@
-<pre class="language-markup line-numbers" data-trusted="1" data-highlight-block="1-6">&lt;style&gt;
-  #top {
-    position: fixed;
-    right: 10px;
-    top: 10px;
-    background: #fee;
-  }
-&lt;/style&gt;</pre>

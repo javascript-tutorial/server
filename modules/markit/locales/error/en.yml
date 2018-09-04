@@ -1,7 +1,0 @@
-image_not_found: "Image \"#{src}\" not found"
-image_invalid: "Image \"#{src}\" is corrupted"
-attr_required: "Attribute \"#{attr}\" is required"
-src_out_of_root: "The source path \"#{src}\" is outside of the root"
-read_file: "Cannot read file \"#{src}\""
-no_such_plunk: "No such plunk \"#{src}\""
-anchor_exits: "Anchor exists already: \"#{anchor}\""

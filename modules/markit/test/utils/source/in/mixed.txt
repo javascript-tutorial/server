@@ -1,8 +1,0 @@
-test;
-
-*!*
-let f = *!*function()*/!* {
-  alert(*!*1*/!*);
-}
-*/!*
-one more line;

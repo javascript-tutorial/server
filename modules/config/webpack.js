@@ -1,5 +1,3 @@
-'use strict';
-
 let fs = require('fs');
 let nib = require('nib');
 let rupture = require('rupture');
@@ -7,8 +5,8 @@ let path = require('path');
 let chokidar = require('chokidar');
 let config = require('config');
 let webpack = require('webpack');
-let WriteVersionsPlugin = require('lib/webpack/writeVersionsPlugin');
-let CssWatchRebuildPlugin = require('lib/webpack/cssWatchRebuildPlugin');
+let WriteVersionsPlugin = require('jsengine/webpack/writeVersionsPlugin');
+let CssWatchRebuildPlugin = require('jsengine/webpack/cssWatchRebuildPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -20,9 +18,10 @@ const glob = require('glob');
 // no webpack dependencies inside
 // no es6 (for 6to5 processing) inside
 // NB: includes angular-*
-let noProcessModulesRegExp = /node_modules\/(angular|prismjs)/;
+let noProcessModulesRegExp = new RegExp("node_modules" + (path.sep === '/' ? path.sep : '\\\\')  + "(angular|prismjs|sanitize-html|i18n-iso-countries)");
 
 let devMode = process.env.NODE_ENV == 'development';
+
 
 module.exports = function (config) {
 // tutorial.js?hash
@@ -34,15 +33,62 @@ module.exports = function (config) {
         `${name}.${ext}`;
   }
 
-  let modulesDirectories = ['node_modules'];
+  let modulesDirectories = [path.join(process.cwd(), 'node_modules')];
   if (process.env.NODE_PATH) {
     modulesDirectories = modulesDirectories.concat(process.env.NODE_PATH.split(/[:;]/).map(p => path.resolve(p)));
   }
 
+  //console.log("MODULE DIRS", modulesDirectories);
+
+  /**
+   * handler/client/assets/* goes to public/assets/
+   */
+  let assetPaths = [];
+  for (let handlerName in config.handlers) {
+    let handlerPath = config.handlers[handlerName].path;
+    let from = `${handlerPath}/client/assets`;
+
+    if (fse.existsSync(from)) {
+      assetPaths.push(from);
+    }
+  }
+  //console.log("ASSET PATHS", assetPaths);
+
+  /**
+   * handler/client becomes handler.js
+   * handler/templates makes handler.css (via CssWatchRebuiltPlugin)
+   */
+  let entries = {
+    head:      'client/head',
+    footer:    'client/footer',
+    tutorial:  'jsengine/koa/tutorial/client',
+    styles:    config.tmpRoot + '/styles.styl',
+    frontpage: config.tmpRoot + '/frontpage.styl'
+  };
+
+  /*
+  for(let handlerName in config.handlers) {
+    let handlerNameShort = path.basename(handlerName);
+    let handlerPath = config.handlers[handlerName].path;
+    let e = [];
+    if (fse.existsSync(`${handlerPath}/client`)) {
+      e.push(`${handlerPath}/client`);
+    }
+    if (fse.existsSync(`${handlerPath}/templates`)) {
+      e.push(config.tmpRoot + `/${handlerNameShort}.styl`);
+    }
+
+    if (e.length) {
+      entries[handlerNameShort] = e;
+    }
+  }*/
+  //console.log("WEBPACK ENTRIES", entries);
+
+
   let webpackConfig = {
     output: {
       // fs path
-      path: path.join(config.publicRoot, 'pack'),
+      path:       path.join(config.publicRoot, 'pack'),
       // path as js sees it
       // if I use another domain here, need enable Allow-Access-.. header there
       // and add  to scripts, to let error handler track errors
@@ -51,11 +97,11 @@ module.exports = function (config) {
       // в prod-режиме не можем ?, т.к. CDN его обрезают, поэтому [hash] в имени
       //  (какой-то [hash] здесь необходим, иначе к chunk'ам типа 3.js, которые генерируются require.ensure,
       //  будет обращение без хэша при загрузке внутри сборки. при изменении - барузерный кеш их не подхватит)
-      filename: extHash("[name]", 'js'),
+      filename:   extHash("[name]", 'js'),
 
       chunkFilename: extHash("[name]-[id]", 'js'),
-      library: '[name]',
-      pathinfo: devMode
+      library:       '[name]',
+      pathinfo:      devMode
     },
 
     cache: devMode,
@@ -65,54 +111,54 @@ module.exports = function (config) {
 
     watchOptions: {
       aggregateTimeout: 10,
-      ignored: /node_modules/
+      ignored:          /node_modules/
     },
 
     watch: devMode,
 
     devtool: devMode ? "cheap-inline-module-source-map" : // try "eval" ?
-      process.env.NODE_ENV == 'production' ? 'source-map' : false,
+               process.env.NODE_ENV == 'production' ? 'source-map' : false,
 
-    profile: false,
+    profile: Boolean(process.env.WEBPACK_STATS),
 
-    entry: {
-      styles: config.tmpRoot + '/styles.styl',
-      head: 'client/head',
-      tutorial: 'tutorial/client',
-      footer: 'client/footer',
-    },
+    entry: entries,
+
+    /*
+        entry: {
+          styles: config.tmpRoot + '/styles.styl',
+          head: 'client/head',
+          tutorial: 'jsengine/koa/tutorial/client',
+          footer: 'client/footer',
+        },*/
 
     module: {
-      rules: [
+      rules:   [
         {
           test: /\.json$/,
-          use: 'json-loader'
-        },
-        {
-          test: /\.i18n/,
-          use: 'translation-loader'
+          use:  'json-loader'
         },
         {
           test: /\.yml$/,
-          use: ['json-loader', 'yaml-loader']
+          use:  ['json-loader', 'yaml-loader']
         },
         {
           test: /\.pug$/,
-          use: 'pug-loader?root=' + config.projectRoot + '/templates'
+          use:  'pug-loader?root=' + config.projectRoot + '/templates'
         },
         {
-          test: /\.js$/,
+          test:    /\.js$/,
           // babel shouldn't process modules which contain ws/browser.js,
           // which must not be run in strict mode (global becomes undefined)
           // babel would make all modules strict!
-          exclude: /node_modules\/(angular|prismjs|moment|blueimp-canvas-to-blob|codemirror|markdown-it)/,
-          use: [
+          exclude: noProcessModulesRegExp,
+          use:     [
             // babel will work first
             {
-              loader: 'babel-loader',
+              loader:  'babel-loader',
               options: {
                 presets: [
-                  ['env', {
+                  // use require.resolve here to build files from symlinks
+                  [require.resolve('babel-preset-env'), {
                     //useBuiltIns: true,
                     targets: {
                       browsers: "> 3%"
@@ -126,29 +172,29 @@ module.exports = function (config) {
         {
           test: /\.styl$/,
           // MiniCssExtractPlugin breaks HMR for CSS
-          use: [
+          use:  [
             MiniCssExtractPlugin.loader,
             {
-              loader: 'css-loader',
+              loader:  'css-loader',
               options: {
                 importLoaders: 1
               }
             },
             {
-              loader: 'postcss-loader',
+              loader:  'postcss-loader',
               options: {
                 plugins: [
                   require('autoprefixer')
                 ]
               }
             },
-            'hover-loader',
+            'jsengine/webpack/hover-loader',
             {
-              loader: 'stylus-loader',
+              loader:  'stylus-loader',
               options: {
-                linenos: true,
+                linenos:       true,
                 'resolve url': true,
-                use: [
+                use:           [
                   rupture(),
                   nib(),
                   function (style) {
@@ -161,7 +207,7 @@ module.exports = function (config) {
         },
         {
           test: /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
-          use: extHash('file-loader?name=[path][name]', '[ext]')
+          use:  extHash('file-loader?name=[path][name]', '[ext]')
         }
       ],
       noParse: function (path) {
@@ -179,15 +225,16 @@ module.exports = function (config) {
     resolve: {
       // allow require('styles') which looks for styles/index.styl
       extensions: ['.js', '.styl'],
-      alias: {
+      alias:      {
+        'entities/maps/entities.json': 'jsengine/markit/emptyEntities',
         config: 'client/config'
       },
-      modules: modulesDirectories
+      modules:    modulesDirectories
     },
 
 
     resolveLoader: {
-      modules: modulesDirectories,
+      modules:    modulesDirectories,
       extensions: ['.js']
     },
 
@@ -197,7 +244,7 @@ module.exports = function (config) {
 
     plugins: [
       new webpack.DefinePlugin({
-        LANG: JSON.stringify(config.lang),
+        LANG:      JSON.stringify(config.lang),
         IS_CLIENT: true
       }),
 
@@ -206,82 +253,88 @@ module.exports = function (config) {
         _: 'lodash'
       }),
 
-      // prevent autorequire all moment locales
-      // https://github.com/webpack/webpack/issues/198
+      // ignore all locales (will require manually from moment-with-locale
       new webpack.IgnorePlugin({
-        resourceRegExp: /^\.\/locale$/,
-        contextRegExp: /moment$/
+        checkResource: (arg) => {
+          // locale requires that file back from it, need to keep it
+          if (arg === '../moment') return false;
+          tmp = arg;
+          return true;
+        },
+        // under dirs like: ../locales/..
+        checkContext:  arg => {
+          let ignore = arg.endsWith(path.join('node_modules', 'moment', 'locale'));
+          if (ignore) {
+            //console.log("ignore moment locale", tmp, arg);
+            return true;
+          }
+        }
       }),
-
 
       // ignore site locale files except the lang
       new webpack.IgnorePlugin({
-          checkResource: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml',
-          // under dirs like: ../locales/..
-          checkContext: arg => /\/locales(\/|$)/.test(arg)
-        }
-      ),
+        checkResource: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml',
+        // under dirs like: ../locales/..
+        checkContext: arg => /\/locales(\/|$)/.test(arg)
+      }),
 
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
       new MiniCssExtractPlugin({
-        filename: extHash("[name]", 'css'),
+        filename:      extHash("[name]", 'css'),
         chunkFilename: extHash("[id]", 'css'),
       }),
 
-      new CssWatchRebuildPlugin({
-        styles: '{templates,styles}'
-      }),
+      new CssWatchRebuildPlugin(),
 
       new CopyWebpackPlugin(
-        config.handlers.map(handler => {
-          let from = `handlers/${handler}/client/assets`;
-          if (!fse.existsSync(from)) return;
-
+        assetPaths.map(path => {
           return {
-            from,
-            to: config.publicRoot
+            from: path,
+            to:   config.publicRoot
           }
-        }).filter(Boolean),
-        { debug: 'warning'}
+        }),
+        {debug: 'warning'}
       ),
 
       {
         apply: function (compiler) {
-          compiler.plugin("done", function (stats) {
-            stats = stats.toJson();
-            fs.writeFileSync(`${config.tmpRoot}/stats.json`, JSON.stringify(stats));
-          });
+          if (process.env.WEBPACK_STATS) {
+            compiler.plugin("done", function (stats) {
+              stats = stats.toJson();
+              fs.writeFileSync(`${config.tmpRoot}/stats.json`, JSON.stringify(stats));
+            });
+          }
         }
       }
     ],
 
     recordsPath: path.join(config.tmpRoot, 'webpack.json'),
-    devServer: {
-      port: 3001, // dev server itself does not use it, but outer tasks do
+    devServer:   {
+      port:               3001, // dev server itself does not use it, but outer tasks do
       historyApiFallback: true,
-      hot: true,
-      watchDelay: 10,
+      hot:                true,
+      watchDelay:         10,
       //noInfo: true,
-      publicPath: process.env.STATIC_HOST + ':3001/pack/',
-      contentBase: config.publicRoot
+      publicPath:         process.env.STATIC_HOST + ':3001/pack/',
+      contentBase:        config.publicRoot
     },
 
 
     optimization: {
       minimizer: [
         new UglifyJsPlugin({
-          cache: true,
-          parallel: 2,
+          cache:         true,
+          parallel:      2,
           uglifyOptions: {
-            ecma: 8,
+            ecma:     8,
             warnings: false,
             compress: {
-              drop_console: true,
+              drop_console:  true,
               drop_debugger: true
             },
-            output: {
-              beautify: true,
+            output:   {
+              beautify:     true,
               indent_level: 0 // for error reporting, to see which line actually has the problem
               // source maps actually didn't work in Qbaka that's why I put it here
             }

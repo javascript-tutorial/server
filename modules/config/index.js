@@ -6,9 +6,6 @@ let env = process.env;
 // NODE_ENV = development || test || production
 env.NODE_ENV = env.NODE_ENV || 'development';
 
-//if (!env.SITE_HOST) throw new Error("env.SITE_HOST is not set");
-//if (!env.STATIC_HOST) throw new Error("env.STATIC_HOST is not set");
-
 let secret = require('./secret');
 
 let lang = env.NODE_LANG || 'en';
@@ -24,13 +21,13 @@ if (env.DEV_TRACE) {
 let config = module.exports = {
   urlBase: {
     // node may be behind nginx, use this in documents
-    main: env.URL_BASE_MAIN || env.URL_BASE || 'http://localhost:3000',
-    static: env.URL_BASE_STATIC || env.URL_BASE || 'http://localhost:3000',
+    main: new URL(env.URL_BASE_MAIN || env.URL_BASE || 'http://localhost:3000'),
+    static: new URL(env.URL_BASE_STATIC || env.URL_BASE || 'http://localhost:3000'),
   },
   urlBaseProduction: {
     // when even in dev mode we must reference prod, use this (maybe remove it?)
-    main: env.URL_BASE_PRODUCTION_MAIN || env.URL_BASE || 'http://localhost:3000',
-    static: env.URL_BASE_PRODUCTION_STATIC || env.URL_BASE || 'http://localhost:3000'
+    main: new URL(env.URL_BASE_PRODUCTION_MAIN || env.URL_BASE || 'http://localhost:3000'),
+    static: new URL(env.URL_BASE_PRODUCTION_STATIC || env.URL_BASE || 'http://localhost:3000')
   },
 
   server: {
@@ -74,9 +71,8 @@ require.extensions['.yml'] = function(module, filename) {
 
 
 // after module.exports for circle dep w/ config
-const t = require('i18n');
-
-t.requirePhrase(''); // root locales
+const t = require('jsengine/i18n');
+t.requireHandlerLocales();
 
 // webpack config uses general config
 // we have a loop dep here
