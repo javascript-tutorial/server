@@ -1,5 +1,6 @@
 let iframeResize = require('./iframeResize');
-let throttle = require('lib/throttle');
+
+let throttle = require('lodash/throttle');
 // track resized iframes in window.onresize
 
 let onResizeQueue = [];

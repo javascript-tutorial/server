@@ -7,6 +7,7 @@ BRANCH="${1:-$NODE_LANG}"
 export NODE_LANG=$BRANCH
 export NODE_ENV=production
 export TUTORIAL_EDIT=1
+export NODE_PRESERVE_SYMLINKS=1
 
 npm --silent run -- gulp edit
 

@@ -20,10 +20,6 @@
 sftp-config.json
 Thumbs.db
 
-# private downloads
-download/
-archive/
-
 # database dump for tutorial export
 dump/
 
@@ -35,7 +31,6 @@ tmp/
 
 # Manifest (build-generated content, versions)
 cache/
-
 
 # contains v8 executable for linux-tick-processor (run from project root)
 out/*

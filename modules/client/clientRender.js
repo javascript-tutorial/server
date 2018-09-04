@@ -1,8 +1,7 @@
-const bem = require('bemPug')();
-const thumb = require('client/image').thumb;
+// const bem = require('bemPug')();
 const LANG = require('config').lang;
 
-const t = require('i18n');
+const t = require('jsengine/i18n/t');
 
 module.exports = function(template, locals) {
   locals = locals ? Object.create(locals) : {};
@@ -12,9 +11,8 @@ module.exports = function(template, locals) {
 };
 
 function addStandardHelpers(locals) {
-  locals.bem = bem;
+  // locals.bem = bem;
   locals.t = t;
-  locals.thumb = thumb;
   locals.lang = LANG;
 }
 

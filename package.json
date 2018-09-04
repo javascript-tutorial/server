@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prod": "NODE_ENV=production NODE_PATH=./handlers:./modules node ./bin/server.js",
+    "prod": "NODE_ENV=production NODE_PATH=./modules node ./bin/server.js",
     "fixperms": "sudo chown -R `id -u` .* * ~/.n*",
     "//": "test must exit with status 1 if fails, don't use | or ensure the right exit code if you do",
-    "test": "SELENIUM_LOCAL=1 NODE_ENV=test NODE_PATH=./handlers:./modules ./node_modules/.bin/gulp test",
-    "build": "NODE_PATH=./handlers:./modules ./node_modules/.bin/gulp build",
-    "gulp": "NODE_PATH=./handlers:./modules ./node_modules/.bin/gulp"
+    "test": "SELENIUM_LOCAL=1 NODE_ENV=test NODE_PATH=./modules ./node_modules/.bin/gulp test",
+    "build": "NODE_PATH=./modules ./node_modules/.bin/gulp build",
+    "gulp": "NODE_PATH=./modules ./node_modules/.bin/gulp"
   },
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
@@ -20,7 +20,7 @@
     "babel-plugin-transform-runtime": "*",
     "babel-preset-env": "*",
     "babelfish": "^1.1.2",
-    "bemto.pug": "github:kizu/bemto",
+    "bemto.pug": "iliakan/bemto",
     "bunyan": "*",
     "chokidar": "^2.0.4",
     "clarify": "^2.1.0",
@@ -72,7 +72,7 @@
     "style-loader": "^0",
     "stylus-loader": "^3",
     "trace": "^3.1.0",
-    "uglify-js": "^3",
+    "uglify-es": "^3",
     "uglifyjs-webpack-plugin": "^1",
     "webpack": "^4",
     "yaml-loader": "^0.5.0"
