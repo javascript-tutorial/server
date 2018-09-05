@@ -1,6 +1,5 @@
 const fs = require('fs');
 const fse = require('fs-extra');
-const gp = require('gulp-load-plugins')();
 const glob = require('glob');
 
 module.exports = function(resources) {

@@ -86,5 +86,5 @@ t.requireHandlerLocales();
 
 // webpack config uses general config
 // we have a loop dep here
-config.webpack = require('./webpack')(config);
+config.webpack = require('./webpack');
 

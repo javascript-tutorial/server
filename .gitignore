@@ -40,3 +40,4 @@ public/*
 package-lock.json
 
 /modules/jsengine
+.gitmodules

@@ -1,15 +1,13 @@
 let webpack = require('webpack');
-let gp = require('gulp-load-plugins')();
 let notifier = require('node-notifier');
 
 module.exports = function() {
 
   return function(callback) {
 
-    let config = require('config').webpack;
+    let config = require('config').webpack();
 
     webpack(config, function(err, stats) {
-
       if (!err) {
         // errors in files do not stop webpack watch
         // instead, they are gathered, so I get the first one here (if no other)
@@ -19,13 +17,11 @@ module.exports = function() {
 
       if (err) {
 
-        let message = err.replace(/.*!/, '');
-
         notifier.notify({
-          message
+          message: err
         });
 
-        gp.util.log(err);
+        console.log(err);
 
         if (!config.watch) callback(err);
         return;
@@ -47,7 +43,7 @@ module.exports = function() {
       require('fs').writeFileSync('/tmp/webpack.json', JSON.stringify(stats.toJson()));
       */
 
-      gp.util.log('[webpack]', stats.toString({
+      console.log('[webpack]', stats.toString({
         hash: false,
         version: false,
         timings: true,
@@ -60,7 +56,7 @@ module.exports = function() {
 
       /*
       Log profile and all details
-       gp.util.log('[webpack]', stats.toString({
+       console.log('[webpack]', stats.toString({
        hash: false,
        version: false,
        timings: true,

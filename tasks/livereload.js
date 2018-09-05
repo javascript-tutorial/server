@@ -1,6 +1,5 @@
 let livereload = require('gulp-livereload');
 let gulp = require('gulp');
-let gutil = require('gulp-util');
 let throttle = require('lodash/throttle');
 let chokidar = require('chokidar');
 
@@ -18,7 +17,7 @@ module.exports = function(options) {
     //livereload.changedVerySoon = _.throttle(livereload.changed, 100, {leading: false});
 
     setTimeout(function() {
-      gutil.log("livereload: listen on change " + options.watch);
+      console.log("livereload: listen on change " + options.watch);
 
       chokidar.watch(options.watch, {
         awaitWriteFinish: {

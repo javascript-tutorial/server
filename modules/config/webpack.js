@@ -1,29 +1,31 @@
 let fs = require('fs');
-let nib = require('nib');
-let rupture = require('rupture');
-let path = require('path');
-let chokidar = require('chokidar');
 let config = require('config');
-let webpack = require('webpack');
-let WriteVersionsPlugin = require('jsengine/webpack/writeVersionsPlugin');
-let CssWatchRebuildPlugin = require('jsengine/webpack/cssWatchRebuildPlugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const fse = require('fs-extra');
-const glob = require('glob');
+let path = require('path');
 
 // 3rd party / slow to build modules
 // no webpack dependencies inside
 // no es6 (for 6to5 processing) inside
 // NB: includes angular-*
-let noProcessModulesRegExp = new RegExp("node_modules" + (path.sep === '/' ? path.sep : '\\\\')  + "(angular|prismjs|sanitize-html|i18n-iso-countries)");
+let noProcessModulesRegExp = new RegExp("node_modules" + (path.sep === '/' ? path.sep : '\\\\') + "(angular|prismjs|sanitize-html|i18n-iso-countries)");
 
 let devMode = process.env.NODE_ENV == 'development';
 
 
-module.exports = function (config) {
+module.exports = function () {
+
+  let nib = require('nib');
+  let rupture = require('rupture');
+  let chokidar = require('chokidar');
+  let webpack = require('webpack');
+  let WriteVersionsPlugin = require('jsengine/webpack/writeVersionsPlugin');
+  let CssWatchRebuildPlugin = require('jsengine/webpack/cssWatchRebuildPlugin');
+  const CopyWebpackPlugin = require('copy-webpack-plugin')
+  const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+  const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+  const fse = require('fs-extra');
+
+
 // tutorial.js?hash
 // tutorial.hash.js
   function extHash(name, ext, hash) {
@@ -223,7 +225,7 @@ module.exports = function (config) {
       extensions: ['.js', '.styl'],
       alias:      {
         'entities/maps/entities.json': 'jsengine/markit/emptyEntities',
-        config: 'client/config'
+        config:                        'client/config'
       },
       modules:    modulesDirectories
     },
@@ -271,7 +273,7 @@ module.exports = function (config) {
       new webpack.IgnorePlugin({
         checkResource: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml',
         // under dirs like: ../locales/..
-        checkContext: arg => /\/locales(\/|$)/.test(arg)
+        checkContext:  arg => /\/locales(\/|$)/.test(arg)
       }),
 
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),

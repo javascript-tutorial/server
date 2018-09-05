@@ -30,7 +30,7 @@ gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   watch:  ["modules"]
 }));
 
-gulp.task("client:livereload", lazyRequireTask("./tasks/livereload", {
+gulp.task("livereload", lazyRequireTask("./tasks/livereload", {
   // watch files *.*, not directories, no need to reload for new/removed files,
   // we're only interested in changes
 
@@ -65,7 +65,7 @@ gulp.task('watch', lazyRequireTask('./tasks/watch', {
   taskMapping: [
     {
       watch: 'assets/**',
-      task:  'client:sync-resources'
+      task:  'sync-resources'
     }
   ]
 }));
@@ -74,29 +74,26 @@ gulp.task('deploy', function(callback) {
   runSequence("deploy:build", "deploy:update", callback);
 });
 
-gulp.task("client:sync-resources", lazyRequireTask('./tasks/syncResources', {
+gulp.task("sync-resources", lazyRequireTask('./tasks/syncResources', {
   assets: 'public'
 }));
 
 
-gulp.task('client:minify', lazyRequireTask('./tasks/minify'));
-gulp.task('client:resize-retina-images', lazyRequireTask('./tasks/resizeRetinaImages'));
-
-gulp.task('client:webpack', lazyRequireTask('./tasks/webpack'));
-// gulp.task('client:webpack-dev-server', lazyRequireTask('./tasks/webpackDevServer'));
+gulp.task('webpack', lazyRequireTask('./tasks/webpack'));
+// gulp.task('webpack-dev-server', lazyRequireTask('./tasks/webpackDevServer'));
 
 
 gulp.task('build', function(callback) {
-  runSequence("client:sync-resources", 'client:webpack', callback);
+  runSequence("sync-resources", 'webpack', callback);
 });
 
 gulp.task('server', lazyRequireTask('./tasks/server'));
 
-gulp.task('edit', ['client:webpack', 'jsengine:koa:tutorial:importWatch', "client:sync-resources", 'client:livereload', 'server']);
+gulp.task('edit', ['webpack', 'jsengine:koa:tutorial:importWatch', "sync-resources", 'livereload', 'server']);
 
 
 gulp.task('dev', function(callback) {
-  runSequence("client:sync-resources", ['nodemon', 'client:livereload', 'client:webpack', 'watch'], callback);
+  runSequence("sync-resources", ['nodemon', 'livereload', 'webpack', 'watch'], callback);
 });
 
 gulp.on('err', function(gulpErr) {
