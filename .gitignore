@@ -39,3 +39,4 @@ out/*
 public/*
 package-lock.json
 
+/modules/jsengine
