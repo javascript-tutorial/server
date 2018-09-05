@@ -1,7 +1,13 @@
 @if "%~1"=="" goto usage
 
-export TUTORIAL_ROOT="../javascript-tutorial-%1"
-@set NODE_LANG=%1
+@set TUTORIAL_ROOT="../javascript-tutorial-%1"
+
+@if "%~2"=="" (
+    @set NODE_LANG=en
+) else (
+    @set NODE_LANG=%2
+)
+
 @set NODE_ENV=production
 @set TUTORIAL_EDIT=1
 @set ASSET_VERSIONING=query
@@ -14,5 +20,5 @@ call gulp edit
 goto :eof
 
 :usage
-echo Usage: %0 <Language>
+echo Usage: %0 <tutorial language> [<server language>]
 exit /B 1
