@@ -134,10 +134,6 @@ module.exports = function (config) {
     module: {
       rules:   [
         {
-          test: /\.json$/,
-          use:  'json-loader'
-        },
-        {
           test: /\.yml$/,
           use:  ['json-loader', 'yaml-loader']
         },

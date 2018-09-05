@@ -3,11 +3,10 @@
 set NODE_LANG=%1
 @set NODE_ENV=development
 @set ASSET_VERSIONING=query
-@set WATCH=1
 @set NODE_PRESERVE_SYMLINKS=1
 @set NODE_PATH=./modules
 
-call gulp dev
+call gulp dev | bunyan
 
 goto :eof
 
