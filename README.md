@@ -33,13 +33,16 @@ You can use it to run the tutorial locally and translate it into your language.
     ```
     cd /js
     git clone https://github.com/iliakan/javascript-tutorial-server
+    git clone https://github.com/iliakan/jsengine modules/jsengine
     ```
+
+    Please note, there are two clone commands. That's not a typo: `modules/jsengine` is cloned from another repository.
 
 5. Clone the tutorial text into it.
 
     The text repository has `"-language"` postfix at the end, e.g for the French version `fr`, for Russian – `ru` etc.
     
-    For the Russian version:
+    E.g. for the Russian version:
     ```
     cd /js
     git clone https://github.com/iliakan/javascript-tutorial-ru
@@ -47,14 +50,15 @@ You can use it to run the tutorial locally and translate it into your language.
 
 6. Run the site
 
-    Run the site with the same language:
+    Run the site with the same language. Above we cloned `ru` tutorial, so:
+
     ```
     cd /js/javascript-tutorial-server
     ./edit ru
     ```
 
-    Please note that the argument of `edit` is exactly the language you cloned at step 5.
-    
+    This will import the tutorial from `/js/javascript-tutorial-ru` and start the server.
+
     Wait a bit while it reads the tutorial from disk and builds static assets.
 
     Then access the site at `http://127.0.0.1:3000`.
@@ -63,7 +67,22 @@ You can use it to run the tutorial locally and translate it into your language.
 
     As you edit text files in the tutorial text repository (cloned at step 5), 
     the webpage gets reloaded automatically. 
+ 
     
+# Change server language
+
+The server is using English by default for navigation and other non-tutorial messages.
+
+You can set another language it with the second argument of `edit`.
+
+E.g. import `ru` tutorial and use `ru` locale for the server
+
+```
+cd /js/javascript-tutorial-server
+./edit ru ru
+```
+
+Please note, the code must have corresponding `.yml` files with that language. As of now, `ru` and `en` are fully supported.
     
 # Dev mode
 
@@ -71,20 +90,24 @@ If you'd like to edit the server code, *not* the tutorial text (assuming you're 
 
 ```
 // import and cache the "ru" version of the tutorial from /js/javascript-tutorial-ru
-// (can be any language)
+// NODE_LANG sets server language
+// TUTORIAL_ROOT is the full path to tutorial repo
+
 cd /js/javascript-tutorial-server
-NODE_LANG=ru npm run gulp tutorial:import
+NODE_LANG=en TUTORIAL_ROOT=/js/javascript-tutorial-ru npm run gulp jsengine:koa:tutorial:import
 ``` 
-    
-And then:
+        
+And then `./dev <server language>` runs the server:
 
 ```
 cd /js/javascript-tutorial-server
-./dev ru
+./dev en
 ```
 
-Running `./dev` uses the cached version of the tutorial, it does not watch tutorial text.
-But it reloads the server after code changes. 
+Running `./dev` uses the tutorial imported and cached by the previous command. 
+
+It does not watch tutorial text, but it reloads the server after code changes.
+ 
 Again, that's for developing the server code itself, not writing the tutorial.
     
 # TroubleShooting
@@ -93,6 +116,9 @@ If something doesn't work – [file an issue](https://github.com/iliakan/javascr
 
 Please mention OS and Node.js version.
 
+Also please pull the very latest git code and install latest Node.js modules before publishing an issue.
+
 --  
 Yours,  
 Ilya Kantor 
+iliakan@javascript.info
