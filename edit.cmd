@@ -1,5 +1,6 @@
 @if "%~1"=="" goto usage
 
+export TUTORIAL_ROOT="../javascript-tutorial-%1"
 @set NODE_LANG=%1
 @set NODE_ENV=production
 @set TUTORIAL_EDIT=1

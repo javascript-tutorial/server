@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: ${1?"Usage: $0 <language>"}
+: ${1?"Usage: $0 <server language>"}
 
 set -e
 

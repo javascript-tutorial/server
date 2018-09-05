@@ -60,10 +60,20 @@ let config = module.exports = {
   tmpRoot:               path.join(process.cwd(), 'tmp'),
   // js/css build versions
   cacheRoot:          path.join(process.cwd(), 'cache'),
-  tutorialGithubBaseUrl: 'https://github.com/iliakan/javascript-tutorial-' + lang + '/tree/master',
 
   handlers: require('./handlers')
 };
+
+let repos = require('jsengine/koa/tutorial/repos');
+for(let repo in repos) {
+  if (repos[repo].lang === lang) {
+    config.tutorialRepo = {
+      github: repo,
+      branch: repos[repo].branch || 'master',
+      url: new URL('https://github.com/' + repo + '/tree/' + (repos[repo].branch || 'master'))
+    }
+  }
+}
 
 require.extensions['.yml'] = function(module, filename) {
   module.exports = yaml.safeLoad(fs.readFileSync(filename, 'utf-8'));
