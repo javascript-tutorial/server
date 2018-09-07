@@ -91,7 +91,7 @@ If you'd like to edit the server code, *not* the tutorial text (assuming you're 
 ```
 // import and cache the "ru" version of the tutorial from /js/javascript-tutorial-ru
 // NODE_LANG sets server language
-// TUTORIAL_ROOT is the full path to tutorial repo
+// TUTORIAL_ROOT is the full path to tutorial repo, by default is /js/javascript-tutorial-$NODE_LANG
 
 cd /js/javascript-tutorial-server
 NODE_LANG=en TUTORIAL_ROOT=/js/javascript-tutorial-ru npm run gulp jsengine:koa:tutorial:import

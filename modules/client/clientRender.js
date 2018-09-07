@@ -1,4 +1,3 @@
-// const bem = require('bemPug')();
 const LANG = require('config').lang;
 
 const t = require('jsengine/i18n/t');
