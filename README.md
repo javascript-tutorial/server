@@ -75,7 +75,7 @@ You can use it to run the tutorial locally and translate it into your language.
     
 # Change server language
 
-The server is using English by default for navigation and other non-tutorial messages.
+The server uses English by default for navigation and other non-tutorial messages.
 
 You can set another language it with the second argument of `edit`.
 
@@ -86,7 +86,7 @@ cd /js/javascript-tutorial-server
 ./edit ru ru
 ```
 
-Please note, the code must have corresponding `.yml` files with that language. As of now, `ru` and `en` are fully supported.
+Please note, the server must support that language. That is: server code must have corresponding locale files for that language, otherwise it exists with an error. As of now, `ru` and `en` are fully supported.
     
 # Dev mode
 
