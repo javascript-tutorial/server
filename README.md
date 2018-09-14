@@ -16,6 +16,10 @@ You can use it to run the tutorial locally and translate it into your language.
     These are required to update and run the project.
     For Windows just download and install, otherwise use standard OS install tools (packages or whatever convenient).
     
+    Please use Node.JS 10. 
+    
+    If you're using Node.JS 8, then default NPM package manager is buggy, please update it with `npm up -g` command.
+    
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
 
 2. Install global Node modules:
