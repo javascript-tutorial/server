@@ -92,7 +92,7 @@ Please note, the server must support that language. That is: server code must ha
 
 If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), then there are two steps.
 
-First, import and cache the tutorial:
+First, run the command that imports (and caches) the tutorial:
 
 ```
 // NODE_LANG sets server language
