@@ -90,10 +90,11 @@ Please note, the server must support that language. That is: server code must ha
     
 # Dev mode
 
-If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), run this once:
+If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), then there are two steps.
+
+First, import and cache the tutorial:
 
 ```
-// import and cache the "ru" version of the tutorial from /js/javascript-tutorial-ru
 // NODE_LANG sets server language
 // TUTORIAL_ROOT is the full path to tutorial repo, by default is /js/javascript-tutorial-$NODE_LANG
 
