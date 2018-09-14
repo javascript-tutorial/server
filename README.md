@@ -18,7 +18,7 @@ You can use it to run the tutorial locally and translate it into your language.
     
     Please use Node.JS 10. 
     
-    If you're using Node.JS 8, then default NPM package manager is buggy, please update it with `npm up -g` command.
+    If you're using Node.JS 8, then the default NPM package manager is buggy, please update it with `npm up -g` command before you proceed.
     
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
 
