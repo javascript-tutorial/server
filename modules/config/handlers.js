@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 let handlerNames = [
-  'static',
+  'jsengine/koa/static',
   'jsengine/koa/requestId',
   'jsengine/koa/requestLog',
   'jsengine/koa/nocache',

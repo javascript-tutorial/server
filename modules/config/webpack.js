@@ -42,6 +42,7 @@ module.exports = function () {
 
   //console.log("MODULE DIRS", modulesDirectories);
 
+
   /**
    * handler/client/assets/* goes to public/assets/
    */
@@ -54,6 +55,7 @@ module.exports = function () {
       assetPaths.push(from);
     }
   }
+
   //console.log("ASSET PATHS", assetPaths);
 
   /**
@@ -141,7 +143,7 @@ module.exports = function () {
         },
         {
           test: /\.pug$/,
-          use:  'pug-loader?root=' + config.projectRoot + '/templates'
+          use:  'pug-loader?root=' + config.projectRoot + '/templates&globals=__'
         },
         {
           test:    /\.js$/,
