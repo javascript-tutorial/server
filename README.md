@@ -37,7 +37,7 @@ You can use it to run the tutorial locally and translate it into your language.
     ```
     cd /js
     git clone https://github.com/iliakan/javascript-tutorial-server
-    git clone https://github.com/iliakan/jsengine modules/jsengine
+    git clone https://github.com/iliakan/jsengine javascript-tutorial-server/modules/jsengine
     ```
 
     Please note, there are two clone commands. That's not a typo: `modules/jsengine` is cloned from another repository.
