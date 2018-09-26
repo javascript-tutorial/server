@@ -11,6 +11,9 @@
         margin 23px 30px 0
         position relative
 
+    &_profile &__content
+        margin-top 30px
+
     //- модификатор _sticky-footer делает последнюю секцию всегда прижатой к низу сайдбара
     &_sticky-footer &__content
         min-height calc(100% - 85px)
@@ -19,6 +22,10 @@
     &_sticky-footer &__section:last-child
         position absolute
         bottom 0
+
+    &_profile
+        background #f7f7f7
+        border-right 0
 
     & &__toggle
         @extend $button-reset
@@ -59,7 +66,6 @@
     &__toggle::before
         @extend $font-menu
 
-
     &__section
         margin 22px 0
         padding 0 2px
@@ -86,6 +92,9 @@
     &__link
         color navigation_link_color
 
+    &_profile &__link
+        color #000
+
     &__link:hover
         text-decoration none
 
@@ -96,13 +105,12 @@
         &_active
             color link_hover_color
 
+    &_profile &__navigation-link
+        &_active
+            color link_hover_color
+
     &__share
         margin 8px 20px 0 0
-
-
-    @media tablet
-        &__toggle
-            display none
 
     &_compact &__section
         margin 15px 0
@@ -121,6 +129,29 @@
     &_compact &__navigation-link
         line-height 1.1
         margin 8px 0
+
+    @media tablet
+        &__toggle
+            display none
+
+        &_profile &__content
+            margin 24px 16px 0
+
+        &_profile &__navigation-links
+            display flex
+            flex-wrap wrap
+            justify-content center
+            margin 0 -10px
+
+        &_profile &__navigation-link
+            padding 0 10px
+            margin 5px 0
+
+        &_profile &__navigation-link:last-child
+            margin-right 0
+
+        &_profile &__navigation
+            display none
 
     @media short_window
         &_sticky-footer &__content
