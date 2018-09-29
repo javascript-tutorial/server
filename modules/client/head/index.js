@@ -18,7 +18,6 @@ exports.Modal = require('./modal');
 exports.fontTest = require('./fontTest');
 exports.resizeOnload = require('./resizeOnload');
 require('./layout');
-require('./sidebar');
 require('./navigationArrows');
 require('./hover');
 require('./trackLinks');
