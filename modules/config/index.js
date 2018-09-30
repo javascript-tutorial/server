@@ -70,7 +70,8 @@ for(let repo in repos) {
     config.tutorialRepo = {
       github: repo,
       branch: repos[repo].branch || 'master',
-      url: new URL('https://github.com/' + repo + '/tree/' + (repos[repo].branch || 'master'))
+      tree: new URL('https://github.com/' + repo + '/tree/' + (repos[repo].branch || 'master')),
+      blob: new URL('https://github.com/' + repo + '/blob/' + (repos[repo].branch || 'master'))
     }
   }
 }

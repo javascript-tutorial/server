@@ -1,3 +1,9 @@
+view_github: "смотреть на Github"
+search_placeholder: "Поиск по учебнику"
+search_button: "Найти"
+share_text: "Поделиться"
+
+
 modern_javascript_tutorial: "現代の Javascript チュートリアル"
 subtitle: "基本から高度なテーマまで、シンプルで詳細な説明をします。"
 part: "パート #{num}"

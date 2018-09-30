@@ -14,13 +14,13 @@ mixin frontpage-content(data)
               +e.title
                 +e('a').link(href=subTopic.getUrl())= subTopic.title
           if (topic.children.length > 6)
-            +e('li').more= t('frontpage.more')
+            +e('li').more= t('tutorial.more')
 
   +b.frontpage-content
     +e.container
       - let folder = tutorialTree.bySlug('js')
       +e.inner
-        +e.part= t('frontpage.part', {num: 1})
+        +e.part= t('tutorial.part', {num: 1})
         +e.title= folder.title
         +e.description!= topArticlesRendered.js.content
         +b.list
@@ -29,7 +29,7 @@ mixin frontpage-content(data)
     +e.container
       - let folder = tutorialTree.bySlug('ui')
       +e.inner
-        +e.part= t('frontpage.part', {num: 2})
+        +e.part= t('tutorial.part', {num: 2})
         +e.title= folder.title
         +e.description!= topArticlesRendered.ui.content
         +b.list
@@ -38,9 +38,9 @@ mixin frontpage-content(data)
 
     +e.container
       +e.inner
-        +e.part= t('frontpage.part', {num: 3})
-        +e.title= t('frontpage.part3.title')
-        +e.description!= t('frontpage.part3.content')
+        +e.part= t('tutorial.part', {num: 3})
+        +e.title= t('tutorial.part3.title')
+        +e.description!= t('tutorial.part3.content')
         +b.list
           +partList(tutorialTree.tree.slice(2))
 
