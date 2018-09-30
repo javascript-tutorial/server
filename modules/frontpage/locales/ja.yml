@@ -1,14 +1,4 @@
-view_github: "смотреть на Github"
-search_placeholder: "Поиск по учебнику"
-search_button: "Найти"
-share_text: "Поделиться"
-
-
-modern_javascript_tutorial: "現代の Javascript チュートリアル"
-subtitle: "基本から高度なテーマまで、シンプルで詳細な説明をします。"
-part: "パート #{num}"
-more: "もっと…"
-
-part3:
-  title: "その他の記事"
-  content: "チュートリアルの最初の2つの部分でカバーされていない追加のトピックのリストです。 ここには明確な階層はなく、必要な順序で記事にアクセスできます。"
+view_github: "view on Github"
+search_placeholder: "Search in the tutorial"
+search_button: "Search"
+share_text: "Share"
