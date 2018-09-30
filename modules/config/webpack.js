@@ -253,30 +253,41 @@ module.exports = function () {
         _: 'lodash'
       }),
 
-      // ignore all locales (will require manually from moment-with-locale
+      // ignore all locales except current lang
       new webpack.IgnorePlugin({
-        checkResource: (arg) => {
+        checkResource(arg) {
           // locale requires that file back from it, need to keep it
-          if (arg === '../moment') return false;
-          tmp = arg;
+          if (arg === '../moment') return false; // don't ignore this
+          if (arg === './' + config.lang || arg === './' + config.lang + '.js') return false; // don't ignore current locale
+          tmp = arg; // for logging only
           return true;
         },
         // under dirs like: ../locales/..
-        checkContext:  arg => {
+        checkContext(arg) {
           let ignore = arg.endsWith(path.join('node_modules', 'moment', 'locale'));
           if (ignore) {
-            //console.log("ignore moment locale", tmp, arg);
+            // console.log("ignore moment locale", tmp, arg);
             return true;
           }
         }
       }),
 
+
       // ignore site locale files except the lang
       new webpack.IgnorePlugin({
-        checkResource: (arg) => arg.endsWith('.yml') && arg !== './' + config.lang + '.yml',
+        checkResource(arg) {
+          let result = arg.endsWith('.yml') && !arg.endsWith('/' + config.lang + '.yml');
+          tmp = arg; // for logging
+          return result;
+        },
         // under dirs like: ../locales/..
-        checkContext:  arg => /\/locales(\/|$)/.test(arg)
+        checkContext(arg) {
+          let ignore = /\/locales(\/|$)/.test(arg);
+          // console.log("ignore yml", tmp, arg);
+          return ignore;
+        }
       }),
+      
 
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
