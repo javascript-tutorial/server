@@ -1,5 +1,5 @@
 let path = require('path');
-let fs = require('fs');
+let fs = require('fs-extra');
 let yaml = require('js-yaml');
 let env = process.env;
 
@@ -54,12 +54,13 @@ let config = module.exports = {
 
   projectRoot:           process.cwd(),
   // public files, served by nginx
-  publicRoot:            path.join(process.cwd(), 'public'),
+  publicRoot:            path.join(process.cwd(), 'public', lang),
   // private files, for expiring links, not directly accessible
   tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), '..', 'javascript-tutorial-' + lang),
-  tmpRoot:               path.join(process.cwd(), 'tmp'),
+  tmpRoot:               path.join(process.cwd(), 'tmp', lang),
   // js/css build versions
-  cacheRoot:          path.join(process.cwd(), 'cache'),
+  cacheRoot:          path.join(process.cwd(), 'cache', lang),
+  assetsRoot:            path.join(process.cwd(), 'assets'),
 
   handlers: require('./handlers')
 };
@@ -89,3 +90,17 @@ t.requireHandlerLocales();
 // we have a loop dep here
 config.webpack = require('./webpack');
 
+
+createRoot(config.publicRoot);
+createRoot(config.cacheRoot);
+createRoot(config.tmpRoot);
+
+function createRoot(root) {
+  // may be existing symlink
+  if (fs.existsSync(root) && fs.statSync(root).isFile()) {
+    fs.unlinkSync(root);
+  }
+  if (!fs.existsSync(root)) {
+    fs.ensureDirSync(root);
+  }
+}

@@ -21,16 +21,16 @@ sftp-config.json
 Thumbs.db
 
 # database dump for tutorial export
-dump/
+/dump
 
 # NPM packages folder.
 node_modules/
 
 # TMP folder (run-time tmp)
-tmp/
+/tmp
 
 # Manifest (build-generated content, versions)
-cache/
+/cache
 
 # contains v8 executable for linux-tick-processor (run from project root)
 out/*

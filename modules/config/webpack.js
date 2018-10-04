@@ -46,7 +46,7 @@ module.exports = function () {
   /**
    * handler/client/assets/* goes to public/assets/
    */
-  let assetPaths = [];
+  let assetPaths = [config.assetsRoot];
   for (let handlerName in config.handlers) {
     let handlerPath = config.handlers[handlerName].path;
     let from = `${handlerPath}/client/assets`;

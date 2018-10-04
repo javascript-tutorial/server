@@ -58,43 +58,23 @@ gulp.task("test", lazyRequireTask('./tasks/test', {
 }));
 
 
-gulp.task('watch', lazyRequireTask('./tasks/watch', {
-  root:        __dirname,
-  // for performance, watch only these dirs under root
-  dirs: ['assets', 'styles'],
-  taskMapping: [
-    {
-      watch: 'assets/**',
-      task:  'sync-resources'
-    }
-  ]
-}));
-
 gulp.task('deploy', function(callback) {
   runSequence("deploy:build", "deploy:update", callback);
 });
-
-gulp.task("sync-resources", lazyRequireTask('./tasks/syncResources', {
-  assets: 'public'
-}));
 
 
 gulp.task('webpack', lazyRequireTask('./tasks/webpack'));
 // gulp.task('webpack-dev-server', lazyRequireTask('./tasks/webpackDevServer'));
 
 
-gulp.task('build', function(callback) {
-  runSequence("sync-resources", 'webpack', callback);
-});
+gulp.task('build', ['webpack']);
 
 gulp.task('server', lazyRequireTask('./tasks/server'));
 
-gulp.task('edit', ['webpack', 'jsengine:koa:tutorial:importWatch', "sync-resources", 'livereload', 'server']);
+gulp.task('edit', ['webpack', 'jsengine:koa:tutorial:importWatch', 'livereload', 'server']);
 
 
-gulp.task('dev', function(callback) {
-  runSequence("sync-resources", ['nodemon', 'livereload', 'webpack', 'watch'], callback);
-});
+gulp.task('dev', ['nodemon', 'livereload', 'webpack']);
 
 gulp.on('err', function(gulpErr) {
   if (gulpErr.err) {
