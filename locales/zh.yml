@@ -1,17 +1,17 @@
 site:
-  privacy_policy: Privacy policy
+  privacy_policy: 隐私政策
 
   gdpr_dialog:
-    title: This website uses cookies
-    text: We use browser technologies such as cookies and local storage to store your preferences. You need to accept our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms of Use</a> for us to do so.
-    accept: Accept
-    cancel: Cancel
+    title: 本网站使用 cookie
+    text: 我们使用 cookie 和本地存储等浏览器技术来存储你的偏好设置。你需要接受我们的 <a href="/privacy">隐私政策</a> 和本网站的 <a href="/terms">其他条款</a>。
+    accept: 接受
+    cancel: 取消
 
   toolbar:
     lang_switcher:
-      cta_text: We want to make this open-source project available for people all around the world. Please <a href="https://github.com/iliakan/javascript-tutorial-en" rel="noopener noreferrer" target="_blank">help us to translate</a> the content of this tutorial to the language you know
-      footer_text: how much content is translated to the corresponding language
-      old_version: Old version is published, needs backporting.
+      cta_text: 我们希望将这个开源项目提供给全世界的人。请帮助我们将教程的内容 <a href="https://github.com/iliakan/javascript-tutorial-en" rel="noopener noreferrer" target="_blank">翻译为你所掌握的语言</a> 对应的版本。
+      footer_text: 多少比重的内容已经被翻译成了相应的语言。
+      old_version: 旧版本已发布，需要向后移植。
     logo:
       normal:
         svg: sitetoolbar__logo_en.svg
@@ -26,48 +26,48 @@ site:
     sections:
     - slug: ''
       url: '/'
-      title: 'Tutorial'
-    - slug: 'courses'
-      title: 'Courses'
-    buy_ebook_extra: 'Buy'
+      title: '教程'
+    - slug: '课程'
+      title: '课程'
+    buy_ebook_extra: '购买'
     buy_ebook: 'EPUB/PDF'
-    search_placeholder: 'Search on Javascript.info'
-    search_button: 'Search'
+    search_placeholder: '在 Javascript.info 网站中搜索'
+    search_button: '搜索'
 
-    public_profile: Public profile
-    account: Account
-    notifications: Notifications
-    admin: Admin
-    logout: Logout
+    public_profile: 公开资料
+    account: 账号
+    notifications: 通知
+    admin: 管理员
+    logout: 登出
 
-  sorry_old_browser: Sorry, IE<10 is not supported, please use a newer browser.
-  contact_us: contact us
-  about_the_project: about the project
+  sorry_old_browser: 很抱歉，我们不支持 IE<10 等浏览器，请使用一个更新版本的浏览器。
+  contact_us: 联系我们
+  about_the_project: 关于本项目
   ilya_kantor: Ilya Kantor
-  comments: Comments
-  loading: Loading...
-  search: Search
-  share: Share
-  read_before_commenting: read this before commenting…
+  comments: 评论
+  loading: 加载中...
+  search: 搜索
+  share: 分享
+  read_before_commenting: 在评论之前先阅读本内容…
 
   meta:
-    description: 'Modern JavaScript Tutorial: simple, but detailed explanations with examples and tasks, including: closures, document and events, object oriented programming and more.'
+    description: '现代 JavaScript 教程：有关示例和任务的简单但详细的解释包括：闭包、文档和事件，以及面向对象编程等。'
 
   tablet-menu:
-    choose_section: Choose section
-    search_placeholder: Search in the tutorial
-    search_button: Search
+    choose_section: 选择章节
+    search_placeholder: 在教程中搜索
+    search_button: 搜索
 
   comment:
     help:
-    - You're welcome to post additions, questions to the articles and answers to them.
-    - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
-    - If you can't understand something in the article – please elaborate.
+    - 欢迎你在文章下添加补充内容、提出你的问题或回答提出的问题。
+    - 使用 <code>&lt;code&gt;</code> 标签插入几行代码，对于多行代码 — 可以使用 <code>&lt;pre&gt;</code>，对于超过十行的代码 — 使用 sandbox（<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>、<a href='http://jsbin.com'>JSBin</a> 和 <a href='http://codepen.io'>codepen</a> 等）。
+    - 如果你无法理解文章中的内容 — 请详细说明。
 
-  edit_on_github: Edit on Github
-  error: error
-  close: close
+  edit_on_github: 在 Github 上编辑
+  error: 错误
+  close: 关闭
 
-  hide_forever: hide permanently
-  hidden_forever: This information will not show up any more.
+  hide_forever: 永久隐藏
+  hidden_forever: 此信息将不再显示。
 
