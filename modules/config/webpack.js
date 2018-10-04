@@ -242,6 +242,19 @@ module.exports = function () {
       fs: 'empty'
     },
 
+    performance: {
+      maxEntrypointSize: 350000,
+      maxAssetSize: 350000, // warning if asset is bigger than 300k
+      assetFilter(assetFilename) {  // only check js/css
+        // ignore assets copied by CopyWebpackPlugin
+        if (assetFilename.startsWith('..')) { // they look like ../courses/achievements/course-complete.svg
+          // built assets do not have ..
+          return false;
+        }
+        return assetFilename.endsWith('.js') || assetFilename.endsWith('.css');
+      }
+    },
+
     plugins: [
       new webpack.DefinePlugin({
         LANG:      JSON.stringify(config.lang),

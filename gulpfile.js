@@ -26,7 +26,7 @@ gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   nodeArgs: process.env.NODE_DEBUG  ? ['--debug'] : [],
   script: "./bin/server.js",
   //ignoreRoot: ['.git', 'node_modules'].concat(glob.sync('{handlers,modules}/**/client')), // ignore handlers' client code
-  ignore: ['**/client/'], // ignore handlers' client code
+  ignore: ['**/client/', 'public'], // ignore handlers' client code
   watch:  ["modules"]
 }));
 
