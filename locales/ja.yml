@@ -31,7 +31,7 @@ site:
       title: 'コース'
     buy_ebook_extra: '購入する'
     buy_ebook: 'EPUB/PDF'
-    search_placeholder: 'Search on Javascript.info'
+    search_placeholder: 'チュートリアル内を検索'
     search_button: '検索'
 
     public_profile: Public profile
