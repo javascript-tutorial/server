@@ -90,7 +90,7 @@ Please note, the server must support that language. There must be corresponding 
     
 # Dev mode
 
-If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), then there are two steps to make that easy.
+If you'd like to edit the server code (assuming you're familiar with Node.js), *not* the tutorial text, then there are two steps to make that easy.
 
 First, run the command that imports (and caches) the tutorial:
 
