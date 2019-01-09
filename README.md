@@ -6,6 +6,8 @@ This is a standalone server for the javascript tutorial https://javascript.info.
 
 You can use it to run the tutorial locally and translate it into your language.
 
+Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call scripts with ".cmd" extension, that are present in the code alongside with Unix versions. 
+
 # Installation
 
 (If you have an old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`).
@@ -16,9 +18,7 @@ You can use it to run the tutorial locally and translate it into your language.
     These are required to update and run the project.
     For Windows just download and install, otherwise use standard OS install tools (packages or whatever convenient).
     
-    Please use Node.JS 10. 
-    
-    If you're using Node.JS 8, then the default NPM package manager is buggy, please update it with `npm up -g` command before you proceed.
+    Please use Node.JS 10+. 
     
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
 
@@ -30,7 +30,7 @@ You can use it to run the tutorial locally and translate it into your language.
 
 3. Create the root folder.
 
-    Create a folder `/js` for the project. You can use any other directory as well, just adjust the paths below.
+    Create a folder `/js` for the project. If you use another directory as the root, adjust the paths below.
 
 4. Clone the tutorial server into it:
 
@@ -44,7 +44,7 @@ You can use it to run the tutorial locally and translate it into your language.
 
 5. Clone the tutorial text into it.
 
-    The text repository has `"-language"` postfix at the end, e.g for the French version `fr`, for Russian – `ru` etc.
+    The text repository ends with the language code, e.g for the French version `...-fr`, for Russian – `...-ru` etc.
     
     E.g. for the Russian version:
     ```
@@ -75,7 +75,7 @@ You can use it to run the tutorial locally and translate it into your language.
     
 # Change server language
 
-The server uses English by default for navigation and other non-tutorial messages.
+The server uses English by default for navigation and design.
 
 You can set another language it with the second argument of `edit`.
 
@@ -86,32 +86,31 @@ cd /js/javascript-tutorial-server
 ./edit ru ru
 ```
 
-Please note, the server must support that language. That is: server code must have corresponding locale files for that language, otherwise it exists with an error. As of now, `ru` and `en` are fully supported.
+Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh` and `ja` are fully supported.
     
 # Dev mode
 
-If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), then there are two steps.
+If you'd like to edit the server code, *not* the tutorial text (assuming you're familiar with Node.js), then there are two steps to make that easy.
 
 First, run the command that imports (and caches) the tutorial:
 
 ```
-// NODE_LANG sets server language
-// TUTORIAL_ROOT is the full path to tutorial repo, by default is /js/javascript-tutorial-$NODE_LANG
-
 cd /js/javascript-tutorial-server
 NODE_LANG=en TUTORIAL_ROOT=/js/javascript-tutorial-ru npm run gulp jsengine:koa:tutorial:import
 ``` 
-        
-And then `./dev <server language>` runs the server:
+
+In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/javascript-tutorial-$NODE_LANG`.
+
+Afterwards, call `./dev <server language>` to run the server:
 
 ```
 cd /js/javascript-tutorial-server
 ./dev en
 ```
 
-Running `./dev` uses the tutorial imported and cached by the previous command. 
+Running `./dev` uses the tutorial that was imported and cached by the previous command. 
 
-It does not watch tutorial text, but it reloads the server after code changes.
+It does not "watch" tutorial text, but it reloads the server after code changes.
  
 Again, that's for developing the server code itself, not writing the tutorial.
     
