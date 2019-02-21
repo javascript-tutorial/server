@@ -46,32 +46,38 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
 
     The text repository ends with the language code, e.g for the French version `...-fr`, for Russian – `...-ru` etc.
     
-    E.g. for the Russian version:
+    E.g. for the English version:
     ```
     cd /js
-    git clone https://github.com/iliakan/javascript-tutorial-ru
+    git clone https://github.com/iliakan/javascript-tutorial-en
     ```
 
 6. Run the site
 
-    Run the site with the same language. Above we cloned `ru` tutorial, so:
+    Install local modules:
 
     ```
     cd /js/javascript-tutorial-server
-    ./edit ru
+    npm install
+    ```
+    
+    Run the site with the same language. Above we cloned `en` tutorial, so:
+
+    ```
+    ./edit en
     ```
 
-    This will import the tutorial from `/js/javascript-tutorial-ru` and start the server.
+    This will import the tutorial from `/js/javascript-tutorial-en` and start the server.
 
-    Wait a bit while it reads the tutorial from disk and builds static assets.
+    Wait a bit while it reads the tutorial from the disk and builds static assets.
 
     Then access the site at `http://127.0.0.1:3000`.
 
 7. Edit the tutorial
 
     As you edit text files in the tutorial text repository (cloned at step 5), 
-    the webpage gets reloaded automatically. 
- 
+    the webpage will reload automatically. 
+
     
 # Change server language
 
@@ -79,7 +85,7 @@ The server uses English by default for navigation and design.
 
 You can set another language it with the second argument of `edit`.
 
-E.g. import `ru` tutorial and use `ru` locale for the server
+E.g. if you cloned `ru` tutorial, it makes sense to use `ru` locale for the server as well:
 
 ```
 cd /js/javascript-tutorial-server
@@ -90,13 +96,13 @@ Please note, the server must support that language. There must be corresponding 
     
 # Dev mode
 
-If you'd like to edit the server code (assuming you're familiar with Node.js), *not* the tutorial text, then there are two steps to make that easy.
+If you'd like to edit the server code (assuming you're familiar with Node.js), *not* the tutorial text, then there are two steps to do.
 
 First, run the command that imports (and caches) the tutorial:
 
 ```
 cd /js/javascript-tutorial-server
-NODE_LANG=en TUTORIAL_ROOT=/js/javascript-tutorial-ru npm run gulp jsengine:koa:tutorial:import
+NODE_LANG=en TUTORIAL_ROOT=/js/javascript-tutorial-en npm run gulp jsengine:koa:tutorial:import
 ``` 
 
 In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/javascript-tutorial-$NODE_LANG`.
@@ -123,6 +129,5 @@ Please mention OS and Node.js version.
 Also please pull the very latest git code and install latest Node.js modules before publishing an issue.
 
 --  
-Yours,  
 Ilya Kantor 
 iliakan@javascript.info
