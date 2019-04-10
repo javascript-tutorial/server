@@ -10,9 +10,6 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
 
 # Installation
 
-(If you have a very old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`).
-
-
 1. Install [Git](https://git-scm.com/downloads) and [Node.JS](https://nodejs.org).
 
     These are required to update and run the project.
@@ -120,13 +117,15 @@ It does not "watch" tutorial text, but it reloads the server after code changes.
  
 Again, that's for developing the server code itself, not writing the tutorial.
     
-# TroubleShooting
+# Troubleshooting
 
-If something doesn't work – [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new).
+If you have a very old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`.
 
-Please mention OS and Node.js version.
+Please ensure you have Node.js version 10+ (`node -v` shows the version).
 
-Also please pull the very latest git code and install latest Node.js modules before publishing an issue.
+If it still doesn't work – [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new). Please mention OS and Node.js version, 
+
+Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
 --  
 Ilya Kantor 
