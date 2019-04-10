@@ -128,5 +128,6 @@ If it still doesn't work – [file an issue](https://github.com/iliakan/javascri
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
 --  
-Ilya Kantor 
+Yours,  
+Ilya Kantor  
 iliakan@javascript.info
