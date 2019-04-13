@@ -1,4 +1,4 @@
-# Tutorial server
+# Tutorial Server
 
 Hi everyone!
 
@@ -10,12 +10,12 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
 
 # Installation
 
-1. Install [Git](https://git-scm.com/downloads) and [Node.JS](https://nodejs.org).
+1. Install [Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org).
 
     These are required to update and run the project.
     For Windows just download and install, otherwise use standard OS install tools (packages or whatever convenient).
     
-    Please use Node.JS 10+. 
+    Please use Node.js 10+. 
     
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
 
@@ -33,20 +33,21 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
 
     ```
     cd /js
-    git clone https://github.com/iliakan/javascript-tutorial-server
-    git clone https://github.com/iliakan/jsengine javascript-tutorial-server/modules/jsengine
+    git clone https://github.com/javascript-tutorial/server
+    git clone https://github.com/javascript-tutorial/engine server/modules/engine
     ```
 
-    Please note, there are two clone commands. That's not a typo: `modules/jsengine` is cloned from another repository.
+    Please note, there are two clone commands. That's not a typo: `modules/engine` is cloned from another repository.
 
 5. Clone the tutorial text into it.
 
-    The text repository ends with the language code, e.g for the French version `...-fr`, for Russian – `...-ru` etc.
-    
-    E.g. for the English version:
+    The repository starts with the language code, e.g for the French version `fr.javascript.info`, for Russian – `ru.javascript.info` etc.
+
+    The English version is `en.javascript.info`.
+
     ```
     cd /js
-    git clone https://github.com/iliakan/javascript-tutorial-en
+    git clone https://github.com/iliakan/en.javascript.info
     ```
 
 6. Run the site
@@ -54,7 +55,7 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
     Install local modules:
 
     ```
-    cd /js/javascript-tutorial-server
+    cd /js/server
     npm install
     ```
     
@@ -64,7 +65,7 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
     ./edit en
     ```
 
-    This will import the tutorial from `/js/javascript-tutorial-en` and start the server.
+    This will import the tutorial from `/js/en.javascript.info` and start the server.
 
     Wait a bit while it reads the tutorial from the disk and builds static assets.
 
@@ -85,7 +86,7 @@ You can set another language it with the second argument of `edit`.
 E.g. if you cloned `ru` tutorial, it makes sense to use `ru` locale for the server as well:
 
 ```
-cd /js/javascript-tutorial-server
+cd /js/server
 ./edit ru ru
 ```
 
@@ -98,16 +99,16 @@ If you'd like to edit the server code (assuming you're familiar with Node.js), *
 First, run the command that imports (and caches) the tutorial:
 
 ```
-cd /js/javascript-tutorial-server
-NODE_LANG=en TUTORIAL_ROOT=/js/javascript-tutorial-en npm run gulp jsengine:koa:tutorial:import
+cd /js/server
+NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
 ``` 
 
-In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/javascript-tutorial-$NODE_LANG`.
+In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
 
 Afterwards, call `./dev <server language>` to run the server:
 
 ```
-cd /js/javascript-tutorial-server
+cd /js/server
 ./dev en
 ```
 
@@ -123,7 +124,7 @@ If you have a very old copy of the English tutorial, please rename `1-js/05-data
 
 Please ensure you have Node.js version 10+ (`node -v` shows the version).
 
-If it still doesn't work – [file an issue](https://github.com/iliakan/javascript-tutorial-server/issues/new). Please mention OS and Node.js version, 
+If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new). Please mention OS and Node.js version, 
 
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
