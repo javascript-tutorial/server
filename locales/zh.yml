@@ -9,7 +9,7 @@ site:
 
   toolbar:
     lang_switcher:
-      cta_text: 我们希望将这个开源项目提供给全世界的人。请帮助我们将教程的内容 <a href="https://github.com/iliakan/javascript-tutorial-en" rel="noopener noreferrer" target="_blank">翻译为你所掌握的语言</a> 对应的版本。
+      cta_text: 我们希望将这个开源项目提供给全世界的人。请帮助我们将教程的内容 <a href="https://github.com/javascript-tutorial/en.javascript.info" rel="noopener noreferrer" target="_blank">翻译为你所掌握的语言</a> 对应的版本。
       footer_text: 多少比重的内容已经被翻译成了相应的语言。
       old_version: 旧版本已发布，需要向后移植。
     logo:

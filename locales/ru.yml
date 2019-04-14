@@ -3,7 +3,7 @@ site:
 
   toolbar:
     lang_switcher:
-      cta_text: Мы хотим сделать этот проект с открытым исходным кодом доступным для людей во всем мире. Пожалуйста, <a href="https://github.com/iliakan/javascript-tutorial-en" rel="noopener noreferrer" target="_blank">помогите нам перевести</a> это руководство на свой язык
+      cta_text: Мы хотим сделать этот проект с открытым исходным кодом доступным для людей во всем мире. Пожалуйста, <a href="https://github.com/javascript-tutorial/en.javascript.info" rel="noopener noreferrer" target="_blank">помогите нам перевести</a> это руководство на свой язык
       footer_text: количество контента, переведенное на соотвествующий язык
       old_version: Опубликована полная, но предыдущая версия учебника.
     logo:
