@@ -64,7 +64,7 @@ site:
     - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
     - If you can't understand something in the article – please elaborate.
 
-  edit_on_github: Edit on Github
+  edit_on_github: Edit on GitHub
   error: error
   close: close
 

@@ -66,7 +66,7 @@ site:
   meta:
     description: 'Современный учебник JavaScript, начиная с основ, включающий в себя много тонкостей и фишек JavaScript/DOM.'
 
-  edit_on_github: Редактировать на Github
+  edit_on_github: Редактировать на GitHub
   error: ошибка
   close: закрыть
 
