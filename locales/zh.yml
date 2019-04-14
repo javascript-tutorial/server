@@ -64,7 +64,7 @@ site:
     - 使用 <code>&lt;code&gt;</code> 标签插入几行代码，对于多行代码 — 可以使用 <code>&lt;pre&gt;</code>，对于超过十行的代码 — 建议使用沙箱（<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>、<a href='http://jsbin.com'>JSBin</a> 和 <a href='http://codepen.io'>codepen</a> 等）。
     - 如果你无法理解文章中的内容 — 请详细说明。
 
-  edit_on_github: 在 Github 上编辑
+  edit_on_github: 在 GitHub 上编辑
   error: 错误
   close: 关闭
 

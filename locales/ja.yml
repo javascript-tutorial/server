@@ -64,7 +64,7 @@ site:
     - 数語のコードを挿入するには、<code>&lt;code&gt;</code> タグを使ってください。複数行の場合は <code>&lt;pre&gt;</code> を、10行を超える場合にはサンドボックスを使ってください(<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)。
     - あなたが記事の中で理解できないことがあれば、詳しく説明してください。
 
-  edit_on_github: Githubで編集
+  edit_on_github: GitHubで編集
   error: エラー
   close: 閉じる
 
