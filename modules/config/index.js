@@ -65,7 +65,7 @@ let config = module.exports = {
   handlers: require('./handlers')
 };
 
-let repos = require('jsengine/koa/tutorial/repos');
+let repos = require('engine/koa/tutorial/repos');
 for(let repo in repos) {
   if (repos[repo].lang === lang) {
     config.tutorialRepo = {
@@ -83,7 +83,7 @@ require.extensions['.yml'] = function(module, filename) {
 
 
 // after module.exports for circle dep w/ config
-const t = require('jsengine/i18n');
+const t = require('engine/i18n');
 t.requireHandlerLocales();
 
 // webpack config uses general config

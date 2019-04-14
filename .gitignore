@@ -39,5 +39,5 @@ out/*
 public/*
 package-lock.json
 
-/modules/jsengine
+/modules/engine
 .gitmodules

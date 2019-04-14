@@ -1,4 +1,4 @@
-let app = require('jsengine/koa/app');
+let app = require('engine/koa/app');
 let config = require('config');
 
 module.exports = function() {

@@ -1,7 +1,7 @@
 // client-side locale example
 // can be used as require('client/test') from server-side
 // and from client side too
-const t = require('jsengine/i18n/t');
+const t = require('engine/i18n/t');
 
 t.i18n.add('test', require('../../locales/' + require('config').lang + '.yml'));
 

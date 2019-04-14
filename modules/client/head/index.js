@@ -18,7 +18,7 @@ exports.Modal = require('./modal');
 exports.fontTest = require('./fontTest');
 exports.resizeOnload = require('./resizeOnload');
 require('./layout');
-require('jsengine/sidebar/client');
+require('engine/sidebar/client');
 require('./navigationArrows');
 require('./hover');
 require('./trackLinks');

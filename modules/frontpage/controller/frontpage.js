@@ -1,11 +1,11 @@
 
-const Article = require('jsengine/koa/tutorial').Article;
-const TutorialTree = require('jsengine/koa/tutorial').TutorialTree;
-const Task = require('jsengine/koa/tutorial').Task;
+const Article = require('engine/koa/tutorial').Article;
+const TutorialTree = require('engine/koa/tutorial').TutorialTree;
+const Task = require('engine/koa/tutorial').Task;
 const _ = require('lodash');
-const ArticleRenderer = require('jsengine/koa/tutorial').ArticleRenderer;
-const localStorage = require('jsengine/local-storage').instance();
-const t = require('jsengine/i18n');
+const ArticleRenderer = require('engine/koa/tutorial').ArticleRenderer;
+const localStorage = require('engine/local-storage').instance();
+const t = require('engine/i18n');
 
 t.requirePhrase('frontpage');
 

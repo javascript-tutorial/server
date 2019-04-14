@@ -1,6 +1,6 @@
 const LANG = require('config').lang;
 
-const t = require('jsengine/i18n/t');
+const t = require('engine/i18n/t');
 
 module.exports = function(template, locals) {
   locals = locals ? Object.create(locals) : {};

@@ -7,7 +7,7 @@ const gulp = require('gulp');
 const glob = require('glob');
 const path = require('path');
 const fs = require('fs');
-const {lazyRequireTask, requireModuleTasks} = require('jsengine/gulp/requireModuleTasks');
+const {lazyRequireTask, requireModuleTasks} = require('engine/gulp/requireModuleTasks');
 const runSequence = require('run-sequence');
 
 const config = require('config');
@@ -42,7 +42,7 @@ gulp.task("livereload", lazyRequireTask("./tasks/livereload", {
   ]
 }));
 
-requireModuleTasks('jsengine/koa/tutorial');
+requireModuleTasks('engine/koa/tutorial');
 
 let testSrcs = ['modules/**/test/**/*.js'];
 // on Travis, keys are required for E2E Selenium tests
@@ -71,7 +71,7 @@ gulp.task('build', ['webpack']);
 
 gulp.task('server', lazyRequireTask('./tasks/server'));
 
-gulp.task('edit', ['webpack', 'jsengine:koa:tutorial:importWatch', 'livereload', 'server']);
+gulp.task('edit', ['webpack', 'engine:koa:tutorial:importWatch', 'livereload', 'server']);
 
 
 gulp.task('dev', ['nodemon', 'livereload', 'webpack']);

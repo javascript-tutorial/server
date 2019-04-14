@@ -17,8 +17,8 @@ module.exports = function () {
   let rupture = require('rupture');
   let chokidar = require('chokidar');
   let webpack = require('webpack');
-  let WriteVersionsPlugin = require('jsengine/webpack/writeVersionsPlugin');
-  let CssWatchRebuildPlugin = require('jsengine/webpack/cssWatchRebuildPlugin');
+  let WriteVersionsPlugin = require('engine/webpack/writeVersionsPlugin');
+  let CssWatchRebuildPlugin = require('engine/webpack/cssWatchRebuildPlugin');
   const CopyWebpackPlugin = require('copy-webpack-plugin')
   const MiniCssExtractPlugin = require("mini-css-extract-plugin");
   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -65,7 +65,7 @@ module.exports = function () {
   let entries = {
     head:      'client/head',
     footer:    'client/footer',
-    tutorial:  'jsengine/koa/tutorial/client',
+    tutorial:  'engine/koa/tutorial/client',
     styles:    config.tmpRoot + '/styles.styl',
     frontpage: config.tmpRoot + '/frontpage.styl'
   };
@@ -131,7 +131,7 @@ module.exports = function () {
         entry: {
           styles: config.tmpRoot + '/styles.styl',
           head: 'client/head',
-          tutorial: 'jsengine/koa/tutorial/client',
+          tutorial: 'engine/koa/tutorial/client',
           footer: 'client/footer',
         },*/
 
@@ -188,7 +188,7 @@ module.exports = function () {
                 ]
               }
             },
-            'jsengine/webpack/hover-loader',
+            'engine/webpack/hover-loader',
             {
               loader:  'stylus-loader',
               options: {
@@ -226,7 +226,7 @@ module.exports = function () {
       // allow require('styles') which looks for styles/index.styl
       extensions: ['.js', '.styl'],
       alias:      {
-        'entities/maps/entities.json': 'jsengine/markit/emptyEntities',
+        'entities/maps/entities.json': 'engine/markit/emptyEntities',
         config:                        'client/config'
       },
       modules:    modulesDirectories
@@ -300,7 +300,7 @@ module.exports = function () {
           return ignore;
         }
       }),
-      
+
 
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 

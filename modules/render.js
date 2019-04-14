@@ -1,4 +1,4 @@
-let Renderer = require('jsengine/koa/renderer');
+let Renderer = require('engine/koa/renderer');
 
 // (!) this.render does not assign this.body to the result
 // that's because render can be used for different purposes, e.g to send emails

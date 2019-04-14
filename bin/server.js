@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 const config = require('config');
-const app = require('jsengine/koa/app');
-const log = require('jsengine/log')();
+const app = require('engine/koa/app');
+const log = require('engine/log')();
 
 app.waitBootAndListen(config.server.host, config.server.port).then(() => {
   log.info("App is listening");
