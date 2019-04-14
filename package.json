@@ -8,7 +8,7 @@
     "//": "test must exit with status 1 if fails, don't use | or ensure the right exit code if you do",
     "test": "SELENIUM_LOCAL=1 NODE_ENV=test NODE_PATH=./modules ./node_modules/.bin/gulp test",
     "build": "NODE_PATH=./modules ./node_modules/.bin/gulp build",
-    "gulp": "NODE_PATH=./modules ./node_modules/.bin/gulp"
+    "gulp": "NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules ./node_modules/.bin/gulp"
   },
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
