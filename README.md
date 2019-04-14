@@ -6,7 +6,7 @@ This is a standalone server for the javascript tutorial https://javascript.info.
 
 You can use it to run the tutorial locally and translate it into your language.
 
-Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call scripts with ".cmd" extension, that are present in the code alongside with Unix versions. 
+Windows, Unix systems and macOS are supported. For Windows, you'll need to call scripts with ".cmd" extension, that are present in the code alongside with Unix versions. 
 
 # Installation
 
@@ -47,7 +47,7 @@ Windows, Unix-systems and MacOS are supported. For Windows, you'll need to call 
 
     ```
     cd /js
-    git clone https://github.com/iliakan/en.javascript.info
+    git clone https://github.com/javascript-tutorial/en.javascript.info
     ```
 
 6. Run the site
@@ -124,7 +124,7 @@ If you have a very old copy of the English tutorial, please rename `1-js/05-data
 
 Please ensure you have Node.js version 10+ (`node -v` shows the version).
 
-If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new). Please mention OS and Node.js version, 
+If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new). Please mention OS and Node.js version.
 
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
