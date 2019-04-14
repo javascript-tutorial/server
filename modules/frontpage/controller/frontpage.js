@@ -40,12 +40,12 @@ exports.get = async function (ctx, next) {
 // path
 // siblings
 async function renderTop() {
-  const tree = TutorialTree.instance().tree;
+  const roots = TutorialTree.instance().roots;
 
   let articles = {};
 
   // render top-level content
-  for (let slug of tree) {
+  for (let slug of roots) {
     let article = TutorialTree.instance().bySlug(slug);
 
     let renderer = new ArticleRenderer();
