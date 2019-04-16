@@ -65,17 +65,15 @@ let config = module.exports = {
   handlers: require('./handlers')
 };
 
-let repos = require('engine/koa/tutorial/repos');
-for(let repo in repos) {
-  if (repos[repo].lang === lang) {
-    config.tutorialRepo = {
-      github: repo,
-      branch: repos[repo].branch || 'master',
-      tree: new URL('https://github.com/' + repo + '/tree/' + (repos[repo].branch || 'master')),
-      blob: new URL('https://github.com/' + repo + '/blob/' + (repos[repo].branch || 'master'))
-    }
-  }
-}
+let repo = `javascript-tutorial/${config.lang}.javascript.info`;
+
+config.tutorialRepo = {
+  github: repo,
+  url:    new URL('https://github.com/' + repo),
+  tree:   new URL('https://github.com/' + repo + '/tree/master'),
+  blob:   new URL('https://github.com/' + repo + '/blob/master')
+};
+
 
 require.extensions['.yml'] = function(module, filename) {
   module.exports = yaml.safeLoad(fs.readFileSync(filename, 'utf-8'));
