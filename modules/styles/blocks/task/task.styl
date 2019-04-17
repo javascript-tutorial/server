@@ -1,15 +1,15 @@
 .task
     &__header
-        margin 40px 0 12px
+        margin 16px 0 16px
 
     &__title-wrap
         padding-right 45px
 
     & &__title
         margin 0
-        line-height 1
+        line-height 28px
         display inline
-        font-size 128%
+        font-size 20px
         font-weight bold
 
     & &__title a
@@ -39,32 +39,29 @@
         margin-right 30px
 
     &__solution
-        @extend $link-button
-
-    &__answer_open &__solution
-        position relative
-        background #568DCA
-        color #fff
-        text-decoration none
+        @extend $button-reset
+        display inline-block
+        margin 18px 0
+        padding 4px 12px
+        border-radius 15px
+        border 2px solid #568DCA
+        font inherit
         line-height 18px
-        padding 4px 15px
-        margin -4px -15px
-        border-radius 12px
+        color #568DCA
+        text-decoration none
 
-    &__answer_open &__solution:hover
-        color #fff
+        &:hover
+            color link_hover_color
+            border-color link_hover_color
+            text-decoration none
 
-    &__answer_open &__solution::after
-        content ""
-        position absolute
-        border-bottom 14px solid #F7F6EA
-        border-right 9px solid transparent
-        border-left 9px solid transparent
-        width 0
-        height 0
-        top 100%
-        left 50%
-        margin 4px 0 0 -7px
+        &[disabled]
+        &[disabled]:hover
+            cursor default
+            opacity 0.5
+            color #568DCA
+            border-color #568DCA
+            text-decoration none
 
     &__content,
     &__content p,
@@ -95,7 +92,10 @@
         top -17px
         right -17px
 
-    &__answer_open &__answer
+        @media phone
+            right -13px
+
+    &_answer_open &__answer
         display block
 
     &__step-show
@@ -119,16 +119,16 @@
         border-top 1px solid #edece2
 
     &__step:first-child &__step-show::before,
-    &__step_open + &__step &__step-show::before
+    &_step_open + &__step &__step-show::before
         display none
 
     &__step &__answer-content
         display none
 
-    &__step_open &__answer-content
+    &_step_open &__answer-content
         display block
 
-    &__step_open &__step-show
+    &_step_open &__step-show
         display none
 
     & &__step-title
