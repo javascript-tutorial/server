@@ -78,11 +78,11 @@
   "engineStrict": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/javascript-tutorial/javascript-tutorial-server.git"
+    "url": "https://github.com/javascript-tutorial/server.git"
   },
   "author": "Ilya Kantor",
   "license": "CC BY-NC-SA 3.0",
   "bugs": {
-    "url": "https://github.com/javascript-tutorial/javascript-tutorial-server/issues"
+    "url": "https://github.com/javascript-tutorial/server/issues"
   }
 }

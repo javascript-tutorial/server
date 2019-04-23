@@ -1,6 +1,6 @@
 @if "%~1"=="" goto usage
 
-@set TUTORIAL_ROOT=../javascript-tutorial-%1
+@set TUTORIAL_ROOT=../%1.javascript.info
 
 @if "%~2"=="" (
     set NODE_LANG=en
