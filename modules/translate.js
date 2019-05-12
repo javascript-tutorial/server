@@ -1,6 +1,6 @@
 // stub for translate
 exports.TutorialStats = class Translate {
-  instance() {
+  static instance() {
     return new Translate();
   }
 
