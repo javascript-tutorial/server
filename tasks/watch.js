@@ -29,7 +29,12 @@ function pushTaskQueue(task) {
     log("queue: already exists", task);
     return;
   }
-
+  /* (maybe the task should be moved into the end of the queue? couldn't find any practical difference)
+   if (~taskQueue.indexOf(task)) {
+   log("queue: already exists, removing", task);
+   taskQueue.splice(taskQueue.indexOf(task), 1);
+   }
+   */
   taskQueue.push(task);
   log("push", taskQueue);
 
@@ -96,23 +101,22 @@ function onModify(filePath) {
 
 // options.root - where to start watching
 // options.taskMapping - regexp -> task mappings
-module.exports = function(options) {
+module.exports = async function(options) {
 
-  return function(callback) {
-    let dirs = options.dirs.map(function(dir) {
-      return path.join(options.root, dir);
-    });
+  let dirs = options.dirs.map(function(dir) {
+    return path.join(options.root, dir);
+  });
 
-    let watcher = chokidar.watch(dirs, {ignoreInitial: true});
+  let watcher = chokidar.watch(dirs, {ignoreInitial: true});
 
-    watcher.root = options.root;
-    watcher.taskMapping = options.taskMapping;
+  watcher.root = options.root;
+  watcher.taskMapping = options.taskMapping;
 
-    watcher.on('add', onModify);
-    watcher.on('change', onModify);
-    watcher.on('unlink', onModify);
-    watcher.on('unlinkDir', onModify);
-    watcher.on('addDir', onModify);
-  };
+  watcher.on('add', onModify);
+  watcher.on('change', onModify);
+  watcher.on('unlink', onModify);
+  watcher.on('unlinkDir', onModify);
+  watcher.on('addDir', onModify);
 
+  await new Promise(resolve => {});
 };

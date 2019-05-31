@@ -1,10 +1,9 @@
 let webpack = require('webpack');
 let notifier = require('node-notifier');
 
-module.exports = function() {
+module.exports = async function() {
 
-  return function(callback) {
-
+  await new Promise((resolve, reject) => {
     let config = require('config').webpack();
 
     webpack(config, function(err, stats) {
@@ -23,7 +22,7 @@ module.exports = function() {
 
         console.log(err);
 
-        if (!config.watch) callback(err);
+        if (!config.watch) reject(err);
         return;
       }
 
@@ -44,14 +43,14 @@ module.exports = function() {
       */
 
       console.log('[webpack]', stats.toString({
-        hash: false,
+        hash:    false,
         version: false,
         timings: true,
-        assets: true,
-        chunks: false,
+        assets:  true,
+        chunks:  false,
         modules: false,
-        cached: true,
-        colors: true
+        cached:  true,
+        colors:  true
       }));
 
       /*
@@ -71,8 +70,10 @@ module.exports = function() {
 
        */
 
-      if (!config.watch) callback();
+      if (!config.watch) {
+        resolve();
+      }
     });
+  });
 
-  };
 };

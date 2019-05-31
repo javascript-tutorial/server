@@ -8,7 +8,7 @@ const glob = require('glob');
 const path = require('path');
 const fs = require('fs');
 const {lazyRequireTask, requireModuleTasks} = require('engine/gulp/requireModuleTasks');
-const runSequence = require('run-sequence');
+const {task, series, parallel} = require('gulp');
 
 const config = require('config');
 
@@ -18,7 +18,7 @@ process.on('uncaughtException', function(err) {
 });
 
 
-gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
+task("nodemon", lazyRequireTask('./tasks/nodemon', {
   // shared client/server code has require('template.jade) which precompiles template on run
   // so I have to restart server to pickup the template change
   ext:    "js,yml",
@@ -30,7 +30,7 @@ gulp.task("nodemon", lazyRequireTask('./tasks/nodemon', {
   watch:  ["modules"]
 }));
 
-gulp.task("livereload", lazyRequireTask("./tasks/livereload", {
+task("livereload", lazyRequireTask("./tasks/livereload", {
   // watch files *.*, not directories, no need to reload for new/removed files,
   // we're only interested in changes
 
@@ -51,35 +51,30 @@ if (!process.env.TEST_E2E || process.env.CI && process.env.TRAVIS_SECURE_ENV_VAR
   testSrcs.push('!modules/**/test/e2e/*.js');
 }
 
-gulp.task("test", lazyRequireTask('./tasks/test', {
+task("test", lazyRequireTask('./tasks/test', {
   src: testSrcs,
   reporter: 'spec',
   timeout: 100000 // big timeout for webdriver e2e tests
 }));
 
 
-gulp.task('deploy', function(callback) {
-  runSequence("deploy:build", "deploy:update", callback);
-});
-
-
-gulp.task('webpack', lazyRequireTask('./tasks/webpack'));
+task('webpack', lazyRequireTask('./tasks/webpack'));
 // gulp.task('webpack-dev-server', lazyRequireTask('./tasks/webpackDevServer'));
 
 
-gulp.task('build', ['webpack']);
+task('build', series('webpack'));
 
-gulp.task('server', lazyRequireTask('./tasks/server'));
+task('server', lazyRequireTask('./tasks/server'));
 
-gulp.task('edit', ['webpack', 'engine:koa:tutorial:importWatch', 'livereload', 'server']);
+task('edit', parallel('webpack', 'engine:koa:tutorial:importWatch', 'livereload', 'server'));
 
 
-gulp.task('dev', ['nodemon', 'livereload', 'webpack']);
+task('dev', parallel('nodemon', 'livereload', 'webpack'));
 
 gulp.on('err', function(gulpErr) {
   if (gulpErr.err) {
     // cause
     console.error("Gulp error details", [gulpErr.err.message, gulpErr.err.stack, gulpErr.err.errors].filter(Boolean));
   }
+  mongoose.disconnect();
 });
-

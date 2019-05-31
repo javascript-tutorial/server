@@ -1,6 +1,6 @@
 {
   "name": "javascript-nodejs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "prod": "NODE_ENV=production NODE_PATH=./modules node ./bin/server.js",
@@ -29,9 +29,8 @@
     "file-loader": "^1.1",
     "fs-extra": "*",
     "gm": "*",
-    "gulp": "^3",
-    "gulp-livereload": "*",
-    "gulp-ll": "*",
+    "gulp": "^4",
+    "gulp-livereload": "^4",
     "image-size": "*",
     "js-yaml": "*",
     "json-loader": "^0.5.7",
@@ -65,7 +64,6 @@
     "pug-runtime": "^2.0.4",
     "request": "*",
     "request-promise": "*",
-    "run-sequence": "*",
     "rupture": "*",
     "style-loader": "^0",
     "stylus-loader": "^3",
