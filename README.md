@@ -22,7 +22,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 2. Install global Node modules:
 
     ```
-    npm install -g bunyan gulp
+    npm install -g bunyan gulp@4
     ```
 
 3. Create the root folder.
@@ -100,7 +100,14 @@ First, run the command that imports (and caches) the tutorial:
 
 ```
 cd /js/server
-cross-env NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
+NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
+``` 
+
+For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
+
+```
+cd /js/server
+cross-env NODE_LANG=en...
 ``` 
 
 In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
