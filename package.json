@@ -1,14 +1,13 @@
 {
-  "name": "javascript-nodejs",
+  "name": "javascript-tutorial-server",
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "prod": "NODE_ENV=production NODE_PATH=./modules node ./bin/server.js",
     "fixperms": "sudo chown -R `id -u` .* * ~/.n*",
     "//": "test must exit with status 1 if fails, don't use | or ensure the right exit code if you do",
-    "test": "SELENIUM_LOCAL=1 NODE_ENV=test NODE_PATH=./modules ./node_modules/.bin/gulp test",
-    "build": "NODE_PATH=./modules ./node_modules/.bin/gulp build",
-    "gulp": "NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules ./node_modules/.bin/gulp"
+    "test": "cross-env SELENIUM_LOCAL=1 NODE_ENV=test NODE_PATH=./modules ./node_modules/.bin/gulp test",
+    "build": "cross-env NODE_PATH=./modules ./node_modules/.bin/gulp build",
+    "gulp": "cross-env NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules ./node_modules/.bin/gulp"
   },
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
@@ -25,6 +24,7 @@
     "chokidar": "^2.0.4",
     "clarify": "^2.1.0",
     "copy-webpack-plugin": "^4.5.2",
+    "cross-env": "^5.2.0",
     "css-loader": "^0",
     "file-loader": "^1.1",
     "fs-extra": "*",
