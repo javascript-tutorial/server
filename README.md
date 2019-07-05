@@ -6,7 +6,7 @@ This is a standalone server for the javascript tutorial https://javascript.info.
 
 You can use it to run the tutorial locally and translate it into your language.
 
-Windows, Unix systems and macOS are supported. For Windows, you'll need to call scripts with ".cmd" extension, that are present in the code alongside with Unix versions. 
+Windows, Unix systems and macOS are supported. For Windows, you'll need to call scripts with ".cmd" extension, that are present in the code alongside with Unix versions.
 
 # Installation
 
@@ -14,9 +14,9 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     These are required to update and run the project.
     For Windows just download and install, otherwise use standard OS install tools (packages or whatever convenient).
-    
-    Please use Node.js 10+. 
-    
+
+    Please use Node.js 10+.
+
     (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
 
 2. Install global Node modules:
@@ -58,7 +58,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     cd /js/server
     npm install
     ```
-    
+
     Run the site with the same language. Above we cloned `en` tutorial, so:
 
     ```
@@ -73,10 +73,10 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
 7. Edit the tutorial
 
-    As you edit text files in the tutorial text repository (cloned at step 5), 
-    the webpage will reload automatically. 
+    As you edit text files in the tutorial text repository (cloned at step 5),
+    the webpage will reload automatically.
 
-    
+
 # Change server language
 
 The server uses English by default for navigation and design.
@@ -91,7 +91,7 @@ cd /js/server
 ```
 
 Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh` and `ja` are fully supported.
-    
+
 # Dev mode
 
 If you'd like to edit the server code (assuming you're familiar with Node.js), *not* the tutorial text, then there are two steps to do.
@@ -101,14 +101,14 @@ First, run the command that imports (and caches) the tutorial:
 ```
 cd /js/server
 NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
-``` 
+```
 
 For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
 
 ```
 cd /js/server
 cross-env NODE_LANG=en...
-``` 
+```
 
 In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
 
@@ -119,10 +119,10 @@ cd /js/server
 ./dev en
 ```
 
-Running `./dev` uses the tutorial that was imported and cached by the previous command. 
+Running `./dev` uses the tutorial that was imported and cached by the previous command.
 
 It does not "watch" tutorial text, but it reloads the server after code changes.
- 
+
 Again, that's for developing the server code itself, not writing the tutorial.
 
 # The technical details
@@ -158,7 +158,7 @@ If it still doesn't work – [file an issue](https://github.com/javascript-tutor
 
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
---  
-Yours,  
-Ilya Kantor  
+--
+Yours,
+Ilya Kantor
 iliakan@javascript.info
