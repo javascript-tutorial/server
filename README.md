@@ -124,7 +124,30 @@ Running `./dev` uses the tutorial that was imported and cached by the previous c
 It does not "watch" tutorial text, but it reloads the server after code changes.
  
 Again, that's for developing the server code itself, not writing the tutorial.
-    
+
+# The technical details
+
+## For Linux users
+
+The server's tools use [inotify](https://en.wikipedia.org/wiki/Inotify) by default on Linux to monitor directories for changes. In some cases there may be too many items to monitor.
+
+You can get your current inotify files watch limit by:
+
+```sh
+$> cat /proc/sys/fs/inotify/max_user_watches
+```
+
+When this limit is not enough to monitor all files, you have to increase the limit for the server to work properly.
+
+You can set a new limit temporary by:
+
+```sh
+$> sudo sysctl fs.inotify.max_user_watches=524288
+$> sudo sysctl -p
+```
+
+It is very important that you refer to the documentation for your operating system to change this parameter permanently.
+
 # Troubleshooting
 
 If you have a very old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`.
