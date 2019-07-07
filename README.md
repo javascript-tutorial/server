@@ -125,11 +125,23 @@ It does not "watch" tutorial text, but it reloads the server after code changes.
 
 Again, that's for developing the server code itself, not writing the tutorial.
 
-# The technical details
+# Troubleshooting
 
-## For Linux users
+If you have a very old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`.
+
+Please ensure you have Node.js version 10+ (`node -v` shows the version).
+
+If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new). Please mention OS and Node.js version.
+
+Please pull the very latest git code and install latest NPM modules before publishing an issue.
+
+## Known Issues
+
+### For Linux users. inotify and monitored files
 
 The server's tools use [inotify](https://en.wikipedia.org/wiki/Inotify) by default on Linux to monitor directories for changes. In some cases there may be too many items to monitor.
+
+_*!* Samples code below work correctly for Ubuntu_.
 
 You can get your current inotify files watch limit by:
 
@@ -146,17 +158,7 @@ $> sudo sysctl fs.inotify.max_user_watches=524288
 $> sudo sysctl -p
 ```
 
-It is very important that you refer to the documentation for your operating system to change this parameter permanently.
-
-# Troubleshooting
-
-If you have a very old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`.
-
-Please ensure you have Node.js version 10+ (`node -v` shows the version).
-
-If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new). Please mention OS and Node.js version.
-
-Please pull the very latest git code and install latest NPM modules before publishing an issue.
+It is very important that you refer to the documentation for your operating system to change this parameter permanently
 
 --
 Yours,
