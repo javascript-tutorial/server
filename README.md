@@ -125,9 +125,24 @@ It does not "watch" tutorial text, but it reloads the server after code changes.
 
 Again, that's for developing the server code itself, not writing the tutorial.
 
-# Troubleshooting
+# Importing images
 
-If you have a very old copy of the English tutorial, please rename `1-js/05-data-types/09-destructuring-assignment/1-destructuring-assignment` to `1-js/05-data-types/09-destructuring-assignment/1-destruct-user`.
+You only need to re-import images if you change them, or change their translations in `images.yml`.
+
+To do that, you need to have Mac and Sketch editor installed.
+
+1. The task to get YAML with strings in image (for translation, to add to `images.yml`):
+    ```
+    cd /js/server
+    NODE_LANG=ru npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
+    ```
+2. The task to import images from Sketch and apply translations:
+    ```
+    cd /js/server
+    NODE_LANG=ru npm run gulp engine:koa:tutorial:figuresImport
+    ```
+    
+# Troubleshooting
 
 Please ensure you have Node.js version 10+ (`node -v` shows the version).
 
