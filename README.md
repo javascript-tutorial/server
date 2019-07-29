@@ -125,22 +125,67 @@ It does not "watch" tutorial text, but it reloads the server after code changes.
 
 Again, that's for developing the server code itself, not writing the tutorial.
 
+# Translating images
+
+Most pictures are in SVG format. Strings inside it are usually just text, it can be replaced.
+
+That's great, as there are many strings in English in images, like tips, notes, etc. They look nice when translated.
+
+Image translations reside in `images.yml` file in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>
+
+The file format is called "YAML", it's quite easy to understand:
+
+```yaml
+code-style.svg:  # image file name
+  "No space":    # English string
+    text: "Без пробелов" # translation
+    position: "center" # (optional) "center" or "right" - to position translated string.
+```
+
+The translated string may become longer or shorter. If we have nice pictures, strings move around and need to be repositioned:
+
+- `position: "right"` makes sure that after the translation the string right edge is at the same place, like this (below is the translated string):
+    ```
+    hello world
+        你好世界
+    ```
+- `position: "center"` centers the translated string, good if you have a vertical diagram.
+    ```
+    hello world
+      你好世界
+    ```
+- (default) the string left edge is the same:
+    ```
+    hello world
+    你好世界
+    ```
+
+
+
+## Extract strings
+
+The task to get all strings from an image (for translation, to add to `images.yml`):
+    ```
+    cd /js/server
+    NODE_LANG=ru npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
+    ```
+
+
 # Importing images
+
+If you modify `figures.sketch` file with pictures (need Mac and Sketch editor installed for that), images are re-imported automatically by `./edit` script.
+
+To do that manually:
+    ```
+    cd /js/server
+    NODE_LANG=ru npm run gulp engine:koa:tutorial:figuresImport
+    ```
 
 You only need to re-import images if you change them, or change their translations in `images.yml`.
 
 To do that, you need to have Mac and Sketch editor installed.
 
-1. The task to get YAML with strings in image (for translation, to add to `images.yml`):
-    ```
-    cd /js/server
-    NODE_LANG=ru npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
-    ```
-2. The task to import images from Sketch and apply translations:
-    ```
-    cd /js/server
-    NODE_LANG=ru npm run gulp engine:koa:tutorial:figuresImport
-    ```
+
     
 # Troubleshooting
 
