@@ -113,7 +113,7 @@ The translated string may become longer or shorter. By default, the translated s
 
     ```
     |hello world (before)
-    | 你好世界  (after translation)
+    |你好世界  (after translation)
     ```
 
 Sometimes they need to be repositioned:
