@@ -21,7 +21,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
 2. Install global Node modules:
 
-    ```
+    ```bash
     npm install -g bunyan gulp@4
     ```
 
@@ -31,7 +31,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
 4. Clone the tutorial server into it:
 
-    ```
+    ```bash
     cd /js
     git clone https://github.com/javascript-tutorial/server
     git clone https://github.com/javascript-tutorial/engine server/modules/engine
@@ -45,7 +45,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     The English version is `en.javascript.info`.
 
-    ```
+    ```bash
     cd /js
     git clone https://github.com/javascript-tutorial/en.javascript.info
     ```
@@ -54,14 +54,14 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Install local modules:
 
-    ```
+    ```bash
     cd /js/server
     npm install
     ```
 
     Run the site with the same language. Above we cloned `en` tutorial, so:
 
-    ```
+    ```bash
     ./edit en
     ```
 
@@ -85,45 +85,12 @@ You can set another language it with the second argument of `edit`.
 
 E.g. if you cloned `ru` tutorial, it makes sense to use `ru` locale for the server as well:
 
-```
+```bash
 cd /js/server
 ./edit ru ru
 ```
 
 Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh` and `ja` are fully supported.
-
-# Dev mode
-
-If you'd like to edit the server code (assuming you're familiar with Node.js), *not* the tutorial text, then there are two steps to do.
-
-First, run the command that imports (and caches) the tutorial:
-
-```
-cd /js/server
-NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
-```
-
-For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
-
-```
-cd /js/server
-cross-env NODE_LANG=en...
-```
-
-In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
-
-Afterwards, call `./dev <server language>` to run the server:
-
-```
-cd /js/server
-./dev en
-```
-
-Running `./dev` uses the tutorial that was imported and cached by the previous command.
-
-It does not "watch" tutorial text, but it reloads the server after code changes.
-
-Again, that's for developing the server code itself, not writing the tutorial.
 
 # Translating images
 
@@ -131,7 +98,7 @@ Most pictures are in SVG format. Strings inside it are usually just text, they c
 
 That's great, as there are many strings in English in images, like tips, notes, etc. They look nice when translated.
 
-Image translations reside in `images.yml` file in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>
+Image translations reside in `images.yml` file in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. Please, create it if needed.
 
 The file format is called "YAML", it's quite easy to understand:
 
@@ -160,33 +127,67 @@ The translated string may become longer or shorter. If we have nice pictures, st
     你好世界
     ```
 
+After `images.yaml` is ready, to apply translations:
 
+1. Setup upstream (if you haven't yet) and pull latest changes:
+    ```bash
+    cd /js/zh.javascript.info 
+    git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
+    git fetch upstream master
+    ```
+2. Run the translation task:
+    ```bash
+    cd /js/server
+    # without --image it applies all translations (to all images)
+    NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
+    ```
 
+The task takes upstream image (English version) and replaces strings to it.
+
+In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS). 
+    
 ## Extract strings
 
-The task to get all strings from an image (for translation, to add to `images.yml`):
+The task to get all strings from an image as YAML (for translation, to add to `images.yml`):
     ```
     cd /js/server
-    NODE_LANG=ru npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
+    NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
     ```
-
-
-# Importing images
-
-If you modify `figures.sketch` file with pictures (need Mac and Sketch editor installed for that), images are re-imported automatically by `./edit` script.
-
-To do that manually:
-    ```
-    cd /js/server
-    NODE_LANG=ru npm run gulp engine:koa:tutorial:figuresImport
-    ```
-
-You only need to re-import images if you change them, or change their translations in `images.yml`.
-
-To do that, you need to have Mac and Sketch editor installed.
-
-
     
+
+# Dev mode
+
+If you'd like to edit the server code (assuming you're familiar with Node.js), *not* the tutorial text, then there are two steps to do.
+
+First, run the command that imports (and caches) the tutorial:
+
+```bash
+cd /js/server
+NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
+```
+
+For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
+
+```bash
+cd /js/server
+cross-env NODE_LANG=en...
+```
+
+In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
+
+Afterwards, call `./dev <server language>` to run the server:
+
+```bash
+cd /js/server
+./dev en
+```
+
+Running `./dev` uses the tutorial that was imported and cached by the previous command.
+
+It does not "watch" tutorial text, but it reloads the server after code changes.
+
+Again, that's for developing the server code itself, not writing the tutorial.
+
 # Troubleshooting
 
 Please ensure you have Node.js version 10+ (`node -v` shows the version).
