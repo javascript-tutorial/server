@@ -148,7 +148,9 @@ After `images.yaml` with translations is ready, it's time to apply translations:
 
 The task takes upstream image version (English), replaces strings to it, then writes to same-named image in the tutorial repo.
 
-In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS). 
+You may want to open the resulting SVG file directly in the browser to see it.
+
+P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS). 
     
 ## Extract strings
 
