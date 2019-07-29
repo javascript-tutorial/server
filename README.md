@@ -127,7 +127,7 @@ Again, that's for developing the server code itself, not writing the tutorial.
 
 # Translating images
 
-Most pictures are in SVG format. Strings inside it are usually just text, it can be replaced.
+Most pictures are in SVG format. Strings inside it are usually just text, they can be replaced.
 
 That's great, as there are many strings in English in images, like tips, notes, etc. They look nice when translated.
 
