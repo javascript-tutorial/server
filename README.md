@@ -109,27 +109,31 @@ code-style.svg:  # image file name
     position: "center" # (optional) "center" or "right" - to position translated string.
 ```
 
-The translated string may become longer or shorter. If we have nice pictures, strings move around and need to be repositioned:
+The translated string may become longer or shorter. By default, the translated string starts at the same place:
 
-- `position: "right"` makes sure that after the translation the string right edge is at the same place, like this (below is the translated string):
     ```
-    hello world
-        你好世界
+    |hello world (before)
+    | 你好世界  (after translation)
     ```
+
+Sometimes they need to be repositioned:
+
 - `position: "center"` centers the translated string, good if you have a vertical diagram.
     ```
+         |
     hello world
       你好世界
+         |
     ```
-- (default) the string left edge is the same:
+- `position: "right"` makes sure that the translated string keeps the same right edge:
     ```
-    hello world
-    你好世界
+    hello world |
+        你好世界 |
     ```
 
-After `images.yaml` is ready, to apply translations:
+After `images.yaml` with translations is ready, it's time to apply translations:
 
-1. Setup upstream (if you haven't yet) and pull latest changes:
+1. Setup git upstream (if you haven't yet) and pull latest changes:
     ```bash
     cd /js/zh.javascript.info 
     git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
@@ -142,7 +146,7 @@ After `images.yaml` is ready, to apply translations:
     NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
     ```
 
-The task takes upstream image (English version) and replaces strings to it.
+The task takes upstream image version (English), replaces strings to it, then writes to same-named image in the tutorial repo.
 
 In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS). 
     
