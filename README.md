@@ -146,12 +146,12 @@ After `images.yaml` with translations is ready, it's time to apply translations:
     NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
     ```
 
-For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
-
-```bash
-cd /js/server
-cross-env NODE_LANG=zh...
-```
+> For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
+>
+> ```bash
+> cd /js/server
+> cross-env NODE_LANG=zh...
+> ```
 
 The task takes upstream image version (English), replaces strings to it, then writes to same-named image in the tutorial repo.
 
