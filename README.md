@@ -118,7 +118,7 @@ The translated string may become longer or shorter. By default, the translated s
 
 Sometimes they need to be repositioned:
 
-- `position: "center"` centers the translated string, good if you have a vertical diagram.
+- `position: "center"` centers the translated string, good if you have a vertical diagram, keeps text centered:
     ```
          |
     hello world
