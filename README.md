@@ -146,6 +146,13 @@ After `images.yaml` with translations is ready, it's time to apply translations:
     NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
     ```
 
+For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
+
+```bash
+cd /js/server
+cross-env NODE_LANG=zh...
+```
+
 The task takes upstream image version (English), replaces strings to it, then writes to same-named image in the tutorial repo.
 
 You may want to open the resulting SVG file directly in the browser to see it.
@@ -172,12 +179,12 @@ cd /js/server
 NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
 ```
 
-For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
+> For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
 
-```bash
-cd /js/server
-cross-env NODE_LANG=en...
-```
+    ```bash
+    cd /js/server
+    cross-env NODE_LANG=en...
+    ```
 
 In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
 
