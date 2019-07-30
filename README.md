@@ -98,9 +98,9 @@ Most pictures are in SVG format. Strings inside it are usually just text, they c
 
 That's great, as there are many strings in English in images, like tips, notes, etc. They look nice when translated.
 
-Image translations reside in `images.yml` file in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. Please, create it if needed.
+Image translations reside in `images.yml` in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. Please, create it if needed.
 
-The file format is called "YAML", it's quite easy to understand:
+The file format is "YAML", it's quite easy to understand:
 
 ```yaml
 code-style.svg:  # image file name
@@ -118,18 +118,19 @@ The translated string may become longer or shorter. By default, the translated s
 
 Sometimes they need to be repositioned:
 
-- `position: "center"` centers the translated string, good if you have a vertical diagram, keeps text centered:
-    ```
-         |
-    hello world
-      你好世界
-         |
-    ```
-- `position: "right"` makes sure that the translated string keeps the same right edge:
-    ```
-    hello world |
-        你好世界 |
-    ```
+`position: "center"` centers the translated string, good if you have a vertical diagram, keeps text centered:
+```
+     |
+hello world
+  你好世界
+     |
+```
+
+`position: "right"` makes sure that the translated string keeps the same right edge:
+```
+hello world |
+    你好世界 |
+```
 
 After `images.yaml` with translations is ready, it's time to apply translations:
 
@@ -162,11 +163,12 @@ P.S In order for positioning to work, you need to have ImageMagick installed: <h
 ## Extract strings
 
 The task to get all strings from an image as YAML (for translation, to add to `images.yml`):
-    ```
-    cd /js/server
-    NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
-    ```
-    
+
+```bash
+cd /js/server
+NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
+```
+
 
 # Dev mode
 
