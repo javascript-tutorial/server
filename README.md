@@ -90,7 +90,7 @@ cd /js/server
 ./edit ru ru
 ```
 
-Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh` and `ja` are fully supported.
+Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh`, `tr` and `ja` are fully supported.
 
 # Translating images
 
