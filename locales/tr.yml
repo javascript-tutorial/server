@@ -1,0 +1,70 @@
+site:
+  privacy_policy: Gizlilik Politikası
+  terms: kullanım şartları
+
+  gdpr_dialog:
+    title: Bu websitesi çerez kullanmaktadır.
+    text: Çerez, yerel depolama ile sizin tercihlerinizi saklamaktayız. Bunları yapabilmemiz için <a href="/privacy">Gizlilik Politikasını</a> ve <a href="/terms">kullanım şartlarını</a> onaylamalısınız.
+    accept: Kabul et
+    cancel: İptal
+
+  toolbar:
+    lang_switcher:
+      cta_text: >
+        <p>Bu açık-kaynaklı projenin tüm dünyada kullanılabilir olmasını istiyoruz.</p>
+        <p>Kendi dilinizde çeviriye <a href="https://javascript.info/translate">yardım edebilirsiniz</a>!</p>
+      footer_text: İçeriğin yüzde kaçı çevirildi.
+      old_version: Eski versiyon yayınlandı, eskisine taşıma yapılması lazım.
+    logo:
+      normal:
+        svg: sitetoolbar__logo_en.svg
+        width: 200 # 171
+      normal-white:
+        svg: sitetoolbar__logo_en-white.svg
+      small:
+        svg: sitetoolbar__logo_small_en.svg
+        width: 70
+      small-white:
+        svg: sitetoolbar__logo_small_en-white.svg
+    sections:
+    buy_ebook_extra: 'Satın al'
+    buy_ebook: 'EPUB/PDF'
+    search_placeholder: "Javascript.info\'da ara"
+    search_button: 'Ara'
+
+    public_profile: Genel Profil
+    account: Hesap
+    notifications: Bildirimler
+    admin: Yönetici
+    logout: Çıkış
+
+  sorry_old_browser: Üzgünüz, IE<10 desteklenmemektedi lütfen daha yeni bir tarayıcı kullanın.
+  contact_us: iletişime geçin
+  about_the_project: proje hakkında
+  ilya_kantor: Ilya Kantor
+  comments: Yorumlar
+  loading: Yükleniyor...
+  search: Ara
+  share: Paylaş
+  read_before_commenting: yorum yapmadan önce lütfen okuyun...
+  last_updated_at: "Son güncelleme #{date}"
+  meta:
+    description: 'Modern JavaScript Eğitimi: basit, fakat detaylı açıklamalar ve görevler ile anlatılmıştır. Closures, document, events ve nesne yönelimli programlama üzerine bölümleri bulunmaktadır'
+
+  tablet-menu:
+    choose_section: Bölüm seçiniz
+    search_placeholder: Eğitimde ara
+    search_button: Ara
+
+  comment:
+    help:
+      - Eğer geliştirme ile alakalı bir öneriniz var ise yorum yerine <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">github konusu gönderiniz</a>.
+      - Eğer makalede bir yeri anlamadıysanız lütfen belirtiniz.
+      - Koda birkaç satır eklemek için <code>&lt;code&gt;</code> kullanınız, birkaç satır eklemek için ise <code>&lt;pre&gt;</code> kullanın. Eğer 10 satırdan fazla kod ekleyecekseniz <a href='https://plnkr.co/edit/?p=preview'>plnkr</a> kullanabilirsiniz)
+
+  edit_on_github: Github'da düzenle
+  error: hata
+  close: kapat
+
+  hide_forever: kalıcı olarak gizle
+  hidden_forever: Bu bilgi artık görünmeyecektir.
