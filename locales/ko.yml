@@ -60,10 +60,9 @@ site:
 
   comment:
     help:
-    - 추가 코멘트, 질문 및 답변을 자유롭게 남겨주세요. 개선해야 할 것이 있다면 댓글 대신 <a href='https://github.com/javascript-tutorial/en.javascript.info/issues/new'>이슈를 만들어주세요</a>.
-    You're welcome to post additions, questions to the articles and answers to them.
-    - 댓글에 몇 단어로 구성된 코드를 삽입하고 싶다면 <code>&lt;code&gt;</code> 태그를, 여러 줄로 구성된 코드를 삽입하고 싶다면 <code>&lt;pre&gt;</code> 태그를 이용하세요. 10줄 이상의 코드는 <a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a> 등의 샌드박스를 사용하세요.
-    - 잘 이해되지 않는 부분은 구체적으로 언급해주세요.
+      - If you have suggestions what to improve - please <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">submit a GitHub issue</a> or a pull request instead of commenting.
+      - If you can't understand something in the article – please elaborate.
+      - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
 
   edit_on_github: GitHub에서 수정하기
   error: 에러

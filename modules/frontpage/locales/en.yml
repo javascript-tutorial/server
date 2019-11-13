@@ -1,5 +1,6 @@
+view_github: github
+search_placeholder: Search in the tutorial
+search_button: Search
+share_text: Share
+contributors_pluralize: "contributor,contributors,contributors"
 modern_javascript_tutorial: "The Modern JavaScript Tutorial"
-view_github: "view on GitHub"
-search_placeholder: "Search in the tutorial"
-search_button: "Search"
-share_text: "Share"

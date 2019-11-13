@@ -1,5 +1,6 @@
 site:
   privacy_policy: Privacy policy
+  terms: terms of usage
 
   gdpr_dialog:
     title: This website uses cookies
@@ -50,6 +51,7 @@ site:
   share: Share
   read_before_commenting: read this before commenting…
 
+  last_updated_at: "Last updated at #{date}"
   meta:
     description: 'Modern JavaScript Tutorial: simple, but detailed explanations with examples and tasks, including: closures, document and events, object oriented programming and more.'
 
@@ -60,9 +62,9 @@ site:
 
   comment:
     help:
-    - You're welcome to post additions, questions to the articles and answers to them.
-    - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
-    - If you can't understand something in the article – please elaborate.
+      - If you have suggestions what to improve - please <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">submit a GitHub issue</a> or a pull request instead of commenting.
+      - If you can't understand something in the article – please elaborate.
+      - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
 
   edit_on_github: Edit on GitHub
   error: error
@@ -71,3 +73,29 @@ site:
   hide_forever: hide permanently
   hidden_forever: This information will not show up any more.
 
+
+  subscribe:
+    title: Watch for javascript.info updates
+    text: 'We do not send advertisements, only relevant stuff. You choose what to receive:'
+    agreement: 'By signing up to newsletters you agree to the <a href="#{link}" target="_blank">terms of usage</a>.'
+    button: Subscribe
+    button_unsubscribe: Unsubscribe from all
+    common_updates: Common updates
+    common_updates_text: new courses, master classes, article and screencast releases
+    your_email: your@email.here
+    newsletters: 'newsletter,newsletters,newsletters'
+    no_selected: Nothing selected
+
+  form:
+    value_must_not_be_empty: Value must not be empty.
+    value_is_too_long: Value is too long.
+    value_is_too_short: Value is too short.
+    invalid_email: Invalid email.
+    invalid_value: Invalid value.
+    invalid_autocomplete: Please, choose from the list
+    invalid_date: 'Invalid date, format: dd.mm.yyyyy.'
+    invalid_range: This date is invalid here.
+    save: Save
+    upload_file: Upload file
+    cancel: Cancel
+    server_error: Request error, status code
