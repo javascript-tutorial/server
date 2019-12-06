@@ -48,7 +48,7 @@ site:
   loading: 로딩중...
   search: 검색
   share: 공유
-  read_before_commenting: 댓글을 달기 전에 아랫글을 읽어주세요.
+  read_before_commenting: 댓글을 달기 전에 마우스를 올렸을 때 나타나는 글을 먼저 읽어주세요.
 
   meta:
     description: '모던 자바스크립트 튜토리얼은 클로저, 문서 객체 모델, 이벤트, 객체 지향 프로그래밍 등의 다양한 주제에 대한 설명과 예시, 과제를 담고 있습니다.'
@@ -60,9 +60,9 @@ site:
 
   comment:
     help:
-      - If you have suggestions what to improve - please <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">submit a GitHub issue</a> or a pull request instead of commenting.
-      - If you can't understand something in the article – please elaborate.
-      - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
+      - 추가 코멘트, 질문 및 답변을 자유롭게 남겨주세요. 개선해야 할 것이 있다면 댓글 대신 <a href='https://github.com/javascript-tutorial/ko.javascript.info/issues/new'>이슈를 만들어주세요</a>.
+      - 잘 이해되지 않는 부분은 구체적으로 언급해주세요.
+      - 댓글에 한 줄짜리 코드를 삽입하고 싶다면 <code>&lt;code&gt;</code> 태그를, 여러 줄로 구성된 코드를 삽입하고 싶다면 <code>&lt;pre&gt;</code> 태그를 이용하세요. 10줄 이상의 코드는 <a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a> 등의 샌드박스를 사용하세요.
 
   edit_on_github: GitHub에서 수정하기
   error: 에러
