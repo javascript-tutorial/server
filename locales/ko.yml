@@ -9,7 +9,7 @@ site:
 
   toolbar:
     lang_switcher:
-      cta_text: 본 튜토리얼은 전 세계 사람들이 이용할 수 있는 오픈 소스 프로젝트입니다. <a href="https://github.com/javascript-tutorial/en.javascript.info" rel="noopener noreferrer" target="_blank">프로젝트 페이지에 방문</a>하셔서 번역을 도와주세요.
+      cta_text: 본 튜토리얼은 전 세계 사람들이 이용할 수 있는 오픈 소스 프로젝트입니다. <a href="https://github.com/javascript-tutorial/ko.javascript.info" rel="noopener noreferrer" target="_blank">프로젝트 페이지에 방문</a>하셔서 번역을 도와주세요.
       footer_text: 얼마나 많은 콘텐츠가 해당 언어로 번역되었는지
       old_version: 튜토리얼 구 버전은 이미 배포되었습니다. 개정이 진행 중입니다.
     logo:
