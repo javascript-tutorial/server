@@ -82,5 +82,9 @@
   "license": "CC BY-NC-SA 3.0",
   "bugs": {
     "url": "https://github.com/javascript-tutorial/server/issues"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1",
+    "should": "^13.2.3"
   }
 }
