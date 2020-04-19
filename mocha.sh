@@ -8,4 +8,4 @@
 
 # tried also gulp-mocha and node `which gulp` test,
 # but it hangs after tests, not sure why, mocha.sh works fine so leave it as is
-NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules NODE_ENV=test node node_modules/.bin/mocha --reporter spec --colors --timeout 100000 --require should --recursive --ui bdd $*
+NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules NODE_ENV=test node node_modules/.bin/mocha --full-trace --allow-uncaught --require should --recursive $*
