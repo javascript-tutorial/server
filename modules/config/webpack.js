@@ -199,6 +199,8 @@ module.exports = function () {
                   nib(),
                   function (style) {
                     style.define('lang', config.lang);
+                    style.define('rtl', ['ar','fa'].includes(config.lang));
+                    style.define('env', config.env);
                   }
                 ]
               },
