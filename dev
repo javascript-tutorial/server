@@ -5,6 +5,7 @@
 set -e
 
 export NODE_LANG=$1
+export TUTORIAL_LANG=$1
 export NODE_ENV=development
 export ASSET_VERSIONING=query
 export WATCH=1
