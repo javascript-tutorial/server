@@ -79,7 +79,10 @@
         background #f9edbf
 
     &__content
-        padding-left 20px
+        if isRTL
+            padding-right 20px
+        else
+            padding-left 20px
         padding-right 10px
 
     &__aside_price

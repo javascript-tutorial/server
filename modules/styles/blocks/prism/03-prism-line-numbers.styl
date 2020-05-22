@@ -1,6 +1,9 @@
 pre.line-numbers
   position relative
-  padding-left 3.8em
+                if isRTL
+                    padding-right 3.8em
+                else
+                    padding-left 3.8em
   counter-reset linenumber
 
 .line-numbers .line-numbers-rows

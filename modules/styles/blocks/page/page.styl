@@ -3,15 +3,26 @@
     z-index: 0
     padding 0
 
+    .sidebar__toggle
+        if isRTL
+            left auto
+            right 100%
     &_sidebar_on
-        padding-left sidebar_width
+        if isRTL
+            padding-right sidebar_width
+        else
+            padding-left sidebar_width
 
     &__sidebar
         position fixed
         top 0
         bottom 0
-        left 0
-        transform translateX(-100%)
+        if isRTL
+            right 0
+            transform translateX(100%)
+        else
+            left 0
+            transform translateX(-100%)
 
     // используется при переключении видимости панели навигации
     &__inner
@@ -52,7 +63,10 @@
         text-decoration none
 
     &__nav_prev
-        left 0
+        if isRTL
+          right 0
+        else  
+          left 0
         transition transform animation_duration, top animation_duration
 
     &__nav-text
@@ -88,20 +102,29 @@
         background rgba(216, 216, 216, .3)
 
     &__nav_prev &__nav-text::before
-        @extend $font-angle-left
+        if isRTL
+            @extend $font-angle-right
+        else
+            @extend $font-angle-left
 
     &__nav-text-alternate
         display none
 
     &_sidebar_on &__nav_prev
-        transform translateX(sidebar_width)
+        if isRTL
+            transform translateX(- sidebar_width)
+        else
+            transform translateX(sidebar_width)
 
     &__nav_next
-        right 0
+        left 0
         transition top animation_duration
 
     &__nav_next &__nav-text::before
-        @extend $font-angle-right
+        if isRTL
+            @extend $font-angle-left
+        else
+            @extend $font-angle-right
 
 
     &_ebook
@@ -114,7 +137,10 @@
                 display none
 
             pre.line-numbers
-                padding-left 10px
+                if isRTL
+                    padding-right 10px
+                else
+                    padding-left 10px
 
             // ebook reader has smaller page width,
             // so I make sure the code fits it
@@ -196,7 +222,10 @@
             border-color: #7e7e7e
 
         &__nav_prev
-            padding-left 30px
+            if isRTL
+              padding-right 30px
+            else
+              padding-left 30px
 
             border-right-width 0
             border-radius: 6px 0 0 6px

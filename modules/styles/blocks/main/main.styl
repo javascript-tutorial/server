@@ -71,7 +71,10 @@ $main-loud
         border-right 2px solid #f5f2f0
 
     &__lesson-nav-next
-        padding-left 15px
+        if isRTL
+            padding-right 15px
+        else
+            padding-left 15px
 
     &__lesson-nav-prev:last-child
         border none
@@ -92,7 +95,11 @@ $main-loud
 
     ul,
     ol
-        padding-left 21px
+        if isRTL
+                padding-right 21px
+        
+        else
+            padding-left 21px
         margin 22px 0 // уравниваем с абзацными отступами
 
         > li
@@ -105,8 +112,12 @@ $main-loud
 
     ul > li::before
         content "●"
-        float left // not position: absolute because the latter doesn't show in iBooks (epub)
-        margin-left -20px
+        if isRTL
+                float right
+                margin-right -20px
+        else 
+            float left // not position: absolute because the latter doesn't show in iBooks (epub)
+            margin-left -20px
         color #000
         font-size 8px
 

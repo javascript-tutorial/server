@@ -10,7 +10,10 @@
         margin 0
 
         &::after
-            content "→"
+            if isRTL
+                   content "←"
+            else
+               content "→"
             font-family "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif
 
             color #a9a9a9

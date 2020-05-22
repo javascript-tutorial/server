@@ -53,7 +53,10 @@ lessons-list-separator = 1px solid #ede8e0
 
     &__lesson_level_1
         background #faf8f7
-        padding-left 46px
+        if isRTL
+            padding-right 46px
+        else
+            padding-left 46px
 
     &__lesson_level_1 > &__link
         font-weight 600
@@ -68,7 +71,10 @@ lessons-list-separator = 1px solid #ede8e0
 
     &__lesson_level_2
         background #fff
-        padding-left 71px
+        if isRTL
+            padding-right 71px
+        else
+            padding-left 71px
 
     &__lesson_level_2:first-child
         border-top lessons-list-separator
@@ -176,7 +182,10 @@ lessons-list-separator = 1px solid #ede8e0
         width: 21px;
         height: 23px;
         line-height: 23px;
-        padding-left: 3px;
+        if isRTL
+            padding-right: 3px;
+        else
+            padding-left: 3px;
 
         text-align center
 
