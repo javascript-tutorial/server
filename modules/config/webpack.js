@@ -6,42 +6,42 @@ let path = require('path');
 // no webpack dependencies inside
 // no es6 (for 6to5 processing) inside
 // NB: includes angular-*
-let noProcessModulesRegExp = new RegExp(
-  'node_modules' + (path.sep === '/' ? path.sep : '\\\\') + '(angular|prismjs|sanitize-html|i18n-iso-countries)'
-);
+let noProcessModulesRegExp = new RegExp("node_modules" + (path.sep === '/' ? path.sep : '\\\\') + "(angular|prismjs|sanitize-html|i18n-iso-countries)");
 
 let devMode = process.env.NODE_ENV == 'development';
 
+
 module.exports = function () {
+
   let nib = require('nib');
   let rupture = require('rupture');
   let chokidar = require('chokidar');
   let webpack = require('webpack');
   let WriteVersionsPlugin = require('engine/webpack/writeVersionsPlugin');
   let CssWatchRebuildPlugin = require('engine/webpack/cssWatchRebuildPlugin');
-  const CopyWebpackPlugin = require('copy-webpack-plugin');
-  const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+  const CopyWebpackPlugin = require('copy-webpack-plugin')
+  const MiniCssExtractPlugin = require("mini-css-extract-plugin");
   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+  const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
   const fse = require('fs-extra');
 
-  // tutorial.js?hash
-  // tutorial.hash.js
+
+// tutorial.js?hash
+// tutorial.hash.js
   function extHash(name, ext, hash) {
     if (!hash) hash = '[hash]';
-    return config.assetVersioning == 'query'
-      ? `${name}.${ext}?${hash}`
-      : config.assetVersioning == 'file'
-      ? `${name}.${hash}.${ext}`
-      : `${name}.${ext}`;
+    return config.assetVersioning == 'query' ? `${name}.${ext}?${hash}` :
+      config.assetVersioning == 'file' ? `${name}.${hash}.${ext}` :
+        `${name}.${ext}`;
   }
 
   let modulesDirectories = [path.join(process.cwd(), 'node_modules')];
   if (process.env.NODE_PATH) {
-    modulesDirectories = modulesDirectories.concat(process.env.NODE_PATH.split(/[:;]/).map((p) => path.resolve(p)));
+    modulesDirectories = modulesDirectories.concat(process.env.NODE_PATH.split(/[:;]/).map(p => path.resolve(p)));
   }
 
   //console.log("MODULE DIRS", modulesDirectories);
+
 
   /**
    * handler/client/assets/* goes to public/assets/
@@ -63,11 +63,11 @@ module.exports = function () {
    * handler/templates makes handler.css (via CssWatchRebuiltPlugin)
    */
   let entries = {
-    head: 'client/head',
-    footer: 'client/footer',
-    tutorial: 'engine/koa/tutorial/client',
-    styles: config.tmpRoot + '/styles.styl',
-    frontpage: config.tmpRoot + '/frontpage.styl',
+    head:      'client/head',
+    footer:    'client/footer',
+    tutorial:  'engine/koa/tutorial/client',
+    styles:    config.tmpRoot + '/styles.styl',
+    frontpage: config.tmpRoot + '/frontpage.styl'
   };
 
   /*
@@ -88,10 +88,11 @@ module.exports = function () {
   }*/
   //console.log("WEBPACK ENTRIES", entries);
 
+
   let webpackConfig = {
     output: {
       // fs path
-      path: path.join(config.publicRoot, 'pack'),
+      path:       path.join(config.publicRoot, 'pack'),
       // path as js sees it
       // if I use another domain here, need enable Allow-Access-.. header there
       // and add  to scripts, to let error handler track errors
@@ -100,29 +101,27 @@ module.exports = function () {
       // в prod-режиме не можем ?, т.к. CDN его обрезают, поэтому [hash] в имени
       //  (какой-то [hash] здесь необходим, иначе к chunk'ам типа 3.js, которые генерируются require.ensure,
       //  будет обращение без хэша при загрузке внутри сборки. при изменении - барузерный кеш их не подхватит)
-      filename: extHash('[name]', 'js'),
+      filename:   extHash("[name]", 'js'),
 
-      chunkFilename: extHash('[name]-[id]', 'js'),
-      library: '[name]',
-      pathinfo: devMode,
+      chunkFilename: extHash("[name]-[id]", 'js'),
+      library:       '[name]',
+      pathinfo:      devMode
     },
 
     cache: devMode,
+
 
     mode: devMode ? 'development' : 'production', // for tests uses prod too
 
     watchOptions: {
       aggregateTimeout: 10,
-      ignored: /node_modules/,
+      ignored:          /node_modules/
     },
 
     watch: devMode,
 
-    devtool: devMode
-      ? 'cheap-inline-module-source-map' // try "eval" ?
-      : process.env.NODE_ENV == 'production'
-      ? 'source-map'
-      : false,
+    devtool: devMode ? "cheap-inline-module-source-map" : // try "eval" ?
+               process.env.NODE_ENV == 'production' ? 'source-map' : false,
 
     profile: Boolean(process.env.WEBPACK_STATS),
 
@@ -137,82 +136,81 @@ module.exports = function () {
         },*/
 
     module: {
-      rules: [
+      rules:   [
         {
           test: /\.yml$/,
-          use: ['json-loader', 'yaml-loader'],
+          use:  ['json-loader', 'yaml-loader']
         },
         {
           test: /\.pug$/,
-          use: 'pug-loader?root=' + config.projectRoot + '/templates&globals=__',
+          use:  'pug-loader?root=' + config.projectRoot + '/templates&globals=__'
         },
         {
-          test: /\.js$/,
+          test:    /\.js$/,
           // babel shouldn't process modules which contain ws/browser.js,
           // which must not be run in strict mode (global becomes undefined)
           // babel would make all modules strict!
           exclude: noProcessModulesRegExp,
-          use: [
+          use:     [
             // babel will work first
             {
-              loader: 'babel-loader',
+              loader:  'babel-loader',
               options: {
                 presets: [
                   // use require.resolve here to build files from symlinks
-                  [
-                    require.resolve('babel-preset-env'),
-                    {
-                      //useBuiltIns: true,
-                      targets: {
-                        browsers: '> 3%',
-                      },
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
+                  [require.resolve('babel-preset-env'), {
+                    //useBuiltIns: true,
+                    targets: {
+                      browsers: "> 3%"
+                    }
+                  }]
+                ]
+              }
+            }
+          ]
         },
         {
           test: /\.styl$/,
           // MiniCssExtractPlugin breaks HMR for CSS
-          use: [
+          use:  [
             MiniCssExtractPlugin.loader,
             {
-              loader: 'css-loader',
+              loader:  'css-loader',
               options: {
-                importLoaders: 1,
-              },
+                importLoaders: 1
+              }
             },
             {
-              loader: 'postcss-loader',
+              loader:  'postcss-loader',
               options: {
-                plugins: [require('autoprefixer')],
-              },
+                plugins: [
+                  require('autoprefixer')
+                ]
+              }
             },
             'engine/webpack/hover-loader',
             {
-              loader: 'stylus-loader',
+              loader:  'stylus-loader',
               options: {
-                linenos: true,
+                linenos:       true,
                 'resolve url': true,
-                use: [
+                use:           [
                   rupture(),
                   nib(),
                   function (style) {
                     style.define('lang', config.lang);
-                    style.define('isRTL', ['ar', 'fa'].includes(process.env.TUTORIAL_LANG));
+                    style.define('isRTL', ['ar','fa'].includes(process.env.TUTORIAL_LANG));
                     style.define('env', config.env);
-                  },
-                ],
+                  }
+                ]
               },
-            },
-          ],
+            }
+          ]
         },
         {
           test: /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
-          use: extHash('file-loader?name=[path][name]', '[ext]'),
-        },
+          use:  extHash('file-loader?name=[path][name]', '[ext]')
+        }
       ],
       noParse: function (path) {
         /*
@@ -222,52 +220,52 @@ module.exports = function () {
          */
         //console.log(path);
         return noProcessModulesRegExp.test(path);
-      },
+      }
     },
+
 
     resolve: {
       // allow require('styles') which looks for styles/index.styl
       extensions: ['.js', '.styl'],
-      alias: {
+      alias:      {
         'entities/maps/entities.json': 'engine/markit/emptyEntities',
-        config: 'client/config',
+        config:                        'client/config'
       },
-      modules: modulesDirectories,
+      modules:    modulesDirectories
     },
 
+
     resolveLoader: {
-      modules: modulesDirectories,
-      extensions: ['.js'],
+      modules:    modulesDirectories,
+      extensions: ['.js']
     },
 
     node: {
-      fs: 'empty',
+      fs: 'empty'
     },
 
     performance: {
       maxEntrypointSize: 350000,
       maxAssetSize: 350000, // warning if asset is bigger than 300k
-      assetFilter(assetFilename) {
-        // only check js/css
+      assetFilter(assetFilename) {  // only check js/css
         // ignore assets copied by CopyWebpackPlugin
-        if (assetFilename.startsWith('..')) {
-          // they look like ../courses/achievements/course-complete.svg
+        if (assetFilename.startsWith('..')) { // they look like ../courses/achievements/course-complete.svg
           // built assets do not have ..
           return false;
         }
         return assetFilename.endsWith('.js') || assetFilename.endsWith('.css');
-      },
+      }
     },
 
     plugins: [
       new webpack.DefinePlugin({
-        LANG: JSON.stringify(config.lang),
-        IS_CLIENT: true,
+        LANG:      JSON.stringify(config.lang),
+        IS_CLIENT: true
       }),
 
       // lodash is loaded when free variable _ occurs in the code
       new webpack.ProvidePlugin({
-        _: 'lodash',
+        _: 'lodash'
       }),
 
       // ignore all locales except current lang
@@ -286,8 +284,9 @@ module.exports = function () {
             // console.log("ignore moment locale", tmp, arg);
             return true;
           }
-        },
+        }
       }),
+
 
       // ignore site locale files except the lang
       new webpack.IgnorePlugin({
@@ -301,89 +300,93 @@ module.exports = function () {
           let ignore = /\/locales(\/|$)/.test(arg);
           // console.log("ignore yml", tmp, arg);
           return ignore;
-        },
+        }
       }),
+
 
       new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
 
       new MiniCssExtractPlugin({
-        filename: extHash('[name]', 'css'),
-        chunkFilename: extHash('[id]', 'css'),
+        filename:      extHash("[name]", 'css'),
+        chunkFilename: extHash("[id]", 'css'),
       }),
 
       new CssWatchRebuildPlugin(),
 
       new CopyWebpackPlugin(
-        assetPaths.map((path) => {
+        assetPaths.map(path => {
           return {
             from: path,
-            to: config.publicRoot,
-          };
+            to:   config.publicRoot
+          }
         }),
-        { debug: 'warning' }
+        {debug: 'warning'}
       ),
 
       {
         apply: function (compiler) {
           if (process.env.WEBPACK_STATS) {
-            compiler.plugin('done', function (stats) {
+            compiler.plugin("done", function (stats) {
               stats = stats.toJson();
               fs.writeFileSync(`${config.tmpRoot}/stats.json`, JSON.stringify(stats));
             });
           }
-        },
-      },
+        }
+      }
     ],
 
     recordsPath: path.join(config.tmpRoot, 'webpack.json'),
-    devServer: {
-      port: 3001, // dev server itself does not use it, but outer tasks do
+    devServer:   {
+      port:               3001, // dev server itself does not use it, but outer tasks do
       historyApiFallback: true,
-      hot: true,
-      watchDelay: 10,
+      hot:                true,
+      watchDelay:         10,
       //noInfo: true,
-      publicPath: process.env.STATIC_HOST + ':3001/pack/',
-      contentBase: config.publicRoot,
+      publicPath:         process.env.STATIC_HOST + ':3001/pack/',
+      contentBase:        config.publicRoot
     },
+
 
     optimization: {
       minimizer: [
         new UglifyJsPlugin({
-          cache: true,
-          parallel: 2,
+          cache:         true,
+          parallel:      2,
           uglifyOptions: {
-            ecma: 8,
+            ecma:     8,
             warnings: false,
             compress: {
-              drop_console: true,
-              drop_debugger: true,
+              drop_console:  true,
+              drop_debugger: true
             },
-            output: {
-              beautify: true,
-              indent_level: 0, // for error reporting, to see which line actually has the problem
+            output:   {
+              beautify:     true,
+              indent_level: 0 // for error reporting, to see which line actually has the problem
               // source maps actually didn't work in Qbaka that's why I put it here
-            },
-          },
+            }
+          }
         }),
-        new OptimizeCSSAssetsPlugin({}),
-      ],
-    },
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    }
   };
 
-  //if (process.env.NODE_ENV != 'development') { // production, ebook
-  if (process.env.NODE_ENV == 'production') {
-    // production, ebook
-    webpackConfig.plugins.push(function clearBeforeRun() {
-      function clear(compiler, callback) {
-        fse.removeSync(webpackConfig.output.path + '/*');
-        callback();
-      }
 
-      // in watch mode this will clear between partial rebuilds
-      // thus removing unchanged files
-      // => use this plugin only in normal run
-      this.plugin('run', clear);
-    });
+//if (process.env.NODE_ENV != 'development') { // production, ebook
+  if (process.env.NODE_ENV == 'production') { // production, ebook
+    webpackConfig.plugins.push(
+      function clearBeforeRun() {
+        function clear(compiler, callback) {
+          fse.removeSync(webpackConfig.output.path + '/*');
+          callback();
+        }
+
+        // in watch mode this will clear between partial rebuilds
+        // thus removing unchanged files
+        // => use this plugin only in normal run
+        this.plugin('run', clear);
+      }
+    );
   }
 
   return webpackConfig;
