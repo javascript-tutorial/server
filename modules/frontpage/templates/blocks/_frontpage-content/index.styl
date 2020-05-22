@@ -116,7 +116,10 @@
 
     &__title
       position relative
-      padding-left 38px
+      if isRTL
+          padding-right 38px
+      else
+          padding-left 38px
       margin-bottom 2px
 
       &:before

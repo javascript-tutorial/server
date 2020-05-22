@@ -13,7 +13,10 @@
         font-weight bold
 
     & &__list
-        padding-left 19px
+        if isRTL
+            padding-right 19px
+        else
+            padding-left 19px
 
     & li
         margin 12px 0

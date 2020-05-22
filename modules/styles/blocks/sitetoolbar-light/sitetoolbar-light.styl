@@ -125,8 +125,12 @@
         display block
 
     &__search .text-input__control
-        padding-left 37px
-        padding-right 93px
+                if isRTL
+                    padding-left 93px      
+                    padding-right 37px
+                else
+                    padding-left 37px
+                    padding-right 93px
 
     // we MUST repeat theese rules for each selector to make it work
     &__search .text-input__control::-webkit-input-placeholder

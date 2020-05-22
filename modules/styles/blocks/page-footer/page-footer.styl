@@ -23,8 +23,12 @@
         color light_link_color
         background url(slack.svg) left center no-repeat
         background-size 16px
-        padding-left 20px
-        margin-left -4px
+                if isRTL
+                    padding-right 20px
+                    margin-right -4px
+                else
+                    padding-left 20px
+                    margin-left -4px
 
     &__left
         flex-grow 1
