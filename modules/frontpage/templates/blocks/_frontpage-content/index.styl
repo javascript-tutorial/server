@@ -125,7 +125,10 @@
       &:before
         position absolute
         top 4px
-        left 0
+        if isRTL
+            right 0
+        else    
+            left 0
         font-family fixed_width_font
         font-size 12px
         line-height 16px
