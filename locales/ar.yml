@@ -1,0 +1,104 @@
+site:
+  privacy_policy: سياسة الخصوصية
+  terms: شروط الإستخدام
+
+  gdpr_dialog:
+    title: هذا الموقع يستخدم الكوكيز
+    text: نحن نستخدم بعض الوسائل فى المتصفح مثل الكوكيز واللوكال ستورج لتخزين تفضيلاتك. يجب أن تقبل <a href="/privacy">سياسة خصوصيتنا</a> و <a href="/terms">شروط الإستخدام</a> للتمكن من ذلك.
+    accept: قبول
+    cancel: إلغاء
+
+  toolbar:
+    lang_switcher:
+      cta_text: نريد أن نتيح هذا المشروع المفتوح المصدر إلى كل الناس حول العالم. من فضلك <a href="https://github.com/javascript-tutorial/en.javascript.info" rel="noopener noreferrer" target="_blank">ساعدنا على ترجمة</a> محتوى هذه السلسله للغة التى تعرفها.
+      footer_text: how much content is translated to the corresponding language
+      footer_text: كم المحتوى الذى تُرجم إلى لغتك
+      old_version: تم نشر الإصدار القديم، ويحتاج إلى مراجعه.
+    logo:
+      normal:
+        svg: sitetoolbar__logo_en.svg
+        width: 200 # 171
+      normal-white:
+        svg: sitetoolbar__logo_en-white.svg
+      small:
+        svg: sitetoolbar__logo_small_en.svg
+        width: 70
+      small-white:
+        svg: sitetoolbar__logo_small_en-white.svg
+    sections:
+    - slug: ''
+      url: '/'
+      title: 'سلسلة'
+    - slug: 'كورسات'
+      title: 'كورسات'
+    buy_ebook_extra: 'شراء'
+    buy_ebook: 'EPUB/PDF'
+    search_placeholder: 'إبحث فى Javascript.info'
+    search_button: 'بحث'
+
+    public_profile: الصفحه الشخصية
+    account: الحساب
+    notifications: الإشعارات
+    admin: أدمن
+    logout: تسجيل الخروج
+
+  sorry_old_browser: عفوًا، أى متصفح أقل من IE10 غير مدعوم
+  contact_us: تواصل معنا
+  about_the_project: معلومات عن المشروع
+  ilya_kantor: Ilya Kantor
+  comments: التعليقات
+  loading: تحميل...
+  search: بحث
+  share: مشاركه
+  read_before_commenting: إقرأ هذا قبل أن تضع تعليقًا…
+
+  last_updated_at: "آخر تحديث #{date}"
+  meta:
+    description: 'سلسلة حديثة لشرح الجافاسكريبت: بسيطه ولكن مفصَّلة مع أمثلة ومهام، وتحتوى على مصطلحات مثل: closures و document و events و البرمجه الكائنيه OOP وغرهم.'
+
+  tablet-menu:
+    choose_section: اختر جزءًا
+    search_placeholder: البحث فى السلسلة
+    search_button: بحث
+
+  comment:
+    help:
+      - إذا كان لديك اقتراحات أو تريد تحسينًا - من فضلك <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">من فضلك إفتح موضوعًا فى جيتهاب</a> أو شارك بنفسك بدلًا من التعليقات.
+      - إذا لم تستطع أن تفهم شيئّا فى المقال - وضّح ماهو.
+      - إذا كنت تريد عرض كود استخدم عنصر <code>&lt;code&gt;</code> ، وللكثير من السطور استخدم <code>&lt;pre&gt;</code>، ولأكثر من 10 سطور استخدم  (<a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
+
+  edit_on_github: عدِّل فى جيتهاب
+  error: خطأ
+  close: إغلاق
+
+  hide_forever: إخفاء إلى الأبد
+  hidden_forever: هذه المعلومه لن تظهر بعد الآن.
+
+
+  subscribe:
+    title: تابع تحديثات javascript.info
+    text: 'نحن لا نرسل إعلانات ولكن مواضيع متعلقة بالسلسلة فقط. أنت تختار ماتريد إرساله لك:'
+    agreement: 'By signing up to newsletters you agree to the <a href="#{link}" target="_blank">terms of usage</a>.'
+    agreement: 'بالمشاركة فى نشرة الأخبار فأنت توافق على <a href="#{link}" target="_blank">شروط الإستخدام</a>.'
+    button: شارك
+    button_unsubscribe: إلغاء المشاركة من كل الأخبار
+    common_updates: التحديثات العامة
+    common_updates_text: new courses, master classes, article and screencast releases
+    common_updates_text: كورسات جديدة أو ماستر أو مقال جديد
+    your_email: your@email.here
+    newsletters: 'نشرة أخبار,نشرات أخبار,نشرات أخبار'
+    no_selected: لا شئ تم تحديده
+
+  form:
+    value_must_not_be_empty: لا يمكن أن تكون القيمه فارغه.
+    value_is_too_long: القيمة طويلة جدًا.
+    value_is_too_short: القيمة قصيرة جدًا.
+    invalid_email: بريد غير صالح.
+    invalid_value: قيمة غير صالحة.
+    invalid_autocomplete: من فضلك اختر من القائمة
+    invalid_date: 'تاريخ غير صالح, الشكل: dd.mm.yyyyy.'
+    invalid_range: هذا التاريخ ليس صالحًا هنا.
+    save: حفظ
+    upload_file: رفع ملف
+    cancel: إلغاء
+    server_error: خطأ فى الطلب، كود الرد
