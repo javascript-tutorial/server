@@ -69,7 +69,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Wait a bit while it reads the tutorial from the disk and builds static assets.
 
-    Then access the site at `http://127.0.0.1:3000`.
+    Then access the site at `http://127.0.0.1:3000`. **[Change Server Port](#change-server-port)**
 
 7. Edit the tutorial
 
@@ -91,6 +91,14 @@ cd /js/server
 ```
 
 Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh`, `tr` and `ja` are fully supported.
+
+
+# Change Server Port
+
+The server uses port `3000` by default. 
+
+In case, if you want to change the port, you can change it by editing `PORT` in `/js/server/modules/config/index.js`
+
 
 # Translating images
 
@@ -209,6 +217,7 @@ Please ensure you have Node.js version 10+ (`node -v` shows the version).
 If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new). Please mention OS and Node.js version.
 
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
+
 
 --
 Yours,
