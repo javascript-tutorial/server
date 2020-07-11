@@ -114,14 +114,14 @@ code-style.svg:  # image file name
 **Step 2.** Setup git upstream (if you haven't yet) and pull latest changes:
 
 ```bash
-cd /js/zh.javascript.info
+cd /js/zh.javascript.info # in the tutorial folder
 git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
 git fetch upstream master
 ```
 
 **Step 3.** Run the translation task:
 ```bash
-cd /js/server
+cd /js/server # in the server folder
 # set NODE_LANG to your language
 NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate
 ```
