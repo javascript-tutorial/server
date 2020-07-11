@@ -166,7 +166,7 @@ If your translated string absolutely must be longer and doesn't fit, let me know
 | 你好世界  (after translation)
 ```
 
-Sometimes that's not good, e.g. if the string needs to be centeredm e.g in a vertical diagram.
+Sometimes that's not good, e.g. if the string needs to be centered in a vertical diagram.
 
 The `position: "center"` in `images.yml` centers the translated string:
 ```
