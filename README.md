@@ -94,11 +94,11 @@ Please note, the server must support that language. There must be corresponding 
 
 # Translating images
 
-Most pictures are in SVG format. Strings inside it are usually just text, they can be replaced.
+The text in SVG pictures can be translated as well.
 
-That's great, as there are many strings in English in images, like tips, notes, etc. They look nice when translated.
+There's a special script for that. It takes `images.yml` from the repository root, and then replaces strings in all svgs according to its content.
 
-Image translations reside in `images.yml` in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. Please, create it if needed.
+**Step 1.** You should make `images.yml` with translations in the repository root, for example: <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>.
 
 The file format is "YAML", it's quite easy to understand:
 
@@ -106,46 +106,35 @@ The file format is "YAML", it's quite easy to understand:
 code-style.svg:  # image file name
   "No space":    # English string
     text: "Без пробелов" # translation
-    position: "center" # (optional) "center" or "right" - to position translated string.
+    position: "center" # (optional) "center" or "right" - to position the translated string, details later
 ```
 
-The translated string may become longer or shorter. By default, the translated string starts at the same place:
+**Step 2.** Setup git upstream (if you haven't yet) and pull latest changes:
 
-    ```
-    |hello world (before)
-    |你好世界  (after translation)
-    ```
-
-Sometimes they need to be repositioned:
-
-`position: "center"` centers the translated string, good if you have a vertical diagram, keeps text centered:
-```
-     |
-hello world
-  你好世界
-     |
+```bash
+cd /js/zh.javascript.info
+git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
+git fetch upstream master
 ```
 
-`position: "right"` makes sure that the translated string keeps the same right edge:
-```
-hello world |
-    你好世界 |
+**Step 3.** Run the translation task:
+```bash
+cd /js/server
+# set NODE_LANG to your language
+NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate
 ```
 
-After `images.yaml` with translations is ready, it's time to apply translations:
+This script checks out all SVG images from `upstream` and replaces the strings according to `images.yml`.
 
-1. Setup git upstream (if you haven't yet) and pull latest changes:
-    ```bash
-    cd /js/zh.javascript.info 
-    git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
-    git fetch upstream master
-    ```
-2. Run the translation task:
-    ```bash
-    cd /js/server
-    # without --image it applies all translations (to all images)
-    NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
-    ```
+**Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. You may want to open the translated SVGs directly in the browser to check them before doing so.
+
+
+> The `--image` parameter allows to translate a single image:
+> ```bash
+> # replace strings only in try-catch-flow.svg
+> NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
+> ```
+
 
 > For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
 >
@@ -154,13 +143,46 @@ After `images.yaml` with translations is ready, it's time to apply translations:
 > cross-env NODE_LANG=zh...
 > ```
 
-The task takes upstream image version (English), replaces strings to it, then writes to same-named image in the tutorial repo.
 
-You may want to open the resulting SVG file directly in the browser to see it.
+## The "overflowing text" problem
 
-P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS). 
-    
-## Extract strings
+The translated string may become longer than the original.
+
+The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture.
+
+If you'll notice that, you usually can adjust the translation to make it shorter. Besides, most pictures have some extra space for longer text, so a slight increase wouldn't harm.
+
+If your translated text absolutely must be longer, let me know, I can adjust the picture.
+
+## Positioning
+
+
+ By default, the translated string replaces the original one, in exactly the same place of the image:
+
+```
+| hello world (before)
+| 你好世界  (after translation)
+```
+
+Sometimes that's not good, e.g. if the string needs to be centeredm e.g in a vertical diagram.
+
+The `position: "center"` in `images.yml` centers the translated string:
+```
+     |
+hello world
+  你好世界
+     |
+```
+
+The `position: "right"` makes sure that the translated string sticks to the same right edge:
+```
+hello world |
+    你好世界 |
+```
+
+P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS).
+
+## Helper script: extract strings
 
 The task to get all strings from an image as YAML (for translation, to add to `images.yml`):
 
