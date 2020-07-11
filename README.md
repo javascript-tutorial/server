@@ -122,7 +122,7 @@ git fetch upstream master
 **Step 3.** Run the translation task:
 ```bash
 cd /js/server # in the server folder
-# set NODE_LANG to your language
+# adjust NODE_LANG to your language
 NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate
 ```
 
