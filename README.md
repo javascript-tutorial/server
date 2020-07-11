@@ -168,7 +168,7 @@ If your translated string absolutely must be longer and doesn't fit, let me know
 
 Sometimes that's not good, e.g. if the string needs to be centered in a vertical diagram.
 
-The `position: "center"` in `images.yml` centers the translated string:
+The `position: "center"` in `images.yml` centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context:
 ```
      |
 hello world
