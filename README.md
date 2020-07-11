@@ -154,7 +154,7 @@ The replacement script only operates on strings, not other graphics, so a long t
 
 If you notice that, you usually can adjust the translation to make it shorter. Besides, most pictures have some extra space for longer text, so a slight increase doesn't harm.
 
-If your translated text absolutely must be longer, let me know, I can adjust the picture.
+If your translated string absolutely must be longer and doesn't fit, let me know, I can adjust the picture.
 
 ## Positioning
 
