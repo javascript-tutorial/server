@@ -167,11 +167,11 @@ If your translated string absolutely must be longer and doesn't fit, let me know
 ## Positioning
 
 
- By default, the translated string replaces the original one, in exactly the same place of the image:
+ By default, the translated string replaces the original one, starting in exactly the same place of the image:
 
 ```
 | hello world (before)
-| 你好世界  (after translation)
+| 你好世界     (after translation)
 ```
 
 Sometimes that's not good, e.g. if the string needs to be centered in a vertical diagram.
