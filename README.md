@@ -71,6 +71,12 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Then access the site at `http://127.0.0.1:3000`.
 
+    > To change the port, set the `PORT` environment variable:
+    > ```bash
+    > # Runs the server at http://127.0.0.1:8080
+    > PORT=8080 ./edit en
+    > ```
+
 7. Edit the tutorial
 
     As you edit text files in the tutorial text repository (cloned at step 5),
