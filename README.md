@@ -102,7 +102,7 @@ Please note, the server must support that language. There must be corresponding 
 
 The text in SVG pictures can be translated as well.
 
-There's a special script for that. It takes `images.yml` from the repository root, like <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>, and then replaces strings in all svgs according to its content.
+There's a special script for that. The translated strings should be in the `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. The script replaces strings in all svgs according to its content.
 
 Here are the steps to translate images.
 
