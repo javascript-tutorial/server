@@ -158,7 +158,9 @@ The translated string may become longer than the original.
 
 The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture.
 
-If you notice that, you usually can adjust the translation to make it shorter. Besides, most pictures have some extra space for longer text, so a slight increase doesn't harm.
+Most pictures have some extra space for longer text, so a slight increase doesn't harm, but sometimes that happens.
+
+Usually, you should adjust the translated text, make it shorter to fit. 
 
 If your translated string absolutely must be longer and doesn't fit, let me know, I can adjust the picture.
 
