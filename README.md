@@ -137,7 +137,7 @@ This script checks out all SVG images from `upstream` and replaces the strings a
 **Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. You may want to open the translated SVGs directly in the browser to check them before doing so.
 
 
-> The `--image` parameter allows to translate a single image:
+> Use the `--image` parameter of the script to translate a single image:
 > ```bash
 > # replace strings only in try-catch-flow.svg
 > NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
