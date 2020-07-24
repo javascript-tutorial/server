@@ -114,7 +114,7 @@ The file format is "YAML", it's quite easy to understand:
 code-style.svg:  # image file name
   "No space":    # English string
     text: "Без пробелов" # translation
-    position: "center" # (optional) "center" or "right" - to position the translated string, details later
+    position: "center" # (optional) "center" or "right" - to position the translated string
 ```
 
 **Step 2.** Setup git upstream (if you haven't yet) and pull latest changes:
