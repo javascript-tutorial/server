@@ -83,6 +83,19 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     the webpage will reload automatically.
 
 
+# Windows: Environment variables
+
+For Windows, please install `npm i -g cross-env` and prepend calls with `cross-env` to pass environment variables, like this:
+
+```bash
+cd /js/server
+cross-env PORT=8080 ./edit en
+```
+
+In the examples below, the commands are without `cross-env`, prepend it please if you're on Windows.
+
+Alternatively, you can use other Windows-specific ways to set environment variables, such as `set NODE_LANG=zh` and others.
+
 # Change server language
 
 The server uses English by default for navigation and design.
@@ -141,14 +154,6 @@ This script checks out all SVG images from `upstream` and replaces the strings a
 > ```bash
 > # replace strings only in try-catch-flow.svg
 > NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
-> ```
-
-
-> For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
->
-> ```bash
-> cd /js/server
-> cross-env NODE_LANG=zh...
 > ```
 
 
