@@ -199,7 +199,7 @@ module.exports = function () {
                   nib(),
                   function (style) {
                     style.define('lang', config.lang);
-                    style.define('isRTL', ['ar','fa'].includes(process.env.TUTORIAL_LANG));
+                    style.define('isRTL', ['ar','fa','he'].includes(process.env.TUTORIAL_LANG));
                     style.define('env', config.env);
                   }
                 ]
