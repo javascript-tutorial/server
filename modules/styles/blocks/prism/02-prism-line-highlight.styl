@@ -1,39 +1,25 @@
 .main /* Used this parent class to be able to overwrite some generic rules from main.styl */
 
   .inline-highlight
-    position absolute
+    font-family fixed_width_font
+    display inline-block
     pointer-events none
     line-height inherit
     white-space pre
-    left 0
-    top -2px
-    z-index -1
-    padding 0
-
-    .mask
-      padding 0
-      background #F5E7C6
-      outline 2px solid #F5E7C6
+    font-style normal
+    background #F5E7C6 !important
 
   .block-highlight
-    display block
-    position absolute
-    left 0
-    right 0
-    top -1px
-    margin-top 1em /* Same as .prism’s padding-top */
-    padding 0
+    font-family fixed_width_font
+    display inline-block
+    width 100%
 
     pointer-events none
 
     line-height inherit
     white-space pre
 
-    .mask
-      display block
-      background #F5E7C6
-      outline 1px solid #F5E7C6
-      left 0
-      right 0
-      position absolute
-      padding 0
+    background #F5E7C6
+
+    font-style normal
+
