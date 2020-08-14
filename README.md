@@ -17,7 +17,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Please use Node.js 10+.
 
-    (Maybe later, optional) If you're going to change images, please install [GraphicsMagick](http://www.graphicsmagick.org/).
+    (Maybe later, optional) If you're going to change images, please install [ImageMagick](https://imagemagick.org/script/download.php).
 
 2. Install global Node modules:
 
