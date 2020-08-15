@@ -171,28 +171,41 @@ If your translated string absolutely must be longer and doesn't fit, let me know
 
 ## Positioning
 
+By default, the translated string replaces the original one, starting in exactly the same place of the image.
 
- By default, the translated string replaces the original one, starting in exactly the same place of the image:
+Before the translation:
 
 ```
-| hello world (before)
-| 你好世界     (after translation)
+| hello world
 ```
 
-Sometimes that's not good, e.g. if the string needs to be centered in a vertical diagram.
+After the translation (`你` is at the same place where `h` was, the string is left-aligned):
 
-The `position: "center"` in `images.yml` centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context:
+```
+| 你好世界    
+```
+
+Sometimes that's not good, e.g. if the string needs to be centered, e.g. like this:
+
 ```
      |
 hello world
-  你好世界
      |
+```
+
+(The "hello world" is in the middle between two `|`).
+
+The `position: "center"` in `images.yml` centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context:
+```
+   🦊
+你好世界
+   🦊
 ```
 
 The `position: "right"` makes sure that the translated string sticks to the same right edge:
 ```
-hello world |
-    你好世界 |
+hello world 🦊
+    你好世界 🦊
 ```
 
 P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS).
