@@ -210,8 +210,6 @@ NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
 
 ## The "overflowing text" problem
 
-The translated string may become longer than the original.
-
 The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture. Most pictures have some extra space for longer text, so a slight increase doesn't harm, but sometimes that happens.
 
 Usually, you should adjust the translated text, make it shorter to fit. 
