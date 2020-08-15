@@ -257,7 +257,7 @@ If it still doesn't work – [file an issue](https://github.com/javascript-tutor
 
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
---
+--<br>  
 Yours,
 Ilya Kantor
 iliakan@javascript.info
