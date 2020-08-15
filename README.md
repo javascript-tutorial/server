@@ -157,18 +157,6 @@ This script checks out all SVG images from `upstream` and replaces the strings a
 > ```
 
 
-## The "overflowing text" problem
-
-The translated string may become longer than the original.
-
-The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture.
-
-Most pictures have some extra space for longer text, so a slight increase doesn't harm, but sometimes that happens.
-
-Usually, you should adjust the translated text, make it shorter to fit. 
-
-If your translated string absolutely must be longer and doesn't fit, let me know, I can adjust the picture.
-
 ## Positioning
 
 By default, the translated string replaces the original one, starting in exactly the same place of the image.
@@ -193,7 +181,7 @@ hello world
      |
 ```
 
-(The "hello world" is in the middle between two `|`).
+(The "hello world" is centered between two `|`).
 
 The `position: "center"` in `images.yml` centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context:
 ```
@@ -218,6 +206,17 @@ The task to get all strings from an image as YAML (for translation, to add to `i
 cd /js/server
 NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
 ```
+
+
+## The "overflowing text" problem
+
+The translated string may become longer than the original.
+
+The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture. Most pictures have some extra space for longer text, so a slight increase doesn't harm, but sometimes that happens.
+
+Usually, you should adjust the translated text, make it shorter to fit. 
+
+If your translated string absolutely must be longer and doesn't fit, let me know, I can adjust the picture.
 
 
 # Dev mode
