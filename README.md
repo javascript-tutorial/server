@@ -185,15 +185,15 @@ hello world
 
 The `position: "center"` in `images.yml` centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context:
 ```
-   🦊
+   |
 你好世界
-   🦊
+   |
 ```
 
 The `position: "right"` makes sure that the translated string sticks to the same right edge:
 ```
-hello world 🦊
-    你好世界 🦊
+hello world |
+    你好世界 |
 ```
 
 P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS).
