@@ -196,7 +196,7 @@ hello world |
     你好世界 |
 ```
 
-P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux/MacOS).
+P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux or homebrew/macports for MacOS).
 
 ## Helper script: extract strings
 
