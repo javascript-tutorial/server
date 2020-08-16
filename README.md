@@ -95,7 +95,7 @@ cross-env PORT=8080 ./edit en
 
 In the examples below, the commands are without `cross-env`, prepend it please, if you're on Windows.
 
-Alternatively, you can use other Windows-specific ways to set environment variables, such as `set NODE_LANG=zh`.
+Alternatively, you can use other Windows-specific ways to set environment variables, such as a separate `set PORT=8080` command.
 
 # Change server language
 
