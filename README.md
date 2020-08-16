@@ -150,7 +150,9 @@ This script checks out all SVG images from `upstream` and replaces the strings a
 
 Now images in the tutorial folder are translated, but not committed yet.
 
-**Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. You may want to open the translated SVGs directly in the browser to take a look at them before committing. Just to make sure that the translation looks all right.
+**Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. 
+
+You may want to open the translated SVGs directly in the browser to take a look at them before committing. Just to make sure that the translation looks all right. If an image is untranslated on refresh, use "uncached reload" (hotkeys at https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache).
 
 
 > To translate a single image, use the `--image` parameter of the script:
