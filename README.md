@@ -143,7 +143,7 @@ git fetch upstream master
 ```bash
 cd /js/server # in the server folder
 # adjust NODE_LANG to your language
-NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate
+NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate
 ```
 
 This script checks out all SVG images from `upstream` and replaces the strings according to `images.yml`.
@@ -152,13 +152,13 @@ Now images in the tutorial folder are translated, but not committed yet.
 
 **Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. 
 
-You may want to open the translated SVGs directly in the browser to take a look at them before committing. Just to make sure that the translation looks all right. If an image is untranslated on refresh, use "uncached reload" (hotkeys at https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache).
+You may want to open the translated SVGs directly in the browser to take a look at them before committing. Just to make sure that the translation looks all right. If an image is untranslated on refresh, force the browser to "reload without cache" ([hotkeys](https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache)).
 
 
 > To translate a single image, use the `--image` parameter of the script:
 > ```bash
 > # replace strings only in try-catch-flow.svg
-> NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
+> NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
 > ```
 
 
