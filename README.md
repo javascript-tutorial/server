@@ -153,7 +153,7 @@ Now images in the tutorial folder are translated, but not committed yet.
 **Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. You may want to open the translated SVGs directly in the browser to take a look at them before committing. Just to make sure that the translation looks all right.
 
 
-> Use the `--image` parameter of the script to translate a single image:
+> To translate a single image, use the `--image` parameter of the script:
 > ```bash
 > # replace strings only in try-catch-flow.svg
 > NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
