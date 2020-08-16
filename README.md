@@ -148,7 +148,7 @@ NODE_LANG=zh glp engine:koa:tutorial:figuresTranslate
 
 This script checks out all SVG images from `upstream` and replaces the strings according to `images.yml`.
 
-Now images are translated, but not committed yet.
+Now images in the tutorial folder are translated, but not committed yet.
 
 **Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. You may want to open the translated SVGs directly in the browser to check them before doing so.
 
