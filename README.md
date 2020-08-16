@@ -52,14 +52,14 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
 6. Run the site
 
-    Install local modules:
+    First, install local modules:
 
     ```bash
     cd /js/server
     npm install
     ```
 
-    Run the site with the same language. Above we cloned `en` tutorial, so:
+    Run the site with the `./edit` command with the language argument. Above we cloned `en` tutorial, so:
 
     ```bash
     ./edit en
@@ -76,6 +76,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     > # Runs the server at http://127.0.0.1:8080
     > PORT=8080 ./edit en
     > ```
+    > For Windows, read the note about environment variables below.
 
 7. Edit the tutorial
 
@@ -85,16 +86,16 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
 # Windows: Environment variables
 
-For Windows, please install `npm i -g cross-env` and prepend calls with `cross-env` to pass environment variables, like this:
+For Windows, to pass environment variables, such as `PORT`, you can install `npm i -g cross-env` and prepend calls with `cross-env`, like this:
 
 ```bash
 cd /js/server
 cross-env PORT=8080 ./edit en
 ```
 
-In the examples below, the commands are without `cross-env`, prepend it please if you're on Windows.
+In the examples below, the commands are without `cross-env`, prepend it please, if you're on Windows.
 
-Alternatively, you can use other Windows-specific ways to set environment variables, such as `set NODE_LANG=zh` and others.
+Alternatively, you can use other Windows-specific ways to set environment variables, such as `set NODE_LANG=zh`.
 
 # Change server language
 
@@ -115,7 +116,7 @@ Please note, the server must support that language. There must be corresponding 
 
 The text in SVG pictures can be translated as well.
 
-There's a special script for that. The translated strings should be in the `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. The script replaces strings in all svgs according to its content.
+There's a special script for that. The translated strings should be in the `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. The script replaces strings in all svgs according to `images.yml`.
 
 Here are the steps to translate images.
 
