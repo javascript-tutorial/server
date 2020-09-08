@@ -183,9 +183,11 @@ module.exports = function () {
             {
               loader:  'postcss-loader',
               options: {
-                plugins: [
-                  require('autoprefixer')
-                ]
+                postcssOptions: {
+                  plugins: [
+                    require('autoprefixer')
+                  ]
+                }
               }
             },
             'engine/webpack/hover-loader',
