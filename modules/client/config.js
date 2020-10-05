@@ -1,3 +1,4 @@
 module.exports = {
-  lang: LANG
+  lang: LANG,
+  lookatCodeUrlBase: "https://lookatcode.com"
 };
