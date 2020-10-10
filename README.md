@@ -262,4 +262,28 @@ If it still doesn't work – [file an issue](https://github.com/javascript-tutor
 
 Please pull the very latest git code and install latest NPM modules before publishing an issue.
 
+## Linux: inotify and monitored files
+
+The server's tools use [inotify](https://en.wikipedia.org/wiki/Inotify) by default on Linux to monitor directories for changes. In some cases there may be too many items to monitor.
+
+_*!* Samples code below work correctly for Ubuntu_.
+
+You can get your current inotify files watch limit by:
+
+```sh
+$> cat /proc/sys/fs/inotify/max_user_watches
+```
+
+When this limit is not enough to monitor all files, you have to increase the limit for the server to work properly.
+
+You can set a new limit temporary by:
+
+```sh
+$> sudo sysctl fs.inotify.max_user_watches=524288
+$> sudo sysctl -p
+```
+
+It is very important that you refer to the documentation for your operating system to change this parameter permanently.
+
 --<br>Yours,<br>Ilya Kantor<br>iliakan@javascript.info
+
