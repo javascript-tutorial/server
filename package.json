@@ -12,7 +12,7 @@
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
   "dependencies": {
-    "autoprefixer": "*",
+    "autoprefixer": "^9",
     "babel-core": "^6",
     "babel-loader": "^7",
     "babel-plugin-transform-flow-strip-types": "*",
@@ -61,7 +61,7 @@
     "nodemon": "^1.18.4",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "path-to-regexp": "*",
-    "postcss-loader": "*",
+    "postcss-loader": "^3",
     "prismjs": "^1",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
