@@ -11,6 +11,7 @@
 
 # OS or Editor folders
 .DS_Store
+.vscode
 .idea
 .cache
 .project

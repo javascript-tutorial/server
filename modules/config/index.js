@@ -38,6 +38,8 @@ let config = module.exports = {
   appKeys:  [secret.sessionKey],
   adminKey: secret.adminKey,
 
+  certDir: path.join(secret.dir, 'cert'),
+  
   lang:    lang,
 
   plnkrAuthId: secret.plnkrAuthId,

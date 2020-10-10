@@ -50,7 +50,10 @@
         position relative
 
         min-width 20px
-        padding-left 47px
+                if isRTL
+                    padding-right 47px
+                else
+                    padding-left 47px
 
         transition opacity 0.3s ease-out
 
@@ -247,8 +250,12 @@
         display block
 
     &__search .text-input__control
-        padding-left 37px
-        padding-right 93px
+                if isRTL
+                    padding-left 93px      
+                    padding-right 37px
+                else
+                    padding-left 37px
+                    padding-right 93px
 
     // we MUST repeat theese rules for each selector to make it work
     &__search .text-input__control::-webkit-input-placeholder
@@ -414,13 +421,19 @@
             padding-right 5px
 
         &__user-wrap
-            padding-left 40px
+                if isRTL
+                    padding-right 40px
+                else
+                    padding-left 40px
 
         &__userpic
             left -38px
 
         &__search-wrap
-            padding-right 10px
+                if isRTL
+                    padding-left 10px
+                else
+                    padding-right 10px
 
 
     @media tablet

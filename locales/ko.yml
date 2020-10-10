@@ -1,0 +1,73 @@
+site:
+  privacy_policy: 개인정보 취급방침
+
+  gdpr_dialog:
+    title: 본 사이트는 쿠키를 사용합니다.
+    text: 본 사이트는 쿠키, 로컬 스토리지 등의 기술을 사용해 사용자 정보를 수집합니다. 사이트를 이용하려면 <a href="/privacy">개인정보 취급방침</a>과 <a href="/terms">회원이용 약관</a>에 동의해야 합니다.
+    accept: 동의
+    cancel: 거부
+
+  toolbar:
+    lang_switcher:
+      cta_text: 본 튜토리얼은 전 세계 사람들이 이용할 수 있는 오픈 소스 프로젝트입니다. <a href="https://github.com/javascript-tutorial/ko.javascript.info" rel="noopener noreferrer" target="_blank">프로젝트 페이지에 방문</a>하셔서 번역을 도와주세요.
+      footer_text: 얼마나 많은 콘텐츠가 해당 언어로 번역되었는지
+      old_version: 튜토리얼 구 버전은 이미 배포되었습니다. 개정이 진행 중입니다.
+    logo:
+      normal:
+        svg: sitetoolbar__logo_en.svg
+        width: 200 # 171
+      normal-white:
+        svg: sitetoolbar__logo_en-white.svg
+      small:
+        svg: sitetoolbar__logo_small_en.svg
+        width: 70
+      small-white:
+        svg: sitetoolbar__logo_small_en-white.svg
+    sections:
+    - slug: ''
+      url: '/'
+      title: '튜토리얼'
+    - slug: '코스'
+      title: '코스'
+    buy_ebook_extra: '구매'
+    buy_ebook: 'EPUB/PDF'
+    search_placeholder: 'javascript.info에서 검색하기'
+    search_button: '검색'
+
+    public_profile: 공개 프로필
+    account: 계정
+    notifications: 알림
+    admin: 관리자
+    logout: 로그아웃
+
+  sorry_old_browser: IE10 미만의 브라우저는 지원하지 않습니다. 최신 버전 브라우저를 사용해주세요.
+  contact_us: 연락처
+  about_the_project: 프로젝트 설명
+  ilya_kantor: Ilya Kantor
+  comments: 댓글
+  loading: 로딩중...
+  search: 검색
+  share: 공유
+  read_before_commenting: 댓글을 달기 전에 마우스를 올렸을 때 나타나는 글을 먼저 읽어주세요.
+
+  meta:
+    description: '모던 자바스크립트 튜토리얼은 클로저, 문서 객체 모델, 이벤트, 객체 지향 프로그래밍 등의 다양한 주제에 대한 설명과 예시, 과제를 담고 있습니다.'
+
+  tablet-menu:
+    choose_section: 섹션 선택
+    search_placeholder: 튜토리얼 내에서 검색
+    search_button: 검색
+
+  comment:
+    help:
+      - 추가 코멘트, 질문 및 답변을 자유롭게 남겨주세요. 개선해야 할 것이 있다면 댓글 대신 <a href='https://github.com/javascript-tutorial/ko.javascript.info/issues/new'>이슈를 만들어주세요</a>.
+      - 잘 이해되지 않는 부분은 구체적으로 언급해주세요.
+      - 댓글에 한 줄짜리 코드를 삽입하고 싶다면 <code>&lt;code&gt;</code> 태그를, 여러 줄로 구성된 코드를 삽입하고 싶다면 <code>&lt;pre&gt;</code> 태그를 이용하세요. 10줄 이상의 코드는 <a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a> 등의 샌드박스를 사용하세요.
+
+  edit_on_github: GitHub에서 수정하기
+  error: 에러
+  close: 종료
+
+  hide_forever: 영구적으로 숨기기
+  hidden_forever: 이제 이 정보는 더 이상 나타나지 않습니다.
+

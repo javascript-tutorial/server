@@ -57,6 +57,15 @@ pre[class*="language-"]
 .token.punctuation
     color light_gray_color
 
+.token.punctuation,
+.token.function,
+.token.comment,
+.token.string,
+.token.operator,
+.token.number
+    if isRTL
+            background inherit
+
 .namespace
     opacity .7
 

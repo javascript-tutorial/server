@@ -5,12 +5,18 @@
 set -e
 
 export NODE_LANG=$1
+export TUTORIAL_LANG=$1 
 export NODE_ENV=development
 export ASSET_VERSIONING=query
 export WATCH=1
 export SITE_HOST=http://javascript.local
 export TUTORIAL_EDIT=
 export NODE_PRESERVE_SYMLINKS=1
+
+# Use a local bunyan if no other is found in the current environment
+if ! [ -x "$(command -v bunyan)" ]; then
+  export PATH="$PATH:./node_modules/bunyan/bin"
+fi
 
 npm --silent run gulp dev | bunyan -o short -l debug
 

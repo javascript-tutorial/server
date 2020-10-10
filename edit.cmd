@@ -8,6 +8,7 @@
     set NODE_LANG=%2
 )
 
+@set TUTORIAL_LANG=%1
 @set NODE_ENV=production
 @set TUTORIAL_EDIT=1
 @set ASSET_VERSIONING=query
