@@ -25,8 +25,8 @@
     "clarify": "^2.1.0",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
-    "css-loader": "^0",
     "csrf": "^3",
+    "css-loader": "^0",
     "file-loader": "^1.1",
     "fs-extra": "*",
     "gm": "*",
@@ -74,7 +74,7 @@
     "trace": "^3.1.0",
     "uglify-es": "^3",
     "uglifyjs-webpack-plugin": "^1",
-    "webpack": ">=4.17.2",
+    "webpack": "^4.44.2",
     "yaml-loader": "^0.5.0"
   },
   "engineStrict": true,
