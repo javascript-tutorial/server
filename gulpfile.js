@@ -30,15 +30,18 @@ task("nodemon", lazyRequireTask('./tasks/nodemon', {
   watch:  ["modules"]
 }));
 
-task("livereload", lazyRequireTask("./tasks/livereload", {
+task('livereload', lazyRequireTask('./tasks/livereload', {
   // watch files *.*, not directories, no need to reload for new/removed files,
   // we're only interested in changes
 
+  base: `public/${config.lang}`,
   watch: [
-    "public/pack/**/*.*",
+    `public/${config.lang}/pack/**/*.*`,
+    // not using this file, using only styles.css (extracttextplugin)
+    `!public/${config.lang}/pack/styles.js`,
     // this file changes every time we update styles
     // don't watch it, so that the page won't reload fully on style change
-    "!public/pack/head.js"
+    `!public/${config.lang}/pack/head.js`
   ]
 }));
 

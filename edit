@@ -6,7 +6,9 @@
 : ${1?"Usage: $0 <tutorial language> [<server language>]"}
 
 
-export TUTORIAL_ROOT="../$1.javascript.info"
+if [ -z "$TUTORIAL_ROOT" ]; then
+  export TUTORIAL_ROOT="../$1.javascript.info"
+fi
 export NODE_LANG="${2:-en}"
 export TUTORIAL_LANG=$1
 export NODE_ENV=production

@@ -1,40 +1,32 @@
-let livereload = require('gulp-livereload');
-let gulp = require('gulp');
-let throttle = require('lodash/throttle');
+let livereloadServer = require('engine/livereloadServer')
 let chokidar = require('chokidar');
 
 // options.watch must NOT be www/**, because that breaks (why?!?) supervisor reloading
 // www/**/*.* is fine
 module.exports = async function(options) {
 
-  // listen to changes after the file events finish to arrive
-  // no one is going to livereload right now anyway
-  livereload.listen();
+  function onChokidarChange(changed) {
+    changed = changed.slice(options.base.length + 1);
+    // console.log("CHANGE", changed);
 
-  // reload once after all scripts are rebuit
-  livereload.changedSoon = throttle(livereload.changed, 1000, {leading: false});
-  //livereload.changedVerySoon = _.throttle(livereload.changed, 100, {leading: false});
+    if (!changed.match(/\.(jpg|css|png|gif|svg)/i)) {
+      changed = '/fullpage'; // make all requests that cause full-page reload be /fullpage
+      // otherwise we'll have many reloads (once per diffrent .js url)
+    }
+    livereloadServer.queueFlush(changed);
+  }
 
   setTimeout(function() {
-    console.log("livereload: listen on change " + options.watch);
+    // console.log("livereload: listen on change " + options.watch);
 
     chokidar.watch(options.watch, {
       awaitWriteFinish: {
         stabilityThreshold: 300,
-        pollInterval: 100
+        pollInterval:       100
       }
-    }).on('change', function(changed) {
-      if (changed.match(/\.(js|map)/)) {
-        // full page reload
-        livereload.changedSoon(changed);
-      } else {
-        livereload.changed(changed);
-      }
-    });
+    }).on('change', onChokidarChange);
 
   }, 1000);
 
   await new Promise(resolve => {});
 };
-
-
