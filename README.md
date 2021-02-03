@@ -38,6 +38,8 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     ```
 
     Please note, there are two clone commands. That's not a typo: `modules/engine` is cloned from another repository.
+    
+    And please don't forget this when updating, `modules/engine` needs to be fetched and merged too.
 
 5. Clone the tutorial text into it.
 
