@@ -2,5 +2,5 @@
 doctype html
 include ~bemto.pug/lib/index
 
-html(lang=lang)
+html(lang=lang dir=['ar','fa','he'].includes(lang) ? 'rtl' : undefined)
   block html
