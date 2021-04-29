@@ -58,7 +58,7 @@ let config = module.exports = {
   // public files, served by nginx
   publicRoot:            path.join(process.cwd(), 'public', lang),
   // private files, for expiring links, not directly accessible
-  tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), '..', lang + '.javascript.info'),
+  tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), 'repo', `${env.TUTORIAL_LANG || lang}.javascript.info`),
   tmpRoot:               path.join(process.cwd(), 'tmp', lang),
   // js/css build versions
   cacheRoot:          path.join(process.cwd(), 'cache', lang),

@@ -251,17 +251,20 @@ The task to get all strings from an image as YAML (for translation, to add to `i
 ```bash
 cd /js/server # in the server folder
 
-NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image hello.svg
+NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
 ```
+
+It extracts all text lines. Useful for debugging, when the translation doesn't "catch up", because the SVG text has an extra space or so.
 
 ## The "overflowing text" problem
 
-The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture. Most pictures have some extra space for longer text, so a slight increase doesn't harm, but sometimes that happens.
+The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture. 
 
-Usually, you should adjust the translated text, make it shorter to fit. 
+Most pictures have some extra space for longer text, so a slight increase doesn't harm. 
 
-If your translated string absolutely must be longer and doesn't fit, let me know, I can adjust the picture.
+If the translated text is much longer, please try to change it, make it shorter to fit. 
 
+If the translated text absolutely must be longer and doesn't fit, let me know, we'll see how to adjust the picture.
 
 # Dev mode
 
