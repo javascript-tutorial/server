@@ -116,15 +116,21 @@ Please note, the server must support that language. There must be corresponding 
 
 # Translating images
 
-The text in SVG pictures can be translated as well.
+Please don't translate SVG files manually.
 
-There's a special script for that. The translated strings should be in the `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. The script replaces strings in all svgs according to `images.yml`.
+They are auto-generated from the English variant, with the text phrases substituted from `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. 
+
+So you need to translate the content of `images.yml` and re-generate the SVGs using a script.
 
 Here are the steps to translate images.
 
 **Step 1.** Create `images.yml` with translations in the repository root.
 
-The file format is "YAML", it's quite easy to understand:
+An example of such file (in Russian): https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml
+
+The file format is "YAML".
+
+Here's a quote:
 
 ```yaml
 code-style.svg:  # image file name
@@ -133,28 +139,42 @@ code-style.svg:  # image file name
     position: "center" # (optional) "center" or "right" - to position the translated string
 ```
 
-**Step 2.** Setup git upstream (if you haven't yet) and pull latest changes:
+As you can see, for each image file (such as `code-style.svg`), there go English phrases (such as `"No space"`).
+
+For each phrase, there's the translated `text` and the text `position` (not always needed, details will come soon).
+
+You can make a small file with only one image for the start. 
+
+**Step 2.** Setup git upstream (if you haven't yet) and pull latest changes from English version:
 
 ```bash
 cd /js/zh.javascript.info # in the tutorial folder
+
 git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
+
 git fetch upstream master
 ```
 
 **Step 3.** Run the translation task:
+
 ```bash
 cd /js/server # in the server folder
+
 # adjust NODE_LANG to your language
+
 NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate
 ```
 
-This script checks out all SVG images from `upstream` and replaces the strings according to `images.yml`.
+This script checks out all SVG images from `upstream` (English version) and replaces the strings inside them according to `images.yml`. So they become translated.
 
-Now images in the tutorial folder are translated, but not committed yet.
+New SVGs are the tutorial folder now, but not committed yet. 
 
-**Step 4.** Then you'll need `git add/commit/push` the translated SVGs, as a part of the normal translation flow. 
+You may want to open and see them, e.g. in Chrome browser, just to ensure that the translation fits well.
 
-You may want to open the translated SVGs directly in the browser to take a look at them before committing. Just to make sure that the translation looks all right. If an image is untranslated on refresh, force the browser to "reload without cache" ([hotkeys](https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache)).
+P.S. If an image appears untranslated on refresh, force the browser to "reload without cache" ([hotkeys](https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache)).
+
+**Step 4.** Then you'll need to `git add/commit/push` the translated SVGs, as a part of the normal translation flow. 
+
 
 
 > To translate a single image, use the `--image` parameter of the script:
