@@ -46,15 +46,17 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     The repository starts with the language code, e.g for the French version `fr.javascript.info`, for Russian – `ru.javascript.info` etc.
 
     The English version is `en.javascript.info`.
+    
+    The tutorial text repository should go into the `repo` subfolder, like this:
 
     ```bash
-    cd /js
+    cd /js/server/repo
     git clone https://github.com/javascript-tutorial/en.javascript.info
     ```
 
 6. Run the site
 
-    First, install local modules:
+    Install local NPM modules:
 
     ```bash
     cd /js/server
@@ -67,7 +69,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     ./edit en
     ```
 
-    This will import the tutorial from `/js/en.javascript.info` and start the server.
+    This will import the tutorial from `/js/server/repo/en.javascript.info` and start the server.
 
     Wait a bit while it reads the tutorial from the disk and builds static assets.
 
@@ -112,7 +114,7 @@ cd /js/server
 ./edit ru ru
 ```
 
-Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh`, `tr` and `ja` are fully supported.
+Please note, the server must support that language. There must be corresponding locale files for that language in the code of the server, otherwise it exists with an error. As of now, `ru`, `en`, `zh`, `tr`, `ko` and `ja` are fully supported.
 
 # Translating images
 
