@@ -211,7 +211,21 @@ hello world
 
 (The "hello world" is centered between two `|`).
 
-The `position: "center"` in `images.yml` centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context:
+Then, if we just replace the string, it would become:
+
+```
+     |
+你好世界
+     |
+```
+
+As we can see, the new phrase is shorter. We should move it to the right a bit. 
+
+The `position: "center"` in `images.yml` does exactly that. 
+
+It centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context.
+
+Here's the text with `position: "center"`, centered as it should be:
 ```
    |
 你好世界
@@ -223,6 +237,8 @@ The `position: "right"` makes sure that the translated string sticks to the same
 hello world |
     你好世界 |
 ```
+
+That's also useful for images when we expect the text to stick to the right.
 
 P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux or homebrew/macports for MacOS).
 
