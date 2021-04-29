@@ -167,9 +167,11 @@ NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate
 
 This script checks out all SVG images from `upstream` (English version) and replaces the strings inside them according to `images.yml`. So they become translated.
 
-New SVGs are the tutorial folder now, but not committed yet. 
+The new translated SVGs are the tutorial folder now, but not committed yet. 
 
-You may want to open and see them, e.g. in Chrome browser, just to ensure that the translation fits well.
+You can see them with `git status`.
+
+Take a moment to open and check them, e.g. in Chrome browser, just to ensure that the translation looks good.
 
 P.S. If an image appears untranslated on refresh, force the browser to "reload without cache" ([hotkeys](https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache)).
 
