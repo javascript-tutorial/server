@@ -29,7 +29,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Create a folder `/js` for the project. 
     
-    You can also use another directory as the root, then adjust the paths below, replace `/js` with it.
+    You can also use another directory as the root, then adjust the paths below, replace `/js` with your root.
 
 4. Clone the tutorial server into it:
 
