@@ -23,6 +23,7 @@ Thumbs.db
 
 # database dump for tutorial export
 /dump
+/repo
 
 # NPM packages folder.
 node_modules/
