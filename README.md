@@ -175,8 +175,7 @@ P.S. If an image appears untranslated on refresh, force the browser to "reload w
 
 **Step 4.** Then you'll need to `git add/commit/push` the translated SVGs, as a part of the normal translation flow. 
 
-
-
+> Normally, the translation script looks for all images listed in `images.yml`.
 > To translate a single image, use the `--image` parameter of the script:
 > ```bash
 > # replace strings only in try-catch-flow.svg
