@@ -148,7 +148,7 @@ You can make a small file with only one image for the start.
 **Step 2.** Setup git upstream (if you haven't yet) and pull latest changes from English version:
 
 ```bash
-cd /js/zh.javascript.info # in the tutorial folder
+cd /js/server/repo/zh.javascript.info # in the tutorial folder
 
 git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
 
@@ -249,10 +249,10 @@ P.S In order for positioning to work, you need to have ImageMagick installed: <h
 The task to get all strings from an image as YAML (for translation, to add to `images.yml`):
 
 ```bash
-cd /js/server
+cd /js/server # in the server folder
+
 NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
 ```
-
 
 ## The "overflowing text" problem
 
