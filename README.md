@@ -251,7 +251,7 @@ The task to get all strings from an image as YAML (for translation, to add to `i
 ```bash
 cd /js/server # in the server folder
 
-NODE_LANG=zh npm run gulp engine:koa:tutorial:imageYaml --image hello.svg
+NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image hello.svg
 ```
 
 ## The "overflowing text" problem
