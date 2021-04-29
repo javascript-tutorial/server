@@ -128,7 +128,7 @@ Here are the steps to translate images.
 
 An example of such file (in Russian): https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml
 
-The file format is "YAML".
+The file format is [YAML](https://learnxinyminutes.com/docs/yaml/).
 
 Here's a quote:
 
