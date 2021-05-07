@@ -278,7 +278,7 @@ First, run the command that imports (and caches) the tutorial:
 
 ```bash
 cd /js/server
-NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutorial:import
+NODE_LANG=en npm run gulp engine:koa:tutorial:import
 ```
 
 > For Windows: `npm i -g cross-env` and prepend the call with `cross-env` to pass environment variables, like this:
@@ -286,8 +286,6 @@ NODE_LANG=en TUTORIAL_ROOT=/js/en.javascript.info npm run gulp engine:koa:tutori
 >    cd /js/server
 >    cross-env NODE_LANG=en...
 >    ```
-
-In the code above, `NODE_LANG` sets server language, while `TUTORIAL_ROOT` is the full path to tutorial repo, by default is `/js/$NODE_LANG.javascript.info`.
 
 Afterwards, call `./dev <server language>` to run the server:
 
