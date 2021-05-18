@@ -34,7 +34,7 @@
     "gulp-livereload": "^4",
     "html-entities": "^1.3.1",
     "image-size": "*",
-    "js-yaml": "^3",
+    "js-yaml": "^4",
     "json-loader": "^0.5.7",
     "koa": "^2",
     "koa-bodyparser": "^4",

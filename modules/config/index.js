@@ -78,7 +78,7 @@ config.tutorialRepo = {
 
 
 require.extensions['.yml'] = function(module, filename) {
-  module.exports = yaml.safeLoad(fs.readFileSync(filename, 'utf-8'));
+  module.exports = yaml.load(fs.readFileSync(filename, 'utf-8'));
 };
 
 
