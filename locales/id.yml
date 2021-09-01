@@ -1,0 +1,97 @@
+site:
+  privacy_policy: kebijakan privasi
+  terms: ketentuan penggunaan
+  banner_bottom: Tingkatkan keterampilan Anda dengan mengunjungi <a href="https://frontendmasters.com/learn/javascript/?utm_source=website&utm_medium=jsinfo&utm_campaign=jsinfo">kursus video tentang JavaScript dan Framework terkait</a>.
+  action_required: Diperlukan tindakan
+  gdpr_dialog:
+    title: Situs web ini menggunakan cookie
+    text: Kami menggunakan teknologi browser seperti cookie dan penyimpanan lokal untuk menyimpan preferensi Anda. Anda harus menerima <a href="/privacy">Kebijakan Privasi</a> dan <a href="/terms">Ketentuan Penggunaan</a> kami agar kami dapat melakukannya.
+    accept: Terima
+    cancel: Batal
+
+  toolbar:
+    lang_switcher:
+      cta_text: >
+        <p>Kami ingin membuat proyek open source ini tersedia untuk orang-orang di seluruh dunia.</p>
+         <p><a href="https://javascript.info/translate">Bantu untuk menerjemahkan</a> konten tutorial ini ke bahasa Anda!</p>
+      footer_text: berapa banyak konten yang diterjemahkan ke bahasa yang sesuai
+      old_version: Versi lama diterbitkan, perlu dukungan.
+    logo:
+      normal:
+        svg: sitetoolbar__logo_en.svg
+        width: 200 # 171
+      normal-white:
+        svg: sitetoolbar__logo_en-white.svg
+      small:
+        svg: sitetoolbar__logo_small_en.svg
+        width: 70
+      small-white:
+        svg: sitetoolbar__logo_small_en-white.svg
+    sections:
+    buy_ebook_extra: 'Beli'
+    buy_ebook: 'EPUB/PDF'
+    search_placeholder: 'Cari pada Javascript.info'
+    search_button: 'Cari'
+
+    public_profile: Profil publik
+    account: Akun
+    notifications: Notifikasi
+    admin: Admin
+    logout: Logout
+
+  sorry_old_browser: Maaf, Internet Explorer tidak didukung, harap gunakan browser yang lebih baru.
+  contact_us: hubungi kami
+  about_the_project: terkait proyek
+  ilya_kantor: Ilya Kantor
+  comments: komentar
+  loading: Memuat...
+  search: Cari
+  share: Bagikan
+  read_before_commenting: baca ini sebelum berkomentar…
+  last_updated_at: "Terakhir diperbarui pada #{date}"
+  meta:
+    description: 'Tutorial JavaScript Modern: penjelasan sederhana, namun terperinci dengan contoh dan soal, termasuk: closure, document dan events, pemrograman OOP dan banyak lagi.'
+
+  tablet-menu:
+    choose_section: Pilih bagian
+    search_placeholder: Cari di tutorial
+    search_button: Cari
+
+  comment:
+    help:
+      - Jika Anda memiliki saran apa yang harus ditingkatkan - silakan kunjungi <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">kirimkan Github issue</a> atau pull request sebagai gantinya berkomentar.
+      - Jika Anda tidak dapat memahami sesuatu dalam artikel – harap jelaskan.
+      - Untuk menyisipkan beberapa kata kode, gunakan tag <code>&lt;code&gt;</code>, untuk beberapa baris – bungkus dengan tag <code>&lt;pre&gt;</code>, untuk lebih dari 10 baris – gunakan sandbox (<a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='https://jsbin.com'>jsbin</a>, < a href='http://codepen.io'>codepen</a>…)      
+
+  edit_on_github: Sunting di GitHub
+  error: eror
+  close: tutup
+
+  hide_forever: sembunyikan secara permanen
+  hidden_forever: Informasi ini tidak akan muncul lagi.
+
+  subscribe:
+    title: Perhatikan update pada javascript.info
+    text: 'Kami tidak mengirim iklan, hanya hal-hal yang relevan. Anda memilih apa yang akan diterima:'
+    agreement: 'Dengan mendaftar ke buletin, Anda menyetujui <a href="#{link}" target="_blank">persyaratan penggunaan</a>.'
+    button: Berlangganan
+    button_unsubscribe: Berhenti berlangganan dari semua
+    common_updates: Pembaruan umum
+    common_updates_text: kursus baru, kelas master, artikel, dan rilis screencast
+    your_email: your@email.here
+    newsletters: 'buletin, buletin, buletin'
+    no_selected: Tidak ada yang dipilih
+
+  form:
+    value_must_not_be_empty: Nilai wajib diisi.
+    value_is_too_long: Nilai terlalu panjang.
+    value_is_too_short: Nilai terlalu pendek.
+    invalid_email: Email tidak valid.
+    invalid_value: Nilai tidak valid.
+    invalid_autocomplete: Silakan, pilih dari daftar
+    invalid_date: 'Tanggal tidak valid, format: dd.mm.yyyy.'
+    invalid_range: Tanggal ini tidak valid di sini.
+    save: Simpan
+    upload_file: Upload file
+    cancel: Batal
+    server_error: Kesalahan permintaan, kode status
