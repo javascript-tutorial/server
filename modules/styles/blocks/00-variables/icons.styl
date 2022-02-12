@@ -5,335 +5,416 @@
 // символов из незагруженного шрифта
 
 $font-icon
-    &
-        font-family 'FontIcons'
-        -webkit-font-smoothing antialiased
-        -moz-osx-font-smoothing grayscale
+  &
+    font-family 'FontIcons'
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+    font-style normal
 
-    .no-icons &
-        visibility hidden
+  .no-icons &
+    visibility hidden
 
 $font-close
-    @extend $font-icon
-    content '\25b4'
+  @extend $font-icon
+  content '\25b4'
 
 $font-close-cross
-    @extend $font-icon
-    content '\e80d'
+  @extend $font-icon
+  content '\e80d'
 
 $font-open
-    @extend $font-icon
-    content '\25be'
+  @extend $font-icon
+  content '\e808'
 
 $font-star
-    @extend $font-icon
-    content '\2605'
+  @extend $font-icon
+  content '\e83f'
 
 $font-star-empty
-    @extend $font-icon
-    content '\2606'
+  @extend $font-icon
+  content '\2606'
 
 $font-warning
-    @extend $font-icon
-    content '\26a0'
+  @extend $font-icon
+  content '\e83a'
 
 $font-mail
-    @extend $font-icon
-    content '\e810'
+  @extend $font-icon
+  content '\e810'
 
 $font-mail-inverse
-    @extend $font-icon
-    content '\e835'
+  @extend $font-icon
+  content '\e835'
 
 $font-edit
-    @extend $font-icon
-    content '\270d'
+  @extend $font-icon
+  content '\e839'
 
 $font-ok
-    @extend $font-icon
-    content '\2714'
+  @extend $font-icon
+  content '\e837'
 
 $font-question
-    @extend $font-icon
-    content '\e81e'
+  @extend $font-icon
+  content '\e81e'
 
 $font-qa
-    @extend $font-icon
-    content '\2753'
+  @extend $font-icon
+  content '\2753'
 
 $font-pros
-    @extend $font-icon
-    content '\e059'
+  @extend $font-icon
+  content '\e840'
 
 $font-cons
-    @extend $font-icon
-    content '\e075'
+  @extend $font-icon
+  content '\e075'
 
 $font-help
-    @extend $font-icon
-    content '\e81e'
+  @extend $font-icon
+  content '\e81e'
 
 $font-info
-    @extend $font-icon
-    content '\e705'
+  @extend $font-icon
+  content '\e838'
 
 $font-code
-    @extend $font-icon
-    content '\e714'
+  @extend $font-icon
+  content '\e714'
 
 $font-external
-    @extend $font-icon
-    content '\e715'
+  @extend $font-icon
+  content '\e83e'
 
 $font-download
-    @extend $font-icon
-    content '\e805'
+  @extend $font-icon
+  content '\e805'
 
 $font-print
-    @extend $font-icon
-    content '\e716'
+  @extend $font-icon
+  content '\e716'
 
 $font-chat
-    @extend $font-icon
-    content '\e720'
+  @extend $font-icon
+  content '\e720'
 
 $font-angle-left
-    @extend $font-icon
-    content '\e80e'
+  @extend $font-icon
+  content '\e80e'
 
 $font-angle-right
-    @extend $font-icon
-    content '\e807'
+  @extend $font-icon
+  content '\e807'
 
 $font-run
-    @extend $font-icon
-    content '\f00f'
+  @extend $font-icon
+  content '\f00f'
 
 $font-copy
-    @extend $font-icon
-    content '\f0c5'
+  @extend $font-icon
+  content '\f0c5'
 
 $font-comment
-    @extend $font-icon
-    content '\f4ac'
+  @extend $font-icon
+  content '\f4ac'
 
 $font-search
-    @extend $font-icon
-    content '\e81b'
+  @extend $font-icon
+  content '\e81b'
 
 $font-study
-    @extend $font-icon
-    content '\1f393'
+  @extend $font-icon
+  content '\1f393'
 
 $font-user
-    @extend $font-icon
-    content '\1f464'
+  @extend $font-icon
+  content '\E83D'
 
 $font-job
-    @extend $font-icon
-    content '\1f4bc'
+  @extend $font-icon
+  content '\1f4bc'
 
 $font-blogs
-    @extend $font-icon
-    content '\1f4c4'
+  @extend $font-icon
+  content '\1f4c4'
 
 $font-events
-    @extend $font-icon
-    content '\1f4c5'
+  @extend $font-icon
+  content '\1f4c5'
 
 $font-reference
-    @extend $font-icon
-    content '\1f4d5'
+  @extend $font-icon
+  content '\1f4d5'
 
 $font-time
-    @extend $font-icon
-    content '\1f554'
+  @extend $font-icon
+  content '\1f554'
 
 $font-video
-    @extend $font-icon
-    content '\e800'
+  @extend $font-icon
+  content '\e800'
 
 $font-mobile
-    @extend $font-icon
-    content '\e801'
+  @extend $font-icon
+  content '\e801'
 
 $font-printable
-    @extend $font-icon
-    content '\e802'
+  @extend $font-icon
+  content '\e802'
 
 $font-pencil
-    @extend $font-icon
-    content '\e803'
+  @extend $font-icon
+  content '\e803'
 
 $font-trash
-    @extend $font-icon
-    content '\e804'
+  @extend $font-icon
+  content '\e804'
 
 $font-menu
-    @extend $font-icon
-    //- \0021, not just \21
-    content '\0021'
+  @extend $font-icon
+  //- \0021, not just \21
+  content '\0021'
 
 $font-link
-    @extend $font-icon
-    content '\e80c'
+  @extend $font-icon
+  content '\e80c'
 
 $font-camera
-    @extend $font-icon
-    content '\e812'
+  @extend $font-icon
+  content '\e812'
 
 $font-home
-    @extend $font-icon
-    content '\e813'
+  @extend $font-icon
+  content '\e813'
 
 $font-sitemap
-    @extend $font-icon
-    content '\e814'
+  @extend $font-icon
+  content '\e814'
 
 $font-close-button
-    @extend $font-icon
-    content '\e815'
+  @extend $font-icon
+  content '\e815'
 
 $font-twitter
-    @extend $font-icon
-    content '\e808'
+  @extend $font-icon
+  content '\e863'
 
 $font-facebook
-    @extend $font-icon
-    content '\e809'
+  @extend $font-icon
+  content '\e861'
 
 $font-google
-    @extend $font-icon
-    content '\e80a'
+  @extend $font-icon
+  content '\e80a'
 
 $font-vkontakte
-    @extend $font-icon
-    content '\e80b'
+  @extend $font-icon
+  content '\e80b'
 
 $font-github
-    @extend $font-icon
-    content '\e80f'
+  @extend $font-icon
+  content '\e80f'
 
 $font-github-large
-    @extend $font-icon
-    content '\e853'
+  @extend $font-icon
+  content '\e853'
 
 $font-yandex
-    @extend $font-icon
-    content '\e806'
+  @extend $font-icon
+  content '\e806'
 
 $font-rur
-    @extend $font-icon
-    content '\e811'
+  @extend $font-icon
+  content '\e811'
 
 $font-single-col
-    @extend $font-icon
-    content '\e816'
+  @extend $font-icon
+  content '\e816'
 
 $font-multi-col
-    @extend $font-icon
-    content '\e817'
+  @extend $font-icon
+  content '\e817'
 
 $font-ldquote
-    @extend $font-icon
-    content '\e81a'
+  @extend $font-icon
+  content '\e81a'
 
 $font-install
-    @extend $font-icon
-    content '\e81c'
+  @extend $font-icon
+  content '\e81c'
 
 $font-basket
-    @extend $font-icon
-    content '\e81d'
+  @extend $font-icon
+  content '\e81d'
 
 $font-like
-    @extend $font-icon
-    content '\E81F'
+  @extend $font-icon
+  content '\E81F'
 
 $font-earth
-    @extend $font-icon
-    content '\E823'
+  @extend $font-icon
+  content '\E823'
 
 $font-chat-bubbles
-    @extend $font-icon
-    content '\E820'
+  @extend $font-icon
+  content '\E820'
 
 $font-college-hat
-    @extend $font-icon
-    content '\E822'
+  @extend $font-icon
+  content '\E822'
 
 $font-star-label
-    @extend $font-icon
-    content '\E821'
+  @extend $font-icon
+  content '\E821'
 
 $font-flag
-    @extend $font-icon
-    content '\E824'
+  @extend $font-icon
+  content '\E824'
 
 $font-back-in-time
-    @extend $font-icon
-    content '\E825'
+  @extend $font-icon
+  content '\E825'
 
 $font-rotate-right
-    @extend $font-icon
-    content '\E826'
+  @extend $font-icon
+  content '\E826'
 
 $font-heart-plus
-    @extend $font-icon
-    content '\E827'
+  @extend $font-icon
+  content '\E827'
 
 $font-private
-    @extend $font-icon
-    content '\E828'
+  @extend $font-icon
+  content '\E828'
 
 $font-bold
-    @extend $font-icon
-    content '\E829'
+  @extend $font-icon
+  content '\E829'
 
 $font-italic
-    @extend $font-icon
-    content '\E82A'
+  @extend $font-icon
+  content '\E82A'
 
 $font-link
-    @extend $font-icon
-    content '\E82B'
+  @extend $font-icon
+  content '\E82B'
 
 $font-redo
-    @extend $font-icon
-    content '\E82C'
+  @extend $font-icon
+  content '\E82C'
 
 $font-cut
-    @extend $font-icon
-    content '\E850'
+  @extend $font-icon
+  content '\E850'
 
 $font-undo
-    @extend $font-icon
-    content '\E82D'
+  @extend $font-icon
+  content '\E82D'
 
 $font-ol
-    @extend $font-icon
-    content '\E830'
+  @extend $font-icon
+  content '\E830'
 
 $font-ul
-    @extend $font-icon
-    content '\E82E'
+  @extend $font-icon
+  content '\E82E'
 
 $font-fenced-code
-    @extend $font-icon
-    content '\E82F'
+  @extend $font-icon
+  content '\E82F'
 
 $font-heading
-    @extend $font-icon
-    content '\E831'
+  @extend $font-icon
+  content '\E831'
 
 $font-image
-    @extend $font-icon
-    content '\E832'
+  @extend $font-icon
+  content '\E832'
 
 $font-code
-    @extend $font-icon
-    content '\E833'
+  @extend $font-icon
+  content '\E833'
 
 $font-editor-quote
-    @extend $font-icon
-    content '\E834'
+  @extend $font-icon
+  content '\E834'
+
+$font-lang
+  @extend $font-icon
+  content '\E84C'
+
+$font-vector
+  @extend $font-icon
+  content '\E84D'
+
+$font-facebook-square
+  @extend $font-icon
+  content '\F30E'
+
+$font-calendar
+  @extend $font-icon
+  content '\E836'
+
+$font-globe-blank
+  @extend $font-icon
+  content '\e89c'
+
+$font-mic
+  @extend $font-icon
+  content '\e89d'
+
+$font-branch
+  @extend $font-icon
+  content '\e89b'
+
+$font-tag-squared
+  @extend $font-icon
+  content '\e89e'
+
+$font-info-blank
+  @extend $font-icon
+  content '\e842'
+
+$font-discord
+  @extend $font-icon
+  content '\e8fc'
+
+$font-burger
+  @extend $font-icon
+  content '\e854'
+
+$font-chevron-left
+  @extend $font-icon
+  content '\e855'
+
+$font-chevron-right
+  @extend $font-icon
+  content '\e856'
+
+$font-edit-1
+  @extend $font-icon
+  content '\e857'
+
+$font-map
+  @extend $font-icon
+  content '\e858'
+
+$font-play-fill
+  @extend $font-icon
+  content '\e859'
+
+$font-moon
+  @extend $font-icon
+  content '\e85c'
+
+$font-sun
+  @extend $font-icon
+  content '\e85d'
+
+$font-buy-ebook
+  @extend $font-icon
+  content '\e860'
+
+$font-qr-code
+  @extend $font-icon
+  content '\E865'
