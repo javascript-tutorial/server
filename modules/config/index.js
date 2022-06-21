@@ -35,34 +35,34 @@ let config = module.exports = {
     host: env.HOST || 'localhost'
   },
 
-  appKeys:  [secret.sessionKey],
+  appKeys: [secret.sessionKey],
   adminKey: secret.adminKey,
 
   certDir: path.join(secret.dir, 'cert'),
-  
-  lang:    lang,
+
+  lang: lang,
 
   plnkrAuthId: secret.plnkrAuthId,
 
   assetVersioning: env.ASSET_VERSIONING === 'file' ? 'file' :
-                     env.ASSET_VERSIONING === 'query' ? 'query' : null,
+    env.ASSET_VERSIONING === 'query' ? 'query' : null,
 
-  pug:   {
+  pug: {
     basedir: path.join(process.cwd(), 'templates'),
-    cache:   env.NODE_ENV !== 'development'
+    cache: env.NODE_ENV !== 'development'
   },
 
   supportEmail: 'iliakan@javascript.info',
 
-  projectRoot:           process.cwd(),
+  projectRoot: process.cwd(),
   // public files, served by nginx
-  publicRoot:            path.join(process.cwd(), 'public', lang),
+  publicRoot: path.join(process.cwd(), 'public', lang),
   // private files, for expiring links, not directly accessible
-  tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), 'repo', `${env.TUTORIAL_LANG || lang}.javascript.info`),
-  tmpRoot:               path.join(process.cwd(), 'tmp', lang),
+  tutorialRoot: env.TUTORIAL_ROOT || path.join(process.cwd(), 'repo', `${(env.TUTORIAL_LANG || lang).replace(/"/g, '')}.javascript.info`),
+  tmpRoot: path.join(process.cwd(), 'tmp', lang),
   // js/css build versions
-  cacheRoot:          path.join(process.cwd(), 'cache', lang),
-  assetsRoot:            path.join(process.cwd(), 'assets'),
+  cacheRoot: path.join(process.cwd(), 'cache', lang),
+  assetsRoot: path.join(process.cwd(), 'assets'),
 
   handlers: require('./handlers')
 };
@@ -71,13 +71,13 @@ let repo = `javascript-tutorial/${config.lang}.javascript.info`;
 
 config.tutorialRepo = {
   github: repo,
-  url:    new URL('https://github.com/' + repo),
-  tree:   new URL('https://github.com/' + repo + '/tree/master'),
-  blob:   new URL('https://github.com/' + repo + '/blob/master')
+  url: new URL('https://github.com/' + repo),
+  tree: new URL('https://github.com/' + repo + '/tree/master'),
+  blob: new URL('https://github.com/' + repo + '/blob/master')
 };
 
 
-require.extensions['.yml'] = function(module, filename) {
+require.extensions['.yml'] = function (module, filename) {
   module.exports = yaml.load(fs.readFileSync(filename, 'utf-8'));
 };
 
@@ -95,7 +95,7 @@ createRoot(config.publicRoot);
 createRoot(config.cacheRoot);
 createRoot(config.tmpRoot);
 
-function createRoot(root) {
+function createRoot (root) {
   // may be existing symlink
   if (fs.existsSync(root) && fs.statSync(root).isFile()) {
     fs.unlinkSync(root);
