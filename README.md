@@ -297,8 +297,9 @@ If you add a translation to `images.yml`, but after running the script the SVG r
         prototype: ''
     ```
 
-    Now we can see, that the text is actually longer, it's `name: "White Rabbit"`.
-    So the line in the `images.yml` should be something like: `"name: \"White Rabbit\"": "text": "name: \"Coelho Branco\""`.
+    Now we can see, that the text in the SVG is actually longer, it's `name: "White Rabbit"`.
+
+    So the `images.yml` should translate it as a whole: `"name: \"White Rabbit\"": ...` (note: quotes are escaped).
 
 
 If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new).
