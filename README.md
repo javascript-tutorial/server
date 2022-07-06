@@ -288,13 +288,13 @@ If you add a translation to `images.yml`, but after running the script the SVG r
     ```
     ❯ NODE_LANG=pt npm run gulp -- engine:koa:tutorial:imageYaml --image proto-constructor-animal-rabbit.svg
     proto-constructor-animal-rabbit.svg:
-    'eats: true': ''
-    'name: "White Rabbit"': ''
-    animal: ''
-    Rabbit: ''
-    rabbit: ''
-    '[[Prototype]]': ''
-    prototype: ''
+        'eats: true': ''
+        'name: "White Rabbit"': ''
+        animal: ''
+        Rabbit: ''
+        rabbit: ''
+        '[[Prototype]]': ''
+        prototype: ''
     ```
 
     Now we can see, that the text is actually longer, it's `name: "White Rabbit"`.
