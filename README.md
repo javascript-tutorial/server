@@ -272,7 +272,7 @@ If the translated text is much longer, please try to change it, make it shorter 
 
 If the translated text absolutely must be longer and doesn't fit, let me know, we'll see how to adjust the picture.
 
-## Troubleshooting
+## Troubleshooting images translation
 
 If you add a translation to `images.yml`, but after running the script the SVG remains the same:
 
