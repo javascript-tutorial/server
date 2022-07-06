@@ -27,8 +27,8 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
 3. Create the root folder.
 
-    Create a folder `/js` for the project. 
-    
+    Create a folder `/js` for the project.
+
     You can also use another directory as the root, then change the paths below: replace `/js` with your root.
 
 4. Clone the tutorial server into it:
@@ -40,7 +40,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     ```
 
     Please note, there are two clone commands. That's not a typo: `modules/engine` is cloned from another repository.
-    
+
     And please don't forget this when updating, `modules/engine` needs to be fetched and merged too.
 
 5. Clone the tutorial text into it.
@@ -48,7 +48,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     The repository starts with the language code, e.g for the French version `fr.javascript.info`, for Russian – `ru.javascript.info` etc.
 
     The English version is `en.javascript.info`.
-    
+
     The tutorial text repository should go into the `repo` subfolder, like this:
 
     ```bash
@@ -122,7 +122,7 @@ Please note, the server must support that language. There must be corresponding 
 
 Please don't translate SVG files manually.
 
-They are auto-generated from the English variant, with the text phrases substituted from `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>. 
+They are auto-generated from the English variant, with the text phrases substituted from `images.yml` file in the repository root, such as <https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml>.
 
 So you need to translate the content of `images.yml` and re-generate the SVGs using a script.
 
@@ -147,7 +147,7 @@ As you can see, for each image file (such as `code-style.svg`), there go English
 
 For each phrase, there's the translated `text` and the text `position` (not always needed, details will come soon).
 
-You can make a small file with only one image for the start. 
+You can make a small file with only one image for the start.
 
 **Step 2.** Setup git upstream (if you haven't yet) and pull latest changes from English version:
 
@@ -171,7 +171,7 @@ NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate
 
 This script checks out all SVG images from `upstream` (English version) and replaces the strings inside them according to `images.yml`. So they become translated.
 
-The new translated SVGs are the tutorial folder now, but not committed yet. 
+The new translated SVGs are the tutorial folder now, but not committed yet.
 
 You can see them with `git status`.
 
@@ -179,7 +179,7 @@ Take a moment to open and check them, e.g. in Chrome browser, just to ensure tha
 
 P.S. If an image appears untranslated on refresh, force the browser to "reload without cache" ([hotkeys](https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache)).
 
-**Step 4.** Then you'll need to `git add/commit/push` the translated SVGs, as a part of the normal translation flow. 
+**Step 4.** Then you'll need to `git add/commit/push` the translated SVGs, as a part of the normal translation flow.
 
 ...And voilà! SVGs are translated!
 
@@ -204,7 +204,7 @@ Before the translation:
 After the translation (`你` is at the same place where `h` was, the string is left-aligned):
 
 ```
-| 你好世界    
+| 你好世界
 ```
 
 Sometimes that's not good, e.g. if the string needs to be centered, e.g. like this:
@@ -225,9 +225,9 @@ Then, if we just replace the string, it would become:
      |
 ```
 
-As we can see, the new phrase is shorter. We should move it to the right a bit. 
+As we can see, the new phrase is shorter. We should move it to the right a bit.
 
-The `position: "center"` in `images.yml` does exactly that. 
+The `position: "center"` in `images.yml` does exactly that.
 
 It centers the translated string, so that it will replace the original one and stay "in the middle" of the surrounding context.
 
@@ -258,17 +258,30 @@ cd /js/server # in the server folder
 NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
 ```
 
-It extracts all text lines. Useful for debugging, when the translation doesn't "catch up", because the SVG text has an extra space or so.
+It extracts all text lines and outputs as a template for the `images.yml`.
+
+Useful for debugging, when the translation doesn't "catch up", because the SVG text has an extra space or so.
 
 ## The "overflowing text" problem
 
-The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture. 
+The replacement script only operates on strings, not other graphics, so a long translated string may not fit the picture.
 
-Most pictures have some extra space for longer text, so a slight increase doesn't harm. 
+Most pictures have some extra space for longer text, so a slight increase doesn't harm.
 
-If the translated text is much longer, please try to change it, make it shorter to fit. 
+If the translated text is much longer, please try to change it, make it shorter to fit.
 
 If the translated text absolutely must be longer and doesn't fit, let me know, we'll see how to adjust the picture.
+
+## Troubleshooting
+
+If you add a translation to `images.yml`, but after running the script the SVG remains the same:
+
+1. Ensure that you have the latest server code and translation repos, fetched the upstream.
+2. Check if the English version has the file with the same name. The file could have been renamed.
+3. Check that there's only 1 file with the given name in the tutorial. Sometimes there may be duplicates.
+4. Check that the translated string in `images.yml` is exactly as in SVG: use the helper script to extract all strings.
+
+If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new).
 
 # Dev mode
 
@@ -332,4 +345,3 @@ $> sudo sysctl -p
 It is very important that you refer to the documentation for your operating system to change this parameter permanently.
 
 --<br>Yours,<br>Ilya Kantor<br>iliakan@javascript.info
-
