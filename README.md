@@ -281,24 +281,24 @@ If you add a translation to `images.yml`, but after running the script the SVG r
 3. Check that there's only 1 file with the given name in the tutorial. Sometimes there may be duplicates.
 4. Check that the translated string in `images.yml` is exactly as in SVG: use the helper script to extract all strings.
 
-        For example, let's say you added `"White Rabbit": "Coelho Branco"` to the `images.yml`, and it doesn't work.
+    For example, let's say you added `"White Rabbit": "Coelho Branco"` to the `images.yml`, and it doesn't work.
 
-        Let's get all strings:
+    Let's get all strings:
 
-        ```
-        ❯ NODE_LANG=pt npm run gulp -- engine:koa:tutorial:imageYaml --image proto-constructor-animal-rabbit.svg
-        proto-constructor-animal-rabbit.svg:
-        'eats: true': ''
-        'name: "White Rabbit"': ''
-        animal: ''
-        Rabbit: ''
-        rabbit: ''
-        '[[Prototype]]': ''
-        prototype: ''
-        ```
+    ```
+    ❯ NODE_LANG=pt npm run gulp -- engine:koa:tutorial:imageYaml --image proto-constructor-animal-rabbit.svg
+    proto-constructor-animal-rabbit.svg:
+    'eats: true': ''
+    'name: "White Rabbit"': ''
+    animal: ''
+    Rabbit: ''
+    rabbit: ''
+    '[[Prototype]]': ''
+    prototype: ''
+    ```
 
-        Now we can see, that the text is actually longer, it's `name: "White Rabbit"`.
-        So the line in the `images.yml` should be something like: `"name: \"White Rabbit\"": "text": "name: \"Coelho Branco\""`.
+    Now we can see, that the text is actually longer, it's `name: "White Rabbit"`.
+    So the line in the `images.yml` should be something like: `"name: \"White Rabbit\"": "text": "name: \"Coelho Branco\""`.
 
 
 If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new).
