@@ -281,7 +281,7 @@ If you add a translation to `images.yml`, but after running the script the SVG r
 3. Check that there's only 1 file with the given name in the tutorial. Sometimes there may be duplicates.
 4. Check that the translated string in `images.yml` is exactly as in SVG: use the helper script to extract all strings.
 
-    For example, let's say you added `"White Rabbit": "Coelho Branco"` to the `images.yml`, and it doesn't work.
+    For example, let's say you added `"White Rabbit": "Coelho Branco"` to the `images.yml` for `proto-constructor-animal-rabbit.svg` file, and it doesn't work.
 
     Let's get all strings:
 
