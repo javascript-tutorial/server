@@ -141,11 +141,15 @@ code-style.svg:  # image file name
   "No space":    # English string
     text: "Без пробелов" # translation
     position: "center" # (optional) "center" or "right" - to position the translated string
+  "between the function name and parentheses":
+    position: "center"
+    text: "между именем функции и скобками"
 ```
 
-As you can see, for each image file there's a name (such as `code-style.svg`), and then goes the list of English phrases (such as `"No space"`).
+As you can see, for each image file there's a name (such as `code-style.svg`), and then goes the list of English phrases (such as `"No space"`), accompanied by translations:
 
-For each phrase, there's the translated `text` and the text `position` (not always needed, details will come soon).
+- `text` is the translated text
+- `position` (not always needed, details will come soon) is the relative position of the text.
 
 You can make a small file with only one image for the start.
 
