@@ -17,7 +17,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Please use Node.js 10+.
 
-    (Maybe later, optional) If you're going to change images, please install [ImageMagick](https://imagemagick.org/script/download.php).
+    (Maybe later, optional) If you're going to change images, please install [ImageMagick](https://imagemagick.org/script/download.php) (use packages for Linux or homebrew/macports for MacOS).
 
 2. Install global Node modules:
 
@@ -128,8 +128,6 @@ So you need to translate the content of `images.yml` and re-generate the SVGs us
 
 Here are the steps to translate images.
 
-> Make sure you have installed [ImageMagick](https://imagemagick.org/script/download.php) mentioned in the [installation](#installation) step
-
 **Step 1.** Create `images.yml` with translations in the repository root.
 
 An example of such file (in Russian): https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml
@@ -165,11 +163,8 @@ git fetch upstream master
 
 ```bash
 # Adjust NODE_LANG to your language
-
-❯ NODE_LANG=en npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
-
-# Remainder of log omitted …
-
+❯ NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
+...
 Processing image code-style.svg
 code-style.svg:
   '2': ''
@@ -178,7 +173,7 @@ code-style.svg:
   between the parentheses and the parameter: ''
   Indentation: ''
   2 spaces: ''
-  teste a: ''
+  'A space ': ''
   after for/if/while…: ''
   '} else { without a line break': ''
   Spaces around a nested call: ''
@@ -197,26 +192,24 @@ code-style.svg:
   A space between parameters: ''
 ```
 
-It is possible to notice that the script returns a list of a set of words, which separately form the snippet that can be translated. To succeed in the translation, it is necessary to configure the snippet as close as possible to what the script expects.
+As we can see, the script returns a text snippet that can be inserted into `images.yml` fully or partially.
 
-Let's take as an example the text `'} else { without a line break'`, in which it is necessary to pay attention to two observations:
-
-1. The single quotes at the beginning and at the end are not part of the excerpt, as they only surround the set of words. It may be that in some scenarios it appears in the middle of the snippet (for example, `What's`), for such a scenario it is necessary to use it in the configuration, but the example taken is different, and that is why we will not consider the single quote at the beginning and at the end of the text.
-2. There is a set of characters for which there is no translation or there is no need (for example, `} else {`), however, it is necessary to register them with part of the text to be translated, otherwise the script will not identify the need for translation.
-    
-Finally, we will have the following configuration to succeed in the translation:
+E.g. like this:
 
 ```yml
 code-style.svg:
-  "} else { without a line break": 
-  	text: "} else { xxxxxxx x xxxx xxxxx"
+  'A space ': 'Пробел'
 ```
 
->  **Note**
->
-> - You may come across special characters, so the script returns the strings with code formatting, if applicable, configure the representation of the character visually, for example: double quotes `"` (visual) will be returned by script as `&quot;` (code).
-> - If you encounter problems related to the size of the translated text being too different from the original text, see the section [The "Text Overflowing"](https://github.com/javascript-tutorial/server#the-overflowing-text-problem) and test without using the [`position`](https://github.com/javascript-tutorial/server#positioning) parameter (maybe trying to center, for example, is interfering).
-> - For other translation issues, see the section [Troubleshooting image translation](https://github.com/javascript-tutorial/server#troubleshooting-images-translation).
+Or like this, if we want to position the translation in the center (see below for more examples):
+
+```yml
+code-style.svg:
+  'A space ':
+    position: 'center'
+    text: 'Пробел'
+```
+
 
 **Step 4.** Run the translation task:
 
@@ -249,7 +242,11 @@ P.S. If an image appears untranslated on refresh, force the browser to "reload w
 > NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
 > ```
 
+Read on for more advanced options and troubleshooting.
+
 ## Positioning
+
+> For the positioning to work, sure you have installed [ImageMagick](https://imagemagick.org/script/download.php) mentioned in the [installation](#installation) step.
 
 By default, the translated string replaces the original one, starting in exactly the same place of the image.
 
@@ -273,7 +270,7 @@ hello world
      |
 ```
 
-(The "hello world" is centered between two `|`).
+Here, the "hello world" is centered between two vertical lines `|`.
 
 Then, if we just replace the string, it would become:
 
@@ -304,21 +301,6 @@ hello world |
 
 That's also useful for images when we expect the text to stick to the right.
 
-P.S In order for positioning to work, you need to have ImageMagick installed: <https://imagemagick.org/script/download.php> (or use packages for Linux or homebrew/macports for MacOS).
-
-## Helper script: extract strings
-
-The task to get all strings from an image as YAML (for translation, to add to `images.yml`):
-
-```bash
-cd /js/server # in the server folder
-
-NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
-```
-
-It extracts all text lines and outputs as a template for the `images.yml`.
-
-Useful for debugging, when the translation doesn't "catch up", because the SVG text has an extra space or so.
 
 ## The "overflowing text" problem
 
@@ -332,33 +314,12 @@ If the translated text absolutely must be longer and doesn't fit, let me know, w
 
 ## Troubleshooting images translation
 
-If you add a translation to `images.yml`, but after running the script the SVG remains the same:
+If you add a translation to `images.yml`, but after running the script the SVG remains the same, so that the translation doesn't "catch up":
 
 1. Ensure that you have the latest server code and translation repos, fetched the upstream.
 2. Check if the English version has the file with the same name. The file could have been renamed.
 3. Check that there's only 1 file with the given name in the tutorial. Sometimes there may be duplicates.
-4. Check that the translated string in `images.yml` is exactly as in SVG: use the helper script to extract all strings.
-
-    For example, let's say you added `"White Rabbit": "Coelho Branco"` to the `images.yml` for `proto-constructor-animal-rabbit.svg` file, and it doesn't work.
-
-    Let's get all strings:
-
-    ```
-    ❯ NODE_LANG=pt npm run gulp -- engine:koa:tutorial:imageYaml --image proto-constructor-animal-rabbit.svg
-    proto-constructor-animal-rabbit.svg:
-        'eats: true': ''
-        'name: "White Rabbit"': ''
-        animal: ''
-        Rabbit: ''
-        rabbit: ''
-        '[[Prototype]]': ''
-        prototype: ''
-    ```
-
-    Now we can see, that the text in the SVG is actually longer, it's `name: "White Rabbit"`.
-
-    So the `images.yml` should translate it as a whole: `"name: \"White Rabbit\"": ...` (note: quotes are escaped).
-
+4. Check that the translated string in `images.yml` is exactly as in SVG: use the helper script (Step 3) to extract all strings.
 
 If it still doesn't work – [file an issue](https://github.com/javascript-tutorial/server/issues/new).
 
