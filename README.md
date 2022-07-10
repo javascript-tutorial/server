@@ -128,6 +128,8 @@ So you need to translate the content of `images.yml` and re-generate the SVGs us
 
 Here are the steps to translate images.
 
+> Make sure you have installed [ImageMagick](https://imagemagick.org/script/download.php) mentioned in the [installation](#installation) step
+
 **Step 1.** Create `images.yml` with translations in the repository root.
 
 An example of such file (in Russian): https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml
@@ -159,7 +161,64 @@ git remote add upstream https://github.com/javascript-tutorial/en.javascript.inf
 git fetch upstream master
 ```
 
-**Step 3.** Run the translation task:
+**Step 3.** With the help of [script `imageYaml`](https://github.com/javascript-tutorial/server#helper-script-extract-strings), check the existing texts of the image you want to translate, for example to the `code-style.svg` file, when executing the command, you will get the following results:
+
+```bash
+# Adjust NODE_LANG to your language
+
+❯ NODE_LANG=en npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
+
+# Remainder of log omitted …
+
+Processing image code-style.svg
+code-style.svg:
+  '2': ''
+  No space: ''
+  between the function name and parentheses: ''
+  between the parentheses and the parameter: ''
+  Indentation: ''
+  2 spaces: ''
+  teste a: ''
+  after for/if/while…: ''
+  '} else { without a line break': ''
+  Spaces around a nested call: ''
+  An empty line: ''
+  between logical blocks: ''
+  Lines are not very long: ''
+  A semicolon ;: ''
+  is mandatory: ''
+  Spaces: ''
+  around operators: ''
+  Curly brace {: ''
+  on the same line, after a space: ''
+  A space: ''
+  between: ''
+  arguments: ''
+  A space between parameters: ''
+```
+
+It is possible to notice that the script returns a list of a set of words, which separately form the snippet that can be translated. To succeed in the translation, it is necessary to configure the snippet as close as possible to what the script expects.
+
+Let's take as an example the text `'} else { without a line break'`, in which it is necessary to pay attention to two observations:
+
+1. The single quotes at the beginning and at the end are not part of the excerpt, as they only surround the set of words. It may be that in some scenarios it appears in the middle of the snippet (for example, `What's`), for such a scenario it is necessary to use it in the configuration, but the example taken is different, and that is why we will not consider the single quote at the beginning and at the end of the text.
+2. There is a set of characters for which there is no translation or there is no need (for example, `} else {`), however, it is necessary to register them with part of the text to be translated, otherwise the script will not identify the need for translation.
+    
+Finally, we will have the following configuration to succeed in the translation:
+
+```yml
+code-style.svg:
+  "} else { without a line break": 
+  	text: "} else { xxxxxxx x xxxx xxxxx"
+```
+
+>  **Note**
+>
+> - You may come across special characters, so the script returns the strings with code formatting, if applicable, configure the representation of the character visually, for example: double quotes `"` (visual) will be returned by script as `&quot;` (code).
+> - If you encounter problems related to the size of the translated text being too different from the original text, see the section [The "Text Overflowing"](https://github.com/javascript-tutorial/server#the-overflowing-text-problem) and test without using the [`position`](https://github.com/javascript-tutorial/server#positioning) parameter (maybe trying to center, for example, is interfering).
+> - For other translation issues, see the section [Troubleshooting image translation](https://github.com/javascript-tutorial/server#troubleshooting-images-translation).
+
+**Step 4.** Run the translation task:
 
 ```bash
 cd /js/server # in the server folder
@@ -179,7 +238,7 @@ Take a moment to open and check them, e.g. in Chrome browser, just to ensure tha
 
 P.S. If an image appears untranslated on refresh, force the browser to "reload without cache" ([hotkeys](https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache)).
 
-**Step 4.** Then you'll need to `git add/commit/push` the translated SVGs, as a part of the normal translation flow.
+**Step 5.** Then you'll need to `git add/commit/push` the translated SVGs, as a part of the normal translation flow.
 
 ...And voilà! SVGs are translated!
 
@@ -189,7 +248,6 @@ P.S. If an image appears untranslated on refresh, force the browser to "reload w
 > # replace strings only in try-catch-flow.svg
 > NODE_LANG=zh npm run gulp -- engine:koa:tutorial:figuresTranslate --image try-catch-flow.svg
 > ```
-
 
 ## Positioning
 
