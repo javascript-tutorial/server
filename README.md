@@ -143,7 +143,7 @@ code-style.svg:  # image file name
     position: "center" # (optional) "center" or "right" - to position the translated string
 ```
 
-As you can see, for each image file (such as `code-style.svg`), there go English phrases (such as `"No space"`).
+As you can see, for each image file there's a name (such as `code-style.svg`), and then goes the list of English phrases (such as `"No space"`).
 
 For each phrase, there's the translated `text` and the text `position` (not always needed, details will come soon).
 
