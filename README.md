@@ -128,7 +128,17 @@ So you need to translate the content of `images.yml` and re-generate the SVGs us
 
 Here are the steps to translate images.
 
-**Step 1.** Create `images.yml` with translations in the repository root.
+**Step 1.** Setup git upstream (if you haven't yet) and pull latest changes from English version:
+
+```bash
+cd /js/server/repo/zh.javascript.info # in the tutorial folder
+
+git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
+
+git fetch upstream master
+```
+
+**Step 2.** Create `images.yml` with translations in the repository root.
 
 An example of such file (in Russian): https://github.com/javascript-tutorial/ru.javascript.info/blob/master/images.yml
 
@@ -146,30 +156,28 @@ code-style.svg:  # image file name
     text: "между именем функции и скобками"
 ```
 
-As you can see, for each image file there's a name (such as `code-style.svg`), and then goes the list of English phrases (such as `"No space"`), accompanied by translations:
+As you can see, for each image file there's a name (such as `code-style.svg`), and then goes the list of its English phrases (such as `"No space"`), accompanied by translations:
 
 - `text` is the translated text
 - `position` (not always needed, details will come soon) is the relative position of the text.
 
-You can make a small file with only one image for the start.
+Initially, the file may be empty, then you can fill it with images one by one.
 
-**Step 2.** Setup git upstream (if you haven't yet) and pull latest changes from English version:
+Only the mentioned images will be translated.
 
-```bash
-cd /js/server/repo/zh.javascript.info # in the tutorial folder
+**Step 3.** Use the helper script to get a list of strings to translate:
 
-git remote add upstream https://github.com/javascript-tutorial/en.javascript.info
-
-git fetch upstream master
-```
-
-**Step 3.** With the help of [script `imageYaml`](https://github.com/javascript-tutorial/server#helper-script-extract-strings), check the existing texts of the image you want to translate, for example to the `code-style.svg` file, when executing the command, you will get the following results:
+The script is executed from the server root, like this:
 
 ```bash
 # Adjust NODE_LANG to your language
+
 ❯ NODE_LANG=zh npm run gulp -- engine:koa:tutorial:imageYaml --image code-style.svg
-...
-Processing image code-style.svg
+```
+
+Here's an example of its output:
+
+```yml
 code-style.svg:
   '2': ''
   No space: ''
@@ -213,7 +221,6 @@ code-style.svg:
     position: 'center'
     text: 'Пробел'
 ```
-
 
 **Step 4.** Run the translation task:
 
