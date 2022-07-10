@@ -17,7 +17,7 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Please use Node.js 10+.
 
-    (Maybe later, optional) If you're going to change images, please install [ImageMagick](https://imagemagick.org/script/download.php) (use packages for Linux or homebrew/macports for MacOS).
+    (Maybe later, optional) If you're going to change images, please install [ImageMagick](https://imagemagick.org/script/download.php), use packages for Linux or homebrew/macports for MacOS.
 
 2. Install global Node modules:
 
@@ -41,11 +41,11 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
 
     Please note, there are two clone commands. That's not a typo: `modules/engine` is cloned from another repository.
 
-    And please don't forget this when updating, `modules/engine` needs to be fetched and merged too.
+    And please don't forget when pulling an updated server code: `modules/engine` needs to be pulled too.
 
 5. Clone the tutorial text into it.
 
-    The repository starts with the language code, e.g for the French version `fr.javascript.info`, for Russian – `ru.javascript.info` etc.
+    The repository starts with the language code, e.g for the French version `fr.javascript.info`, for Russian – `ru.javascript.info`, for Chinese `zh.javascript.info` etc.
 
     The English version is `en.javascript.info`.
 
