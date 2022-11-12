@@ -9,9 +9,13 @@
     "build": "cross-env NODE_PATH=./modules ./node_modules/.bin/gulp build",
     "gulp": "cross-env NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules ./node_modules/.bin/gulp"
   },
+  "engine": {
+    "node": "^16"
+  },
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
   "dependencies": {
+    "@trysound/sax": "^0.2.0",
     "autoprefixer": "^9",
     "babel-core": "^6",
     "babel-loader": "^7",
@@ -43,7 +47,6 @@
     "koa-mount": "^3",
     "koa-router": "^7",
     "koa-static": "^5",
-    "@trysound/sax": "^0.2.0",
     "limax": "^2.0.0",
     "lodash": "*",
     "markdown-it": "*",

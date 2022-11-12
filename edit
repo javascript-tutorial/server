@@ -17,4 +17,3 @@ if ! [ -x "$(command -v bunyan)" ]; then
 fi
 
 npm --silent run -- gulp edit | bunyan -o short -l debug
-

@@ -8,6 +8,7 @@ You can use it to run the tutorial locally and translate it into your language.
 
 Windows, Unix systems and macOS are supported. For Windows, you'll need to call scripts with ".cmd" extension, that are present in the code alongside with Unix versions.
 
+
 # Installation
 
 1. Install [Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org).
@@ -15,7 +16,8 @@ Windows, Unix systems and macOS are supported. For Windows, you'll need to call 
     These are required to update and run the project.
     For Windows just download and install, otherwise use standard OS install tools (packages or whatever convenient).
 
-    Please use Node.js 10+.
+    **Please use Node.js 16.**
+    You can find it at https://nodejs.org/download/release/v16.18.1/) or use [NVM](https://github.com/nvm-sh/nvm) to install multiple versions of Node.js and switch between them.
 
     (Maybe later, optional) If you're going to change images, please install [ImageMagick](https://imagemagick.org/script/download.php), use packages for Linux or homebrew/macports for MacOS.
 
