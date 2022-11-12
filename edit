@@ -10,6 +10,7 @@ export TUTORIAL_LANG=$1
 export NODE_ENV=production
 export TUTORIAL_EDIT=1
 export NODE_PRESERVE_SYMLINKS=1
+export NODE_OPTIONS=--openssl-legacy-provider
 
 # Use a local bunyan if no other is found in the current environment
 if ! [ -x "$(command -v bunyan)" ]; then

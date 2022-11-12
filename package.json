@@ -9,9 +9,6 @@
     "build": "cross-env NODE_PATH=./modules ./node_modules/.bin/gulp build",
     "gulp": "cross-env NODE_PRESERVE_SYMLINKS=1 NODE_PATH=./modules ./node_modules/.bin/gulp"
   },
-  "engine": {
-    "node": "^16"
-  },
   "precommit": "NODE_ENV=development node `which gulp` pre-commit",
   "//": "node-xmpp-client installs for linux only",
   "dependencies": {

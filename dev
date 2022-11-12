@@ -12,6 +12,7 @@ export WATCH=1
 export SITE_HOST=http://javascript.local
 export TUTORIAL_EDIT=
 export NODE_PRESERVE_SYMLINKS=1
+export NODE_OPTIONS=--openssl-legacy-provider
 
 # Use a local bunyan if no other is found in the current environment
 if ! [ -x "$(command -v bunyan)" ]; then
