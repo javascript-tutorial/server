@@ -19,29 +19,10 @@ mixin frontpage-content(data)
   +b.frontpage-content
 
     +e.container
-      - let folder = tutorialTree.bySlug('js')
+      - let folder = tutorialTree.bySlug('performance')
       +e.inner
         +e.part= t('tutorial.part', {num: 1})
         +e.title= folder.title
-        +e.description!= topArticlesRendered.js.content
+        +e.description!= topArticlesRendered.performance.content
         +b.list
           +partList(folder.children)
-
-    +e.container
-      - let folder = tutorialTree.bySlug('ui')
-      +e.inner
-        +e.part= t('tutorial.part', {num: 2})
-        +e.title= folder.title
-        +e.description!= topArticlesRendered.ui.content
-        +b.list
-          +partList(folder.children)
-
-
-    +e.container
-      +e.inner
-        +e.part= t('tutorial.part', {num: 3})
-        +e.title= t('tutorial.part3.title')
-        +e.description!= t('tutorial.part3.content')
-        +b.list
-          +partList(tutorialTree.roots.slice(2))
-
