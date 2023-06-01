@@ -63,7 +63,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "path-to-regexp": "*",
     "postcss-loader": "^3",
-    "prismjs": "^1",
+    "prismjs": "^1.29.0",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
     "pug-runtime": "^2.0.4",
