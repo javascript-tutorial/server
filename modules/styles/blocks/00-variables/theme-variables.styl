@@ -1,0 +1,214 @@
+:root {
+  --white: #fff
+
+  --grey-120: #313130
+  --grey-46: #716f6e
+  --grey-30: #908e8d
+  --grey-16: #c6c4c2
+  --grey-10: #f7f4f3
+  --grey-11: #e9e6e4
+  --grey-13: #d9d6d5
+
+  --redBrand-46: #c4433a
+  --redBrand-30: #df6c5d
+  --redBrand-12: #fcd5ce
+
+  --blueAction-30: #748dcd
+  --blueAction-46: #436ebd
+
+  --green-46: #407b5a
+  --green-30: #4f9e72
+  --green-16: #91c2a3
+  --green-12: #cde3d5
+  --green-10: #f0f7f2
+
+  --orange-30: #df6e41
+
+  --red-10: #feeeed
+  --red-12: #fad5d2
+  --red-30: #dc6968
+  --red-46: #c73943
+
+  --yellow-46: #a15d00
+  --yellow-30: #d07a00
+  --yellow-10: #fff4e4
+  --yellow-11: #fee3d4
+
+  --blue-46: #0d75a1
+  --blue-30: #4b94be
+  --blue-12: #d0e0ed
+  --blue-10: #ecf2f8
+
+  --foregroundInverted: var(--grey-10)
+  --foregroundDefault: var(--grey-120)
+  --foregroundAlt: var(--grey-46)
+  --foregroundSubtle: var(--grey-30)
+  --foregroundAccent: var(--redBrand-46)
+  --foregroundAccentHover: var(--redBrand-30)
+  --foregroundAction: var(--blueAction-46)
+  --foregroundConstructive: var(--green-46)
+  --foregroundConstructiveAlt: var(--green-30)
+  --foregroundCallout: var(--orange-30)
+  --foregroundCalloutAlt: var(--yellow-30)
+  --foregroundInformation: var(--blue-30)
+  --foregroundPrimaryCTA: var(--white)
+
+  // borders
+  --borderPrimary: var(--grey-11)
+  --borderSecondary: var(--grey-10)
+  --borderAlt: var(--yellow-10)
+  --borderConstructive: var(--green-10)
+  --borderAccent: var(--redBrand-12)
+  --borderAccentHover: var(--redBrand-30)
+  --borderAction: var(--blueAction-30)
+  --borderImportant: var(--grey-10)
+
+  // backgrounds
+  --backgroundBase: var(--white)
+  --backgroundAlt: var(--grey-10)
+  --backgroundAltHover: var(--grey-11)
+  --backgroundInverted: var(--grey-120)
+  --backgroundElevated1: var(--white)
+  --backgroundElevated2: var(--white)
+
+  --backgroundConstructive: var(--green-46)
+  --backgroundConstructiveAlt: var(--green-30)
+
+  --backgroundCalloutAlt: var(--yellow-10)
+
+  --backgroundTextWarningBanner: var(--backgroundCalloutAlt)
+
+  --backgroundTextHighlight: var(--yellow-11)
+
+  --backgroundProgressBar: var(--grey-13);
+  --backgroundProgressBarValue: var(--green-16);
+
+  --foregroundSidebarLink: var(--foregroundDefault)
+  --lessonsListBorder: var(--borderSecondary)
+  --iframeBg: var(--white)
+
+  --backgroundPrismLineHighlight: #f5e7c6
+  --prismBlockBg: var(--grey-10)
+	--prismLineNumbersBg: #e7e5e3
+	--prismColor: var(--foregroundDefault)
+
+	--prismTokenComment: #708090
+  --prismTokenConstant: var(--foregroundDefault)
+	--prismTokenPunctuation: #708090
+	--prismTokenSymbols: #905
+	--prismTokenSymbolsAlt: #690
+	--prismTokenOperator: #a67f59
+	--prismTokenAtRule: #07a
+	--prismTokenKeywordControl: #07a
+	--prismTokenFunctionAndClassname: #DD4A68
+	--prismTokenError: #DD4A68
+	--prismTokenRegex: #e90
+	--prismTokenClassname: #DD4A68
+	--prismTokenVariable: #e90
+	--prismTokenKeyword: #07a
+	--prismTokenImportant: #e90
+	--prismTokenTagPunctuation: #999
+	--prismTokenCdata: #708090
+	--prismTokenAttrvalue: #07a
+
+  --gradientFadeOutLight: linear-gradient(to bottom, rgba(255,255,255,0) 0, rgba(255,255,255,1) 80%)
+  --gradientFadeOutDark: linear-gradient(to bottom, rgba(35,37,41,0) 0, rgba(35,37,41,1) 80%)
+  --gradientFadeOut: var(--gradientFadeOutLight)
+}
+
+html[data-theme="dark"] {
+  --grey-120: #e2e3e7
+  --grey-66: #c4c7cf
+  --grey-46: #868d9a
+  --grey-30: #696e79
+  --grey-16: #41454c
+  --grey-13: #35383f
+  --grey-11: #292c31
+  --grey-10: #232529
+
+  --redBrand-46: #e3796a
+  --redBrand-30: #d2483e
+  --redBrand-12: #602620
+
+  --blueAction-46: #84a0ef
+  --blueAction-30: #427ae7
+
+  --green-46: #5fa67d
+  --green-30: #448460
+  --green-16: #315841
+  --green-12: #253e2f
+  --green-10: #1f3428
+
+  --orange-30: #ba5d38
+
+  --yellow-46: #cf9a69
+  --yellow-30: #b2722a
+  --yellow-10: #38230b
+  --yellow-11: #462b0d
+
+  --blue-46: #78aacd
+  --blue-30: #2a88b7
+  --blue-12: #193c50
+  --blue-10: #162936
+
+
+  --red-10: #441b1b
+  --red-12: #632425
+  --red-30: #d55759
+  --red-46: #e88b88
+
+
+// Semantics
+
+  // backgrounds
+  --backgroundBase: var(--grey-10)
+  --backgroundAlt: var(--grey-11)
+  --backgroundAltHover: var(--grey-13)
+  --backgroundElevated1: var(--grey-13)
+  --backgroundElevated2: var(--grey-16)
+
+  --foregroundInverted: var(--grey-120)
+  --foregroundAccent: var(--redBrand-46)
+  --foregroundAccentHover: var(--redBrand-30)
+  --foregroundSidebarLink: var(--foregroundDefault)
+  --foregroundPrimaryCTA: var(--grey-10)
+  --lessonsListBorder: var(--borderPrimary)
+
+  // borders
+  --borderImportant: var(--grey-13)
+  --borderPrimary: var(--grey-13)
+  --borderAccent: var(--redBrand-12)
+
+  --backgroundProgressBar: var(--grey-13)
+  --backgroundProgressBarValue: var(--grey-30)
+  --iframeBg: var(--grey-66)
+  --backgroundPrismLineHighlight: #44475A
+  --prismBlockBg: #282a36
+  --prismLineNumbersBg: var(--prismBlockBg)
+  --prismColor: #F8F8F2
+
+  --backgroundCalloutAlt: #462900
+
+  --backgroundTextHighlight: var(--backgroundAlt)
+
+  --prismTokenComment: #6272a4
+  --prismTokenConstant: #9876aa
+  --prismTokenPunctuation: #F8F8F2
+  --prismTokenSymbols: #BD93F9
+  --prismTokenSymbolsAlt: #F1FA8C
+  --prismTokenOperator: #FF79C6
+  --prismTokenAtRule: #ce9178
+  --prismTokenKeywordControl: #c586c0
+  --prismTokenFunctionAndClassname: #8BE9FD
+  --prismTokenRegex: #d16969
+  --prismTokenClassname: #8BE9FD
+  --prismTokenVariable: #9cdcfe
+  --prismTokenKeyword: #FF79C6
+  --prismTokenImportant: #FF79C6
+  --prismTokenInterpolation: #F8F8F2
+  --prismTokenTagPunctuation: #808080
+  --prismTokenCdata: #808080
+  --prismTokenAttrvalue: #ce9178
+
+  --gradientFadeOut: var(--gradientFadeOutDark)
+}

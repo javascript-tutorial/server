@@ -1,3 +1,52 @@
+@import "./theme-variables";
+
+:root {
+  --color_red: #b80000;
+  --color_green: #469269;
+  --color_black: #000;
+  --color_orange: #f8ab47;
+  --color_orange_light: #fdc073;
+  --color-red-accent: #d44242;
+
+  --link_color: #0059b2;
+  --light_link_color: #3b86c4;
+  --alternate_link_color: #2974bb;
+  --link_color_new: #3a8aed;
+  --link_hover_color: #ba1000;
+  --link_visited_color: #551a8b;
+  --navigation_link_color: #696664;
+
+  --color-grey-25: #3b3b3b;
+  --color-grey-60: #919191;
+  --color-grey-80: #c6c6c6;
+  --color-grey-90: #e2e2e2;
+
+  --text_yellow: #fffed7;
+  --text_grey_dark: #373636;
+  --text_courses_dark: #404040;
+
+  --color: #333;
+  --code_color: #333;
+  --gray_color: #666;
+  --light_gray_color: #999;
+  --ultralight_gray_color: #e1e1e1;
+  --separator_color: #dfdfd0;
+  --secondary_color: #b20600;
+  --hover_color_correction: 25%;
+
+  --background: #fff;
+  --background_light: #eee;
+  --background_blocks: #f5f2f0;
+  --background_yellow_light: #f6f4eb;
+  --background_yellow_dark: #ede9d8;
+
+  --errorColor: #cc5b4d;
+}
+
+html[data-theme="dark"] img {
+  filter: brightness(0.8) contrast(1.2);
+}
+
 @import 'nib/border'
 @import 'nib/clearfix'
 @import 'nib/color-image'
@@ -17,6 +66,7 @@ color_green = #469269
 color_black = #000
 color_orange = #F8AB47
 color_orange_light = #FDC073
+color-red-accent = #D44242
 
 link_color = #0059B2
 light_link_color = #3B86C4
@@ -25,6 +75,11 @@ link_color_new = #3A8AED
 link_hover_color = #BA1000
 link_visited_color = #551A8B
 navigation_link_color = #696664
+
+color-grey-25 = #3b3b3b
+color-grey-60 = #919191
+color-grey-80 = #c6c6c6
+color-grey-90 = #e2e2e2
 
 text_yellow = #FFFED7
 text_grey_dark = #373636
@@ -45,16 +100,33 @@ background_blocks = #F5F2F0
 background_yellow_light = #F6F4EB
 background_yellow_dark = #EDE9D8
 
+$errorColor = #CC5B4D
+
 size = 14px
 lineheight = 20px
 
 // System variables
 
 // Typefaces
-font = BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,Arial, sans-serif
-secondary_font = BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,Arial, sans-serif
-fixed_width_font = 'Consolas', 'Lucida Console', 'Menlo', 'Monaco', monospace
-font_en = -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif
+if env=='ebook'
+  if lang=='ko'
+    font = 'Nanum Gothic'
+    secondary_font = 'Nanum Gothic'
+    fixed_width_font = 'Nanum Gothic Coding'
+  else
+    font = sans-serif
+    secondary_font = sans-serif
+    fixed_width_font = 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace
+
+else
+  if lang=='ja'
+    font = BlinkMacSystemFont, -apple-system, "Hiragino Kaku Gothic ProN","メイリオ", sans-serif
+    secondary_font = BlinkMacSystemFont, -apple-system, "Hiragino Kaku Gothic ProN","メイリオ", sans-serif
+  else
+    font = BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif
+    secondary_font = BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif
+
+  fixed_width_font = 'Consolas', 'Lucida Console', 'Menlo', 'Monaco', monospace
 
 // Font sizes
 font_size_xs = 12px
@@ -128,6 +200,7 @@ media_step_2 = 1170px
 media_step_3 = 1220px
 largescreen  = 1420px
 
+tablet_large = '(max-width: 1024px)'
 tablet_medium = '(max-width: 890px)'
 tablet = '(max-width: 840px)'
 phone = '(max-width: 568px)'
@@ -141,7 +214,7 @@ sitetoolbar_secondary_bg = #F5F2F0
 sitetoolbar_secondary_link = #498CBE
 
 $yellow-border
-    border-radius 10px
-    border 3px solid #F2E7B3
+  border-radius 10px
+  border 3px solid #F2E7B3
 
 @require "../mixins/*"

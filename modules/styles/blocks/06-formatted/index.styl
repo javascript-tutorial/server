@@ -1,0 +1,144 @@
+.formatted
+  color var(--foregroundDefault)
+
+  ul,
+  ol
+    padding-left 21px
+    margin 22px 0 // уравниваем с абзацными отступами
+
+    > li
+      margin: .3em 0
+
+    + p
+      margin-top 12px
+
+  // для вложенных списоков в статьях
+  ul ul, ul ol, ol ul, ol ol
+    margin-top 0
+    margin-bottom 0
+
+  ul > li::before
+    content "●"
+    float left // not position: absolute because the latter doesn't show in iBooks (epub)
+    margin-left -20px
+    color var(--foregroundDefault)
+    font-size 8px
+
+  code
+    /* disabled the line below for code in colored lines to show up correctly */
+    /* did it break something? fix it there! */
+    /* color code_color */
+    font-family fixed_width_font
+    padding 2px 4px
+    background var(--prismBlockBg)
+    border-radius 2px
+    color var(--foregroundAlt)
+
+    @media all and (max-width: 740px)
+      padding 1px 4px
+
+  /* for regexps */
+  code.pattern
+    border-bottom 1px solid var(--borderAccent)
+
+  code.subject
+    border-bottom 1px solid var(--borderAction)
+
+  code.match
+    border-bottom 1px solid var(--borderConstructive)
+
+  span.shortcut
+    white-space nowrap
+
+  span.shortcut code
+    border 1px solid var(--borderPrimary)
+    padding 0 1px
+    display inline-block
+    margin 1px 0
+
+  h1
+    margin-bottom .5em
+    /* FIXME пока некрасиво с этим: page-break-before: always; */
+
+  h2
+    margin 24px 0 12px
+    font-size 24px
+    line-height 32px
+    font-family font
+    position relative
+
+  h3,
+  h4
+    margin 30px 0 22px
+
+  h3
+    font-size 128%
+    line-height 120%
+
+  h4
+    font-size 114%
+    line-height 125%
+
+  // h5 actually appears only in ebook
+  h5
+    font-size 110%
+    line-height 125%
+
+  // исключения, полные отступы смотрятся неряшливо
+  h2 + h3,
+  h3 + h4
+    margin-top -8px
+
+  p
+    margin 0 0 12px
+
+    + ol
+      margin-top 0
+
+    + ul
+      margin-top 0
+
+  table
+    width 100%
+    border-collapse collapse
+    font-size 13px
+    margin 30px 0
+
+    & tbody
+      border 0
+
+    & tr
+      border-bottom 1px solid var(--borderPrimary)
+
+    & th
+      text-align left
+
+    & th,
+    & td,
+    & caption
+      padding 2px 1em 2px 5px
+
+    & tr:nth-child(even)
+      background var(--backgroundAlt)
+
+    & code
+      font-weight inherit
+
+    & tr:first-child th
+      border-bottom 3px solid var(--borderPrimary)
+      vertical-align bottom
+
+    & caption
+      text-align left
+
+    @media (min-width: largescreen)
+      font-size: 15px;
+
+  dl
+    margin 1em 0
+
+  dt
+    font-weight 700
+
+  dd
+    margin 8px 0 22px 0px

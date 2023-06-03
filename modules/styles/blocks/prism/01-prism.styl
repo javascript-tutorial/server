@@ -3,10 +3,10 @@
  * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
-
-code[class*="language-"],
-pre[class*="language-"]
-    color black
+pre[class*="language-"],
+pre[class*="language-"] > code,
+    color #d4d4d4
+    // text-shadow 0 1px white
     font-family fixed_width_font
     direction ltr
     text-align left
@@ -14,7 +14,7 @@ pre[class*="language-"]
     word-spacing normal
     tab-size 4
     hyphens none
-    position relative
+    // position relative
 
 /*
 In epub all code selected? because Calibre applies this style wrong?
@@ -30,76 +30,157 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection
 */
 
 @media print
-    code[class*="language-"],
-    pre[class*="language-"]
+    pre[class*="language-"],
+    pre[class*="language-"] > code
         text-shadow: none
 
 /* Code blocks */
 pre[class*="language-"]
-    padding 1em
+    padding 0
     margin 1.5em 0
     overflow auto
-
-pre[class*="language-"]
-    background: background_blocks
+    background var(--prismBlockBg)
 
 /* Inline code */
-:not(pre) > code[class*="language-"]
+code[class*="language-"]
     padding .1em
     border-radius .3em
+    color var(--prismColor)
+    background var(--prismBlockBg)
+
+/*********************************************************
+* Tokens
+*/
+.namespace
+	opacity .7
 
 .token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata
-    color slategray
-
-.token.punctuation
-    color light_gray_color
+.token.prolog
+	color var(--prismTokenComment)
 
 .token.punctuation,
-.token.function,
-.token.comment,
-.token.string,
-.token.operator,
-.token.number
-    if isRTL
-            background inherit
-
-.namespace
-    opacity .7
+.language-html .language-css .token.punctuation,
+.language-html .language-javascript .token.punctuation
+	color var(--prismTokenPunctuation)
 
 .token.property,
 .token.tag,
 .token.boolean,
-.token.number
-    color #905
+.token.number,
+.token.constant,
+.token.symbol,
+.token.inserted,
+.token.unit
+	color var(--prismTokenSymbols)
 
 .token.selector,
 .token.attr-name,
-.token.string
-    color #690
+.token.string,
+.token.char,
+.token.builtin,
+.token.deleted
+	color var(--prismTokenSymbolsAlt)
 
 .token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string
-    color #a67f59
-    /* background: hsla(0,0%,100%,.5); */
+.token.entity
+	color var(--prismTokenOperator)
 
-.token.atrule,
-.token.attr-value,
+.token.atrule
+	color var(--prismTokenAtRule)
+
+.token.atrule .token.url .token.function
+	color #dcdcaa // --prismTokenFunction
+
+.token.atrule .token.url .token.punctuation
+	color #d4d4d4 // --prismTokenUrlPunctuation
+
+.token.atrule .token.rule,
+.token.keyword.module,
+.token.keyword.control-flow
+	color var(--prismTokenKeywordControl)
+
+.token.function,
+.token.function .token.maybe-class-name
+	color var(--prismTokenFunctionAndClassname)
+
+.token.regex
+	color var(--prismTokenRegex)
+
+.token.class-name,
+.token.maybe-class-name
+	color var(--prismTokenClassname)
+
+.token.property,
+.token.imports .token.maybe-class-name,
+.token.exports .token.maybe-class-name,
+.token.attr-name,
+.token.parameter,
+.token.console,
+.token.interpolation,
+.token.atrule .token.url,
+.token.doctype .token.name
+	color var(--prismTokenInterpolation) // --prismTokenLightBlueGroup
+
+.token.constant
+	color var(--prismTokenConstant)
+
+.token.variable
+	color var(--prismTokenVariable)
+
+.token.entity
+.token.boolean,
+.token.punctuation.interpolation-punctuation,
+.token.operator.arrow,
+.token.doctype .token.doctype-tag
+	color var(--prismTokenInterpolation) // --prismTokenBlueGroup
+
+.token.error
+	color var(--prismTokenError)
+
 .token.keyword
-    color #07a
+	color var(--prismTokenKeyword)
 
+.token.important,
+.token.punctuation.interpolation-punctuation
+	color var(--prismTokenImportant)
 
-.token.regex,
-.token.important
-    color #e90
+.token.selector,
+.token.escape
+	color #d7ba7d // --prismTokenEscapeAndSelector
 
-.token.important
+.token.tag .token.punctuation,
+	color var(--prismTokenTagPunctuation)
+
+.token.cdata
+	color var(--prismTokenCdata)
+
+.token.attr-value,
+.token.attr-value .token.punctuation
+	color var(--prismTokenAttrvalue)
+
+.token.attr-value .token.punctuation.attr-equals
+	color #d4d4d4 // --prismTokenAttvalueEquals
+
+.token.namespace
+	color #4ec9b0 // --prismTokenNamespace
+
+.token.important,
+.token.bold
     font-weight bold
+
+.token.italic
+    font-style italic
 
 .token.entity
     cursor help
+
+/*********************************************************
+* Line highlighting
+*/
+pre[class*="language-"] > code[class*="language-"]
+	position relative
+	z-index 1
+
+.line-highlight.line-highlight
+	background var(--backgroundPrismLineHighlight)
+	z-index 0

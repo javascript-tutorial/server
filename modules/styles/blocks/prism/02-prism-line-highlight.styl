@@ -7,7 +7,7 @@
     line-height inherit
     white-space pre
     font-style normal
-    background #F5E7C6 !important
+    background var(--backgroundPrismLineHighlight) !important
 
   .block-highlight
     font-family fixed_width_font
@@ -19,7 +19,12 @@
     line-height inherit
     white-space pre
 
-    background #F5E7C6
+    background var(--backgroundPrismLineHighlight)
 
     font-style normal
+
+// no need for padding out line numbers for epub (no line numbers)
+.page_ebook
+  .block-highlight_inline
+    padding-left 10px
 

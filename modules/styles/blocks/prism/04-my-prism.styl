@@ -1,32 +1,31 @@
 pre[class*="language-"],
 code[class*="language-"]
-  font 14px/17px fixed_width_font
+  font 15px/20px fixed_width_font
   z-index 0
   text-shadow none
   margin 0
 
+  @media (min-width: largescreen)
+    font 16px/22px fixed_width_font
+
+  code.token
+    background inherit
+    padding 0
+
+
 pre[class*="language-"]
-  position relative
   > code.language-markup
     color inherit
-    position relative
 
   > code[class*="language-"]
     background none
-    padding 0
+    padding 1em 1em 1em 0.5em
+    flex-grow 1
 
-pre.line-numbers
-  padding-left 3.5em
-
-// span with line numbers is moved from <code> to the outer <pre>,
-// because we need to handle many <code>...</code> inside single <pre>
-// (this we need for highlighting *!*...* /!* inline
 .line-numbers .line-numbers-rows
-  left 0
-  top 0
-  padding 1em 0
+  padding 1em 0 .8em
   border 0
-  background #e7e5e3
+  background var(--prismLineNumbersBg)
   width auto
 
 .line-numbers .line-numbers-rows:after
@@ -39,7 +38,7 @@ pre.line-numbers
 .line-numbers-rows > span:before,
 .line-numbers .line-numbers-rows:after
   padding 0 .7em 0 .8em
-  background #e7e5e3 // #146 https://github.com/iliakan/javascript-nodejs/issues/146#issuecomment-72321753
+  // background  var(--backgroundAlt) // was s#e7e5e3 // #146 https://github.com/iliakan/javascript-nodejs/issues/146#issuecomment-72321753
   text-shadow none
 
 /* not sure if larger code is better
