@@ -84,18 +84,18 @@ site:
     common_updates_text: các khóa học mới, các lớp học, bài viết và phát hành screencast
     your_email: your@email.here
     newsletters: 'bản tin, bản tin, bản tin'
-    no_selected: Nothing selected
+    no_selected: Không có gì được chọn
 
   form:
-    value_must_not_be_empty: Value must not be empty.
-    value_is_too_long: Value is too long.
-    value_is_too_short: Value is too short.
-    invalid_email: Invalid email.
-    invalid_value: Invalid value.
-    invalid_autocomplete: Please, choose from the list
-    invalid_date: 'Invalid date, format: dd.mm.yyyyy.'
-    invalid_range: This date is invalid here.
-    save: Save
-    upload_file: Upload file
-    cancel: Cancel
-    server_error: Request error, status code
+    value_must_not_be_empty: Giá trị không được để trống.
+    value_is_too_long: Giá trị quá dài.
+    value_is_too_short: Giá trị quá ngắn.
+    invalid_email: Email không hợp lệ.
+    invalid_value: Giá trị không hợp lệ.
+    invalid_autocomplete: Vui lòng chọn từ danh sách
+    invalid_date: 'Định dạng ngày tháng không hợp lệ: dd.mm.yyyyy.'
+    invalid_range: Ngày này không hợp lệ ở đây.
+    save: Lưu
+    upload_file: Tải lên tệp tin
+    cancel: Hủy bỏ
+    server_error: Lỗi yêu cầu, mã trạng thái
