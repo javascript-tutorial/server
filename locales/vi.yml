@@ -1,0 +1,101 @@
+site:
+  privacy_policy: Chính sách bảo mật
+  terms: điều khoản sử dụng
+
+  gdpr_dialog:
+    title: Trang web này sử dụng cookie
+    text: Chúng tôi sử dụng các công nghệ trình duyệt như cookie và bộ nhớ cục bộ để lưu trữ các tùy chọn của bạn. Bạn cần chấp nhận <a href="/privacy">Chính sách bảo mật</a> và <a href="/terms">Điều khoản sử dụng</a> của chúng tôi để thực hiện điều đó.
+    accept: Chấp nhận
+    cancel: Huỷ bỏ
+
+  toolbar:
+    lang_switcher:
+      cta_text: Chúng tôi muốn cung cấp dự án mã nguồn mở này cho mọi người trên khắp thế giới. Vui lòng <a href="https://github.com/javascript-tutorial/en.javascript.info" rel="noopener noreferrer" target="_blank">giúp chúng tôi dịch</a> nội dung của hướng dẫn này sang ngôn ngữ bạn biết
+      footer_text: bao nhiêu nội dung được dịch sang ngôn ngữ tương ứng
+      old_version: Phiên bản cũ đã được xuất bản, cần nhập lại.
+    logo:
+      normal:
+        svg: sitetoolbar__logo_en.svg
+        width: 200 # 171
+      normal-white:
+        svg: sitetoolbar__logo_en-white.svg
+      small:
+        svg: sitetoolbar__logo_small_en.svg
+        width: 70
+      small-white:
+        svg: sitetoolbar__logo_small_en-white.svg
+    sections:
+    - slug: ''
+      url: '/'
+      title: 'Hướng dẫn'
+    - slug: 'khóa học'
+      title: 'Khóa học'
+    buy_ebook_extra: 'Mua'
+    buy_ebook: 'EPUB/PDF'
+    search_placeholder: 'Tìm kiếm trên Javascript.info'
+    search_button: 'Tìm kiếm'
+
+    public_profile: Hồ sơ công khai
+    account: Tài khoản
+    notifications: Thông báo
+    admin: Quản trị viên
+    logout: Đăng xuất
+
+  sorry_old_browser: Xin lỗi, Internet Explorer <10 không được hỗ trợ, vui lòng sử dụng trình duyệt mới hơn.
+  contact_us: liên hệ chúng tôi
+  about_the_project: về dự án
+  ilya_kantor: Ilya Kantor
+  comments: Bình luận
+  loading: Đang tải...
+  search: Tìm kiếm
+  share: Chia sẻ
+  read_before_commenting: đọc cái này trước khi bình luận…
+
+  last_updated_at: "Cập nhật lần cuối vào #{date}"
+  meta:
+    description: 'Hướng dẫn JavaScript hiện đại: giải thích đơn giản nhưng chi tiết với các ví dụ và tác vụ, bao gồm: bao đóng, tài liệu và sự kiện, lập trình hướng đối tượng, v.v.'
+
+  tablet-menu:
+    choose_section: Chọn phần
+    search_placeholder: Tìm kiếm trong hướng dẫn
+    search_button: Tìm kiếm
+
+  comment:
+    help:
+      - Nếu bạn có đề xuất cần cải thiện - vui lòng <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">gửi vấn đề lên GitHub</a> hoặc pull request thay vì bình luận.
+      - Nếu bạn không thể hiểu điều gì đó trong bài viết – vui lòng giải thích thêm.
+      - Để chèn một vài từ mã, hãy sử dụng thẻ <code>&lt;code&gt;</code>, cho nhiều dòng – sử dụng <code>&lt;pre&gt;</code>, cho hơn 10 dòng – sử dụng sandbox ( <a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href ='http://codepen.io'>codepen</a>…)
+
+  edit_on_github: Chỉnh sửa trên GitHub
+  error: lỗi
+  close: đóng
+
+  hide_forever: ẩn vĩnh viễn
+  hidden_forever: Thông tin này sẽ không hiển thị nữa.
+
+
+  subscribe:
+    title: Theo dõi cập nhật javascript.info
+    text: 'Chúng tôi không gửi quảng cáo, chỉ những thứ có liên quan. Bạn chọn những gì sẽ nhận được:'
+    agreement: 'Bằng cách đăng ký nhận bản tin, bạn đồng ý với <a href="#{link}" target="_blank">điều khoản sử dụng</a>.'
+    button: Đăng ký
+    button_unsubscribe: Hủy đăng ký khỏi tất cả
+    common_updates: Cập nhật phổ biến
+    common_updates_text: các khóa học mới, các lớp học, bài viết và phát hành screencast
+    your_email: your@email.here
+    newsletters: 'bản tin, bản tin, bản tin'
+    no_selected: Không có gì được chọn
+
+  form:
+    value_must_not_be_empty: Giá trị không được để trống.
+    value_is_too_long: Giá trị quá dài.
+    value_is_too_short: Giá trị quá ngắn.
+    invalid_email: Email không hợp lệ.
+    invalid_value: Giá trị không hợp lệ.
+    invalid_autocomplete: Vui lòng chọn từ danh sách
+    invalid_date: 'Định dạng ngày tháng không hợp lệ: dd.mm.yyyyy.'
+    invalid_range: Ngày này không hợp lệ ở đây.
+    save: Lưu
+    upload_file: Tải lên tệp tin
+    cancel: Hủy bỏ
+    server_error: Lỗi yêu cầu, mã trạng thái
