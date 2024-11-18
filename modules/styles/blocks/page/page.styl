@@ -65,7 +65,7 @@
     &__nav_prev
         if isRTL
           right 0
-        else  
+        else
           left 0
         transition transform animation_duration, top animation_duration
 
@@ -117,7 +117,10 @@
             transform translateX(sidebar_width)
 
     &__nav_next
-        left 0
+        if isRTL
+          left 0
+        else
+          right 0
         transition top animation_duration
 
     &__nav_next &__nav-text::before
@@ -224,10 +227,11 @@
         &__nav_prev
             if isRTL
               padding-right 30px
+              border-left-width 0
             else
               padding-left 30px
+              border-right-width 0
 
-            border-right-width 0
             border-radius: 6px 0 0 6px
 
         &__nav_next

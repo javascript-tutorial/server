@@ -5,10 +5,10 @@ toolbar_button_background = #c4c2c0
 
     &__tool
         display table-cell
-                if isRTL
-                    padding-right 1px
-                else
-                    padding-left 1px
+        if isRTL
+            padding-right 1px
+        else
+            padding-left 1px
 
     & &__button
         @extend $plain-link
@@ -42,4 +42,3 @@ toolbar_button_background = #c4c2c0
 
     &__button_edit::before
         @extend $font-edit
-

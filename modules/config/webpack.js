@@ -21,8 +21,10 @@ module.exports = function () {
   let CssWatchRebuildPlugin = require('engine/webpack/cssWatchRebuildPlugin');
   const CopyWebpackPlugin = require('copy-webpack-plugin')
   const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-  const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+  const TerserPlugin = require('terser-webpack-plugin');
+  const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
   const fse = require('fs-extra');
 
 
@@ -91,6 +93,7 @@ module.exports = function () {
 
   let webpackConfig = {
     output: {
+      devtoolNamespace: 'wp',
       // fs path
       path:       path.join(config.publicRoot, 'pack'),
       // path as js sees it
@@ -120,8 +123,11 @@ module.exports = function () {
 
     watch: devMode,
 
-    devtool: devMode ? "cheap-inline-module-source-map" : // try "eval" ?
-               process.env.NODE_ENV == 'production' ? 'source-map' : false,
+    devtool: devMode
+      ? 'inline-cheap-module-source-map' // try "eval" ?
+      : process.env.NODE_ENV === 'production'
+      ? 'source-map'
+      : false,
 
     profile: Boolean(process.env.WEBPACK_STATS),
 
@@ -139,10 +145,12 @@ module.exports = function () {
       rules:   [
         {
           test: /\.yml$/,
-          use:  ['json-loader', 'yaml-loader']
+          use:  'yaml-loader'
         },
         {
-          test: /\.pug$/,
+          // make t global, so that it will not be defined in the compiled template function
+          // and i18n plugin will substitute
+          test: /\.pug/,
           use:  'pug-loader?root=' + config.projectRoot + '/templates&globals=__'
         },
         {
@@ -150,24 +158,38 @@ module.exports = function () {
           // babel shouldn't process modules which contain ws/browser.js,
           // which must not be run in strict mode (global becomes undefined)
           // babel would make all modules strict!
-          exclude: noProcessModulesRegExp,
+          exclude(path) {
+            return noProcessModulesRegExp.test(path) || path.includes('node_modules/monaco-editor') || devMode;
+          },
           use:     [
             // babel will work first
             {
               loader:  'babel-loader',
               options: {
+                plugins: [
+                  require.resolve('@babel/plugin-proposal-object-rest-spread')
+                ],
                 presets: [
-                  // use require.resolve here to build files from symlinks
-                  [require.resolve('babel-preset-env'), {
+                  [require.resolve('@babel/preset-env'), {
                     //useBuiltIns: true,
                     targets: {
-                      browsers: "> 3%"
+                      // not ie11, don't want regenerator-runtime and @babel/plugin-transform-runtime
+                      browsers: '> 3%'
                     }
                   }]
                 ]
               }
             }
           ]
+        },
+        {
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+            },
+          ],
         },
         {
           test: /\.styl$/,
@@ -183,36 +205,43 @@ module.exports = function () {
             {
               loader:  'postcss-loader',
               options: {
-                plugins: [
-                  require('autoprefixer')
-                ]
+                postcssOptions: {
+                  plugins: [
+                    require('autoprefixer')
+                  ]
+                }
               }
             },
             'engine/webpack/hover-loader',
             {
               loader:  'stylus-loader',
               options: {
-                linenos:       true,
-                'resolve url': true,
-                use:           [
-                  rupture(),
-                  nib(),
-                  function (style) {
-                    style.define('lang', config.lang);
-                    style.define('isRTL', ['ar','fa','he'].includes(process.env.TUTORIAL_LANG));
-                    style.define('env', config.env);
-                  }
-                ]
+                stylusOptions: {
+                  linenos:       true,
+                  'resolve url': true,
+                  use:           [
+                    rupture(),
+                    nib(),
+                    function(style) {
+                      style.define('lang', config.lang);
+                      style.define('isRTL', ['ar','fa','he'].includes(process.env.TUTORIAL_LANG));
+                      style.define('env', config.env);
+                    }
+                  ]
+                }
               },
             }
           ]
         },
         {
-          test: /\.(png|jpg|gif|woff|eot|otf|ttf|svg)$/,
-          use:  extHash('file-loader?name=[path][name]', '[ext]')
+          test: /\.(png|jpg|gif|woff|woff2|eot|otf|ttf|svg)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: extHash('[name]','[ext]'), // Keeps the original file name and extension
+          },
         }
       ],
-      noParse: function (path) {
+      noParse(path) {
         /*
          if (path.indexOf('!') != -1) {
          path = path.slice(path.lastIndexOf('!') + 1);
@@ -227,11 +256,16 @@ module.exports = function () {
     resolve: {
       // allow require('styles') which looks for styles/index.styl
       extensions: ['.js', '.styl'],
-      alias:      {
+      alias: {
         'entities/maps/entities.json': 'engine/markit/emptyEntities',
-        config:                        'client/config'
+        'entities/lib/maps/entities.json': 'engine/markit/emptyEntities',
+        config: 'client/config',
       },
-      modules:    modulesDirectories
+      fallback: {
+        fs: false,  // Replace 'empty' with 'false' in Webpack 5 to exclude it
+      },
+      modules: modulesDirectories,
+      mainFields: ['browser', 'main', 'module'] // maybe not needed, from eslint webpack
     },
 
 
@@ -240,21 +274,19 @@ module.exports = function () {
       extensions: ['.js']
     },
 
-    node: {
-      fs: 'empty'
-    },
-
     performance: {
       maxEntrypointSize: 350000,
       maxAssetSize: 350000, // warning if asset is bigger than 300k
-      assetFilter(assetFilename) {  // only check js/css
+      assetFilter(assetFilename) {
+        // only check js/css
         // ignore assets copied by CopyWebpackPlugin
-        if (assetFilename.startsWith('..')) { // they look like ../courses/achievements/course-complete.svg
+        if (assetFilename.startsWith('..')) {
+          // they look like ../courses/achievements/course-complete.svg
           // built assets do not have ..
           return false;
         }
         return assetFilename.endsWith('.js') || assetFilename.endsWith('.css');
-      }
+      },
     },
 
     plugins: [
@@ -268,43 +300,43 @@ module.exports = function () {
         _: 'lodash'
       }),
 
-      // ignore all locales except current lang
+
       new webpack.IgnorePlugin({
-        checkResource(arg) {
-          // locale requires that file back from it, need to keep it
-          if (arg === '../moment') return false; // don't ignore this
-          if (arg === './' + config.lang || arg === './' + config.lang + '.js') return false; // don't ignore current locale
-          tmp = arg; // for logging only
-          return true;
-        },
-        // under dirs like: ../locales/..
-        checkContext(arg) {
-          let ignore = arg.endsWith(path.join('node_modules', 'moment', 'locale'));
-          if (ignore) {
-            // console.log("ignore moment locale", tmp, arg);
-            return true;
-          }
-        }
+        resourceRegExp: /fs-extra$/
       }),
 
+      // ignore all moment.js locales except current lang
+      new webpack.IgnorePlugin({
+        checkResource(resource, context) {
+          // locale requires that file back from it, need to keep it
+          if (resource === '../moment') return false; // don't ignore this
+          if (resource.startsWith('./' + config.lang)) return false; // don't ignore current locale ./ru ./ru.js ./zh ./zh-cn.js
+
+          let ignore = context.endsWith(path.join('node_modules', 'moment', 'locale'));
+
+          if (ignore) {
+            // console.log("Ignore", resource, context);
+            return true;
+          }
+          return false;
+        },
+      }),
 
       // ignore site locale files except the lang
       new webpack.IgnorePlugin({
-        checkResource(arg) {
-          let result = arg.endsWith('.yml') && !arg.endsWith('/' + config.lang + '.yml');
-          tmp = arg; // for logging
-          return result;
-        },
-        // under dirs like: ../locales/..
-        checkContext(arg) {
-          let ignore = /\/locales(\/|$)/.test(arg);
-          // console.log("ignore yml", tmp, arg);
-          return ignore;
+
+        checkResource(resource, context) {
+          let isYmlForAnotherLanguage = resource.endsWith('.yml') && !resource.endsWith('/' + config.lang + '.yml');
+          let isUnderLocales = /\/locales(\/|$)/.test(context);
+          if (isYmlForAnotherLanguage && isUnderLocales) return true;
+
+          // console.log("checkResource", resource, context);
+          return false;
         }
       }),
 
 
-      new WriteVersionsPlugin(path.join(config.cacheRoot, 'webpack.versions.json')),
+      new WriteVersionsPlugin(path.join(config.buildRoot, 'webpack', 'versions', 'all.json')),
 
       new MiniCssExtractPlugin({
         filename:      extHash("[name]", 'css'),
@@ -313,26 +345,29 @@ module.exports = function () {
 
       new CssWatchRebuildPlugin(),
 
-      new CopyWebpackPlugin(
-        assetPaths.map(path => {
+      new CopyWebpackPlugin({
+        patterns: assetPaths.map((path) => {
           return {
             from: path,
-            to:   config.publicRoot
-          }
-        }),
-        {debug: 'warning'}
-      ),
+            to: config.publicRoot,
+            info: (file) => ({ minimized: true }),
+            noErrorOnMissing: true
+          };
+        })
+      }),
 
       {
-        apply: function (compiler) {
+        apply(compiler) {
           if (process.env.WEBPACK_STATS) {
-            compiler.plugin("done", function (stats) {
+            compiler.hooks.done.tap('MyStats', (stats) => {
               stats = stats.toJson();
-              fs.writeFileSync(`${config.tmpRoot}/stats.json`, JSON.stringify(stats));
+              let dir = path.join(config.buildRoot, 'webpack', 'stats');
+              fs.ensureDirSync(dir);
+              fs.writeFileSync(path.join(dir, entryName + '.json'), JSON.stringify(stats));
             });
           }
-        }
-      }
+        },
+      },
     ],
 
     recordsPath: path.join(config.tmpRoot, 'webpack.json'),
@@ -349,30 +384,30 @@ module.exports = function () {
 
     optimization: {
       minimizer: [
-        new UglifyJsPlugin({
-          cache:         true,
-          parallel:      2,
-          uglifyOptions: {
-            ecma:     8,
+        new TerserPlugin({
+          parallel: 2,
+          terserOptions: {
+            ecma: 2022,
             warnings: false,
             compress: {
-              drop_console:  true,
-              drop_debugger: true
+              drop_console: true,
+              drop_debugger: true,
             },
-            output:   {
-              beautify:     true,
-              indent_level: 0 // for error reporting, to see which line actually has the problem
+            output: {
+              beautify: true,
+              indent_level: 0, // for error reporting, to see which line actually has the problem
               // source maps actually didn't work in Qbaka that's why I put it here
-            }
-          }
+            },
+          },
         }),
-        new OptimizeCSSAssetsPlugin({})
-      ]
+        new CssMinimizerPlugin({}),
+      ],
     }
   };
 
 
 //if (process.env.NODE_ENV != 'development') { // production, ebook
+/*
   if (process.env.NODE_ENV == 'production') { // production, ebook
     webpackConfig.plugins.push(
       function clearBeforeRun() {
@@ -388,6 +423,6 @@ module.exports = function () {
       }
     );
   }
-
+*/
   return webpackConfig;
 };

@@ -31,8 +31,8 @@ node_modules/
 # TMP folder (run-time tmp)
 /tmp
 
-# Manifest (build-generated content, versions)
 /cache
+/build
 
 # contains v8 executable for linux-tick-processor (run from project root)
 out/*

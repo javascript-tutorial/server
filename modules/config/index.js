@@ -39,7 +39,7 @@ let config = module.exports = {
   adminKey: secret.adminKey,
 
   certDir: path.join(secret.dir, 'cert'),
-  
+
   lang:    lang,
 
   plnkrAuthId: secret.plnkrAuthId,
@@ -61,7 +61,8 @@ let config = module.exports = {
   tutorialRoot:          env.TUTORIAL_ROOT || path.join(process.cwd(), 'repo', `${env.TUTORIAL_LANG || lang}.javascript.info`),
   tmpRoot:               path.join(process.cwd(), 'tmp', lang),
   // js/css build versions
-  cacheRoot:          path.join(process.cwd(), 'cache', lang),
+  buildRoot: path.join(process.cwd(), 'build', lang),
+  cacheRoot: path.join(process.cwd(), 'cache', lang),
   assetsRoot:            path.join(process.cwd(), 'assets'),
 
   handlers: require('./handlers')

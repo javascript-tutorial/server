@@ -96,8 +96,7 @@ $main-loud
     ul,
     ol
         if isRTL
-                padding-right 21px
-        
+            padding-right 21px
         else
             padding-left 21px
         margin 22px 0 // уравниваем с абзацными отступами
@@ -113,9 +112,9 @@ $main-loud
     ul > li::before
         content "●"
         if isRTL
-                float right
-                margin-right -20px
-        else 
+            float right
+            margin-right -20px
+        else
             float left // not position: absolute because the latter doesn't show in iBooks (epub)
             margin-left -20px
         color #000

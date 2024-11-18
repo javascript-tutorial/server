@@ -17,7 +17,7 @@ module.exports = async function() {
       if (err) {
 
         notifier.notify({
-          message: err
+          message: err.message
         });
 
         console.log(err);
