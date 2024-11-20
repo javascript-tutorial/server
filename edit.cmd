@@ -12,7 +12,6 @@
 @set ASSET_VERSIONING=query
 @set NODE_PRESERVE_SYMLINKS=1
 @set NODE_PATH=./modules
-@set NODE_OPTIONS=--openssl-legacy-provider
 
 call gulp edit | bunyan
 
