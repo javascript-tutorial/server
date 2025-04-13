@@ -1,12 +1,7 @@
-/**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
- */
-
-code[class*="language-"],
-pre[class*="language-"]
-    color black
+pre[class*="language-"],
+pre[class*="language-"] > code,
+    color #d4d4d4
+    // text-shadow 0 1px white
     font-family fixed_width_font
     direction ltr
     text-align left
@@ -14,7 +9,6 @@ pre[class*="language-"]
     word-spacing normal
     tab-size 4
     hyphens none
-    position relative
 
 /*
 In epub all code selected? because Calibre applies this style wrong?
@@ -30,23 +24,32 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection
 */
 
 @media print
-    code[class*="language-"],
-    pre[class*="language-"]
+    pre[class*="language-"],
+    pre[class*="language-"] > code
         text-shadow: none
+
 
 /* Code blocks */
 pre[class*="language-"]
-    padding 1em
+    padding 0
     margin 1.5em 0
     overflow auto
+    background #f7f4f3
 
-pre[class*="language-"]
-    background: background_blocks
+    if isRTL
+        code
+            unicode-bidi normal
+            direction unset
 
 /* Inline code */
-:not(pre) > code[class*="language-"]
+code[class*="language-"]
     padding .1em
     border-radius .3em
+    color #313130
+    background #f7f4f3
+
+.namespace
+  opacity .7
 
 .token.comment,
 .token.prolog,
@@ -103,3 +106,14 @@ pre[class*="language-"]
 
 .token.entity
     cursor help
+
+/*********************************************************
+* Line highlighting
+*/
+pre[class*="language-"] > code[class*="language-"]
+  position relative
+  z-index 1
+
+.line-highlight.line-highlight
+  background var(--backgroundPrismLineHighlight)
+  z-index 0

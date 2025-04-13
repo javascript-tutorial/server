@@ -1,17 +1,11 @@
 pre.line-numbers
-  position relative
-  if isRTL
-    padding-right 3.8em
-  else
-    padding-left 3.8em
   counter-reset linenumber
+  display flex
+  flex-direction row
 
 .line-numbers .line-numbers-rows
-  position absolute
   pointer-events none
-  top 0
   font-size 100%
-  left -3.8em
   width 3em /* works for line-numbers below 1000 lines */
   letter-spacing -1px
   border-right 1px solid light_gray_color
